@@ -1,0 +1,1 @@
+{"nodes": [{"id": "agents_rules_ste_md", "label": "ASD-STE100 Rules", "file_type": "document", "source_file": ".agents/rules/ste.md", "rationale": "Specifies Simplified Technical English constraints for all user-facing text."}], "edges": [], "hyperedges": []}

@@ -1,0 +1,381 @@
+{
+  "communities": {
+    "0": [
+      "backend_handlers_ask_eco",
+      "backend_handlers_ask_eco_bedrock",
+      "backend_handlers_ask_eco_bedrockruntimeclient_invokemodelcommand",
+      "backend_handlers_ask_eco_corsheaders",
+      "backend_handlers_ask_eco_handler",
+      "backend_handlers_progress",
+      "backend_handlers_progress_client",
+      "backend_handlers_progress_corsheaders",
+      "backend_handlers_progress_ddbdocclient",
+      "backend_handlers_progress_dynamodbclient",
+      "backend_handlers_progress_dynamodbdocumentclient_putcommand_querycommand",
+      "backend_handlers_progress_getprogress",
+      "backend_handlers_progress_saveprogress",
+      "backend_handlers_report",
+      "backend_handlers_report_client",
+      "backend_handlers_report_corsheaders",
+      "backend_handlers_report_ddbdocclient",
+      "backend_handlers_report_dynamodbclient",
+      "backend_handlers_report_dynamodbdocumentclient_scancommand",
+      "backend_handlers_report_generatereport",
+      "backend_package",
+      "backend_package_dependencies",
+      "backend_package_dependencies_aws_sdk_client_bedrock_runtime",
+      "backend_package_dependencies_aws_sdk_client_dynamodb",
+      "backend_package_dependencies_aws_sdk_lib_dynamodb",
+      "backend_package_description",
+      "backend_package_main",
+      "backend_package_name",
+      "backend_package_version",
+      "ref_aws_sdk_client_bedrock_runtime",
+      "ref_aws_sdk_client_dynamodb",
+      "ref_aws_sdk_lib_dynamodb"
+    ],
+    "1": [
+      "ref_lucide_react",
+      "src_components_game_ecopediamodal",
+      "src_components_game_ecopediamodal_ecopediamodal",
+      "src_components_game_ecopediamodal_ecopediamodalprops",
+      "src_components_game_ecosortgame",
+      "src_components_game_ecosortgame_ecosortgameprops",
+      "src_components_game_energymeterhud",
+      "src_components_game_energymeterhud_energymeterhud",
+      "src_components_game_energymeterhud_energymeterhudprops",
+      "src_components_game_levelselectmodal",
+      "src_components_game_levelselectmodal_levelselectmodal",
+      "src_components_game_levelselectmodal_levelselectmodalprops",
+      "src_components_game_mascotdialogue",
+      "src_components_game_mascotdialogue_mascotdialogue",
+      "src_components_game_mascotdialogue_mascotdialogueprops",
+      "src_components_game_quizmodal",
+      "src_components_game_quizmodal_quizmodal",
+      "src_components_game_quizmodal_quizmodalprops",
+      "src_components_landingpage",
+      "src_components_landingpage_landingpageprops",
+      "src_data_bins",
+      "src_data_bins_all_bins",
+      "src_data_levels",
+      "src_data_levels_game_levels",
+      "src_services_audio",
+      "src_services_audio_audio",
+      "src_types_game_bininfo",
+      "src_types_game_quizquestion"
+    ],
+    "2": [
+      "package",
+      "package_name",
+      "package_private",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_dev",
+      "package_scripts_graphify",
+      "package_scripts_graphify_hook",
+      "package_scripts_graphify_viz",
+      "package_scripts_preview",
+      "package_type",
+      "package_version",
+      "ref_autoprefixer",
+      "ref_cannon_es",
+      "ref_postcss",
+      "ref_react_dom",
+      "ref_tailwindcss",
+      "ref_types_canvas_confetti",
+      "ref_types_react",
+      "ref_types_react_dom",
+      "ref_types_three",
+      "ref_typescript",
+      "ref_vite",
+      "ref_vitejs_plugin_react",
+      "vite_config"
+    ],
+    "3": [
+      "src_components_game_avatarselectmodal",
+      "src_components_game_avatarselectmodal_avatars",
+      "src_components_game_avatarselectmodal_avatarselectmodal",
+      "src_components_game_avatarselectmodal_avatarselectmodalprops",
+      "src_components_teacher_teacherdashboard",
+      "src_data_items",
+      "src_data_items_game_items",
+      "src_data_quizzes",
+      "src_data_quizzes_getitem",
+      "src_data_quizzes_level_quizzes",
+      "src_services_api",
+      "src_services_api_apiservice",
+      "src_services_api_saveprogresspayload",
+      "src_services_spawner",
+      "src_types_game",
+      "src_types_game_levelconfig",
+      "src_types_game_playerprofile",
+      "src_types_game_teacherreportstats"
+    ],
+    "4": [
+      "tsconfig",
+      "tsconfig_compileroptions",
+      "tsconfig_compileroptions_allowimportingtsextensions",
+      "tsconfig_compileroptions_isolatedmodules",
+      "tsconfig_compileroptions_jsx",
+      "tsconfig_compileroptions_lib",
+      "tsconfig_compileroptions_module",
+      "tsconfig_compileroptions_moduleresolution",
+      "tsconfig_compileroptions_noemit",
+      "tsconfig_compileroptions_nofallthroughcasesinswitch",
+      "tsconfig_compileroptions_nounusedlocals",
+      "tsconfig_compileroptions_nounusedparameters",
+      "tsconfig_compileroptions_resolvejsonmodule",
+      "tsconfig_compileroptions_skiplibcheck",
+      "tsconfig_compileroptions_strict",
+      "tsconfig_compileroptions_target",
+      "tsconfig_compileroptions_usedefineforclassfields",
+      "tsconfig_include"
+    ],
+    "5": [
+      "src_components_game_ecosortgame_ecosortgame",
+      "src_services_audio_audioservice",
+      "src_services_audio_audioservice_constructor",
+      "src_services_audio_audioservice_initcontext",
+      "src_services_audio_audioservice_isslowmode",
+      "src_services_audio_audioservice_issoundenabled",
+      "src_services_audio_audioservice_isvoiceenabled",
+      "src_services_audio_audioservice_playcelebration",
+      "src_services_audio_audioservice_playcorrect",
+      "src_services_audio_audioservice_playincorrect",
+      "src_services_audio_audioservice_playpickup",
+      "src_services_audio_audioservice_playthrow",
+      "src_services_audio_audioservice_setslowmode",
+      "src_services_audio_audioservice_setsoundenabled",
+      "src_services_audio_audioservice_setvoiceenabled",
+      "src_services_audio_audioservice_speak"
+    ],
+    "6": [
+      "ref_canvas_confetti",
+      "ref_three",
+      "src_components_game_levelendmodal",
+      "src_components_game_levelendmodal_levelendmodal",
+      "src_components_game_levelendmodal_levelendmodalprops",
+      "src_components_game_threescene",
+      "src_components_game_threescene_threescene",
+      "src_components_game_threescene_threesceneprops",
+      "src_services_spawner_adaptivespawner",
+      "src_services_spawner_adaptivespawner_constructor",
+      "src_services_spawner_adaptivespawner_getnextitem",
+      "src_services_spawner_adaptivespawner_pickweighted",
+      "src_services_spawner_adaptivespawner_recordattempt",
+      "src_types_game_bintype",
+      "src_types_game_itemdata"
+    ],
+    "7": [
+      "package_devdependencies",
+      "package_devdependencies_autoprefixer",
+      "package_devdependencies_postcss",
+      "package_devdependencies_tailwindcss",
+      "package_devdependencies_types_canvas_confetti",
+      "package_devdependencies_types_react",
+      "package_devdependencies_types_react_dom",
+      "package_devdependencies_types_three",
+      "package_devdependencies_typescript",
+      "package_devdependencies_vite",
+      "package_devdependencies_vitejs_plugin_react"
+    ],
+    "8": [
+      "ref_react",
+      "src_app",
+      "src_app_app",
+      "src_components_landingpage_landingpage",
+      "src_components_navbar",
+      "src_components_navbar_navbar",
+      "src_components_navbar_navbarprops",
+      "src_components_teacher_teacherdashboard_teacherdashboard",
+      "src_index",
+      "src_main"
+    ],
+    "9": [
+      "tsconfig_node",
+      "tsconfig_node_compileroptions",
+      "tsconfig_node_compileroptions_allowsyntheticdefaultimports",
+      "tsconfig_node_compileroptions_composite",
+      "tsconfig_node_compileroptions_module",
+      "tsconfig_node_compileroptions_moduleresolution",
+      "tsconfig_node_compileroptions_skiplibcheck",
+      "tsconfig_node_include"
+    ],
+    "10": [
+      "package_dependencies",
+      "package_dependencies_cannon_es",
+      "package_dependencies_canvas_confetti",
+      "package_dependencies_lucide_react",
+      "package_dependencies_react",
+      "package_dependencies_react_dom",
+      "package_dependencies_three"
+    ],
+    "11": [
+      "agents_md",
+      "agents_rules_ste_md",
+      "plan_md",
+      "template_yaml"
+    ],
+    "12": [
+      "amplify_yml",
+      "aws_amplify_hosting"
+    ],
+    "13": [
+      "tailwind_config",
+      "tailwindcss"
+    ],
+    "14": [
+      "aws_bedrock"
+    ],
+    "15": [
+      "aws_dynamodb_progresstable"
+    ],
+    "16": [
+      "aws_dynamodb_reportstable"
+    ],
+    "17": [
+      "index_html"
+    ],
+    "18": [
+      "postcss_config"
+    ],
+    "19": [
+      "src_vite_env_d"
+    ]
+  },
+  "cohesion": {
+    "0": 0.06653225806451613,
+    "1": 0.15608465608465608,
+    "2": 0.08333333333333333,
+    "3": 0.19607843137254902,
+    "4": 0.1111111111111111,
+    "5": 0.175,
+    "6": 0.20952380952380953,
+    "7": 0.18181818181818182,
+    "8": 0.35555555555555557,
+    "9": 0.25,
+    "10": 0.2857142857142857,
+    "11": 0.5,
+    "12": 1.0,
+    "13": 1.0,
+    "14": 1.0,
+    "15": 1.0,
+    "16": 1.0,
+    "17": 1.0,
+    "18": 1.0,
+    "19": 1.0
+  },
+  "gods": [
+    {
+      "id": "tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 16
+    },
+    {
+      "id": "ref_react",
+      "label": "react",
+      "degree": 15
+    },
+    {
+      "id": "src_services_audio_audioservice",
+      "label": "AudioService",
+      "degree": 15
+    },
+    {
+      "id": "src_components_game_ecosortgame_ecosortgame",
+      "label": "EcoSortGame()",
+      "degree": 14
+    },
+    {
+      "id": "ref_lucide_react",
+      "label": "lucide-react",
+      "degree": 12
+    },
+    {
+      "id": "src_types_game_itemdata",
+      "label": "ItemData",
+      "degree": 11
+    },
+    {
+      "id": "src_services_spawner_adaptivespawner",
+      "label": "AdaptiveSpawner",
+      "degree": 9
+    },
+    {
+      "id": "src_data_bins_all_bins",
+      "label": "ALL_BINS",
+      "degree": 8
+    },
+    {
+      "id": "src_types_game_bintype",
+      "label": "BinType",
+      "degree": 8
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 7
+    }
+  ],
+  "surprises": [
+    {
+      "source": "EcoSort Heroes Project Guidelines",
+      "target": "ASD-STE100 Rules",
+      "source_files": [
+        "AGENTS.md",
+        ".agents/rules/ste.md"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "connects across different repos/directories"
+    },
+    {
+      "source": "EcoSort Heroes Full Plan",
+      "target": "ASD-STE100 Rules",
+      "source_files": [
+        "PLAN.md",
+        ".agents/rules/ste.md"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "connects across different repos/directories"
+    },
+    {
+      "source": "App()",
+      "target": "EcoSortGame()",
+      "source_files": [
+        "src/App.tsx",
+        "src/components/game/EcoSortGame.tsx"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "AvatarSelectModalProps",
+      "target": "PlayerProfile",
+      "source_files": [
+        "src/components/game/AvatarSelectModal.tsx",
+        "src/types/game.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "peripheral node `AvatarSelectModalProps` unexpectedly reaches hub `PlayerProfile`"
+    },
+    {
+      "source": "EcoSortGame()",
+      "target": "AvatarSelectModal()",
+      "source_files": [
+        "src/components/game/EcoSortGame.tsx",
+        "src/components/game/AvatarSelectModal.tsx"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    }
+  ],
+  "tokens": {
+    "input": 6170,
+    "output": 2013
+  }
+}

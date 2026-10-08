@@ -1,0 +1,145 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: EcoSort Heroes - Serverless Backend for Waste Sorting Educational Game
+
+Globals:
+  Function:
+    Timeout: 10
+    Runtime: nodejs20.x
+    MemorySize: 256
+    Environment:
+      Variables:
+        PROGRESS_TABLE: !Ref ProgressTable
+        REPORTS_TABLE: !Ref ReportsTable
+
+Resources:
+  # ==========================================
+  # DynamoDB Tables (Child Privacy compliant)
+  # ==========================================
+  ProgressTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: EcoSortProgress
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: userId
+          AttributeType: S
+        - AttributeName: levelId
+          AttributeType: N
+      KeySchema:
+        - AttributeName: userId
+          KeyType: HASH
+        - AttributeName: levelId
+          KeyType: RANGE
+
+  ReportsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: EcoSortReports
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: classId
+          AttributeType: S
+        - AttributeName: timestamp
+          AttributeType: S
+      KeySchema:
+        - AttributeName: classId
+          KeyType: HASH
+        - AttributeName: timestamp
+          KeyType: RANGE
+
+  # ==========================================
+  # API Gateway
+  # ==========================================
+  EcoSortApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: v1
+      Cors:
+        AllowMethods: "'GET,POST,OPTIONS'"
+        AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+        AllowOrigin: "'*'"
+
+  # ==========================================
+  # Lambda Functions
+  # ==========================================
+  SaveProgressFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: backend/
+      Handler: handlers/progress.saveProgress
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ProgressTable
+      Events:
+        SaveProgress:
+          Type: Api
+          Properties:
+            RestApiId: !Ref EcoSortApi
+            Path: /progress
+            Method: POST
+
+  GetProgressFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: backend/
+      Handler: handlers/progress.getProgress
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref ProgressTable
+      Events:
+        GetProgress:
+          Type: Api
+          Properties:
+            RestApiId: !Ref EcoSortApi
+            Path: /progress/{userId}
+            Method: GET
+
+  TeacherReportFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: backend/
+      Handler: handlers/report.generateReport
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref ProgressTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ReportsTable
+      Events:
+        GetReport:
+          Type: Api
+          Properties:
+            RestApiId: !Ref EcoSortApi
+            Path: /report/{classId}
+            Method: GET
+
+  AskEcoFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: backend/
+      Handler: handlers/ask_eco.handler
+      Timeout: 15
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action:
+                - bedrock:InvokeModel
+              Resource: '*'
+      Events:
+        AskEco:
+          Type: Api
+          Properties:
+            RestApiId: !Ref EcoSortApi
+            Path: /ask-eco
+            Method: POST
+
+Outputs:
+  ApiUrl:
+    Description: "API Gateway endpoint URL for Prod stage"
+    Value: !Sub "https://${EcoSortApi}.execute-api.${AWS::Region}.amazonaws.com/v1/"
+  ProgressTableName:
+    Description: "DynamoDB Progress Table"
+    Value: !Ref ProgressTable
+  ReportsTableName:
+    Description: "DynamoDB Reports Table"
+    Value: !Ref ReportsTable

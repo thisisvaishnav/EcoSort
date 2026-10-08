@@ -1,0 +1,236 @@
+{
+  "backend/handlers/ask_eco.js": {
+    "mtime": 1791490686.5143597,
+    "seen": 1791491200.126882,
+    "ast_hash": "198b2eee2b5bb6da12be8ee64abb774b",
+    "semantic_hash": "198b2eee2b5bb6da12be8ee64abb774b"
+  },
+  "backend/handlers/progress.js": {
+    "mtime": 1791490668.2042308,
+    "seen": 1791491200.1268852,
+    "ast_hash": "614c9b84dc918f2e7c87fbef8da62aaa",
+    "semantic_hash": "614c9b84dc918f2e7c87fbef8da62aaa"
+  },
+  "backend/handlers/report.js": {
+    "mtime": 1791490675.9331133,
+    "seen": 1791491200.1268868,
+    "ast_hash": "c03a74567b15cab2eda9ac04b4a243c5",
+    "semantic_hash": "c03a74567b15cab2eda9ac04b4a243c5"
+  },
+  "backend/package.json": {
+    "mtime": 1791490660.0249789,
+    "seen": 1791491200.1268868,
+    "ast_hash": "675d7bfce430740bc3292172c9189429",
+    "semantic_hash": "675d7bfce430740bc3292172c9189429"
+  },
+  "package.json": {
+    "mtime": 1791490585.4784005,
+    "seen": 1791491200.126888,
+    "ast_hash": "babd65e2120a0790a531e5b908cc5fb1",
+    "semantic_hash": "babd65e2120a0790a531e5b908cc5fb1"
+  },
+  "postcss.config.js": {
+    "mtime": 1791490625.7497087,
+    "seen": 1791491200.126889,
+    "ast_hash": "ef3ba2a81ba19f8ea5ddf625521e96f0",
+    "semantic_hash": "ef3ba2a81ba19f8ea5ddf625521e96f0"
+  },
+  "src/App.tsx": {
+    "mtime": 1791491065.5771458,
+    "seen": 1791491200.12689,
+    "ast_hash": "2a78fe30cee6583dace8431b420f0e35",
+    "semantic_hash": "2a78fe30cee6583dace8431b420f0e35"
+  },
+  "src/components/LandingPage.tsx": {
+    "mtime": 1791491120.9775264,
+    "seen": 1791491200.12689,
+    "ast_hash": "265e9e42622c270816533955b7dad408",
+    "semantic_hash": "265e9e42622c270816533955b7dad408"
+  },
+  "src/components/Navbar.tsx": {
+    "mtime": 1791491124.8194635,
+    "seen": 1791491200.126891,
+    "ast_hash": "b533a3c889b86aad2bd0576b7fc42afe",
+    "semantic_hash": "b533a3c889b86aad2bd0576b7fc42afe"
+  },
+  "src/components/game/AvatarSelectModal.tsx": {
+    "mtime": 1791490930.5603237,
+    "seen": 1791491200.126891,
+    "ast_hash": "8369b53706bc80512e65ab2cb230664e",
+    "semantic_hash": "8369b53706bc80512e65ab2cb230664e"
+  },
+  "src/components/game/EcoSortGame.tsx": {
+    "mtime": 1791491101.434559,
+    "seen": 1791491200.126892,
+    "ast_hash": "3a9bca1c9a2fb6c89a8f455e68d267b4",
+    "semantic_hash": "3a9bca1c9a2fb6c89a8f455e68d267b4"
+  },
+  "src/components/game/EcopediaModal.tsx": {
+    "mtime": 1791490892.0811372,
+    "seen": 1791491200.126894,
+    "ast_hash": "d4b7cbca84f4517325f78fd8614ac82d",
+    "semantic_hash": "d4b7cbca84f4517325f78fd8614ac82d"
+  },
+  "src/components/game/EnergyMeterHUD.tsx": {
+    "mtime": 1791490855.3893385,
+    "seen": 1791491200.1268952,
+    "ast_hash": "cffcbd2dc2d5c000db0f7849584ffdc4",
+    "semantic_hash": "cffcbd2dc2d5c000db0f7849584ffdc4"
+  },
+  "src/components/game/LevelEndModal.tsx": {
+    "mtime": 1791491105.9548995,
+    "seen": 1791491200.1268952,
+    "ast_hash": "fbf97dde3d763866f70981a1f161dd92",
+    "semantic_hash": "fbf97dde3d763866f70981a1f161dd92"
+  },
+  "src/components/game/LevelSelectModal.tsx": {
+    "mtime": 1791491110.3659127,
+    "seen": 1791491200.1268961,
+    "ast_hash": "806fd98224d901bf1e3e781a8aa21c29",
+    "semantic_hash": "806fd98224d901bf1e3e781a8aa21c29"
+  },
+  "src/components/game/MascotDialogue.tsx": {
+    "mtime": 1791491116.7591712,
+    "seen": 1791491200.1268969,
+    "ast_hash": "d5318a110e198d4a519fd26213330db9",
+    "semantic_hash": "d5318a110e198d4a519fd26213330db9"
+  },
+  "src/components/game/QuizModal.tsx": {
+    "mtime": 1791490867.6346972,
+    "seen": 1791491200.1268969,
+    "ast_hash": "827a842de5458f63f0fb59e7f2e6193d",
+    "semantic_hash": "827a842de5458f63f0fb59e7f2e6193d"
+  },
+  "src/components/game/ThreeScene.tsx": {
+    "mtime": 1791490831.0569856,
+    "seen": 1791491200.1268978,
+    "ast_hash": "b5403d3e99712e144b7b2fb2be9e1f58",
+    "semantic_hash": "b5403d3e99712e144b7b2fb2be9e1f58"
+  },
+  "src/components/teacher/TeacherDashboard.tsx": {
+    "mtime": 1791490980.5210688,
+    "seen": 1791491200.126899,
+    "ast_hash": "27844bbe2695d7a9cebef2965acc49ec",
+    "semantic_hash": "27844bbe2695d7a9cebef2965acc49ec"
+  },
+  "src/data/bins.ts": {
+    "mtime": 1791490718.6355746,
+    "seen": 1791491200.126899,
+    "ast_hash": "808d2846d20300d84163a5857a18787d",
+    "semantic_hash": "808d2846d20300d84163a5857a18787d"
+  },
+  "src/data/items.ts": {
+    "mtime": 1791490731.8707085,
+    "seen": 1791491200.1269,
+    "ast_hash": "9456c6034b0fa0e3e5d6416841da38e1",
+    "semantic_hash": "9456c6034b0fa0e3e5d6416841da38e1"
+  },
+  "src/data/levels.ts": {
+    "mtime": 1791490739.7370338,
+    "seen": 1791491200.1269,
+    "ast_hash": "990b2e40fc7b42b53824e64a636a6e13",
+    "semantic_hash": "990b2e40fc7b42b53824e64a636a6e13"
+  },
+  "src/data/quizzes.ts": {
+    "mtime": 1791490749.431454,
+    "seen": 1791491200.126901,
+    "ast_hash": "06dfec589358c1768f287a8560ca1de3",
+    "semantic_hash": "06dfec589358c1768f287a8560ca1de3"
+  },
+  "src/main.tsx": {
+    "mtime": 1791491050.1039882,
+    "seen": 1791491200.126902,
+    "ast_hash": "aa122bdcf833a2c00fdf9ca8e5348675",
+    "semantic_hash": "aa122bdcf833a2c00fdf9ca8e5348675"
+  },
+  "src/services/api.ts": {
+    "mtime": 1791490788.885917,
+    "seen": 1791491200.126903,
+    "ast_hash": "c87846b65906e83bcd914c62900e6005",
+    "semantic_hash": "c87846b65906e83bcd914c62900e6005"
+  },
+  "src/services/audio.ts": {
+    "mtime": 1791490776.795029,
+    "seen": 1791491200.126903,
+    "ast_hash": "86bfa2585f8c391ae3407613a11a6199",
+    "semantic_hash": "86bfa2585f8c391ae3407613a11a6199"
+  },
+  "src/services/spawner.ts": {
+    "mtime": 1791490759.3879998,
+    "seen": 1791491200.126904,
+    "ast_hash": "44a62fb9405c80a20541a5ffd43c4753",
+    "semantic_hash": "44a62fb9405c80a20541a5ffd43c4753"
+  },
+  "src/types/game.ts": {
+    "mtime": 1791490710.4342902,
+    "seen": 1791491200.1269052,
+    "ast_hash": "67ba57373a3d33af0db91f2dae341909",
+    "semantic_hash": "67ba57373a3d33af0db91f2dae341909"
+  },
+  "src/vite-env.d.ts": {
+    "mtime": 1791491061.5465403,
+    "seen": 1791491200.1269052,
+    "ast_hash": "0352474ba2918efe13895edbc3780d94",
+    "semantic_hash": "0352474ba2918efe13895edbc3780d94"
+  },
+  "tailwind.config.js": {
+    "mtime": 1791490622.8180275,
+    "seen": 1791491200.1269062,
+    "ast_hash": "0a082072f9548691f1d9530f3e284a01",
+    "semantic_hash": "0a082072f9548691f1d9530f3e284a01"
+  },
+  "tsconfig.json": {
+    "mtime": 1791490602.6214695,
+    "seen": 1791491200.1269062,
+    "ast_hash": "905efa4e0348e84cbaca48dec54b6fd6",
+    "semantic_hash": "905efa4e0348e84cbaca48dec54b6fd6"
+  },
+  "tsconfig.node.json": {
+    "mtime": 1791490607.208883,
+    "seen": 1791491200.1269069,
+    "ast_hash": "767b2e9abe6452170cdc399ca052cfbc",
+    "semantic_hash": "767b2e9abe6452170cdc399ca052cfbc"
+  },
+  "vite.config.ts": {
+    "mtime": 1791490618.51599,
+    "seen": 1791491200.1269078,
+    "ast_hash": "ec8b8037ee72f89f33ea5da4ee65e4ec",
+    "semantic_hash": "ec8b8037ee72f89f33ea5da4ee65e4ec"
+  },
+  ".agents/rules/ste.md": {
+    "mtime": 1791490670.123666,
+    "seen": 1791491200.1269078,
+    "ast_hash": "ba96ee6f27ebba2e9823f4036f750bca",
+    "semantic_hash": "ba96ee6f27ebba2e9823f4036f750bca"
+  },
+  "AGENTS.md": {
+    "mtime": 1791490674.5168476,
+    "seen": 1791491200.126909,
+    "ast_hash": "4ca3b5de4884cd7f9912f431a7ced45c",
+    "semantic_hash": "4ca3b5de4884cd7f9912f431a7ced45c"
+  },
+  "PLAN.md": {
+    "mtime": 1791490389.7740617,
+    "seen": 1791491200.12691,
+    "ast_hash": "939e57d071450bc306600aea67b2cd09",
+    "semantic_hash": "939e57d071450bc306600aea67b2cd09"
+  },
+  "amplify.yml": {
+    "mtime": 1791490644.0477629,
+    "seen": 1791491200.12691,
+    "ast_hash": "522d9bf28c722dc74f086ed4746baf82",
+    "semantic_hash": "522d9bf28c722dc74f086ed4746baf82"
+  },
+  "index.html": {
+    "mtime": 1791490697.4117675,
+    "seen": 1791491200.126911,
+    "ast_hash": "d389ee8d31857cdeb63c897b50e9bc1e",
+    "semantic_hash": "d389ee8d31857cdeb63c897b50e9bc1e"
+  },
+  "template.yaml": {
+    "mtime": 1791490655.2389987,
+    "seen": 1791491200.126912,
+    "ast_hash": "51adc5d19eb20284a087a74c9306547a",
+    "semantic_hash": "51adc5d19eb20284a087a74c9306547a"
+  }
+}

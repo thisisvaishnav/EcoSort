@@ -1,0 +1,1 @@
+{"nodes": [{"id": "template_yaml", "label": "SAM Infrastructure Template", "file_type": "code", "source_file": "template.yaml", "rationale": "Defines serverless backend resources including DynamoDB, Lambda, and API Gateway."}], "edges": [], "hyperedges": []}
