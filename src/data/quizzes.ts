@@ -54,7 +54,7 @@ export const LEVEL_QUIZZES: Record<number, QuizQuestion[]> = {
     },
     {
       id: 'q2_2',
-      question: 'Old medicine should never go in kitchen trash. Which bin?',
+      question: 'Do not put old medicine in kitchen waste. Which bin?',
       item: getItem('expired_medicine'),
       options: [
         { label: 'Red Hazardous Bin', bin: 'hazardous' },

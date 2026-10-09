@@ -33,8 +33,8 @@ export const GAME_LEVELS: LevelConfig[] = [
     name: 'Park & River',
     place: 'Community Nature Park',
     bins: ['wet', 'dry', 'hazardous', 'ewaste'],
-    learningGoal: 'Electronics and chemicals must never touch lakes or riverbanks.',
-    energyLink: 'Hydropower plants run cleanest when waterways are free of trash.',
+    learningGoal: 'Do not let electronics or chemicals touch lakes and rivers.',
+    energyLink: 'Hydropower plants run cleanest when waterways are free of waste.',
     targetCount: 10,
   },
   {
