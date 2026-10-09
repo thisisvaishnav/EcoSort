@@ -195,7 +195,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStartGame, onOpenRep
           HERO — B5 heading gradient, scroll reveal
           ════════════════════════════════════════════════════════════════════ */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-2">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-start">
 
           {/* Left: Typography + CTAs */}
           <div className="lg:col-span-7 space-y-6 sm:space-y-8 text-left">
@@ -301,7 +301,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStartGame, onOpenRep
           </div>
 
           {/* Right: Kai character showcase — static, no in-page game */}
-          <div className="lg:col-span-5 relative mt-8 lg:mt-0 reveal reveal-delay-2">
+          <div className="lg:col-span-5 relative mt-8 lg:mt-2 reveal reveal-delay-2">
             {/* Retro offset backing */}
             <div className="absolute -bottom-3 -right-3 sm:-bottom-4 sm:-right-4 w-full h-full bg-orange-500 rounded-3xl border-[3px] border-slate-950 z-0" />
 
@@ -344,24 +344,48 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStartGame, onOpenRep
                 </div>
               </div>
 
-              {/* Bin colour quick reference */}
+              {/* Game scope: 5-level journey + Eco mascot voice line */}
               <div className="px-5 pb-6 space-y-3">
-                <p className="text-[10px] text-slate-400 uppercase font-bold tracking-wider text-center">
-                  Four bins. One correct answer each time.
-                </p>
 
-                <div className="grid grid-cols-4 gap-2">
-                  {[
-                    { border: 'border-emerald-500', bg: 'bg-emerald-600/15', icon: '🍏', label: 'Green Wet',   text: 'text-emerald-300' },
-                    { border: 'border-blue-500',    bg: 'bg-blue-600/15',    icon: '📦', label: 'Blue Dry',    text: 'text-blue-300'    },
-                    { border: 'border-rose-500',    bg: 'bg-rose-600/15',    icon: '🔋', label: 'Red Hazard',  text: 'text-rose-300'    },
-                    { border: 'border-orange-500',  bg: 'bg-orange-600/15',  icon: '📱', label: 'E-Waste',     text: 'text-orange-300'  },
-                  ].map(({ border, bg, icon, label, text }) => (
-                    <div key={label} className={`p-2.5 rounded-xl border-2 ${border} ${bg} text-center`}>
-                      <div className="text-2xl" role="img" aria-hidden="true">{icon}</div>
-                      <span className={`text-[9px] font-bold uppercase ${text} block mt-1 leading-tight`}>{label}</span>
-                    </div>
-                  ))}
+                {/* Five-level journey map */}
+                <div>
+                  <p className="text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-2.5 text-center">
+                    Five locations to master
+                  </p>
+                  <div className="flex items-center justify-between gap-1">
+                    {[
+                      { emoji: '🍳', name: 'Kitchen'  },
+                      { emoji: '🏫', name: 'School'   },
+                      { emoji: '🌳', name: 'Park'     },
+                      { emoji: '🏥', name: 'Hospital' },
+                      { emoji: '🌙', name: 'Night'    },
+                    ].map(({ emoji, name }, i, arr) => (
+                      <React.Fragment key={name}>
+                        <div className="flex flex-col items-center gap-1 shrink-0">
+                          <div className="w-9 h-9 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-lg">
+                            {emoji}
+                          </div>
+                          <span className="text-[8px] text-slate-500 font-bold uppercase leading-none">{name}</span>
+                        </div>
+                        {i < arr.length - 1 && (
+                          <div className="flex-1 h-px bg-slate-700 mt-3" />
+                        )}
+                      </React.Fragment>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Eco mascot speech bubble */}
+                <div className="bg-slate-900 rounded-2xl border border-slate-700 p-3 flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-400 border-2 border-slate-950 flex items-center justify-center text-sm shrink-0 shadow-retro-sm">
+                    🌱
+                  </div>
+                  <div>
+                    <span className="text-[9px] font-bold text-emerald-400 uppercase tracking-wider block">Eco the mascot</span>
+                    <p className="text-white text-[11px] font-medium leading-snug mt-0.5">
+                      “Food waste makes clean biogas. Use the green bin!”
+                    </p>
+                  </div>
                 </div>
 
                 {/* Primary CTA */}

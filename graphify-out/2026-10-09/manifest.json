@@ -36,21 +36,21 @@
     "semantic_hash": "ef3ba2a81ba19f8ea5ddf625521e96f0"
   },
   "src/App.tsx": {
-    "mtime": 1791542038.8489327,
-    "seen": 1791542107.503498,
-    "ast_hash": "ac7bf4f2f42aa64b72e45f3b8c4da3fd",
+    "mtime": 1791558673.6124701,
+    "seen": 1791559804.990541,
+    "ast_hash": "934a0d9dadd9e09cbc003c0cf9fb5e33",
     "semantic_hash": ""
   },
   "src/components/LandingPage.tsx": {
-    "mtime": 1791542073.4547634,
-    "seen": 1791542107.503499,
-    "ast_hash": "bb82adfd38419b1ff553fede6abb8abc",
+    "mtime": 1791559576.924379,
+    "seen": 1791559804.9905431,
+    "ast_hash": "40461ef5779b647786f535c43d70bc26",
     "semantic_hash": ""
   },
   "src/components/Navbar.tsx": {
-    "mtime": 1791494895.8644469,
-    "seen": 1791495972.1423419,
-    "ast_hash": "1d1860d9505a05d8e133f4fb450aff6b",
+    "mtime": 1791558722.179915,
+    "seen": 1791559804.9905438,
+    "ast_hash": "2d5cace388b87d7d55bb8346dad637d0",
     "semantic_hash": ""
   },
   "src/components/game/AvatarSelectModal.tsx": {
@@ -174,10 +174,10 @@
     "semantic_hash": "0352474ba2918efe13895edbc3780d94"
   },
   "tailwind.config.js": {
-    "mtime": 1791492282.5975912,
-    "seen": 1791492556.40963,
-    "ast_hash": "35cc8e0d05c3067ad725049b40302d9a",
-    "semantic_hash": "35cc8e0d05c3067ad725049b40302d9a"
+    "mtime": 1791558637.5453367,
+    "seen": 1791559804.990587,
+    "ast_hash": "46a2150dbf6a12822f40dd6f3999d978",
+    "semantic_hash": ""
   },
   "tsconfig.json": {
     "mtime": 1791490602.6214695,
@@ -222,10 +222,10 @@
     "semantic_hash": "522d9bf28c722dc74f086ed4746baf82"
   },
   "index.html": {
-    "mtime": 1791492889.0835402,
-    "seen": 1791493656.849368,
-    "ast_hash": "e6b58d5172356e780db93a560c8c08f0",
-    "semantic_hash": "e6b58d5172356e780db93a560c8c08f0"
+    "mtime": 1791558629.5749433,
+    "seen": 1791559804.9906251,
+    "ast_hash": "0ef24a6df642c60da89076f498af24c9",
+    "semantic_hash": ""
   },
   "template.yaml": {
     "mtime": 1791490655.2389987,
