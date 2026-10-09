@@ -1,17 +1,17 @@
 # Graph Report - EcoSort  (2026-10-09)
 
 ## Corpus Check
-- 101 files · ~1,184,574 words
+- 101 files · ~1,184,232 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 6 file(s) not represented in the graph (top: (none) 3, .example 1, .glb 1)
 
 ## Summary
-- 464 nodes · 896 edges · 37 communities (14 shown, 23 thin omitted)
+- 462 nodes · 890 edges · 37 communities (13 shown, 24 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 20 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `8fca84df`
+- Built from commit: `a17473a4`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -42,7 +42,7 @@
 - Testing Strategy Skill
 - EcoSort Heroes
 - PART B — Visual system
-- MapItemInstance
+- MapItemManager
 - PART B — Visual system
 
 ## God Nodes (most connected - your core abstractions)
@@ -66,8 +66,8 @@
   AGENTS.md → .agents/skills/tdd-workflow/SKILL.md
 - `ECC Skills Integration` --references--> `Verification Loop Skill`  [EXTRACTED]
   AGENTS.md → .agents/skills/verification-loop/SKILL.md
-- `MapItemCardProps` --references--> `ItemData`  [EXTRACTED]
-  src/components/items/MapItemCard.tsx → src/types/game.ts
+- `EcoSort Heroes Full Plan` --references--> `ASD-STE100 Rules`  [EXTRACTED]
+  PLAN.md → .agents/rules/ste.md
 
 ## Import Cycles
 - None detected.
@@ -76,11 +76,11 @@
 - **Visual Design & Aesthetics** — agents_skills_frontend_design, agents_skills_fiction, agents_skills_lingo, agents_skills_bento [EXTRACTED 0.90]
 - **Quality Assurance & Verification Flow** — agents_skills_tdd_workflow, agents_skills_verification_loop, agents_skills_ai_regression_testing, agents_skills_click_path_audit [INFERRED 0.85]
 
-## Communities (37 total, 23 thin omitted)
+## Communities (37 total, 24 thin omitted)
 
 ### Community 0 - "WorldPage.tsx"
 Cohesion: 0.07
-Nodes (45): lucide-react, react, react-dom, App(), AVATARS, AvatarSelectModal(), AvatarSelectModalProps, EcopediaModal() (+37 more)
+Nodes (42): lucide-react, react, react-dom, App(), AVATARS, AvatarSelectModal(), AvatarSelectModalProps, EcopediaModal() (+34 more)
 
 ### Community 1 - "progress.js"
 Cohesion: 0.07
@@ -91,8 +91,8 @@ Cohesion: 0.04
 Nodes (46): dependencies, cannon-es, canvas-confetti, lucide-react, react, react-dom, three, devDependencies (+38 more)
 
 ### Community 3 - "ItemData"
-Cohesion: 0.23
-Nodes (9): LevelEndModalProps, ThreeSceneProps, MapItemCard(), MapItemGalleryModal(), MapItemGalleryModalProps, WorldCanvasProps, AdaptiveSpawner, BinType (+1 more)
+Cohesion: 0.15
+Nodes (15): LevelEndModalProps, ThreeScene(), ThreeSceneProps, MapItemCard(), MapItemCardProps, MapItemGalleryModal(), MapItemGalleryModalProps, MapItemPreview() (+7 more)
 
 ### Community 4 - "compilerOptions"
 Cohesion: 0.11
@@ -103,8 +103,8 @@ Cohesion: 0.18
 Nodes (10): AI Regression Testing Skill, Architecture Skill, Bento Design System, Click-Path Audit Skill, Fiction Design System, Frontend Design Skill, Lingo Design System, TDD Workflow Skill (+2 more)
 
 ### Community 8 - "createItemMesh.ts"
-Cohesion: 0.14
-Nodes (27): three, ThreeScene(), MapItemPreview(), MapItemPreviewProps, createItemMesh(), disposeItemMesh(), createBananaPeel3D(), createBattery3D() (+19 more)
+Cohesion: 0.12
+Nodes (26): three, createItemMesh(), DEFAULT_MAP_ITEM_PLACEMENTS, MapItemInstance, MapItemManagerOptions, createBananaPeel3D(), createBattery3D(), createFoodPlate3D() (+18 more)
 
 ### Community 9 - "WorldCanvas.tsx"
 Cohesion: 0.13
@@ -126,33 +126,29 @@ Nodes (3): ASD-STE100 Rules, EcoSort Heroes Full Plan, SAM Infrastructure Templa
 Cohesion: 0.06
 Nodes (34): A1. Intake, A2. Page structure, A3. Layout selection, A4. Conversion rules, A5. Copywriting, A6. Build order, A7. SEO and AEO, A8. Pitfalls (+26 more)
 
-### Community 35 - "MapItemInstance"
-Cohesion: 0.15
-Nodes (5): DEFAULT_MAP_ITEM_PLACEMENTS, MapItemInstance, MapItemManager, MapItemManagerOptions, MapItemConfig
-
 ### Community 36 - "PART B — Visual system"
 Cohesion: 0.06
 Nodes (34): A1. Intake, A2. Page structure, A3. Layout selection, A4. Conversion rules, A5. Copywriting, A6. Build order, A7. SEO and AEO, A8. Pitfalls (+26 more)
 
 ## Knowledge Gaps
-- **178 isolated node(s):** `{ BedrockRuntimeClient, InvokeModelCommand }`, `bedrock`, `corsHeaders`, `{ DynamoDBClient }`, `{ DynamoDBDocumentClient, PutCommand, QueryCommand }` (+173 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 226 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **23 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **176 isolated node(s):** `{ BedrockRuntimeClient, InvokeModelCommand }`, `bedrock`, `corsHeaders`, `{ DynamoDBClient }`, `{ DynamoDBDocumentClient, PutCommand, QueryCommand }` (+171 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 224 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **24 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `three` connect `createItemMesh.ts` to `vitest`, `WorldCanvas.tsx`, `package.json`, `MapItemInstance`?**
+- **Why does `three` connect `createItemMesh.ts` to `vitest`, `WorldCanvas.tsx`, `package.json`, `ItemData`?**
   _High betweenness centrality (0.067) - this node is a cross-community bridge._
 - **What connects `{ BedrockRuntimeClient, InvokeModelCommand }`, `bedrock`, `corsHeaders` to the rest of the system?**
-  _178 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _176 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `WorldPage.tsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.07267884322678843 - nodes in this community are weakly interconnected._
-- **Why does `react` connect `WorldPage.tsx` to `createItemMesh.ts`, `WorldCanvas.tsx`, `package.json`, `ItemData`?**
-  _High betweenness centrality (0.044) - this node is a cross-community bridge._
+  _Cohesion score 0.07108478341355054 - nodes in this community are weakly interconnected._
+- **Why does `react` connect `WorldPage.tsx` to `WorldCanvas.tsx`, `package.json`, `ItemData`?**
+  _High betweenness centrality (0.045) - this node is a cross-community bridge._
 - **Should `progress.js` be split into smaller, more focused modules?**
   _Cohesion score 0.06653225806451613 - nodes in this community are weakly interconnected._
-- **Why does `lucide-react` connect `WorldPage.tsx` to `createItemMesh.ts`, `WorldCanvas.tsx`, `package.json`, `ItemData`?**
-  _High betweenness centrality (0.031) - this node is a cross-community bridge._
+- **Why does `lucide-react` connect `WorldPage.tsx` to `WorldCanvas.tsx`, `package.json`, `ItemData`?**
+  _High betweenness centrality (0.032) - this node is a cross-community bridge._
 - **Should `package.json` be split into smaller, more focused modules?**
   _Cohesion score 0.041666666666666664 - nodes in this community are weakly interconnected._

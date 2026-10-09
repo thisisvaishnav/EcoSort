@@ -42,9 +42,9 @@
     "semantic_hash": ""
   },
   "src/components/LandingPage.tsx": {
-    "mtime": 1791559576.924379,
-    "seen": 1791559804.9905431,
-    "ast_hash": "40461ef5779b647786f535c43d70bc26",
+    "mtime": 1791560465.8145502,
+    "seen": 1791560919.9280481,
+    "ast_hash": "9821d340f3aa996721fcc11636dd3f5f",
     "semantic_hash": ""
   },
   "src/components/Navbar.tsx": {
