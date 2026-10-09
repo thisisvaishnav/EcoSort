@@ -46,26 +46,26 @@ export const QuizModal: React.FC<QuizModalProps> = ({ questions, onCompleteQuiz 
   if (!currentQ) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
-      <div className="bg-slate-800 border-2 border-emerald-500/40 rounded-3xl p-6 max-w-md w-full shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-150">
+      <div className="bg-[#FDFBF7] border-2 border-slate-900 rounded-3xl p-6 max-w-md w-full shadow-retro-xl text-slate-900 animate-in zoom-in-95 duration-200">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <div className="p-2 bg-emerald-500/20 text-emerald-400 rounded-xl">
-              <HelpCircle className="w-5 h-5" />
+            <div className="p-2 bg-amber-300 border-2 border-slate-900 text-slate-950 rounded-xl shadow-retro-sm">
+              <HelpCircle className="w-5 h-5 stroke-slate-950" />
             </div>
-            <h3 className="font-fun text-xl font-bold text-white">Quick Quiz</h3>
+            <h3 className="font-fun text-xl font-black text-slate-950">Quick Quiz</h3>
           </div>
-          <span className="text-xs bg-slate-700 px-3 py-1 rounded-full text-slate-300 font-semibold">
+          <span className="text-xs bg-white border-2 border-slate-900 px-3 py-1 rounded-xl text-slate-900 font-black shadow-retro-sm">
             {currentIndex + 1} / {questions.length}
           </span>
         </div>
 
         {/* Question Item Card */}
-        <div className="bg-slate-900 rounded-2xl p-5 mb-5 text-center border border-slate-700/60">
-          <div className="text-5xl mb-2">{currentQ.item.icon}</div>
-          <p className="font-fun text-lg font-bold text-white mb-1">{currentQ.item.name}</p>
-          <p className="text-sm text-slate-300">{currentQ.question}</p>
+        <div className="bg-white rounded-2xl p-5 mb-5 text-center border-2 border-slate-900 shadow-retro-sm">
+          <div className="text-5xl mb-2 drop-shadow-sm">{currentQ.item.icon}</div>
+          <p className="font-fun text-lg font-black text-slate-950 mb-1">{currentQ.item.name}</p>
+          <p className="text-sm font-bold text-slate-700">{currentQ.question}</p>
         </div>
 
         {/* Options */}
@@ -75,14 +75,14 @@ export const QuizModal: React.FC<QuizModalProps> = ({ questions, onCompleteQuiz 
             const isChosen = selectedOption === opt.bin;
             const isThisCorrect = opt.bin === currentQ.correctBin;
 
-            let btnStyle = 'bg-slate-700/80 hover:bg-slate-700 border-slate-600 text-white';
+            let btnStyle = 'bg-white hover:bg-slate-50 border-2 border-slate-900 shadow-retro-sm text-slate-950';
             if (isAnswered) {
               if (isThisCorrect) {
-                btnStyle = 'bg-emerald-600 border-emerald-400 text-white ring-2 ring-emerald-400/50';
+                btnStyle = 'bg-emerald-300 border-2 border-slate-900 shadow-retro-sm text-slate-950';
               } else if (isChosen) {
-                btnStyle = 'bg-rose-600 border-rose-400 text-white';
+                btnStyle = 'bg-rose-300 border-2 border-slate-900 shadow-retro-sm text-slate-950';
               } else {
-                btnStyle = 'bg-slate-800/50 border-slate-700 text-slate-500 opacity-60';
+                btnStyle = 'bg-slate-100 border-2 border-slate-300 text-slate-400 opacity-60';
               }
             }
 
@@ -91,11 +91,11 @@ export const QuizModal: React.FC<QuizModalProps> = ({ questions, onCompleteQuiz 
                 key={opt.bin}
                 disabled={isAnswered}
                 onClick={() => handleSelect(opt.bin)}
-                className={`w-full p-3.5 rounded-2xl font-fun font-bold border-2 transition-all flex items-center justify-between text-left ${btnStyle}`}
+                className={`w-full p-3.5 rounded-2xl font-fun font-black transition-all flex items-center justify-between text-left active:translate-x-[1px] active:translate-y-[1px] ${btnStyle}`}
               >
                 <span>{bin?.label || opt.label}</span>
-                {isAnswered && isThisCorrect && <CheckCircle2 className="w-5 h-5 text-emerald-200" />}
-                {isAnswered && isChosen && !isThisCorrect && <XCircle className="w-5 h-5 text-rose-200" />}
+                {isAnswered && isThisCorrect && <CheckCircle2 className="w-5 h-5 text-emerald-900" />}
+                {isAnswered && isChosen && !isThisCorrect && <XCircle className="w-5 h-5 text-rose-900" />}
               </button>
             );
           })}
@@ -104,12 +104,12 @@ export const QuizModal: React.FC<QuizModalProps> = ({ questions, onCompleteQuiz 
         {/* Feedback & Continue */}
         {isAnswered && (
           <div className="space-y-4 animate-in fade-in">
-            <div className="p-3 bg-slate-900/90 rounded-xl border border-slate-700 text-xs text-slate-300">
+            <div className="p-3 bg-amber-100 rounded-xl border-2 border-slate-900 text-xs font-bold text-slate-900 shadow-retro-sm">
               💡 {currentQ.fact}
             </div>
             <button
               onClick={handleNext}
-              className="w-full py-3 bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 font-fun font-bold rounded-2xl shadow-lg transition-all text-base"
+              className="w-full py-3 bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-fun font-black rounded-xl border-2 border-slate-900 shadow-retro transition-all text-base active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
             >
               {currentIndex < questions.length - 1 ? 'Next Question →' : 'See Results 🌟'}
             </button>

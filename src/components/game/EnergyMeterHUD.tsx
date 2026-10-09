@@ -26,52 +26,52 @@ export const EnergyMeterHUD: React.FC<EnergyMeterHUDProps> = ({
   };
 
   return (
-    <div className="bg-slate-800/95 border border-slate-700/80 rounded-2xl p-3 md:p-4 shadow-xl backdrop-blur-md">
+    <div className="bg-[#FDFBF7] border-2 border-slate-900 rounded-2xl p-3 md:p-4 shadow-retro text-slate-900">
       {/* Top Stats Bar */}
-      <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
-        <div>
-          <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider block">
+      <div className="flex items-center justify-between gap-2 mb-3 flex-wrap">
+        <div className="bg-white border-2 border-slate-900 px-3 py-1.5 rounded-xl shadow-retro-sm">
+          <span className="text-[10px] text-slate-500 font-black uppercase tracking-wider block">
             {levelName}
           </span>
-          <span className="text-sm font-fun font-bold text-slate-100">
-            Item {Math.min(itemsSorted + 1, targetCount)} of {targetCount}
+          <span className="text-sm font-fun font-black text-slate-900">
+            Item {Math.min(itemsSorted + 1, targetCount)} / {targetCount}
           </span>
         </div>
 
         <div className="flex items-center gap-3">
           {/* Streak indicator */}
           {streak >= 2 && (
-            <div className="flex items-center gap-1 bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2.5 py-1 rounded-xl text-xs font-fun font-bold animate-bounce">
-              <Flame className="w-4 h-4 fill-amber-400" />
+            <div className="flex items-center gap-1.5 bg-orange-400 text-slate-950 border-2 border-slate-900 px-3 py-1 rounded-xl text-xs font-fun font-black shadow-retro-sm animate-bounce">
+              <Flame className="w-4 h-4 fill-amber-300 stroke-slate-950" />
               <span>{streak}x Streak!</span>
             </div>
           )}
 
           {/* Score Badge */}
-          <div className="flex items-center gap-1.5 bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-700">
-            <Award className="w-4 h-4 text-yellow-400" />
-            <span className="font-fun font-bold text-yellow-400 text-sm md:text-base">
-              {score} pts
+          <div className="flex items-center gap-2 bg-amber-300 text-slate-950 px-3.5 py-1.5 rounded-xl border-2 border-slate-900 shadow-retro-sm">
+            <Award className="w-4 h-4 text-slate-950" />
+            <span className="font-fun font-black text-slate-950 text-sm md:text-base">
+              {score} PTS
             </span>
           </div>
         </div>
       </div>
 
       {/* Energy Meter Progress */}
-      <div className="space-y-1">
+      <div className="space-y-1.5 bg-white p-2.5 rounded-xl border-2 border-slate-900 shadow-retro-sm">
         <div className="flex items-center justify-between text-xs">
-          <span className="flex items-center gap-1 text-emerald-400 font-medium">
-            <Zap className="w-3.5 h-3.5 fill-emerald-400" />
-            <span>Energy Meter: {Math.round(energy)}%</span>
+          <span className="flex items-center gap-1.5 text-emerald-700 font-fun font-black">
+            <Zap className="w-4 h-4 fill-emerald-500 stroke-slate-950" />
+            <span>Clean Energy: {Math.round(energy)}%</span>
           </span>
-          <span className="text-slate-400 text-[11px]">{getPowerStatus()}</span>
+          <span className="text-slate-600 font-bold text-[11px]">{getPowerStatus()}</span>
         </div>
 
-        {/* Bar */}
-        <div className="w-full h-3 bg-slate-900 rounded-full overflow-hidden p-0.5 border border-slate-700">
+        {/* Tactile Progress Bar */}
+        <div className="w-full h-4 bg-slate-100 rounded-full overflow-hidden p-0.5 border-2 border-slate-900 relative">
           <div
-            className="h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-yellow-400 rounded-full transition-all duration-500 shadow-sm"
-            style={{ width: `${Math.min(100, Math.max(5, energy))}%` }}
+            className="h-full bg-gradient-to-r from-emerald-400 via-amber-300 to-yellow-400 rounded-full border border-slate-900 transition-all duration-500"
+            style={{ width: `${Math.min(100, Math.max(6, energy))}%` }}
           />
         </div>
       </div>

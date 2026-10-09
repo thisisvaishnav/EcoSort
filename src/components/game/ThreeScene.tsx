@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { BinType, ItemData } from '../../types/game';
 import { ALL_BINS } from '../../data/bins';
+import { createItemMesh, disposeItemMesh } from '../world/items/createItemMesh';
 
 interface ThreeSceneProps {
   currentItem: ItemData | null;
@@ -252,97 +253,17 @@ export const ThreeScene: React.FC<ThreeSceneProps> = ({
 
     if (itemMeshRef.current) {
       scene.remove(itemMeshRef.current);
+      disposeItemMesh(itemMeshRef.current);
       itemMeshRef.current = null;
     }
 
     if (!currentItem) return;
 
-    const itemGroup = new THREE.Group();
-
-    // Procedural 3D model based on modelType
-    switch (currentItem.modelType) {
-      case 'apple': {
-        const appleGeo = new THREE.SphereGeometry(0.28, 20, 20);
-        const appleMat = new THREE.MeshStandardMaterial({ color: 0xef4444, roughness: 0.3 });
-        const apple = new THREE.Mesh(appleGeo, appleMat);
-        apple.scale.set(1, 0.9, 1);
-        itemGroup.add(apple);
-
-        const stemGeo = new THREE.CylinderGeometry(0.02, 0.02, 0.12);
-        const stemMat = new THREE.MeshStandardMaterial({ color: 0x78350f });
-        const stem = new THREE.Mesh(stemGeo, stemMat);
-        stem.position.y = 0.3;
-        stem.rotation.z = 0.2;
-        itemGroup.add(stem);
-        break;
-      }
-      case 'banana': {
-        const bananaGeo = new THREE.CylinderGeometry(0.08, 0.05, 0.5, 12);
-        const bananaMat = new THREE.MeshStandardMaterial({ color: 0xfacc15, roughness: 0.4 });
-        const banana = new THREE.Mesh(bananaGeo, bananaMat);
-        banana.rotation.z = 0.6;
-        itemGroup.add(banana);
-        break;
-      }
-      case 'battery': {
-        const batGeo = new THREE.CylinderGeometry(0.12, 0.12, 0.4, 20);
-        const batMat = new THREE.MeshStandardMaterial({ color: 0xdc2626, metalness: 0.6, roughness: 0.3 });
-        const bat = new THREE.Mesh(batGeo, batMat);
-        itemGroup.add(bat);
-
-        const tipGeo = new THREE.CylinderGeometry(0.05, 0.05, 0.08);
-        const tipMat = new THREE.MeshStandardMaterial({ color: 0xf8fafc, metalness: 0.9 });
-        const tip = new THREE.Mesh(tipGeo, tipMat);
-        tip.position.y = 0.23;
-        itemGroup.add(tip);
-        break;
-      }
-      case 'soda_can': {
-        const canGeo = new THREE.CylinderGeometry(0.15, 0.15, 0.45, 20);
-        const canMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.8, roughness: 0.2 });
-        const can = new THREE.Mesh(canGeo, canMat);
-        itemGroup.add(can);
-        break;
-      }
-      case 'plastic_bottle': {
-        const bottleGeo = new THREE.CylinderGeometry(0.12, 0.12, 0.45, 16);
-        const bottleMat = new THREE.MeshStandardMaterial({
-          color: 0x38bdf8,
-          transparent: true,
-          opacity: 0.8,
-          roughness: 0.2,
-        });
-        const bottle = new THREE.Mesh(bottleGeo, bottleMat);
-        itemGroup.add(bottle);
-
-        const capGeo = new THREE.CylinderGeometry(0.06, 0.06, 0.08);
-        const capMat = new THREE.MeshStandardMaterial({ color: 0x2563eb });
-        const cap = new THREE.Mesh(capGeo, capMat);
-        cap.position.y = 0.26;
-        itemGroup.add(cap);
-        break;
-      }
-      case 'cardboard': {
-        const boxGeo = new THREE.BoxGeometry(0.35, 0.45, 0.15);
-        const boxMat = new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.8 });
-        const box = new THREE.Mesh(boxGeo, boxMat);
-        itemGroup.add(box);
-        break;
-      }
-      case 'phone': {
-        const phoneGeo = new THREE.BoxGeometry(0.24, 0.45, 0.04);
-        const phoneMat = new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.5 });
-        const phone = new THREE.Mesh(phoneGeo, phoneMat);
-        itemGroup.add(phone);
-        break;
-      }
-      default: {
-        const defGeo = new THREE.DodecahedronGeometry(0.22);
-        const defMat = new THREE.MeshStandardMaterial({ color: currentItem.color || 0x22c55e });
-        const defMesh = new THREE.Mesh(defGeo, defMat);
-        itemGroup.add(defMesh);
-      }
-    }
+    const itemGroup = createItemMesh(currentItem.modelType, {
+      scale: 1.15,
+      castShadow: true,
+      receiveShadow: true,
+    });
 
     itemGroup.position.set(0, 1.2, 2.0);
     scene.add(itemGroup);
@@ -394,28 +315,33 @@ export const ThreeScene: React.FC<ThreeSceneProps> = ({
 
   // Pointer drag gestures for child throw
   const handlePointerDown = (e: React.PointerEvent) => {
-    if (isThrowing || !currentItem) return;
+    if (isThrowing || !currentItem || !mountRef.current) return;
+    const rect = mountRef.current.getBoundingClientRect();
     isDraggingRef.current = true;
-    setDragStart({ x: e.clientX, y: e.clientY });
-    setCurrentDrag({ x: e.clientX, y: e.clientY });
+    setDragStart({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    setCurrentDrag({ x: e.clientX - rect.left, y: e.clientY - rect.top });
   };
 
   const handlePointerMove = (e: React.PointerEvent) => {
-    if (!isDraggingRef.current) return;
-    setCurrentDrag({ x: e.clientX, y: e.clientY });
+    if (!isDraggingRef.current || !mountRef.current) return;
+    const rect = mountRef.current.getBoundingClientRect();
+    setCurrentDrag({ x: e.clientX - rect.left, y: e.clientY - rect.top });
   };
 
   const handlePointerUp = (e: React.PointerEvent) => {
-    if (!isDraggingRef.current || !dragStart || !currentItem) return;
+    if (!isDraggingRef.current || !dragStart || !currentItem || !mountRef.current) return;
     isDraggingRef.current = false;
+    const rect = mountRef.current.getBoundingClientRect();
+    const currentX = e.clientX - rect.left;
+    const currentY = e.clientY - rect.top;
 
-    const deltaY = dragStart.y - e.clientY;
-    const deltaX = e.clientX - dragStart.x;
+    const deltaY = dragStart.y - currentY;
+    const deltaX = currentX - dragStart.x;
     setDragStart(null);
     setCurrentDrag(null);
 
     // If dragged upward (throwing action)
-    if (deltaY > 40) {
+    if (deltaY > 30) {
       // Find closest bin based on horizontal flick
       const numBins = activeBins.length;
       const binIndex = Math.min(
@@ -429,7 +355,7 @@ export const ThreeScene: React.FC<ThreeSceneProps> = ({
 
   return (
     <div
-      className="relative w-full h-[460px] md:h-[540px] rounded-2xl overflow-hidden shadow-2xl border-2 border-slate-700/60 select-none touch-none"
+      className="relative w-full h-[460px] md:h-[540px] rounded-3xl overflow-hidden shadow-retro-xl border-2 border-slate-900 select-none touch-none bg-slate-950"
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
@@ -444,22 +370,22 @@ export const ThreeScene: React.FC<ThreeSceneProps> = ({
               y1={dragStart.y}
               x2={currentDrag.x}
               y2={currentDrag.y}
-              stroke="#22c55e"
-              strokeWidth="4"
-              strokeDasharray="6 6"
+              stroke="#facc15"
+              strokeWidth="5"
+              strokeDasharray="8 8"
             />
-            <circle cx={currentDrag.x} cy={currentDrag.y} r="14" fill="#22c55e" opacity="0.8" />
+            <circle cx={currentDrag.x} cy={currentDrag.y} r="14" fill="#facc15" stroke="#0f172a" strokeWidth="2" opacity="0.9" />
           </svg>
         </div>
       )}
 
       {/* Throw Hint Overlay */}
-      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 pointer-events-none z-10 text-center bg-slate-900/80 backdrop-blur-md px-4 py-1.5 rounded-full border border-slate-700 text-xs text-slate-300">
-        👆 Drag item upward to throw, or tap any bin below!
+      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 pointer-events-none z-10 text-center bg-[#FDFBF7] px-4 py-2 rounded-xl border-2 border-slate-900 shadow-retro-sm text-xs font-fun font-black text-slate-950">
+        👆 Drag item up to throw, or tap any bin!
       </div>
 
       {/* Accessible Direct-Tap Bin Buttons for younger kids & touch devices */}
-      <div className="absolute bottom-3 left-0 right-0 px-4 flex justify-center gap-2 md:gap-4 z-20 flex-wrap">
+      <div className="absolute bottom-3 left-0 right-0 px-4 flex justify-center gap-2 md:gap-3 z-20 flex-wrap">
         {activeBins.map((binType) => {
           const bin = ALL_BINS[binType];
           return (
@@ -467,7 +393,7 @@ export const ThreeScene: React.FC<ThreeSceneProps> = ({
               key={binType}
               disabled={isThrowing}
               onClick={() => animateThrowToBin(binType)}
-              className={`${bin.color} hover:brightness-110 active:scale-95 text-white font-fun font-semibold px-3 py-2 md:px-5 md:py-2.5 rounded-xl shadow-lg border-2 border-white/20 transition-all flex items-center gap-1.5 text-sm md:text-base disabled:opacity-50`}
+              className={`${bin.color} hover:brightness-105 text-white font-fun font-black px-3.5 py-2 md:px-5 md:py-2.5 rounded-xl shadow-retro-sm border-2 border-slate-900 transition-all flex items-center gap-1.5 text-xs md:text-sm disabled:opacity-50 hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none`}
             >
               <span>{bin.label}</span>
             </button>

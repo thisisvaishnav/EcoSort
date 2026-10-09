@@ -2,45 +2,264 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Base fonts ─────────────────────────────────────────────────────────── */
 @layer base {
   body {
-    font-family: 'Inter', system-ui, sans-serif;
+    /* Manrope: approved body font per landing-page-design skill B1 */
+    font-family: 'Manrope', system-ui, sans-serif;
   }
   h1, h2, h3, .font-fun {
     font-family: 'Fredoka', cursive, sans-serif;
   }
 }
 
-/* Custom 3D bounce & pulse animations for game */
+/* ─── Accessibility: skip to content ────────────────────────────────────── */
+.skip-to-content {
+  position: fixed;
+  top: -100%;
+  left: 16px;
+  z-index: 9999;
+  padding: 8px 16px;
+  background: #0f172a;
+  color: #fbbf24;
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 8px;
+  transition: top 0.2s ease;
+}
+.skip-to-content:focus {
+  top: 16px;
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
+}
+
+/* ─── Tactile graph-paper background ─────────────────────────────────────── */
+.bg-grid-paper {
+  background-color: #FDFBF7;
+  background-image:
+    linear-gradient(to right, rgba(15, 23, 42, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* ─── Scroll reveal system (Emil Kowalski / landing-page-design B7) ──────── */
+/*
+  Elements start hidden and slide+blur up into view.
+  Triggered by IntersectionObserver adding .visible via JS.
+  Properties: transform + opacity only (GPU composited).
+  Curve: cubic-bezier(0.23, 1, 0.32, 1) — strong ease-out per Emil's table.
+*/
+.reveal {
+  opacity: 0;
+  transform: translateY(24px) scale(0.98);
+  filter: blur(4px);
+  transition:
+    opacity 800ms cubic-bezier(0.23, 1, 0.32, 1),
+    transform 800ms cubic-bezier(0.23, 1, 0.32, 1),
+    filter 600ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* Stagger delays for card grids (30–80ms per B7) */
+.reveal-delay-1  { transition-delay: 60ms;  }
+.reveal-delay-2  { transition-delay: 120ms; }
+.reveal-delay-3  { transition-delay: 180ms; }
+.reveal-delay-4  { transition-delay: 240ms; }
+.reveal-delay-5  { transition-delay: 300ms; }
+.reveal-delay-6  { transition-delay: 360ms; }
+
+/* ─── Tagline word-by-word reveal (mandatory B11) ────────────────────────── */
+.tagline-word {
+  /* Muted: ~28% of the base text color */
+  color: rgba(15, 23, 42, 0.25);
+  transition: color 550ms cubic-bezier(0.23, 1, 0.32, 1);
+  display: inline-block;
+}
+
+.tagline-word.lit {
+  color: #0f172a;
+}
+
+/* ─── Continuous ticker marquee ─────────────────────────────────────────── */
+@keyframes marquee {
+  0%   { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* ─── Float / glow for game elements ────────────────────────────────────── */
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
+  0%, 100% { transform: translateY(0);    }
+  50%       { transform: translateY(-8px); }
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 25px rgba(34, 197, 94, 0.8);
-  }
+  0%, 100% { box-shadow: 0 0 15px rgba(34, 197, 94, 0.4); }
+  50%       { box-shadow: 0 0 25px rgba(34, 197, 94, 0.8); }
 }
 
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-glow  { animation: pulse-glow 2s ease-in-out infinite; }
 
-.animate-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
-}
-
-/* Glassmorphism panel helper */
+/* ─── Glassmorphism panel ────────────────────────────────────────────────── */
 .glass-panel {
   background: rgba(30, 41, 59, 0.85);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ─── Tactile card/button — Emil strong-out easing + hover gate ─────────── */
+/*
+  Hover gated behind @media (hover: hover) and (pointer: fine)
+  so touch devices don't fire false hover states on tap.
+*/
+.tactile-card {
+  transition:
+    transform 300ms cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 300ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tactile-card:hover {
+    transform: translate(-2px, -2px);
+  }
+}
+
+.tactile-btn {
+  transition:
+    transform 150ms cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 150ms cubic-bezier(0.23, 1, 0.32, 1),
+    background-color 150ms cubic-bezier(0.23, 1, 0.32, 1),
+    color 150ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tactile-btn:hover {
+    transform: translate(-1px, -1px);
+  }
+}
+
+.tactile-btn:active {
+  transform: translate(2px, 2px) !important;
+  box-shadow: 0px 0px 0px #0f172a !important;
+  transition-duration: 80ms !important;
+}
+
+/* ─── Floating island nav pill (B7 fluid dynamics) ───────────────────────── */
+.nav-pill {
+  transition:
+    background-color 300ms cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 300ms cubic-bezier(0.23, 1, 0.32, 1),
+    border-color 300ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* ─── Hamburger → X morph (B7: lines rotate & translate, never disappear) ── */
+.ham-line {
+  display: block;
+  width: 16px;
+  height: 2px;
+  background: #0f172a;
+  border-radius: 2px;
+  transform-origin: center;
+  transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1),
+              opacity 200ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.ham-open .ham-top { transform: translateY(6px) rotate(45deg);  }
+.ham-open .ham-mid { opacity: 0; transform: scaleX(0); }
+.ham-open .ham-bot { transform: translateY(-6px) rotate(-45deg); }
+
+/* ─── Mobile menu overlay (B7 staggered mask reveal) ────────────────────── */
+.mobile-overlay {
+  transition:
+    opacity 350ms cubic-bezier(0.32, 0.72, 0, 1),
+    visibility 350ms;
+}
+
+.mobile-nav-link {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 400ms cubic-bezier(0.23, 1, 0.32, 1),
+    transform 400ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.mobile-menu-open .mobile-nav-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Reduced motion: keep comprehension aids, drop movement ─────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 0;
+    transform: none;
+    filter: none;
+    transition: opacity 250ms ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  .reveal-delay-1,
+  .reveal-delay-2,
+  .reveal-delay-3,
+  .reveal-delay-4,
+  .reveal-delay-5,
+  .reveal-delay-6 {
+    transition-delay: 0ms;
+  }
+
+  .tagline-word {
+    transition: color 250ms ease;
+  }
+
+  .tactile-card {
+    transition: background-color 150ms ease, box-shadow 150ms ease;
+  }
+  .tactile-btn {
+    transition: background-color 150ms ease, color 150ms ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .tactile-card:hover,
+    .tactile-btn:hover {
+      transform: none;
+    }
+  }
+
+  .animate-float,
+  .animate-glow,
+  .animate-marquee {
+    animation: none;
+  }
+
+  .ham-line {
+    transition: opacity 150ms ease;
+  }
+
+  .mobile-nav-link {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .mobile-overlay {
+    transition: opacity 150ms ease, visibility 150ms;
+  }
 }

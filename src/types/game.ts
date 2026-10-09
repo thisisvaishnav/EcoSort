@@ -19,7 +19,27 @@ export interface ItemData {
   unlockLevel: number;
   fact: string;
   icon: string;
-  modelType: 'apple' | 'banana' | 'paper_sheet' | 'plastic_bottle' | 'soda_can' | 'battery' | 'medicine' | 'phone' | 'charger' | 'glass_jar' | 'shirt' | 'cardboard';
+  modelType:
+    | 'apple'
+    | 'banana'
+    | 'banana_peel'
+    | 'food_plate'
+    | 'milk_carton'
+    | 'plastic_bottle'
+    | 'newspaper'
+    | 'paper_sheet'
+    | 'soda_can'
+    | 'battery'
+    | 'light_bulb'
+    | 'medicine'
+    | 'medicine_bottle'
+    | 'magazine'
+    | 'toy_car'
+    | 'phone'
+    | 'charger'
+    | 'glass_jar'
+    | 'shirt'
+    | 'cardboard';
   color: string;
 }
 
