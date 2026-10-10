@@ -14,6 +14,18 @@ export interface LocomotionEngine {
   dispose: () => void;
 }
 
+/**
+ * True when focus is inside a text field (Ask Eco chat, modals, etc.).
+ * Game keys must stand down while the player is typing.
+ */
+export function isTypingTarget(target: EventTarget | null): boolean {
+  return (
+    target instanceof HTMLInputElement ||
+    target instanceof HTMLTextAreaElement ||
+    (target instanceof HTMLElement && target.isContentEditable)
+  );
+}
+
 export function createLocomotionEngine(
   player: PlayerCharacter,
   obstacles: WorldObstacle[],
@@ -62,6 +74,7 @@ export function createLocomotionEngine(
 
   // 2. Keyboard Event Listeners
   const onKeyDown = (e: KeyboardEvent) => {
+    if (isTypingTarget(e.target)) return; // typing in a field — don't walk
     const key = e.key.toLowerCase();
     if (['w', 'a', 's', 'd', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright'].includes(key)) {
       keysDown.add(key);
@@ -120,8 +133,17 @@ export function createLocomotionEngine(
   let ringAnimTime = 0;
 
   const update = (delta: number, cameraAzimuthAngle: number) => {
+    // Drop any held key the moment focus lands in a text field, so Kai stops
+    // mid-stride instead of walking while the player types.
+    if (isTypingTarget(document.activeElement)) {
+      keysDown.clear();
+      clickDestination = null;
+      destinationRing.visible = false;
+    }
+
     let moveDirX = 0;
     let moveDirZ = 0;
+    let isBackwardInput = false;
 
     // Check keyboard input
     const isW = keysDown.has('w') || keysDown.has('arrowup');
@@ -133,16 +155,18 @@ export function createLocomotionEngine(
     const inputZ = (isS ? 1 : 0) - (isW ? 1 : 0); // -1 is forward (North)
 
     if (inputX !== 0 || inputZ !== 0) {
-      // Camera-relative direction vector
+      // Camera-relative direction: W = camera forward, D = camera right
+      // (matches camera offset (sin(yaw), cos(yaw)) so W always moves away from camera)
       const sin = Math.sin(cameraAzimuthAngle);
       const cos = Math.cos(cameraAzimuthAngle);
-      moveDirX = inputX * cos - inputZ * sin;
-      moveDirZ = inputX * sin + inputZ * cos;
+      moveDirX = inputX * cos + inputZ * sin;
+      moveDirZ = -inputX * sin + inputZ * cos;
 
       const len = Math.hypot(moveDirX, moveDirZ);
       moveDirX /= len;
       moveDirZ /= len;
       isMoving = true;
+      isBackwardInput = inputZ > 0; // S held: walk backward without turning around
     } else if (clickDestination) {
       // Move toward click destination
       const dx = clickDestination.x - currentPos.x;
@@ -175,9 +199,13 @@ export function createLocomotionEngine(
 
       player.group.position.copy(currentPos);
 
-      // Facing angle (Three.js 0 is +Z, so atan2(moveDirX, moveDirZ))
-      const targetAngle = Math.atan2(moveDirX, moveDirZ);
-      player.setFacingAngle(targetAngle, delta);
+      // Facing angle (Three.js 0 is +Z, so atan2(moveDirX, moveDirZ)).
+      // Backward input keeps the current facing so Kai walks backward
+      // instead of spinning to face the camera.
+      if (!isBackwardInput) {
+        const targetAngle = Math.atan2(moveDirX, moveDirZ);
+        player.setFacingAngle(targetAngle, delta);
+      }
     }
 
     // Update avatar procedural animation

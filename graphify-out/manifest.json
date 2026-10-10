@@ -24,8 +24,8 @@
     "semantic_hash": "675d7bfce430740bc3292172c9189429"
   },
   "package.json": {
-    "mtime": 1791493282.8842282,
-    "seen": 1791493656.84906,
+    "mtime": 1791647770.2687604,
+    "seen": 1791647842.426974,
     "ast_hash": "5c89e7cc8e8ee63565f501ce0ea53ec9",
     "semantic_hash": "5c89e7cc8e8ee63565f501ce0ea53ec9"
   },
@@ -402,9 +402,9 @@
     "semantic_hash": "328de20931b3b3abb436e705532dec92"
   },
   "src/components/world/WorldCanvas.tsx": {
-    "mtime": 1791625835.7224097,
-    "seen": 1791626423.098641,
-    "ast_hash": "7118950eeff5811feabbdbdf9e40a62a",
+    "mtime": 1791649836.456632,
+    "seen": 1791651557.929195,
+    "ast_hash": "48aa81b3d6d9f57e720dde0b8212f7da",
     "semantic_hash": ""
   },
   "src/components/world/levelStations.ts": {
@@ -414,9 +414,9 @@
     "semantic_hash": ""
   },
   "src/components/world/locomotion.ts": {
-    "mtime": 1791622958.267563,
-    "seen": 1791623056.042284,
-    "ast_hash": "4f5005b2bebe9df863ffad58dc25ede3",
+    "mtime": 1791649836.4569025,
+    "seen": 1791651557.929219,
+    "ast_hash": "b3d59f37a41e41165f524b0e5f508377",
     "semantic_hash": ""
   },
   "src/components/world/playerCharacter.ts": {
@@ -432,9 +432,9 @@
     "semantic_hash": ""
   },
   "src/components/world/thirdPersonCamera.ts": {
-    "mtime": 1791494602.9650686,
-    "seen": 1791494759.224189,
-    "ast_hash": "fe24fad761cf6adf09b8e7d8571aef85",
+    "mtime": 1791649836.4573772,
+    "seen": 1791651557.9292219,
+    "ast_hash": "a3af36751515a0dd8bfc62407f0d2dba",
     "semantic_hash": ""
   },
   "src/components/world/types.ts": {
@@ -444,9 +444,9 @@
     "semantic_hash": ""
   },
   "tests/locomotion.test.ts": {
-    "mtime": 1791494437.989873,
-    "seen": 1791494759.2242,
-    "ast_hash": "11b9049db0271a6457d6257a3daccca6",
+    "mtime": 1791649848.1635168,
+    "seen": 1791651557.929237,
+    "ast_hash": "85cb9ca02f6e73b4941ca81afbdda827",
     "semantic_hash": ""
   },
   ".agents/skills/frontend-design/LICENSE.txt": {
@@ -1116,9 +1116,9 @@
     "semantic_hash": ""
   },
   "src/components/world/WorldPage.tsx": {
-    "mtime": 1791622514.1186128,
-    "seen": 1791623056.0422652,
-    "ast_hash": "779465363d4f3124d2d22dc0b60dec38",
+    "mtime": 1791647351.1134853,
+    "seen": 1791647842.4270358,
+    "ast_hash": "4dbe2d9f117b393acfa16a564da1410b",
     "semantic_hash": ""
   },
   "tests/worldPage.test.ts": {
@@ -1188,9 +1188,9 @@
     "semantic_hash": ""
   },
   "src/components/game/MissionResultsModal.tsx": {
-    "mtime": 1791624156.3624601,
-    "seen": 1791626423.098635,
-    "ast_hash": "7f2ac467990d1f208a21b6ef67d75486",
+    "mtime": 1791649836.4563391,
+    "seen": 1791651557.929188,
+    "ast_hash": "81908039aa23f4ecfe80add31bea9674",
     "semantic_hash": ""
   },
   "src/components/world/items/models/BrokenPen3D.ts": {
@@ -1218,9 +1218,9 @@
     "semantic_hash": ""
   },
   "src/components/world/societyScene.ts": {
-    "mtime": 1791625070.4199488,
-    "seen": 1791626423.098667,
-    "ast_hash": "f62e7ee55cf989079599393e75e728ad",
+    "mtime": 1791649860.4043038,
+    "seen": 1791651557.9292212,
+    "ast_hash": "b737c94ae9881fe5b1089d5711156e40",
     "semantic_hash": ""
   },
   "src/hooks/useCountdownTimer.ts": {

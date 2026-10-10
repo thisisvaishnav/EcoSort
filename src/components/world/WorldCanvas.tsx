@@ -290,8 +290,8 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
           const targetLook = kitchen.sortCameraLookAt;
           cameraSystem.camera.lookAt(targetLook.x, targetLook.y, targetLook.z);
         } else {
-          // 'FOLLOW' mode: 3rd person follow Kai
-          cameraSystem.update(avatarPos, delta);
+          // 'FOLLOW' mode: 3rd person follow Kai (camera locked behind his back)
+          cameraSystem.update(avatarPos, delta, player.currentAngle);
         }
 
         // Proximity detection for friendly Kai interactions in the kitchen
@@ -326,7 +326,7 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
 
         const avatarPos = locomotion.getPosition();
         locomotion.update(delta, cameraSystem.getAzimuthAngle());
-        cameraSystem.update(avatarPos, delta);
+        cameraSystem.update(avatarPos, delta, player.currentAngle);
 
         // Update litter scatter
         const litSystem = engineRef.current?.litter;
@@ -398,7 +398,7 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
 
         if (worldMode === 'EXPLORE') {
           locomotion.update(delta, cameraSystem.getAzimuthAngle());
-          cameraSystem.update(avatarPos, delta);
+          cameraSystem.update(avatarPos, delta, player.currentAngle);
         } else {
           // STATION_SORT mode in town: focus camera on station table
           const tablePos = currentStation.tablePosition;

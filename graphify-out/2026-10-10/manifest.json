@@ -24,8 +24,8 @@
     "semantic_hash": "675d7bfce430740bc3292172c9189429"
   },
   "package.json": {
-    "mtime": 1791493282.8842282,
-    "seen": 1791493656.84906,
+    "mtime": 1791647770.2687604,
+    "seen": 1791647842.426974,
     "ast_hash": "5c89e7cc8e8ee63565f501ce0ea53ec9",
     "semantic_hash": "5c89e7cc8e8ee63565f501ce0ea53ec9"
   },
@@ -114,21 +114,21 @@
     "semantic_hash": "d1022014364afcd4a24fa595a633bf08"
   },
   "src/data/bins.ts": {
-    "mtime": 1791490718.6355746,
-    "seen": 1791491200.126899,
-    "ast_hash": "808d2846d20300d84163a5857a18787d",
-    "semantic_hash": "808d2846d20300d84163a5857a18787d"
+    "mtime": 1791623603.0647385,
+    "seen": 1791626423.09867,
+    "ast_hash": "82370987d42eba97f197f259e0cf3309",
+    "semantic_hash": ""
   },
   "src/data/items.ts": {
-    "mtime": 1791609160.274735,
-    "seen": 1791609262.304818,
-    "ast_hash": "0b22b5021dd44db18493587af6aa4702",
+    "mtime": 1791623651.0500245,
+    "seen": 1791626423.09867,
+    "ast_hash": "550aab98bf6441b27c871161482c59b0",
     "semantic_hash": ""
   },
   "src/data/levels.ts": {
-    "mtime": 1791609172.1586912,
-    "seen": 1791609262.304818,
-    "ast_hash": "63a02c31467a954a89aac2d1c0a356fb",
+    "mtime": 1791623670.5860164,
+    "seen": 1791626423.0986712,
+    "ast_hash": "e2cfb99a956cfa3a0117b50b8fec5963",
     "semantic_hash": ""
   },
   "src/data/quizzes.ts": {
@@ -150,10 +150,10 @@
     "semantic_hash": "c87846b65906e83bcd914c62900e6005"
   },
   "src/services/audio.ts": {
-    "mtime": 1791490776.795029,
-    "seen": 1791491200.126903,
-    "ast_hash": "86bfa2585f8c391ae3407613a11a6199",
-    "semantic_hash": "86bfa2585f8c391ae3407613a11a6199"
+    "mtime": 1791623876.0609972,
+    "seen": 1791626423.098675,
+    "ast_hash": "3eade5541ff1ed639b02693738cf4724",
+    "semantic_hash": ""
   },
   "src/services/spawner.ts": {
     "mtime": 1791490759.3879998,
@@ -162,9 +162,9 @@
     "semantic_hash": "44a62fb9405c80a20541a5ffd43c4753"
   },
   "src/types/game.ts": {
-    "mtime": 1791609211.4599204,
-    "seen": 1791609262.304823,
-    "ast_hash": "155426e1938e86c13c1b8e7a9747cb74",
+    "mtime": 1791623585.8487773,
+    "seen": 1791626423.098677,
+    "ast_hash": "c18002f20666df6188bbed6822e5a502",
     "semantic_hash": ""
   },
   "src/vite-env.d.ts": {
@@ -402,9 +402,9 @@
     "semantic_hash": "328de20931b3b3abb436e705532dec92"
   },
   "src/components/world/WorldCanvas.tsx": {
-    "mtime": 1791622739.7499983,
-    "seen": 1791623056.042263,
-    "ast_hash": "8bb3c02a0af6fab09b2e8a0ac14738fb",
+    "mtime": 1791647317.648655,
+    "seen": 1791647842.4270341,
+    "ast_hash": "aca5d51f9972b6bd703b8973f3633103",
     "semantic_hash": ""
   },
   "src/components/world/levelStations.ts": {
@@ -660,9 +660,9 @@
     "semantic_hash": ""
   },
   "src/components/world/homeKitchenScene.ts": {
-    "mtime": 1791611351.5726564,
-    "seen": 1791623056.0422652,
-    "ast_hash": "b926aec41feffc108be4000ba4feda95",
+    "mtime": 1791625039.0352788,
+    "seen": 1791626423.0986419,
+    "ast_hash": "7ead735026f793736480150ddac55405",
     "semantic_hash": ""
   },
   "src/components/world/items/MapItemInstance.ts": {
@@ -678,9 +678,9 @@
     "semantic_hash": ""
   },
   "src/components/world/items/createItemMesh.ts": {
-    "mtime": 1791623018.8724937,
-    "seen": 1791623056.0422678,
-    "ast_hash": "eacb3d2423c9eb6b389adc25c421e10f",
+    "mtime": 1791623848.5786037,
+    "seen": 1791626423.098645,
+    "ast_hash": "df707d30bd90adc8b9ae478224e9fada",
     "semantic_hash": ""
   },
   "src/components/world/items/defaultMapPlacements.ts": {
@@ -762,9 +762,9 @@
     "semantic_hash": ""
   },
   "src/components/world/items/types.ts": {
-    "mtime": 1791609044.883629,
-    "seen": 1791609262.304812,
-    "ast_hash": "b105f2cc89d397ec66a10a3a6c65e956",
+    "mtime": 1791623838.384823,
+    "seen": 1791626423.0986629,
+    "ast_hash": "a07d4789ba9e9892fba88568ae422d5e",
     "semantic_hash": ""
   },
   "tests/map-items.test.ts": {
@@ -1116,9 +1116,9 @@
     "semantic_hash": ""
   },
   "src/components/world/WorldPage.tsx": {
-    "mtime": 1791622514.1186128,
-    "seen": 1791623056.0422652,
-    "ast_hash": "779465363d4f3124d2d22dc0b60dec38",
+    "mtime": 1791647351.1134853,
+    "seen": 1791647842.4270358,
+    "ast_hash": "4dbe2d9f117b393acfa16a564da1410b",
     "semantic_hash": ""
   },
   "tests/worldPage.test.ts": {
@@ -1167,6 +1167,78 @@
     "mtime": 1791608939.1737413,
     "seen": 1791609262.30481,
     "ast_hash": "fd315434875d888dfe9711bc29edd776",
+    "semantic_hash": ""
+  },
+  "src/components/game/CleanlinessMeter.tsx": {
+    "mtime": 1791624086.6797383,
+    "seen": 1791626423.098627,
+    "ast_hash": "e7e6d9d81061c1ea3f5435e6328ba38f",
+    "semantic_hash": ""
+  },
+  "src/components/game/CountdownTimer.tsx": {
+    "mtime": 1791624070.0290632,
+    "seen": 1791626423.098628,
+    "ast_hash": "a9913bb46b30313042d1d4568c6dc1a1",
+    "semantic_hash": ""
+  },
+  "src/components/game/EcoLensOverlay.tsx": {
+    "mtime": 1791624119.8947775,
+    "seen": 1791626423.0986292,
+    "ast_hash": "dc7e66c83b8a4011d05713434b45258f",
+    "semantic_hash": ""
+  },
+  "src/components/game/MissionResultsModal.tsx": {
+    "mtime": 1791647833.0447242,
+    "seen": 1791647842.427017,
+    "ast_hash": "4e5d658bbf6061480c76e8b131008809",
+    "semantic_hash": ""
+  },
+  "src/components/world/items/models/BrokenPen3D.ts": {
+    "mtime": 1791623825.7576542,
+    "seen": 1791626423.0986502,
+    "ast_hash": "2c7e19ec129e6a553ce192dc85965eff",
+    "semantic_hash": ""
+  },
+  "src/components/world/items/models/Tissue3D.ts": {
+    "mtime": 1791623806.8691177,
+    "seen": 1791626423.098659,
+    "ast_hash": "efa23f95f476fb57fe21fb4038c65022",
+    "semantic_hash": ""
+  },
+  "src/components/world/items/models/Wrapper3D.ts": {
+    "mtime": 1791623787.159637,
+    "seen": 1791626423.0986612,
+    "ast_hash": "eb10e8a77bcfb130daf99504e5b27218",
+    "semantic_hash": ""
+  },
+  "src/components/world/litterScatter.ts": {
+    "mtime": 1791625078.403428,
+    "seen": 1791626423.098664,
+    "ast_hash": "0e4d5c91dff53a564060492b858b4e66",
+    "semantic_hash": ""
+  },
+  "src/components/world/societyScene.ts": {
+    "mtime": 1791646120.4032197,
+    "seen": 1791647842.427111,
+    "ast_hash": "0b0af169ab197b2b25e5abad4c05aa41",
+    "semantic_hash": ""
+  },
+  "src/hooks/useCountdownTimer.ts": {
+    "mtime": 1791623750.9889133,
+    "seen": 1791626423.0986722,
+    "ast_hash": "cbf29578b6c55442e67745d39c40e499",
+    "semantic_hash": ""
+  },
+  "src/systems/ecoLens.ts": {
+    "mtime": 1791623768.0358438,
+    "seen": 1791626423.098676,
+    "ast_hash": "4694ff723074f25d9350db7a70b075c9",
+    "semantic_hash": ""
+  },
+  "LEVEL1_WASTE_DETECTIVE_PLAN.md": {
+    "mtime": 1791623231.2945108,
+    "seen": 1791626423.098711,
+    "ast_hash": "b2fb76706bb88d59be4641c570353f79",
     "semantic_hash": ""
   }
 }
