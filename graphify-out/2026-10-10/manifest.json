@@ -402,9 +402,9 @@
     "semantic_hash": "328de20931b3b3abb436e705532dec92"
   },
   "src/components/world/WorldCanvas.tsx": {
-    "mtime": 1791609614.6049774,
-    "seen": 1791609940.074825,
-    "ast_hash": "7afe71d607e3347c039edf9fb68be666",
+    "mtime": 1791608849.8320184,
+    "seen": 1791609262.3047931,
+    "ast_hash": "e84fabe4d56ffcb3d6e835babd224076",
     "semantic_hash": ""
   },
   "src/components/world/levelStations.ts": {
@@ -660,9 +660,9 @@
     "semantic_hash": ""
   },
   "src/components/world/homeKitchenScene.ts": {
-    "mtime": 1791609452.1379335,
-    "seen": 1791609940.0748281,
-    "ast_hash": "10954f72d37a2f9808cdde36aaead6f1",
+    "mtime": 1791608770.4320195,
+    "seen": 1791609262.3047948,
+    "ast_hash": "59bf6a6e95038988394b99fe2fbccb30",
     "semantic_hash": ""
   },
   "src/components/world/items/MapItemInstance.ts": {
@@ -930,9 +930,9 @@
     "semantic_hash": ""
   },
   "tests/homeKitchen.test.ts": {
-    "mtime": 1791609400.1190686,
-    "seen": 1791609940.074859,
-    "ast_hash": "5999fdd740eee191caedf35721303e04",
+    "mtime": 1791497977.1704288,
+    "seen": 1791498104.102837,
+    "ast_hash": "3f7b4a155bc09bf7b852943fe59203e6",
     "semantic_hash": ""
   },
   "kai_back.png": {
@@ -1116,9 +1116,9 @@
     "semantic_hash": ""
   },
   "src/components/world/WorldPage.tsx": {
-    "mtime": 1791609594.130243,
-    "seen": 1791609940.074826,
-    "ast_hash": "aa78417b2cf6f08400beefc28762d048",
+    "mtime": 1791542023.352353,
+    "seen": 1791542107.503511,
+    "ast_hash": "e16a8385b5e333b77031e557bde0600f",
     "semantic_hash": ""
   },
   "tests/worldPage.test.ts": {
@@ -1167,12 +1167,6 @@
     "mtime": 1791608939.1737413,
     "seen": 1791609262.30481,
     "ast_hash": "fd315434875d888dfe9711bc29edd776",
-    "semantic_hash": ""
-  },
-  "src/components/world/ecoMascot.ts": {
-    "mtime": 1791609304.420305,
-    "seen": 1791609940.074827,
-    "ast_hash": "7dfad0d82ae86b596f9497d2e330c0db",
     "semantic_hash": ""
   }
 }

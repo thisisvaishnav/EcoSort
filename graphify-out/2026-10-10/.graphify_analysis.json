@@ -1,0 +1,493 @@
+{
+  "communities": {
+    "0": [
+      "ref_lucide_react",
+      "ref_react",
+      "src_components_game_avatarselectmodal_avatarselectmodal",
+      "src_components_game_ecopediamodal",
+      "src_components_game_ecopediamodal_ecopediamodal",
+      "src_components_game_ecopediamodal_ecopediamodalprops",
+      "src_components_game_ecosortgame",
+      "src_components_game_ecosortgame_ecosortgame",
+      "src_components_game_ecosortgame_ecosortgameprops",
+      "src_components_game_energymeterhud",
+      "src_components_game_energymeterhud_energymeterhud",
+      "src_components_game_energymeterhud_energymeterhudprops",
+      "src_components_game_levelendmodal",
+      "src_components_game_levelendmodal_levelendmodal",
+      "src_components_game_levelselectmodal",
+      "src_components_game_levelselectmodal_levelselectmodal",
+      "src_components_game_levelselectmodal_levelselectmodalprops",
+      "src_components_game_mascotdialogue",
+      "src_components_game_mascotdialogue_mascotdialogue",
+      "src_components_game_mascotdialogue_mascotdialogueprops",
+      "src_components_game_quizmodal",
+      "src_components_game_quizmodal_quizmodal",
+      "src_components_game_threescene_threescene",
+      "src_components_landingpage",
+      "src_components_landingpage_demoitem",
+      "src_components_landingpage_hero_demo_items",
+      "src_components_landingpage_landingpageprops",
+      "src_data_bins",
+      "src_data_bins_all_bins",
+      "src_data_levels",
+      "src_data_levels_game_levels",
+      "src_services_audio",
+      "src_services_audio_audio"
+    ],
+    "1": [
+      "backend_handlers_ask_eco",
+      "backend_handlers_ask_eco_bedrock",
+      "backend_handlers_ask_eco_bedrockruntimeclient_invokemodelcommand",
+      "backend_handlers_ask_eco_corsheaders",
+      "backend_handlers_ask_eco_handler",
+      "backend_handlers_progress",
+      "backend_handlers_progress_client",
+      "backend_handlers_progress_corsheaders",
+      "backend_handlers_progress_ddbdocclient",
+      "backend_handlers_progress_dynamodbclient",
+      "backend_handlers_progress_dynamodbdocumentclient_putcommand_querycommand",
+      "backend_handlers_progress_getprogress",
+      "backend_handlers_progress_saveprogress",
+      "backend_handlers_report",
+      "backend_handlers_report_client",
+      "backend_handlers_report_corsheaders",
+      "backend_handlers_report_ddbdocclient",
+      "backend_handlers_report_dynamodbclient",
+      "backend_handlers_report_dynamodbdocumentclient_scancommand",
+      "backend_handlers_report_generatereport",
+      "backend_package",
+      "backend_package_dependencies",
+      "backend_package_dependencies_aws_sdk_client_bedrock_runtime",
+      "backend_package_dependencies_aws_sdk_client_dynamodb",
+      "backend_package_dependencies_aws_sdk_lib_dynamodb",
+      "backend_package_description",
+      "backend_package_main",
+      "backend_package_name",
+      "backend_package_version",
+      "ref_aws_sdk_client_bedrock_runtime",
+      "ref_aws_sdk_client_dynamodb",
+      "ref_aws_sdk_lib_dynamodb"
+    ],
+    "2": [
+      "package",
+      "package_dependencies",
+      "package_dependencies_cannon_es",
+      "package_dependencies_canvas_confetti",
+      "package_dependencies_lucide_react",
+      "package_dependencies_react",
+      "package_dependencies_react_dom",
+      "package_dependencies_three",
+      "package_name",
+      "package_private",
+      "package_type",
+      "package_version",
+      "ref_autoprefixer",
+      "ref_cannon_es",
+      "ref_canvas_confetti",
+      "ref_jsdom",
+      "ref_postcss",
+      "ref_tailwindcss",
+      "ref_three",
+      "ref_types_canvas_confetti",
+      "ref_types_react",
+      "ref_types_react_dom",
+      "ref_types_three",
+      "ref_typescript",
+      "ref_vite",
+      "ref_vitejs_plugin_react",
+      "ref_vitest",
+      "vite_config",
+      "vitest_config"
+    ],
+    "3": [
+      "src_components_game_levelendmodal_levelendmodalprops",
+      "src_components_game_quizmodal_quizmodalprops",
+      "src_components_game_threescene",
+      "src_components_game_threescene_threesceneprops",
+      "src_data_items",
+      "src_data_items_game_items",
+      "src_data_quizzes",
+      "src_data_quizzes_getitem",
+      "src_data_quizzes_level_quizzes",
+      "src_services_spawner",
+      "src_services_spawner_adaptivespawner",
+      "src_services_spawner_adaptivespawner_constructor",
+      "src_services_spawner_adaptivespawner_getnextitem",
+      "src_services_spawner_adaptivespawner_pickweighted",
+      "src_services_spawner_adaptivespawner_recordattempt",
+      "src_types_game",
+      "src_types_game_bininfo",
+      "src_types_game_bintype",
+      "src_types_game_itemdata",
+      "src_types_game_levelconfig",
+      "src_types_game_quizquestion",
+      "tests_spawner_test",
+      "tests_ste_compliance_test"
+    ],
+    "4": [
+      "tsconfig",
+      "tsconfig_compileroptions",
+      "tsconfig_compileroptions_allowimportingtsextensions",
+      "tsconfig_compileroptions_isolatedmodules",
+      "tsconfig_compileroptions_jsx",
+      "tsconfig_compileroptions_lib",
+      "tsconfig_compileroptions_module",
+      "tsconfig_compileroptions_moduleresolution",
+      "tsconfig_compileroptions_noemit",
+      "tsconfig_compileroptions_nofallthroughcasesinswitch",
+      "tsconfig_compileroptions_nounusedlocals",
+      "tsconfig_compileroptions_nounusedparameters",
+      "tsconfig_compileroptions_resolvejsonmodule",
+      "tsconfig_compileroptions_skiplibcheck",
+      "tsconfig_compileroptions_strict",
+      "tsconfig_compileroptions_target",
+      "tsconfig_compileroptions_usedefineforclassfields",
+      "tsconfig_include"
+    ],
+    "5": [
+      "src_services_audio_audioservice",
+      "src_services_audio_audioservice_constructor",
+      "src_services_audio_audioservice_initcontext",
+      "src_services_audio_audioservice_isslowmode",
+      "src_services_audio_audioservice_issoundenabled",
+      "src_services_audio_audioservice_isvoiceenabled",
+      "src_services_audio_audioservice_playcelebration",
+      "src_services_audio_audioservice_playcorrect",
+      "src_services_audio_audioservice_playincorrect",
+      "src_services_audio_audioservice_playpickup",
+      "src_services_audio_audioservice_playthrow",
+      "src_services_audio_audioservice_setslowmode",
+      "src_services_audio_audioservice_setsoundenabled",
+      "src_services_audio_audioservice_setvoiceenabled",
+      "src_services_audio_audioservice_speak"
+    ],
+    "6": [
+      "package_devdependencies",
+      "package_devdependencies_autoprefixer",
+      "package_devdependencies_jsdom",
+      "package_devdependencies_postcss",
+      "package_devdependencies_tailwindcss",
+      "package_devdependencies_types_canvas_confetti",
+      "package_devdependencies_types_react",
+      "package_devdependencies_types_react_dom",
+      "package_devdependencies_types_three",
+      "package_devdependencies_typescript",
+      "package_devdependencies_vite",
+      "package_devdependencies_vitejs_plugin_react",
+      "package_devdependencies_vitest"
+    ],
+    "7": [
+      "agents_md",
+      "agents_skills_ai_regression_testing",
+      "agents_skills_architecture",
+      "agents_skills_bento",
+      "agents_skills_click_path_audit",
+      "agents_skills_fiction",
+      "agents_skills_frontend_design",
+      "agents_skills_lingo",
+      "agents_skills_tdd_workflow",
+      "agents_skills_verification_loop",
+      "ecc_skills"
+    ],
+    "8": [
+      "ref_react_dom",
+      "src_app",
+      "src_app_app",
+      "src_components_landingpage_landingpage",
+      "src_components_navbar",
+      "src_components_navbar_navbar",
+      "src_components_navbar_navbarprops",
+      "src_components_teacher_teacherdashboard_teacherdashboard",
+      "src_index",
+      "src_main"
+    ],
+    "9": [
+      "src_components_game_avatarselectmodal",
+      "src_components_game_avatarselectmodal_avatars",
+      "src_components_game_avatarselectmodal_avatarselectmodalprops",
+      "src_components_teacher_teacherdashboard",
+      "src_services_api",
+      "src_services_api_apiservice",
+      "src_services_api_saveprogresspayload",
+      "src_types_game_playerprofile",
+      "src_types_game_teacherreportstats",
+      "tests_api_test"
+    ],
+    "10": [
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_dev",
+      "package_scripts_graphify",
+      "package_scripts_graphify_hook",
+      "package_scripts_graphify_viz",
+      "package_scripts_preview",
+      "package_scripts_test",
+      "package_scripts_test_watch"
+    ],
+    "11": [
+      "tsconfig_node",
+      "tsconfig_node_compileroptions",
+      "tsconfig_node_compileroptions_allowsyntheticdefaultimports",
+      "tsconfig_node_compileroptions_composite",
+      "tsconfig_node_compileroptions_module",
+      "tsconfig_node_compileroptions_moduleresolution",
+      "tsconfig_node_compileroptions_skiplibcheck",
+      "tsconfig_node_include"
+    ],
+    "12": [
+      "agents_rules_ste_md",
+      "plan_md",
+      "template_yaml"
+    ],
+    "13": [
+      "agents_skills_architecture_decision_records_skill",
+      "agents_skills_design_taste_frontend_skill"
+    ],
+    "14": [
+      "agents_skills_clean_design",
+      "agents_skills_clean_skill"
+    ],
+    "15": [
+      "agents_skills_ecc_guide_skill",
+      "agents_skills_ecc_recipes_skill"
+    ],
+    "16": [
+      "amplify_yml",
+      "aws_amplify_hosting"
+    ],
+    "17": [
+      "agents_skills_bento_design"
+    ],
+    "18": [
+      "agents_skills_code_review_skill"
+    ],
+    "19": [
+      "agents_skills_debug_skill"
+    ],
+    "20": [
+      "agents_skills_fiction_design"
+    ],
+    "21": [
+      "agents_skills_lingo_design"
+    ],
+    "22": [
+      "agents_skills_system_design_skill"
+    ],
+    "23": [
+      "agents_skills_testing_strategy_skill"
+    ],
+    "24": [
+      "aws_bedrock"
+    ],
+    "25": [
+      "aws_dynamodb_progresstable"
+    ],
+    "26": [
+      "aws_dynamodb_reportstable"
+    ],
+    "27": [
+      "claude_md"
+    ],
+    "28": [
+      "ecosort_heroes"
+    ],
+    "29": [
+      "index_html"
+    ],
+    "30": [
+      "postcss_config"
+    ],
+    "31": [
+      "readme_md"
+    ],
+    "32": [
+      "src_vite_env_d"
+    ],
+    "33": [
+      "tailwind_config"
+    ]
+  },
+  "cohesion": {
+    "0": 0.1590909090909091,
+    "1": 0.06653225806451613,
+    "2": 0.07389162561576355,
+    "3": 0.18181818181818182,
+    "4": 0.1111111111111111,
+    "5": 0.18095238095238095,
+    "6": 0.15384615384615385,
+    "7": 0.18181818181818182,
+    "8": 0.3111111111111111,
+    "9": 0.3111111111111111,
+    "10": 0.2222222222222222,
+    "11": 0.25,
+    "12": 0.6666666666666666,
+    "13": 1.0,
+    "14": 1.0,
+    "15": 1.0,
+    "16": 1.0,
+    "17": 1.0,
+    "18": 1.0,
+    "19": 1.0,
+    "20": 1.0,
+    "21": 1.0,
+    "22": 1.0,
+    "23": 1.0,
+    "24": 1.0,
+    "25": 1.0,
+    "26": 1.0,
+    "27": 1.0,
+    "28": 1.0,
+    "29": 1.0,
+    "30": 1.0,
+    "31": 1.0,
+    "32": 1.0,
+    "33": 1.0
+  },
+  "gods": [
+    {
+      "id": "tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 16
+    },
+    {
+      "id": "src_services_audio_audioservice",
+      "label": "AudioService",
+      "degree": 15
+    },
+    {
+      "id": "ref_react",
+      "label": "react",
+      "degree": 15
+    },
+    {
+      "id": "src_components_game_ecosortgame_ecosortgame",
+      "label": "EcoSortGame()",
+      "degree": 14
+    },
+    {
+      "id": "ref_lucide_react",
+      "label": "lucide-react",
+      "degree": 12
+    },
+    {
+      "id": "src_types_game_itemdata",
+      "label": "ItemData",
+      "degree": 11
+    },
+    {
+      "id": "src_services_spawner_adaptivespawner",
+      "label": "AdaptiveSpawner",
+      "degree": 10
+    },
+    {
+      "id": "src_types_game_bintype",
+      "label": "BinType",
+      "degree": 9
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 9
+    },
+    {
+      "id": "src_data_bins_all_bins",
+      "label": "ALL_BINS",
+      "degree": 8
+    }
+  ],
+  "surprises": [
+    {
+      "source": "ECC Skills Integration",
+      "target": "Architecture Skill",
+      "source_files": [
+        "AGENTS.md",
+        ".agents/skills/architecture/SKILL.md"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "connects across different repos/directories; peripheral node `Architecture Skill` unexpectedly reaches hub `ECC Skills Integration`"
+    },
+    {
+      "source": "ECC Skills Integration",
+      "target": "Click-Path Audit Skill",
+      "source_files": [
+        "AGENTS.md",
+        ".agents/skills/click-path-audit/SKILL.md"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "connects across different repos/directories; peripheral node `Click-Path Audit Skill` unexpectedly reaches hub `ECC Skills Integration`"
+    },
+    {
+      "source": "ECC Skills Integration",
+      "target": "TDD Workflow Skill",
+      "source_files": [
+        "AGENTS.md",
+        ".agents/skills/tdd-workflow/SKILL.md"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "connects across different repos/directories; peripheral node `TDD Workflow Skill` unexpectedly reaches hub `ECC Skills Integration`"
+    },
+    {
+      "source": "ECC Skills Integration",
+      "target": "Verification Loop Skill",
+      "source_files": [
+        "AGENTS.md",
+        ".agents/skills/verification-loop/SKILL.md"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "connects across different repos/directories; peripheral node `Verification Loop Skill` unexpectedly reaches hub `ECC Skills Integration`"
+    },
+    {
+      "source": "EcoSort Heroes Full Plan",
+      "target": "ASD-STE100 Rules",
+      "source_files": [
+        "PLAN.md",
+        ".agents/rules/ste.md"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "connects across different repos/directories"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `react` connect `EcoSortGame.tsx` to `App.tsx`, `TeacherDashboard.tsx`, `package.json`, `game.ts`?",
+      "why": "High betweenness centrality (0.081) - this node is a cross-community bridge."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `EcopediaModalProps`, `EcoSortGameProps`, `EnergyMeterHUDProps` to the rest of the system?",
+      "why": "116 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `progress.js` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.06653225806451613 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `lucide-react` connect `EcoSortGame.tsx` to `App.tsx`, `TeacherDashboard.tsx`, `package.json`?",
+      "why": "High betweenness centrality (0.063) - this node is a cross-community bridge."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `package.json` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.07389162561576355 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `AudioService` connect `AudioService` to `EcoSortGame.tsx`?",
+      "why": "High betweenness centrality (0.057) - this node is a cross-community bridge."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `compilerOptions` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.1111111111111111 - nodes in this community are weakly interconnected."
+    }
+  ]
+}

@@ -23,6 +23,7 @@ import { createItemMesh, disposeItemMesh } from './items/createItemMesh';
 import { MapItemManager } from './items/MapItemManager';
 import { MapItemGalleryModal } from '../items/MapItemGalleryModal';
 import { GAME_ITEMS } from '../../data/items';
+import { EcoAnimation } from './ecoMascot';
 
 export interface WorldCanvasProps {
   currentLevelId: number;
@@ -34,6 +35,8 @@ export interface WorldCanvasProps {
   slowMode: boolean;
   worldMode: 'EXPLORE' | 'STATION_SORT';
   onSetWorldMode: (mode: 'EXPLORE' | 'STATION_SORT') => void;
+  /** Optional Eco mascot animation request from the parent (e.g. intro phases). */
+  ecoAnimRequest?: { name: EcoAnimation; binType?: BinType; nonce?: number } | null;
   fullScreen?: boolean;
   className?: string;
   topBarExtrasLeft?: React.ReactNode;
@@ -154,7 +157,8 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
     scene.add(player.group);
 
     // 4. Create Both 3D Environments
-    const kitchen = createHomeKitchenScene();
+    // Pass activeBins so Level 1 shows only the two bins defined for that level.
+    const kitchen = createHomeKitchenScene(activeBins);
     const city = createProceduralCity();
 
     // Default setup: Attach Kitchen or Town based on initial level
@@ -218,6 +222,32 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
 
         const avatarPos = locomotion.getPosition();
         locomotion.update(delta, cameraSystem.getAzimuthAngle());
+
+        // ── Bin proximity: glow ring + lid pre-open when item is near ────────────
+        const itemGroup = engineRef.current?.itemMeshGroup;
+        if (itemGroup) {
+          kitchen.binTriggers.forEach((triggerMesh, binType) => {
+            // Get the trigger mesh's world position
+            const triggerWorld = new THREE.Vector3();
+            triggerMesh.getWorldPosition(triggerWorld);
+            const dist = itemGroup.position.distanceTo(triggerWorld);
+            const near = dist < 1.2;
+            // Glow ring
+            const glowMesh = kitchen.binGlowRings.get(binType);
+            if (glowMesh) {
+              const mat = glowMesh.material as THREE.MeshBasicMaterial;
+              mat.opacity = THREE.MathUtils.lerp(mat.opacity, near ? 0.72 : 0, delta * 8);
+            }
+            // Open lid when item approaches
+            if (near) kitchen.triggerBinAnimation(binType);
+          });
+        } else {
+          // No item — fade all glow rings out
+          kitchen.binGlowRings.forEach((glowMesh) => {
+            const mat = glowMesh.material as THREE.MeshBasicMaterial;
+            mat.opacity = THREE.MathUtils.lerp(mat.opacity, 0, delta * 6);
+          });
+        }
 
         // Camera handling for Kitchen
         if (currentActiveCam === 'REFERENCE') {
@@ -425,11 +455,13 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
   useEffect(() => {
     if (engineRef.current) {
       engineRef.current.city.updateEnergy(energyLevel);
-      // In kitchen, update pendant light intensity
+      const t = energyLevel / 100;
+      // Pendant lamp gets warmer and brighter
       const pendant = engineRef.current.kitchen.pendantLight;
-      if (pendant) {
-        pendant.intensity = 0.8 + (energyLevel / 100) * 1.4;
-      }
+      if (pendant) pendant.intensity = 0.8 + t * 1.4;
+      // Sun through window brightens with energy (window light effect)
+      const sun = engineRef.current.kitchen.sunLight;
+      if (sun) sun.intensity = 1.2 + t * 1.0;
     }
   }, [energyLevel]);
 
@@ -682,13 +714,14 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
       // Upward flick throw
       if (deltaY > 35) {
         if (envMode === 'KITCHEN') {
-          // 4 bins: wet, dry, ewaste, hazardous
-          const kitchenBins: BinType[] = ['wet', 'dry', 'ewaste', 'hazardous'];
+          // Use activeBins so Level 1 (2 bins) maps correctly
+          const numKitchenBins = activeBins.length;
+          const spreadPx = Math.max(200, numKitchenBins * 110);
           const binIndex = Math.min(
-            Math.max(0, Math.floor(((deltaX + 180) / 360) * 4)),
-            3
+            Math.max(0, Math.floor(((deltaX + spreadPx / 2) / spreadPx) * numKitchenBins)),
+            numKitchenBins - 1
           );
-          executeThrow(kitchenBins[binIndex]);
+          executeThrow(activeBins[binIndex]);
         } else {
           const numBins = activeBins.length;
           const binIndex = Math.min(

@@ -1,12 +1,17 @@
 import * as THREE from 'three';
 import { BinType } from '../../types/game';
 import { WorldObstacle } from './types';
+import { createEcoMascot, EcoAnimations } from './ecoMascot';
 
 export interface HomeKitchenSceneResult {
   kitchenGroup: THREE.Group;
   obstacles: WorldObstacle[];
   binPositions: Map<BinType, THREE.Vector3>;
   binMeshes: Map<BinType, THREE.Group>;
+  /** Invisible trigger mesh inside each bin opening — use for proximity detection */
+  binTriggers: Map<BinType, THREE.Mesh>;
+  /** Floor glow ring around each bin — control .material.opacity for proximity feedback */
+  binGlowRings: Map<BinType, THREE.Mesh>;
   tableCenter: THREE.Vector3;
   referenceCameraPosition: THREE.Vector3;
   referenceCameraLookAt: THREE.Vector3;
@@ -14,6 +19,10 @@ export interface HomeKitchenSceneResult {
   sortCameraLookAt: THREE.Vector3;
   pendantLight: THREE.PointLight;
   sunLight: THREE.DirectionalLight;
+  /** Eco mascot 3D group — positioned beside the dining table */
+  ecoGroup: THREE.Group;
+  /** Eco animation controller — call .play() and .animate(delta) */
+  ecoAnimations: EcoAnimations;
   triggerBinAnimation: (binType: BinType) => void;
   animate: (time: number, delta: number) => void;
 }
@@ -228,6 +237,30 @@ function createWindowBackdropTexture(): THREE.CanvasTexture {
 }
 
 /** Generates icons for the 4 recycling bins */
+/** Generates a bold text label for the front of a bin, e.g. "WET" or "DRY" */
+function createBinLabelTexture(label: string, bgColor: string): THREE.CanvasTexture {
+  const canvas = document.createElement('canvas');
+  canvas.width = 256;
+  canvas.height = 80;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return new THREE.CanvasTexture(canvas);
+  ctx.fillStyle = bgColor;
+  ctx.fillRect(0, 0, 256, 80);
+  // Rounded white pill background
+  ctx.fillStyle = 'rgba(255,255,255,0.25)';
+  ctx.beginPath();
+  ctx.roundRect(8, 8, 240, 64, 16);
+  ctx.fill();
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 54px Arial, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(label.toUpperCase(), 128, 42);
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
+}
+
 function createBinIconTexture(binType: BinType): THREE.CanvasTexture {
   const canvas = document.createElement('canvas');
   canvas.width = 256;
@@ -443,7 +476,9 @@ function createFridgeDoorTexture(): THREE.CanvasTexture {
 // HOME KITCHEN 3D SCENE BUILDER
 // ============================================================================
 
-export function createHomeKitchenScene(): HomeKitchenSceneResult {
+export function createHomeKitchenScene(
+  activeBins: BinType[] = ['wet', 'dry', 'ewaste', 'hazardous']
+): HomeKitchenSceneResult {
   const kitchenGroup = new THREE.Group();
   kitchenGroup.name = 'HomeKitchenScene';
 
@@ -452,6 +487,8 @@ export function createHomeKitchenScene(): HomeKitchenSceneResult {
   const binMeshes = new Map<BinType, THREE.Group>();
   const binLidPivots = new Map<BinType, THREE.Group>();
   const binAnimTimers = new Map<BinType, number>();
+  const binTriggers = new Map<BinType, THREE.Mesh>();
+  const binGlowRings = new Map<BinType, THREE.Mesh>();
 
   const addObstacle = (id: string, minX: number, maxX: number, minZ: number, maxZ: number, type: WorldObstacle['type'] = 'building') => {
     obstacles.push({ id, minX, maxX, minZ, maxZ, type });
@@ -683,29 +720,55 @@ export function createHomeKitchenScene(): HomeKitchenSceneResult {
   addObstacle('refrigerator', -4.8, -3.4, -3.9, -2.5);
 
   // -------------------------------------------------------------------------
-  // 4. THE 4 WASTE SORTING BINS (Lined up neatly beside fridge under window)
+  // 4. WASTE SORTING BINS — large, centred along back wall, Level-adaptive
   // -------------------------------------------------------------------------
-  // Green (Wet/Compost), Blue (Dry/Recycle), Yellow (E-Waste), Red (Hazardous)
-  const binTypes: BinType[] = ['wet', 'dry', 'ewaste', 'hazardous'];
-  const binSpacing = 0.68;
-  const startBinX = -3.1;
-  const binZ = -3.8;
+  // Width: 0.9  Height: 1.3  Depth: 0.9  (big enough for a child to aim at)
+  // Spacing formula keeps them centred for any activeBins count.
+  const BIN_W = 0.9;
+  const BIN_H = 1.3;
+  const BIN_SPACING = 1.4;
+  const binZ = -3.6;
+  const halfBinWidth = ((activeBins.length - 1) * BIN_SPACING) / 2;
 
-  binTypes.forEach((type, idx) => {
+  const BIN_COLORS: Record<BinType, number> = {
+    wet:       0x16a34a,
+    dry:       0x2563eb,
+    ewaste:    0xeab308,
+    hazardous: 0xdc2626,
+    paper:     0x3b82f6,
+    plastic:   0x0284c7,
+    reuse:     0x14b8a6,
+  };
+
+  const BIN_LABELS: Record<BinType, string> = {
+    wet:       'WET',
+    dry:       'DRY',
+    ewaste:    'E-WASTE',
+    hazardous: 'HAZARD',
+    paper:     'PAPER',
+    plastic:   'PLASTIC',
+    reuse:     'REUSE',
+  };
+
+  const BIN_COLORS_CSS: Record<BinType, string> = {
+    wet:       '#16a34a',
+    dry:       '#2563eb',
+    ewaste:    '#eab308',
+    hazardous: '#dc2626',
+    paper:     '#3b82f6',
+    plastic:   '#0284c7',
+    reuse:     '#14b8a6',
+  };
+
+  activeBins.forEach((type, idx) => {
     const binGroup = new THREE.Group();
-    const xPos = startBinX + idx * binSpacing;
+    const xPos = -halfBinWidth + idx * BIN_SPACING;
     binGroup.position.set(xPos, 0, binZ);
     binGroup.name = `Bin_${type}`;
 
-    const iconTex = createBinIconTexture(type);
-    const binColor =
-      type === 'wet'
-        ? 0x16a34a
-        : type === 'dry'
-        ? 0x2563eb
-        : type === 'ewaste'
-        ? 0xeab308
-        : 0xdc2626;
+    const binColor = BIN_COLORS[type] ?? 0x16a34a;
+    const binColorCSS = BIN_COLORS_CSS[type] ?? '#16a34a';
+    const binLabel = BIN_LABELS[type] ?? type.toUpperCase();
 
     const binBodyMat = new THREE.MeshStandardMaterial({
       color: binColor,
@@ -713,48 +776,106 @@ export function createHomeKitchenScene(): HomeKitchenSceneResult {
       metalness: 0.1,
     });
 
-    // Bin Body (Tapered rectangular bin)
-    const bodyGeo = new THREE.BoxGeometry(0.52, 0.88, 0.52);
+    // ── Body ──────────────────────────────────────────────────────────────────
+    const bodyGeo = new THREE.BoxGeometry(BIN_W, BIN_H, BIN_W);
     const body = new THREE.Mesh(bodyGeo, binBodyMat);
-    body.position.y = 0.44;
+    body.position.y = BIN_H / 2;
     body.castShadow = true;
     body.receiveShadow = true;
     binGroup.add(body);
 
-    // Front Face Icon Decal
+    // Dark interior top so the open bin looks deep
+    const interiorMat = new THREE.MeshBasicMaterial({ color: 0x0a0a0a });
+    const interior = new THREE.Mesh(new THREE.PlaneGeometry(BIN_W - 0.06, BIN_W - 0.06), interiorMat);
+    interior.rotation.x = -Math.PI / 2;
+    interior.position.y = BIN_H - 0.01;
+    binGroup.add(interior);
+
+    // Thin rim ring around the opening
+    const rimMat = new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.5 });
+    const rimGeo = new THREE.BoxGeometry(BIN_W + 0.04, 0.06, BIN_W + 0.04);
+    const rim = new THREE.Mesh(rimGeo, rimMat);
+    rim.position.y = BIN_H + 0.01;
+    binGroup.add(rim);
+
+    // ── Front icon ────────────────────────────────────────────────────────────
+    const iconTex = createBinIconTexture(type);
     const iconMesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(0.36, 0.36),
+      new THREE.PlaneGeometry(0.62, 0.62),
       new THREE.MeshStandardMaterial({ map: iconTex, roughness: 0.3 })
     );
-    iconMesh.position.set(0, 0.52, 0.265);
+    iconMesh.position.set(0, 0.82, BIN_W / 2 + 0.005);
     binGroup.add(iconMesh);
 
-    // Hinged Lid Pivot
+    // ── Front label (e.g. "WET") ───────────────────────────────────────────────
+    const labelTex = createBinLabelTexture(binLabel, binColorCSS);
+    const labelMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(0.64, 0.20),
+      new THREE.MeshStandardMaterial({ map: labelTex, roughness: 0.3 })
+    );
+    labelMesh.position.set(0, 0.30, BIN_W / 2 + 0.006);
+    binGroup.add(labelMesh);
+
+    // ── Hinged lid ────────────────────────────────────────────────────────────
+    // Pivot sits at the back top edge so the lid swings open away from camera.
     const lidPivot = new THREE.Group();
-    lidPivot.position.set(0, 0.88, -0.26); // hinge at back edge
+    lidPivot.position.set(0, BIN_H, -(BIN_W / 2));
 
     const lidMat = new THREE.MeshStandardMaterial({ color: binColor, roughness: 0.3 });
-    const lidGeo = new THREE.BoxGeometry(0.56, 0.08, 0.56);
-    lidGeo.translate(0, 0.04, 0.28); // center relative to hinge
+    const lidGeo = new THREE.BoxGeometry(BIN_W + 0.06, 0.10, BIN_W + 0.06);
+    lidGeo.translate(0, 0.05, (BIN_W + 0.06) / 2); // offset so hinge is at back
     const lid = new THREE.Mesh(lidGeo, lidMat);
     lid.castShadow = true;
     lidPivot.add(lid);
 
-    // Lid Handle
-    const lidHandle = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.04, 0.06), woodTrimMat);
-    lidHandle.position.set(0, 0.1, 0.48);
+    // Small handle on lid front
+    const lidHandle = new THREE.Mesh(
+      new THREE.BoxGeometry(0.28, 0.06, 0.08),
+      woodTrimMat
+    );
+    lidHandle.position.set(0, 0.12, BIN_W + 0.02);
     lidPivot.add(lidHandle);
 
     binGroup.add(lidPivot);
     binLidPivots.set(type, lidPivot);
     binAnimTimers.set(type, 0);
 
+    // ── Invisible trigger zone inside bin opening ──────────────────────────────
+    // Place at the top of the bin. WorldCanvas checks item proximity against this.
+    const triggerGeo = new THREE.CylinderGeometry(0.5, 0.5, 0.4);
+    const triggerMesh = new THREE.Mesh(
+      triggerGeo,
+      new THREE.MeshBasicMaterial({ visible: false })
+    );
+    triggerMesh.visible = false;
+    triggerMesh.position.y = BIN_H + 0.05; // just above opening
+    triggerMesh.name = `BinTrigger_${type}`;
+    binGroup.add(triggerMesh);
+    binTriggers.set(type, triggerMesh);
+
+    // ── Floor glow ring ───────────────────────────────────────────────────────
+    // Fades in when item is within proximity. Controlled from WorldCanvas.
+    const glowMat = new THREE.MeshBasicMaterial({
+      color: binColor,
+      transparent: true,
+      opacity: 0,
+      depthWrite: false,
+      side: THREE.DoubleSide,
+    });
+    const glowMesh = new THREE.Mesh(new THREE.RingGeometry(0.6, 0.75, 32), glowMat);
+    glowMesh.rotation.x = -Math.PI / 2;
+    glowMesh.position.set(xPos, 0.015, binZ); // flat on floor, world-space
+    glowMesh.name = `BinGlow_${type}`;
+    kitchenGroup.add(glowMesh); // add to kitchen directly (not binGroup) so it stays on floor
+    binGlowRings.set(type, glowMesh);
+
     kitchenGroup.add(binGroup);
     binMeshes.set(type, binGroup);
     binPositions.set(type, new THREE.Vector3(xPos, 0, binZ));
   });
 
-  addObstacle('sorting_bins', -3.4, -0.8, -4.1, -3.5);
+  // Block Kai from walking through the bins area
+  addObstacle('sorting_bins', -halfBinWidth - 0.6, halfBinWidth + 0.6, binZ - 0.6, binZ + 0.6);
 
   // -------------------------------------------------------------------------
   // 5. DINING TABLE & CHAIRS (Center Foreground)
@@ -882,6 +1003,16 @@ export function createHomeKitchenScene(): HomeKitchenSceneResult {
 
   kitchenGroup.add(tableGroup);
   addObstacle('dining_table', -0.8, 1.8, -0.6, 1.6);
+
+  // -------------------------------------------------------------------------
+  // 5b. ECO MASCOT — stands to the left of the table, facing the bins
+  // -------------------------------------------------------------------------
+  const ecoMascot = createEcoMascot();
+  // Position: left of the dining table, slightly in front, facing right toward bins
+  ecoMascot.group.position.set(-1.8, 0, 0.6);
+  ecoMascot.group.rotation.y = Math.PI / 8; // face slightly toward table and bins
+  ecoMascot.group.scale.setScalar(1.05); // slightly larger for visibility
+  kitchenGroup.add(ecoMascot.group);
 
   // -------------------------------------------------------------------------
   // 6. KITCHEN COUNTERS, SINK, STOVE & RANGE HOOD (Right Wall & Corner)
@@ -1075,20 +1206,23 @@ export function createHomeKitchenScene(): HomeKitchenSceneResult {
   // 9. ANIMATION & INTERACTION DISPATCHERS
   // -------------------------------------------------------------------------
   const triggerBinAnimation = (binType: BinType) => {
-    binAnimTimers.set(binType, 0.6); // 0.6 second bounce & lid open
+    binAnimTimers.set(binType, 0.7); // 0.7 second lid swing
   };
 
   const animate = (_time: number, delta: number) => {
+    // Step Eco mascot animations
+    ecoMascot.animations.animate(delta);
     // Animate Bin Lids opening / closing on throw
     binLidPivots.forEach((pivot, type) => {
       const timer = binAnimTimers.get(type) || 0;
       if (timer > 0) {
         binAnimTimers.set(type, Math.max(0, timer - delta));
-        const progress = 1 - timer / 0.6;
-        const openAngle = Math.sin(progress * Math.PI) * 0.9;
+        const progress = 1 - timer / 0.7;
+        // Swing up to ~100 deg then bounce slightly closed
+        const openAngle = Math.sin(progress * Math.PI) * 1.1;
         pivot.rotation.x = -openAngle;
       } else {
-        pivot.rotation.x = THREE.MathUtils.lerp(pivot.rotation.x, 0, 0.2);
+        pivot.rotation.x = THREE.MathUtils.lerp(pivot.rotation.x, 0, 0.12);
       }
     });
   };
@@ -1100,15 +1234,17 @@ export function createHomeKitchenScene(): HomeKitchenSceneResult {
   const referenceCameraPosition = new THREE.Vector3(0.5, 2.7, 4.4);
   const referenceCameraLookAt = new THREE.Vector3(0.0, 1.4, -1.2);
 
-  // Sort Camera: Zoomed in for rapid tabletop & bin sorting
-  const sortCameraPosition = new THREE.Vector3(-1.2, 2.8, -1.2);
-  const sortCameraLookAt = new THREE.Vector3(-1.8, 0.8, -3.8);
+  // Sort Camera: Centred on table → bins for the gameplay view
+  const sortCameraPosition = new THREE.Vector3(0.0, 3.6, 2.2);
+  const sortCameraLookAt = new THREE.Vector3(0.0, 0.9, -2.8);
 
   return {
     kitchenGroup,
     obstacles,
     binPositions,
     binMeshes,
+    binTriggers,
+    binGlowRings,
     tableCenter,
     referenceCameraPosition,
     referenceCameraLookAt,
@@ -1116,6 +1252,8 @@ export function createHomeKitchenScene(): HomeKitchenSceneResult {
     sortCameraLookAt,
     pendantLight,
     sunLight,
+    ecoGroup: ecoMascot.group,
+    ecoAnimations: ecoMascot.animations,
     triggerBinAnimation,
     animate,
   };
