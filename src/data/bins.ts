@@ -71,4 +71,14 @@ export const ALL_BINS: Record<BinType, BinInfo> = {
     shape: 'cube',
     description: 'Glass jars and clean clothes. Someone can use them again!',
   },
+  residual: {
+    id: 'residual',
+    label: 'Black Bin',
+    sublabel: 'Residual Waste',
+    color: 'bg-slate-800',
+    hexColor: 0x1e293b,
+    iconName: 'Trash2',
+    shape: 'cylinder',
+    description: 'Items that cannot be recycled or composted go here.',
+  },
 };

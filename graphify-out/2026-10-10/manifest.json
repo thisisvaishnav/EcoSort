@@ -402,9 +402,9 @@
     "semantic_hash": "328de20931b3b3abb436e705532dec92"
   },
   "src/components/world/WorldCanvas.tsx": {
-    "mtime": 1791608849.8320184,
-    "seen": 1791609262.3047931,
-    "ast_hash": "e84fabe4d56ffcb3d6e835babd224076",
+    "mtime": 1791622739.7499983,
+    "seen": 1791623056.042263,
+    "ast_hash": "8bb3c02a0af6fab09b2e8a0ac14738fb",
     "semantic_hash": ""
   },
   "src/components/world/levelStations.ts": {
@@ -414,9 +414,9 @@
     "semantic_hash": ""
   },
   "src/components/world/locomotion.ts": {
-    "mtime": 1791497525.93933,
-    "seen": 1791497976.008799,
-    "ast_hash": "d93c502e00622d107f22d15504ac19d6",
+    "mtime": 1791622958.267563,
+    "seen": 1791623056.042284,
+    "ast_hash": "4f5005b2bebe9df863ffad58dc25ede3",
     "semantic_hash": ""
   },
   "src/components/world/playerCharacter.ts": {
@@ -660,9 +660,9 @@
     "semantic_hash": ""
   },
   "src/components/world/homeKitchenScene.ts": {
-    "mtime": 1791608770.4320195,
-    "seen": 1791609262.3047948,
-    "ast_hash": "59bf6a6e95038988394b99fe2fbccb30",
+    "mtime": 1791611351.5726564,
+    "seen": 1791623056.0422652,
+    "ast_hash": "b926aec41feffc108be4000ba4feda95",
     "semantic_hash": ""
   },
   "src/components/world/items/MapItemInstance.ts": {
@@ -678,9 +678,9 @@
     "semantic_hash": ""
   },
   "src/components/world/items/createItemMesh.ts": {
-    "mtime": 1791609034.5639267,
-    "seen": 1791609262.304798,
-    "ast_hash": "a9fb64c99c66eff7597083ea3e816d92",
+    "mtime": 1791623018.8724937,
+    "seen": 1791623056.0422678,
+    "ast_hash": "eacb3d2423c9eb6b389adc25c421e10f",
     "semantic_hash": ""
   },
   "src/components/world/items/defaultMapPlacements.ts": {
@@ -930,9 +930,9 @@
     "semantic_hash": ""
   },
   "tests/homeKitchen.test.ts": {
-    "mtime": 1791497977.1704288,
-    "seen": 1791498104.102837,
-    "ast_hash": "3f7b4a155bc09bf7b852943fe59203e6",
+    "mtime": 1791614410.1513553,
+    "seen": 1791623056.0422971,
+    "ast_hash": "d57b8a77e37b2f95eab0b11fd29c3490",
     "semantic_hash": ""
   },
   "kai_back.png": {
@@ -1116,9 +1116,9 @@
     "semantic_hash": ""
   },
   "src/components/world/WorldPage.tsx": {
-    "mtime": 1791542023.352353,
-    "seen": 1791542107.503511,
-    "ast_hash": "e16a8385b5e333b77031e557bde0600f",
+    "mtime": 1791622514.1186128,
+    "seen": 1791623056.0422652,
+    "ast_hash": "779465363d4f3124d2d22dc0b60dec38",
     "semantic_hash": ""
   },
   "tests/worldPage.test.ts": {

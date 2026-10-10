@@ -216,7 +216,7 @@
       "file_type": "code",
       "norm_label": "worldcanvasprops",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L27"
+      "source_location": "L25"
     },
     {
       "id": "src_components_world_worldpage_worldpageprops",
@@ -229,7 +229,7 @@
       "file_type": "code",
       "norm_label": "worldpageprops",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L32"
+      "source_location": "L31"
     },
     {
       "id": "src_services_api_saveprogresspayload",
@@ -645,7 +645,7 @@
       "file_type": "code",
       "norm_label": "kitchencameramode",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L45"
+      "source_location": "L43"
     },
     {
       "id": "src_components_game_avatarselectmodal_avatarselectmodal",
@@ -801,7 +801,7 @@
       "file_type": "code",
       "norm_label": "disposeitemmesh()",
       "source_file": "src/components/world/items/createItemMesh.ts",
-      "source_location": "L202"
+      "source_location": "L178"
     },
     {
       "id": "src_components_world_items_mapiteminstance_mapiteminstance_dispose",
@@ -825,7 +825,7 @@
       "file_type": "code",
       "norm_label": "worldpage()",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L37"
+      "source_location": "L36"
     },
     {
       "id": "src_data_quizzes_getitem",
@@ -1929,7 +1929,7 @@
       "file_type": "code",
       "norm_label": "worldcanvas()",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L47"
+      "source_location": "L45"
     },
     {
       "id": "tests_locomotion_test_calculatecamerapitchfordistance",
@@ -5860,7 +5860,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L797",
+      "source_location": "L798",
       "weight": 1.0
     },
     {
@@ -5872,7 +5872,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L806",
+      "source_location": "L807",
       "weight": 1.0
     },
     {
@@ -5920,7 +5920,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/items/createItemMesh.ts",
-      "source_location": "L192",
+      "source_location": "L168",
       "weight": 1.0
     },
     {
@@ -6321,18 +6321,6 @@
     },
     {
       "source": "src_components_world_worldcanvas_worldcanvas",
-      "target": "src_components_items_mapitemgallerymodal_mapitemgallerymodal",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L1030",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_world_worldcanvas_worldcanvas",
       "target": "src_components_world_playercharacter_createplayercharacter",
       "relation": "calls",
       "_origin": "ast",
@@ -6428,6 +6416,18 @@
       "weight": 1.0
     },
     {
+      "source": "src_components_world_worldcanvas_worldcanvas",
+      "target": "src_components_items_mapitemgallerymodal_mapitemgallerymodal",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/world/WorldCanvas.tsx",
+      "source_location": "L990",
+      "weight": 1.0
+    },
+    {
       "source": "src_components_world_worldpage_worldpage",
       "target": "src_services_audio_audioservice_setsoundenabled",
       "relation": "calls",
@@ -6436,7 +6436,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L245",
+      "source_location": "L243",
       "weight": 1.0
     },
     {
@@ -6448,7 +6448,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L252",
+      "source_location": "L250",
       "weight": 1.0
     },
     {
@@ -6460,7 +6460,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L425",
+      "source_location": "L412",
       "weight": 1.0
     },
     {
@@ -6472,7 +6472,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L461",
+      "source_location": "L448",
       "weight": 1.0
     },
     {
@@ -6484,7 +6484,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L468",
+      "source_location": "L455",
       "weight": 1.0
     },
     {
@@ -6496,7 +6496,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L475",
+      "source_location": "L462",
       "weight": 1.0
     },
     {
@@ -6508,7 +6508,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L493",
+      "source_location": "L480",
       "weight": 1.0
     },
     {
@@ -6520,19 +6520,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L500",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_world_worldpage_worldpage",
-      "target": "src_components_game_avatarselectmodal_avatarselectmodal",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L509",
+      "source_location": "L487",
       "weight": 1.0
     },
     {
@@ -6544,7 +6532,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L52",
+      "source_location": "L51",
       "weight": 1.0
     },
     {
@@ -7120,7 +7108,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L29",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -7132,7 +7120,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L30",
+      "source_location": "L28",
       "weight": 1.0
     },
     {
@@ -8632,7 +8620,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L22",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -8644,7 +8632,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L22",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -8656,7 +8644,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L23",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
@@ -8668,7 +8656,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L24",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -8680,7 +8668,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L25",
+      "source_location": "L23",
       "weight": 1.0
     },
     {
@@ -8897,18 +8885,6 @@
       "context": "import",
       "source_file": "src/components/world/WorldPage.tsx",
       "source_location": "L14",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_world_worldpage",
-      "target": "src_components_game_avatarselectmodal_avatarselectmodal",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -11488,7 +11464,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L22",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -11500,7 +11476,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L23",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
@@ -11512,7 +11488,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L24",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -11524,7 +11500,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L25",
+      "source_location": "L23",
       "weight": 1.0
     },
     {
@@ -11685,18 +11661,6 @@
     },
     {
       "source": "src_components_world_worldpage",
-      "target": "src_components_game_avatarselectmodal",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L15",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_world_worldpage",
       "target": "ref_lucide_react",
       "relation": "imports_from",
       "_origin": "ast",
@@ -11704,7 +11668,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L16",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -14471,7 +14435,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/items/createItemMesh.ts",
-      "source_location": "L202",
+      "source_location": "L178",
       "weight": 1.0
     },
     {
@@ -14999,7 +14963,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L27",
+      "source_location": "L25",
       "weight": 1.0
     },
     {
@@ -15010,7 +14974,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L45",
+      "source_location": "L43",
       "weight": 1.0
     },
     {
@@ -15021,7 +14985,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L47",
+      "source_location": "L45",
       "weight": 1.0
     },
     {
@@ -15032,7 +14996,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L32",
+      "source_location": "L31",
       "weight": 1.0
     },
     {
@@ -15043,7 +15007,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L37",
+      "source_location": "L36",
       "weight": 1.0
     },
     {
@@ -16372,5 +16336,5 @@
       "source_file": "AGENTS.md"
     }
   ],
-  "built_at_commit": "d54a079f6e20ff238c612d97a4ce0fb98958ac28"
+  "built_at_commit": "b32db39381555b4d34976a0e9555dbbaba4cefc4"
 }

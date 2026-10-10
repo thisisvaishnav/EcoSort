@@ -1,7 +1,8 @@
 import { ItemData } from '../types/game';
 
 export const GAME_ITEMS: ItemData[] = [
-  // Level 1: Wet vs Dry (Kitchen)
+  // ── Level 1: Waste Detective (Society Scene) ─────────────────────────────────
+  // Wet / Biodegradable
   {
     id: 'apple_core',
     name: 'Apple core',
@@ -35,6 +36,53 @@ export const GAME_ITEMS: ItemData[] = [
     modelType: 'food_plate',
     color: '#f59e0b',
   },
+  {
+    id: 'bread_slice',
+    name: 'Leftover bread',
+    bin: 'wet',
+    baseWeight: 0.10,
+    unlockLevel: 1,
+    fact: 'Old bread rots into compost and feeds healthy soil.',
+    icon: '🍞',
+    modelType: 'bread_slice',
+    color: '#d97706',
+  },
+  {
+    id: 'veggie_scrap',
+    name: 'Vegetable scraps',
+    bin: 'wet',
+    baseWeight: 0.09,
+    unlockLevel: 1,
+    fact: 'Vegetable peel makes rich compost in just a few weeks.',
+    icon: '🥦',
+    modelType: 'veggie_scrap',
+    color: '#22c55e',
+  },
+  {
+    id: 'egg_shell',
+    name: 'Egg shell',
+    bin: 'wet',
+    baseWeight: 0.07,
+    unlockLevel: 1,
+    fact: 'Egg shells add calcium to soil and help plants grow strong.',
+    icon: '🥚',
+    modelType: 'egg_shell',
+    color: '#f5f0e8',
+  },
+  {
+    id: 'soiled_cardboard',
+    name: 'Food-stained pizza box',
+    bin: 'wet',
+    baseWeight: 0.06,
+    unlockLevel: 1,
+    fact: 'Food-stained cardboard cannot be recycled. It goes in the wet bin.',
+    icon: '📦',
+    modelType: 'cardboard',
+    color: '#92400e',
+    isAmbiguous: true,
+  },
+
+  // Dry Recyclable
   {
     id: 'cereal_box',
     name: 'Cereal cardboard box',
@@ -79,14 +127,25 @@ export const GAME_ITEMS: ItemData[] = [
     modelType: 'plastic_bottle',
     color: '#38bdf8',
   },
+  {
+    id: 'newspaper',
+    name: 'Old newspaper',
+    bin: 'dry',
+    baseWeight: 0.06,
+    unlockLevel: 1,
+    fact: 'Recycling paper saves tall trees in wild green forests.',
+    icon: '📰',
+    modelType: 'newspaper',
+    color: '#cbd5e1',
+  },
 
-  // Level 2: Living Room (Add Hazardous)
+  // Hazardous (available from Level 1 in Society scene)
   {
     id: 'battery_aa',
     name: 'Old AA battery',
     bin: 'hazardous',
     baseWeight: 0.12,
-    unlockLevel: 2,
+    unlockLevel: 1,
     fact: 'Batteries contain acid. Put them in the red bin.',
     icon: '🔋',
     modelType: 'battery',
@@ -97,7 +156,7 @@ export const GAME_ITEMS: ItemData[] = [
     name: 'Old light bulb',
     bin: 'hazardous',
     baseWeight: 0.08,
-    unlockLevel: 2,
+    unlockLevel: 1,
     fact: 'Light bulbs have delicate glass. Place them in hazardous waste.',
     icon: '💡',
     modelType: 'light_bulb',
@@ -114,19 +173,43 @@ export const GAME_ITEMS: ItemData[] = [
     modelType: 'medicine_bottle',
     color: '#e11d48',
   },
+
+  // Residual
   {
-    id: 'newspaper',
-    name: 'Old newspaper',
-    bin: 'dry',
-    baseWeight: 0.06,
-    unlockLevel: 2,
-    fact: 'Recycling paper saves tall trees in wild green forests.',
-    icon: '📰',
-    modelType: 'newspaper',
-    color: '#cbd5e1',
+    id: 'soiled_wrapper',
+    name: 'Used candy wrapper',
+    bin: 'residual',
+    baseWeight: 0.05,
+    unlockLevel: 1,
+    fact: 'Soiled wrappers cannot be recycled. They go in the black bin.',
+    icon: '🍬',
+    modelType: 'wrapper',
+    color: '#f472b6',
+  },
+  {
+    id: 'broken_pen',
+    name: 'Broken pen',
+    bin: 'residual',
+    baseWeight: 0.04,
+    unlockLevel: 1,
+    fact: 'Broken pens are residual waste. Seal them before disposal.',
+    icon: '✏️',
+    modelType: 'broken_pen',
+    color: '#64748b',
+  },
+  {
+    id: 'used_tissue',
+    name: 'Used tissue',
+    bin: 'residual',
+    baseWeight: 0.03,
+    unlockLevel: 1,
+    fact: 'Used tissues carry germs and cannot be recycled. Use the black bin.',
+    icon: '🧻',
+    modelType: 'tissue',
+    color: '#f1f5f9',
   },
 
-  // Level 3: School (Specific Paper & Plastic)
+  // ── Level 3: School (Specific Paper & Plastic) ───────────────────────────────
   {
     id: 'magazine',
     name: 'Glossy magazine',
@@ -172,7 +255,7 @@ export const GAME_ITEMS: ItemData[] = [
     color: '#f1f5f9',
   },
 
-  // Level 4: Park & River (Add E-waste)
+  // ── Level 4: Park & River (Add E-waste) ─────────────────────────────────────
   {
     id: 'broken_toy_car',
     name: 'Broken toy car',
@@ -207,7 +290,7 @@ export const GAME_ITEMS: ItemData[] = [
     color: '#e2e8f0',
   },
 
-  // Level 5: Recycling Plant (Add Reuse)
+  // ── Level 5: Recycling Plant (Add Reuse) ─────────────────────────────────────
   {
     id: 'glass_jam_jar',
     name: 'Empty glass jar',

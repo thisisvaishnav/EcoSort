@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { ItemData } from '../../../types/game';
 
 export type MapItemModelType =
+  // Original 10 models
   | 'banana_peel'
   | 'food_plate'
   | 'milk_carton'
@@ -11,7 +12,18 @@ export type MapItemModelType =
   | 'light_bulb'
   | 'medicine_bottle'
   | 'magazine'
-  | 'toy_car';
+  | 'toy_car'
+  // Level 1 additions
+  | 'bread_slice'
+  | 'veggie_scrap'
+  | 'egg_shell'
+  | 'cardboard'
+  | 'metal_can'
+  | 'soda_can'
+  // Level 1 residual additions
+  | 'wrapper'
+  | 'tissue'
+  | 'broken_pen';
 
 export type PlacementMode = 'ground' | 'collectible' | 'table';
 

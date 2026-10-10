@@ -40,11 +40,12 @@ describe('Home Kitchen Scene & Kai Character Verification', () => {
     expect(kitchen.binMeshes.has('ewaste')).toBe(false);
     expect(kitchen.binMeshes.has('hazardous')).toBe(false);
 
-    // Positions for 2 bins: x[i] = -((n-1)*1.4)/2 + i*1.4 => [-0.7, 0.7], z = -3.6
+    // Positions for 2 bins: shifted left of counter (x=0.55), centered under window
+    // x[i] = binCenterX - ((n-1)*1.4)/2 + i*1.4 => [-2.1, -0.7], z = -3.6
     const wetPos = kitchen.binPositions.get('wet')!;
     const dryPos = kitchen.binPositions.get('dry')!;
-    expect(wetPos.x).toBeCloseTo(-0.7);
-    expect(dryPos.x).toBeCloseTo(0.7);
+    expect(wetPos.x).toBeCloseTo(-2.1);
+    expect(dryPos.x).toBeCloseTo(-0.7);
     expect(wetPos.z).toBeCloseTo(-3.6);
     expect(dryPos.z).toBeCloseTo(-3.6);
 
