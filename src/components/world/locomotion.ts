@@ -14,6 +14,18 @@ export interface LocomotionEngine {
   dispose: () => void;
 }
 
+/**
+ * True when focus is inside a text field (Ask Eco chat, modals, etc.).
+ * Game keys must stand down while the player is typing.
+ */
+export function isTypingTarget(target: EventTarget | null): boolean {
+  return (
+    target instanceof HTMLInputElement ||
+    target instanceof HTMLTextAreaElement ||
+    (target instanceof HTMLElement && target.isContentEditable)
+  );
+}
+
 export function createLocomotionEngine(
   player: PlayerCharacter,
   obstacles: WorldObstacle[],
@@ -62,6 +74,7 @@ export function createLocomotionEngine(
 
   // 2. Keyboard Event Listeners
   const onKeyDown = (e: KeyboardEvent) => {
+    if (isTypingTarget(e.target)) return; // typing in a field — don't walk
     const key = e.key.toLowerCase();
     if (['w', 'a', 's', 'd', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright'].includes(key)) {
       keysDown.add(key);
@@ -120,6 +133,14 @@ export function createLocomotionEngine(
   let ringAnimTime = 0;
 
   const update = (delta: number, cameraAzimuthAngle: number) => {
+    // Drop any held key the moment focus lands in a text field, so Kai stops
+    // mid-stride instead of walking while the player types.
+    if (isTypingTarget(document.activeElement)) {
+      keysDown.clear();
+      clickDestination = null;
+      destinationRing.visible = false;
+    }
+
     let moveDirX = 0;
     let moveDirZ = 0;
     let isBackwardInput = false;
