@@ -21,15 +21,45 @@ describe('Home Kitchen Scene & Kai Character Verification', () => {
     const ewastePos = kitchen.binPositions.get('ewaste')!;
     const hazardPos = kitchen.binPositions.get('hazardous')!;
 
-    expect(wetPos.z).toBeCloseTo(-3.8);
-    expect(dryPos.z).toBeCloseTo(-3.8);
-    expect(ewastePos.z).toBeCloseTo(-3.8);
-    expect(hazardPos.z).toBeCloseTo(-3.8);
+    expect(wetPos.z).toBeCloseTo(-3.6);
+    expect(dryPos.z).toBeCloseTo(-3.6);
+    expect(ewastePos.z).toBeCloseTo(-3.6);
+    expect(hazardPos.z).toBeCloseTo(-3.6);
 
     // Bins ordered from left to right (X increasing)
     expect(wetPos.x).toBeLessThan(dryPos.x);
     expect(dryPos.x).toBeLessThan(ewastePos.x);
     expect(ewastePos.x).toBeLessThan(hazardPos.x);
+  });
+
+  it('configures Level 1 with 2 bins (wet & dry) matching centering formula, triggers, and glow rings', () => {
+    const kitchen = createHomeKitchenScene(['wet', 'dry']);
+    expect(kitchen.binMeshes.size).toBe(2);
+    expect(kitchen.binMeshes.has('wet')).toBe(true);
+    expect(kitchen.binMeshes.has('dry')).toBe(true);
+    expect(kitchen.binMeshes.has('ewaste')).toBe(false);
+    expect(kitchen.binMeshes.has('hazardous')).toBe(false);
+
+    // Positions for 2 bins: x[i] = -((n-1)*1.4)/2 + i*1.4 => [-0.7, 0.7], z = -3.6
+    const wetPos = kitchen.binPositions.get('wet')!;
+    const dryPos = kitchen.binPositions.get('dry')!;
+    expect(wetPos.x).toBeCloseTo(-0.7);
+    expect(dryPos.x).toBeCloseTo(0.7);
+    expect(wetPos.z).toBeCloseTo(-3.6);
+    expect(dryPos.z).toBeCloseTo(-3.6);
+
+    // Verify trigger meshes and glow rings exported
+    expect(kitchen.binTriggers.has('wet')).toBe(true);
+    expect(kitchen.binTriggers.has('dry')).toBe(true);
+    expect(kitchen.binGlowRings.has('wet')).toBe(true);
+    expect(kitchen.binGlowRings.has('dry')).toBe(true);
+
+    const trigger = kitchen.binTriggers.get('wet')!;
+    expect(trigger.visible).toBe(false);
+    expect(trigger.geometry).toBeInstanceOf(THREE.CylinderGeometry);
+
+    const glow = kitchen.binGlowRings.get('wet')!;
+    expect(glow.geometry).toBeInstanceOf(THREE.RingGeometry);
   });
 
   it('defines kitchen obstacles that constrain movement safely within room bounds', () => {

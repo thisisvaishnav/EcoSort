@@ -180,6 +180,45 @@
       "source_location": "L9"
     },
     {
+      "id": "src_components_items_mapitempreview_mapitempreviewprops",
+      "label": "MapItemPreviewProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "WorldPage.tsx",
+      "file_type": "code",
+      "norm_label": "mapitempreviewprops",
+      "source_file": "src/components/items/MapItemPreview.tsx",
+      "source_location": "L7"
+    },
+    {
+      "id": "src_components_world_items_types_mapitemmodeltype",
+      "label": "MapItemModelType",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "WorldPage.tsx",
+      "file_type": "code",
+      "norm_label": "mapitemmodeltype",
+      "source_file": "src/components/world/items/types.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "src_components_world_worldcanvas_worldcanvasprops",
+      "label": "WorldCanvasProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "WorldPage.tsx",
+      "file_type": "code",
+      "norm_label": "worldcanvasprops",
+      "source_file": "src/components/world/WorldCanvas.tsx",
+      "source_location": "L27"
+    },
+    {
       "id": "src_components_world_worldpage_worldpageprops",
       "label": "WorldPageProps",
       "_callable": true,
@@ -190,7 +229,7 @@
       "file_type": "code",
       "norm_label": "worldpageprops",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L34"
+      "source_location": "L32"
     },
     {
       "id": "src_services_api_saveprogresspayload",
@@ -440,19 +479,6 @@
       "source_location": "L62"
     },
     {
-      "id": "src_components_items_mapitempreview_mapitempreviewprops",
-      "label": "MapItemPreviewProps",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": "mapitempreviewprops",
-      "source_file": "src/components/items/MapItemPreview.tsx",
-      "source_location": "L7"
-    },
-    {
       "id": "src_components_world_items_types_itemmeshoptions",
       "label": "ItemMeshOptions",
       "_callable": true,
@@ -464,19 +490,6 @@
       "norm_label": "itemmeshoptions",
       "source_file": "src/components/world/items/types.ts",
       "source_location": "L26"
-    },
-    {
-      "id": "src_components_world_items_types_mapitemmodeltype",
-      "label": "MapItemModelType",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": "mapitemmodeltype",
-      "source_file": "src/components/world/items/types.ts",
-      "source_location": "L4"
     },
     {
       "id": "src_components_world_items_types_placementmode",
@@ -492,45 +505,6 @@
       "source_location": "L24"
     },
     {
-      "id": "src_components_world_ecomascot_ecoanimation",
-      "label": "EcoAnimation",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "ecoanimation",
-      "source_file": "src/components/world/ecoMascot.ts",
-      "source_location": "L16"
-    },
-    {
-      "id": "src_components_world_ecomascot_ecoanimations",
-      "label": "EcoAnimations",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "ecoanimations",
-      "source_file": "src/components/world/ecoMascot.ts",
-      "source_location": "L18"
-    },
-    {
-      "id": "src_components_world_ecomascot_ecomascotresult",
-      "label": "EcoMascotResult",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "ecomascotresult",
-      "source_file": "src/components/world/ecoMascot.ts",
-      "source_location": "L25"
-    },
-    {
       "id": "src_components_world_homekitchenscene_homekitchensceneresult",
       "label": "HomeKitchenSceneResult",
       "_callable": true,
@@ -541,7 +515,7 @@
       "file_type": "code",
       "norm_label": "homekitchensceneresult",
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L6"
+      "source_location": "L5"
     },
     {
       "id": "src_components_world_locomotion_locomotionengine",
@@ -671,20 +645,7 @@
       "file_type": "code",
       "norm_label": "kitchencameramode",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L48"
-    },
-    {
-      "id": "src_components_world_worldcanvas_worldcanvasprops",
-      "label": "WorldCanvasProps",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "worldcanvasprops",
-      "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L28"
+      "source_location": "L45"
     },
     {
       "id": "src_components_game_avatarselectmodal_avatarselectmodal",
@@ -783,6 +744,18 @@
       "source_location": "L12"
     },
     {
+      "id": "src_components_game_threescene_threescene",
+      "label": "ThreeScene()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "WorldPage.tsx",
+      "file_type": "code",
+      "norm_label": "threescene()",
+      "source_file": "src/components/game/ThreeScene.tsx",
+      "source_location": "L16"
+    },
+    {
       "id": "src_components_items_mapitemcard_mapitemcard",
       "label": "MapItemCard()",
       "_callable": true,
@@ -807,6 +780,42 @@
       "source_location": "L15"
     },
     {
+      "id": "src_components_items_mapitempreview_mapitempreview",
+      "label": "MapItemPreview()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "WorldPage.tsx",
+      "file_type": "code",
+      "norm_label": "mapitempreview()",
+      "source_file": "src/components/items/MapItemPreview.tsx",
+      "source_location": "L15"
+    },
+    {
+      "id": "src_components_world_items_createitemmesh_disposeitemmesh",
+      "label": "disposeItemMesh()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "WorldPage.tsx",
+      "file_type": "code",
+      "norm_label": "disposeitemmesh()",
+      "source_file": "src/components/world/items/createItemMesh.ts",
+      "source_location": "L202"
+    },
+    {
+      "id": "src_components_world_items_mapiteminstance_mapiteminstance_dispose",
+      "label": ".dispose()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "WorldPage.tsx",
+      "file_type": "code",
+      "norm_label": ".dispose()",
+      "source_file": "src/components/world/items/MapItemInstance.ts",
+      "source_location": "L221"
+    },
+    {
       "id": "src_components_world_worldpage_worldpage",
       "label": "WorldPage()",
       "_callable": true,
@@ -816,7 +825,7 @@
       "file_type": "code",
       "norm_label": "worldpage()",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L39"
+      "source_location": "L37"
     },
     {
       "id": "src_data_quizzes_getitem",
@@ -927,66 +936,6 @@
       "source_location": "L20"
     },
     {
-      "id": "tests_locomotion_test_calculatecamerapitchfordistance",
-      "label": "calculateCameraPitchForDistance()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "vitest",
-      "file_type": "code",
-      "norm_label": "calculatecamerapitchfordistance()",
-      "source_file": "tests/locomotion.test.ts",
-      "source_location": "L26"
-    },
-    {
-      "id": "tests_locomotion_test_calculatecamerarelativedirection",
-      "label": "calculateCameraRelativeDirection()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "vitest",
-      "file_type": "code",
-      "norm_label": "calculatecamerarelativedirection()",
-      "source_file": "tests/locomotion.test.ts",
-      "source_location": "L6"
-    },
-    {
-      "id": "tests_locomotion_test_clampcameradistance",
-      "label": "clampCameraDistance()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "vitest",
-      "file_type": "code",
-      "norm_label": "clampcameradistance()",
-      "source_file": "tests/locomotion.test.ts",
-      "source_location": "L22"
-    },
-    {
-      "id": "tests_locomotion_test_isarrivedatdestination",
-      "label": "isArrivedAtDestination()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "vitest",
-      "file_type": "code",
-      "norm_label": "isarrivedatdestination()",
-      "source_file": "tests/locomotion.test.ts",
-      "source_location": "L38"
-    },
-    {
-      "id": "tests_locomotion_test_resolveboxcollision",
-      "label": "resolveBoxCollision()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "vitest",
-      "file_type": "code",
-      "norm_label": "resolveboxcollision()",
-      "source_file": "tests/locomotion.test.ts",
-      "source_location": "L47"
-    },
-    {
       "id": "src_app_app",
       "label": "App()",
       "_callable": true,
@@ -1057,18 +1006,6 @@
       "norm_label": ".constructor()",
       "source_file": "src/components/world/items/MapItemInstance.ts",
       "source_location": "L29"
-    },
-    {
-      "id": "src_components_world_items_mapiteminstance_mapiteminstance_dispose",
-      "label": ".dispose()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 35,
-      "community_name": "MapItemInstance",
-      "file_type": "code",
-      "norm_label": ".dispose()",
-      "source_file": "src/components/world/items/MapItemInstance.ts",
-      "source_location": "L221"
     },
     {
       "id": "src_components_world_items_mapiteminstance_mapiteminstance_getstate",
@@ -1237,18 +1174,6 @@
       "norm_label": ".update()",
       "source_file": "src/components/world/items/MapItemManager.ts",
       "source_location": "L79"
-    },
-    {
-      "id": "src_components_world_worldcanvas_worldcanvas",
-      "label": "WorldCanvas()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 35,
-      "community_name": "MapItemInstance",
-      "file_type": "code",
-      "norm_label": "worldcanvas()",
-      "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L50"
     },
     {
       "id": "src_services_audio_audioservice_constructor",
@@ -1575,30 +1500,6 @@
       "source_location": "L75"
     },
     {
-      "id": "src_components_game_threescene_threescene",
-      "label": "ThreeScene()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": "threescene()",
-      "source_file": "src/components/game/ThreeScene.tsx",
-      "source_location": "L16"
-    },
-    {
-      "id": "src_components_items_mapitempreview_mapitempreview",
-      "label": "MapItemPreview()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": "mapitempreview()",
-      "source_file": "src/components/items/MapItemPreview.tsx",
-      "source_location": "L15"
-    },
-    {
       "id": "src_components_world_items_createitemmesh_createitemmesh",
       "label": "createItemMesh()",
       "_callable": true,
@@ -1609,18 +1510,6 @@
       "norm_label": "createitemmesh()",
       "source_file": "src/components/world/items/createItemMesh.ts",
       "source_location": "L23"
-    },
-    {
-      "id": "src_components_world_items_createitemmesh_disposeitemmesh",
-      "label": "disposeItemMesh()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": "disposeitemmesh()",
-      "source_file": "src/components/world/items/createItemMesh.ts",
-      "source_location": "L202"
     },
     {
       "id": "src_components_world_items_models_bananapeel3d_createbananapeel3d",
@@ -1875,42 +1764,6 @@
       "source_location": "L6"
     },
     {
-      "id": "src_components_world_ecomascot_createecomascot",
-      "label": "createEcoMascot()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "createecomascot()",
-      "source_file": "src/components/world/ecoMascot.ts",
-      "source_location": "L32"
-    },
-    {
-      "id": "src_components_world_ecomascot_ecoanimations_animate",
-      "label": ".animate()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": ".animate()",
-      "source_file": "src/components/world/ecoMascot.ts",
-      "source_location": "L22"
-    },
-    {
-      "id": "src_components_world_ecomascot_ecoanimations_play",
-      "label": ".play()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": ".play()",
-      "source_file": "src/components/world/ecoMascot.ts",
-      "source_location": "L20"
-    },
-    {
       "id": "src_components_world_homekitchenscene_createbacksplashtexture",
       "label": "createBacksplashTexture()",
       "_callable": true,
@@ -1920,7 +1773,7 @@
       "file_type": "code",
       "norm_label": "createbacksplashtexture()",
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L118"
+      "source_location": "L113"
     },
     {
       "id": "src_components_world_homekitchenscene_createbinicontexture",
@@ -1932,7 +1785,7 @@
       "file_type": "code",
       "norm_label": "createbinicontexture()",
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L264"
+      "source_location": "L259"
     },
     {
       "id": "src_components_world_homekitchenscene_createbinlabeltexture",
@@ -1944,7 +1797,7 @@
       "file_type": "code",
       "norm_label": "createbinlabeltexture()",
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L241"
+      "source_location": "L236"
     },
     {
       "id": "src_components_world_homekitchenscene_createcheckeredtexture",
@@ -1956,7 +1809,7 @@
       "file_type": "code",
       "norm_label": "createcheckeredtexture()",
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L35"
+      "source_location": "L30"
     },
     {
       "id": "src_components_world_homekitchenscene_createfridgedoortexture",
@@ -1968,7 +1821,7 @@
       "file_type": "code",
       "norm_label": "createfridgedoortexture()",
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L362"
+      "source_location": "L357"
     },
     {
       "id": "src_components_world_homekitchenscene_createhomekitchenscene",
@@ -1980,7 +1833,7 @@
       "file_type": "code",
       "norm_label": "createhomekitchenscene()",
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L479"
+      "source_location": "L474"
     },
     {
       "id": "src_components_world_homekitchenscene_createparquetfloortexture",
@@ -1992,7 +1845,7 @@
       "file_type": "code",
       "norm_label": "createparquetfloortexture()",
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L63"
+      "source_location": "L58"
     },
     {
       "id": "src_components_world_homekitchenscene_createwindowbackdroptexture",
@@ -2004,7 +1857,7 @@
       "file_type": "code",
       "norm_label": "createwindowbackdroptexture()",
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L154"
+      "source_location": "L149"
     },
     {
       "id": "src_components_world_locomotion_createlocomotionengine",
@@ -2065,6 +1918,78 @@
       "norm_label": "createthirdpersoncamera()",
       "source_file": "src/components/world/thirdPersonCamera.ts",
       "source_location": "L16"
+    },
+    {
+      "id": "src_components_world_worldcanvas_worldcanvas",
+      "label": "WorldCanvas()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "WorldCanvas.tsx",
+      "file_type": "code",
+      "norm_label": "worldcanvas()",
+      "source_file": "src/components/world/WorldCanvas.tsx",
+      "source_location": "L47"
+    },
+    {
+      "id": "tests_locomotion_test_calculatecamerapitchfordistance",
+      "label": "calculateCameraPitchForDistance()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "WorldCanvas.tsx",
+      "file_type": "code",
+      "norm_label": "calculatecamerapitchfordistance()",
+      "source_file": "tests/locomotion.test.ts",
+      "source_location": "L26"
+    },
+    {
+      "id": "tests_locomotion_test_calculatecamerarelativedirection",
+      "label": "calculateCameraRelativeDirection()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "WorldCanvas.tsx",
+      "file_type": "code",
+      "norm_label": "calculatecamerarelativedirection()",
+      "source_file": "tests/locomotion.test.ts",
+      "source_location": "L6"
+    },
+    {
+      "id": "tests_locomotion_test_clampcameradistance",
+      "label": "clampCameraDistance()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "WorldCanvas.tsx",
+      "file_type": "code",
+      "norm_label": "clampcameradistance()",
+      "source_file": "tests/locomotion.test.ts",
+      "source_location": "L22"
+    },
+    {
+      "id": "tests_locomotion_test_isarrivedatdestination",
+      "label": "isArrivedAtDestination()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "WorldCanvas.tsx",
+      "file_type": "code",
+      "norm_label": "isarrivedatdestination()",
+      "source_file": "tests/locomotion.test.ts",
+      "source_location": "L38"
+    },
+    {
+      "id": "tests_locomotion_test_resolveboxcollision",
+      "label": "resolveBoxCollision()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "WorldCanvas.tsx",
+      "file_type": "code",
+      "norm_label": "resolveboxcollision()",
+      "source_file": "tests/locomotion.test.ts",
+      "source_location": "L47"
     },
     {
       "id": "src_components_game_avatarselectmodal",
@@ -2196,6 +2121,17 @@
       "file_type": "code",
       "norm_label": "mapitemgallerymodal.tsx",
       "source_file": "src/components/items/MapItemGalleryModal.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_items_mapitempreview",
+      "label": "MapItemPreview.tsx",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "WorldPage.tsx",
+      "file_type": "code",
+      "norm_label": "mapitempreview.tsx",
+      "source_file": "src/components/items/MapItemPreview.tsx",
       "source_location": "L1"
     },
     {
@@ -2749,17 +2685,6 @@
       "source_location": "L8"
     },
     {
-      "id": "tests_homekitchen_test",
-      "label": "homeKitchen.test.ts",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "vitest",
-      "file_type": "code",
-      "norm_label": "homekitchen.test.ts",
-      "source_file": "tests/homeKitchen.test.ts",
-      "source_location": "L1"
-    },
-    {
       "id": "tests_kaiglb_test",
       "label": "kaiGlb.test.ts",
       "_origin": "ast",
@@ -2771,15 +2696,48 @@
       "source_location": "L1"
     },
     {
-      "id": "tests_locomotion_test",
-      "label": "locomotion.test.ts",
+      "id": "vite_config",
+      "label": "vite.config.ts",
       "_origin": "ast",
       "community": 10,
       "community_name": "vitest",
       "file_type": "code",
-      "norm_label": "locomotion.test.ts",
-      "source_file": "tests/locomotion.test.ts",
+      "norm_label": "vite.config.ts",
+      "source_file": "vite.config.ts",
       "source_location": "L1"
+    },
+    {
+      "id": "vitest_config",
+      "label": "vitest.config.ts",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "vitest",
+      "file_type": "code",
+      "norm_label": "vitest.config.ts",
+      "source_file": "vitest.config.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "ref_vite",
+      "label": "vite",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "vitest",
+      "file_type": "concept",
+      "norm_label": "vite",
+      "source_file": "package.json",
+      "source_location": "L35"
+    },
+    {
+      "id": "ref_vitejs_plugin_react",
+      "label": "@vitejs/plugin-react",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "vitest",
+      "file_type": "concept",
+      "norm_label": "@vitejs/plugin-react",
+      "source_file": "package.json",
+      "source_location": "L29"
     },
     {
       "id": "ref_vitest",
@@ -4587,50 +4545,6 @@
       "source_location": "L23"
     },
     {
-      "id": "vite_config",
-      "label": "vite.config.ts",
-      "_origin": "ast",
-      "community": 40,
-      "community_name": "@vitejs/plugin-react",
-      "file_type": "code",
-      "norm_label": "vite.config.ts",
-      "source_file": "vite.config.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "vitest_config",
-      "label": "vitest.config.ts",
-      "_origin": "ast",
-      "community": 40,
-      "community_name": "@vitejs/plugin-react",
-      "file_type": "code",
-      "norm_label": "vitest.config.ts",
-      "source_file": "vitest.config.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "ref_vite",
-      "label": "vite",
-      "_origin": "ast",
-      "community": 40,
-      "community_name": "@vitejs/plugin-react",
-      "file_type": "concept",
-      "norm_label": "vite",
-      "source_file": "package.json",
-      "source_location": "L35"
-    },
-    {
-      "id": "ref_vitejs_plugin_react",
-      "label": "@vitejs/plugin-react",
-      "_origin": "ast",
-      "community": 40,
-      "community_name": "@vitejs/plugin-react",
-      "file_type": "concept",
-      "norm_label": "@vitejs/plugin-react",
-      "source_file": "package.json",
-      "source_location": "L29"
-    },
-    {
       "id": "ndarray",
       "label": "ndarray",
       "_origin": "ast",
@@ -4684,17 +4598,6 @@
       "norm_label": "generate_kai_glb.py generates a textured 3d gltf 2.0 binary (.glb) model of kai...",
       "source_file": "scripts/generate_kai_glb.py",
       "source_location": "L2"
-    },
-    {
-      "id": "src_components_items_mapitempreview",
-      "label": "MapItemPreview.tsx",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": "mapitempreview.tsx",
-      "source_file": "src/components/items/MapItemPreview.tsx",
-      "source_location": "L1"
     },
     {
       "id": "src_components_world_items_createitemmesh",
@@ -4950,17 +4853,6 @@
       "source_location": "L22"
     },
     {
-      "id": "src_components_world_ecomascot",
-      "label": "ecoMascot.ts",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "ecomascot.ts",
-      "source_file": "src/components/world/ecoMascot.ts",
-      "source_location": "L1"
-    },
-    {
       "id": "src_components_world_homekitchenscene",
       "label": "homeKitchenScene.ts",
       "_origin": "ast",
@@ -5057,6 +4949,28 @@
       "file_type": "code",
       "norm_label": "worldcanvas.tsx",
       "source_file": "src/components/world/WorldCanvas.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "tests_homekitchen_test",
+      "label": "homeKitchen.test.ts",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "WorldCanvas.tsx",
+      "file_type": "code",
+      "norm_label": "homekitchen.test.ts",
+      "source_file": "tests/homeKitchen.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "tests_locomotion_test",
+      "label": "locomotion.test.ts",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "WorldCanvas.tsx",
+      "file_type": "code",
+      "norm_label": "locomotion.test.ts",
+      "source_file": "tests/locomotion.test.ts",
       "source_location": "L1"
     },
     {
@@ -5506,17 +5420,6 @@
       "source_file": "AGENTS.md"
     },
     {
-      "id": "ref_game_level1intro",
-      "label": "ref_game_level1intro",
-      "community": 0,
-      "community_name": "WorldPage.tsx",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "ref_game_level1intro",
-      "source_file": "",
-      "type": "external"
-    },
-    {
       "id": "ref_fs",
       "label": "ref_fs",
       "community": 10,
@@ -5889,30 +5792,6 @@
       "weight": 1.0
     },
     {
-      "source": "src_components_world_ecomascot_createecomascot",
-      "target": "src_components_world_ecomascot_ecoanimations_play",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/world/ecoMascot.ts",
-      "source_location": "L231",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_world_homekitchenscene_createhomekitchenscene",
-      "target": "src_components_world_ecomascot_createecomascot",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L1010",
-      "weight": 1.0
-    },
-    {
       "source": "src_components_world_homekitchenscene_createhomekitchenscene",
       "target": "src_components_world_homekitchenscene_createparquetfloortexture",
       "relation": "calls",
@@ -5921,7 +5800,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L509",
+      "source_location": "L504",
       "weight": 1.0
     },
     {
@@ -5933,7 +5812,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L532",
+      "source_location": "L527",
       "weight": 1.0
     },
     {
@@ -5945,7 +5824,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L573",
+      "source_location": "L568",
       "weight": 1.0
     },
     {
@@ -5957,7 +5836,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L642",
+      "source_location": "L637",
       "weight": 1.0
     },
     {
@@ -5969,7 +5848,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L687",
+      "source_location": "L682",
       "weight": 1.0
     },
     {
@@ -5981,7 +5860,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L802",
+      "source_location": "L797",
       "weight": 1.0
     },
     {
@@ -5993,7 +5872,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L811",
+      "source_location": "L806",
       "weight": 1.0
     },
     {
@@ -6449,7 +6328,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L1033",
+      "source_location": "L1030",
       "weight": 1.0
     },
     {
@@ -6461,7 +6340,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L156",
+      "source_location": "L153",
       "weight": 1.0
     },
     {
@@ -6473,7 +6352,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L161",
+      "source_location": "L158",
       "weight": 1.0
     },
     {
@@ -6485,7 +6364,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L162",
+      "source_location": "L159",
       "weight": 1.0
     },
     {
@@ -6497,7 +6376,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L179",
+      "source_location": "L176",
       "weight": 1.0
     },
     {
@@ -6509,7 +6388,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L193",
+      "source_location": "L190",
       "weight": 1.0
     },
     {
@@ -6521,7 +6400,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L200",
+      "source_location": "L197",
       "weight": 1.0
     },
     {
@@ -6533,7 +6412,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L531",
+      "source_location": "L528",
       "weight": 1.0
     },
     {
@@ -6545,7 +6424,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L537",
+      "source_location": "L534",
       "weight": 1.0
     },
     {
@@ -6557,7 +6436,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L286",
+      "source_location": "L245",
       "weight": 1.0
     },
     {
@@ -6569,7 +6448,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L293",
+      "source_location": "L252",
       "weight": 1.0
     },
     {
@@ -6581,7 +6460,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L466",
+      "source_location": "L425",
       "weight": 1.0
     },
     {
@@ -6593,7 +6472,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L511",
+      "source_location": "L461",
       "weight": 1.0
     },
     {
@@ -6605,7 +6484,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L518",
+      "source_location": "L468",
       "weight": 1.0
     },
     {
@@ -6617,19 +6496,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L525",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_world_worldpage_worldpage",
-      "target": "src_services_spawner_adaptivespawner",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L54",
+      "source_location": "L475",
       "weight": 1.0
     },
     {
@@ -6641,7 +6508,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L543",
+      "source_location": "L493",
       "weight": 1.0
     },
     {
@@ -6653,7 +6520,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L550",
+      "source_location": "L500",
       "weight": 1.0
     },
     {
@@ -6665,7 +6532,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L559",
+      "source_location": "L509",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_world_worldpage_worldpage",
+      "target": "src_services_spawner_adaptivespawner",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/world/WorldPage.tsx",
+      "source_location": "L52",
       "weight": 1.0
     },
     {
@@ -7114,18 +6993,6 @@
     },
     {
       "source": "src_components_world_homekitchenscene_homekitchensceneresult",
-      "target": "src_components_world_ecomascot_ecoanimations",
-      "relation": "references",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "field",
-      "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L25",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_world_homekitchenscene_homekitchensceneresult",
       "target": "src_types_game_bintype",
       "relation": "references",
       "_origin": "ast",
@@ -7133,7 +7000,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L26",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
@@ -7145,7 +7012,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L8",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -7253,7 +7120,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L30",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -7265,19 +7132,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L31",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_world_worldcanvas_worldcanvasprops",
-      "target": "src_components_world_ecomascot_ecoanimation",
-      "relation": "references",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "field",
-      "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L39",
+      "source_location": "L30",
       "weight": 1.0
     },
     {
@@ -8109,30 +7964,6 @@
       "weight": 1.0
     },
     {
-      "source": "src_components_world_homekitchenscene",
-      "target": "src_components_world_ecomascot_createecomascot",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L4",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_world_homekitchenscene",
-      "target": "src_components_world_ecomascot_ecoanimations",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L4",
-      "weight": 1.0
-    },
-    {
       "source": "src_components_world_items_createitemmesh",
       "target": "src_components_world_items_models_medicinebottle3d_createmedicinebottle3d",
       "relation": "imports",
@@ -8854,18 +8685,6 @@
     },
     {
       "source": "src_components_world_worldcanvas",
-      "target": "src_components_world_ecomascot_ecoanimation",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L26",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_world_worldcanvas",
       "target": "src_types_game_bintype",
       "relation": "imports",
       "_origin": "ast",
@@ -9029,19 +8848,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L11",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_world_worldpage",
-      "target": "src_components_world_ecomascot_ecoanimation",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L12",
+      "source_location": "L10",
       "weight": 1.0
     },
     {
@@ -9053,7 +8860,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L13",
+      "source_location": "L11",
       "weight": 1.0
     },
     {
@@ -9065,7 +8872,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L14",
+      "source_location": "L12",
       "weight": 1.0
     },
     {
@@ -9077,7 +8884,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L15",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -9089,7 +8896,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L16",
+      "source_location": "L14",
       "weight": 1.0
     },
     {
@@ -9101,7 +8908,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L17",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -10665,18 +10472,6 @@
       "weight": 1.0
     },
     {
-      "source": "src_components_world_ecomascot",
-      "target": "ref_three",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/world/ecoMascot.ts",
-      "source_location": "L12",
-      "weight": 1.0
-    },
-    {
       "source": "src_components_world_homekitchenscene",
       "target": "ref_three",
       "relation": "imports_from",
@@ -10710,18 +10505,6 @@
       "context": "import",
       "source_file": "src/components/world/homeKitchenScene.ts",
       "source_location": "L3",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_world_homekitchenscene",
-      "target": "src_components_world_ecomascot",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L4",
       "weight": 1.0
     },
     {
@@ -11746,18 +11529,6 @@
     },
     {
       "source": "src_components_world_worldcanvas",
-      "target": "src_components_world_ecomascot",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L26",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_world_worldcanvas",
       "target": "src_types_game",
       "relation": "imports_from",
       "_origin": "ast",
@@ -11854,7 +11625,7 @@
     },
     {
       "source": "src_components_world_worldpage",
-      "target": "ref_game_level1intro",
+      "target": "src_components_game_mascotdialogue",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -11866,7 +11637,7 @@
     },
     {
       "source": "src_components_world_worldpage",
-      "target": "src_components_game_mascotdialogue",
+      "target": "src_components_game_quizmodal",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -11878,7 +11649,7 @@
     },
     {
       "source": "src_components_world_worldpage",
-      "target": "src_components_world_ecomascot",
+      "target": "src_components_game_levelendmodal",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -11890,7 +11661,7 @@
     },
     {
       "source": "src_components_world_worldpage",
-      "target": "src_components_game_quizmodal",
+      "target": "src_components_game_ecopediamodal",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -11902,7 +11673,7 @@
     },
     {
       "source": "src_components_world_worldpage",
-      "target": "src_components_game_levelendmodal",
+      "target": "src_components_game_levelselectmodal",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -11914,7 +11685,7 @@
     },
     {
       "source": "src_components_world_worldpage",
-      "target": "src_components_game_ecopediamodal",
+      "target": "src_components_game_avatarselectmodal",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -11926,30 +11697,6 @@
     },
     {
       "source": "src_components_world_worldpage",
-      "target": "src_components_game_levelselectmodal",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L16",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_world_worldpage",
-      "target": "src_components_game_avatarselectmodal",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L17",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_world_worldpage",
       "target": "ref_lucide_react",
       "relation": "imports_from",
       "_origin": "ast",
@@ -11957,7 +11704,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L18",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
@@ -14618,50 +14365,6 @@
       "weight": 1.0
     },
     {
-      "source": "src_components_world_ecomascot",
-      "target": "src_components_world_ecomascot_ecoanimation",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/components/world/ecoMascot.ts",
-      "source_location": "L16",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_world_ecomascot",
-      "target": "src_components_world_ecomascot_ecoanimations",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/components/world/ecoMascot.ts",
-      "source_location": "L18",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_world_ecomascot",
-      "target": "src_components_world_ecomascot_ecomascotresult",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/components/world/ecoMascot.ts",
-      "source_location": "L25",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_world_ecomascot",
-      "target": "src_components_world_ecomascot_createecomascot",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/components/world/ecoMascot.ts",
-      "source_location": "L32",
-      "weight": 1.0
-    },
-    {
       "source": "src_components_world_homekitchenscene",
       "target": "src_components_world_homekitchenscene_createbacksplashtexture",
       "relation": "contains",
@@ -14669,7 +14372,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L118",
+      "source_location": "L113",
       "weight": 1.0
     },
     {
@@ -14680,7 +14383,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L154",
+      "source_location": "L149",
       "weight": 1.0
     },
     {
@@ -14691,7 +14394,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L241",
+      "source_location": "L236",
       "weight": 1.0
     },
     {
@@ -14702,7 +14405,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L264",
+      "source_location": "L259",
       "weight": 1.0
     },
     {
@@ -14713,7 +14416,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L35",
+      "source_location": "L30",
       "weight": 1.0
     },
     {
@@ -14724,7 +14427,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L362",
+      "source_location": "L357",
       "weight": 1.0
     },
     {
@@ -14735,7 +14438,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L479",
+      "source_location": "L474",
       "weight": 1.0
     },
     {
@@ -14746,7 +14449,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L6",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -14757,7 +14460,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/homeKitchenScene.ts",
-      "source_location": "L63",
+      "source_location": "L58",
       "weight": 1.0
     },
     {
@@ -15296,7 +14999,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L28",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -15307,7 +15010,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L48",
+      "source_location": "L45",
       "weight": 1.0
     },
     {
@@ -15318,7 +15021,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L50",
+      "source_location": "L47",
       "weight": 1.0
     },
     {
@@ -15329,7 +15032,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L34",
+      "source_location": "L32",
       "weight": 1.0
     },
     {
@@ -15340,7 +15043,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L39",
+      "source_location": "L37",
       "weight": 1.0
     },
     {
@@ -15925,28 +15628,6 @@
       "weight": 1.0
     },
     {
-      "source": "src_components_world_ecomascot_ecoanimations",
-      "target": "src_components_world_ecomascot_ecoanimations_play",
-      "relation": "method",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/components/world/ecoMascot.ts",
-      "source_location": "L20",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_world_ecomascot_ecoanimations",
-      "target": "src_components_world_ecomascot_ecoanimations_animate",
-      "relation": "method",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/components/world/ecoMascot.ts",
-      "source_location": "L22",
-      "weight": 1.0
-    },
-    {
       "source": "src_components_world_items_mapiteminstance_mapiteminstance",
       "target": "src_components_world_items_mapiteminstance_mapiteminstance_update",
       "relation": "method",
@@ -16481,7 +16162,7 @@
       "confidence_score": 0.85,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L294",
+      "source_location": "L291",
       "weight": 1.0
     },
     {
@@ -16493,7 +16174,7 @@
       "confidence_score": 0.85,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L295",
+      "source_location": "L292",
       "weight": 1.0
     },
     {
@@ -16505,7 +16186,7 @@
       "confidence_score": 0.85,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L385",
+      "source_location": "L382",
       "weight": 1.0
     },
     {
