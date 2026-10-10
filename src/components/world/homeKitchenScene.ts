@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import { BinType } from '../../types/game';
 import { WorldObstacle } from './types';
-import { createEcoMascot, EcoAnimations } from './ecoMascot';
 
 export interface HomeKitchenSceneResult {
   kitchenGroup: THREE.Group;
@@ -19,10 +18,6 @@ export interface HomeKitchenSceneResult {
   sortCameraLookAt: THREE.Vector3;
   pendantLight: THREE.PointLight;
   sunLight: THREE.DirectionalLight;
-  /** Eco mascot 3D group — positioned beside the dining table */
-  ecoGroup: THREE.Group;
-  /** Eco animation controller — call .play() and .animate(delta) */
-  ecoAnimations: EcoAnimations;
   triggerBinAnimation: (binType: BinType) => void;
   animate: (time: number, delta: number) => void;
 }
@@ -276,6 +271,7 @@ function createBinIconTexture(binType: BinType): THREE.CanvasTexture {
     paper: '#3b82f6',
     plastic: '#0284c7',
     reuse: '#14b8a6',
+    residual: '#1e293b',
   };
 
   ctx.fillStyle = bgColors[binType] || '#16a34a';
@@ -728,6 +724,7 @@ export function createHomeKitchenScene(
   const BIN_H = 1.3;
   const BIN_SPACING = 1.4;
   const binZ = -3.6;
+  const binCenterX = -1.4;
   const halfBinWidth = ((activeBins.length - 1) * BIN_SPACING) / 2;
 
   const BIN_COLORS: Record<BinType, number> = {
@@ -738,6 +735,7 @@ export function createHomeKitchenScene(
     paper:     0x3b82f6,
     plastic:   0x0284c7,
     reuse:     0x14b8a6,
+    residual:  0x1e293b,
   };
 
   const BIN_LABELS: Record<BinType, string> = {
@@ -748,6 +746,7 @@ export function createHomeKitchenScene(
     paper:     'PAPER',
     plastic:   'PLASTIC',
     reuse:     'REUSE',
+    residual:  'RESIDUAL',
   };
 
   const BIN_COLORS_CSS: Record<BinType, string> = {
@@ -758,11 +757,12 @@ export function createHomeKitchenScene(
     paper:     '#3b82f6',
     plastic:   '#0284c7',
     reuse:     '#14b8a6',
+    residual:  '#1e293b',
   };
 
   activeBins.forEach((type, idx) => {
     const binGroup = new THREE.Group();
-    const xPos = -halfBinWidth + idx * BIN_SPACING;
+    const xPos = binCenterX - halfBinWidth + idx * BIN_SPACING;
     binGroup.position.set(xPos, 0, binZ);
     binGroup.name = `Bin_${type}`;
 
@@ -875,7 +875,7 @@ export function createHomeKitchenScene(
   });
 
   // Block Kai from walking through the bins area
-  addObstacle('sorting_bins', -halfBinWidth - 0.6, halfBinWidth + 0.6, binZ - 0.6, binZ + 0.6);
+  addObstacle('sorting_bins', binCenterX - halfBinWidth - 0.6, binCenterX + halfBinWidth + 0.6, binZ - 0.6, binZ + 0.6);
 
   // -------------------------------------------------------------------------
   // 5. DINING TABLE & CHAIRS (Center Foreground)
@@ -1004,15 +1004,6 @@ export function createHomeKitchenScene(
   kitchenGroup.add(tableGroup);
   addObstacle('dining_table', -0.8, 1.8, -0.6, 1.6);
 
-  // -------------------------------------------------------------------------
-  // 5b. ECO MASCOT — stands to the left of the table, facing the bins
-  // -------------------------------------------------------------------------
-  const ecoMascot = createEcoMascot();
-  // Position: left of the dining table, slightly in front, facing right toward bins
-  ecoMascot.group.position.set(-1.8, 0, 0.6);
-  ecoMascot.group.rotation.y = Math.PI / 8; // face slightly toward table and bins
-  ecoMascot.group.scale.setScalar(1.05); // slightly larger for visibility
-  kitchenGroup.add(ecoMascot.group);
 
   // -------------------------------------------------------------------------
   // 6. KITCHEN COUNTERS, SINK, STOVE & RANGE HOOD (Right Wall & Corner)
@@ -1210,8 +1201,6 @@ export function createHomeKitchenScene(
   };
 
   const animate = (_time: number, delta: number) => {
-    // Step Eco mascot animations
-    ecoMascot.animations.animate(delta);
     // Animate Bin Lids opening / closing on throw
     binLidPivots.forEach((pivot, type) => {
       const timer = binAnimTimers.get(type) || 0;
@@ -1235,8 +1224,8 @@ export function createHomeKitchenScene(
   const referenceCameraLookAt = new THREE.Vector3(0.0, 1.4, -1.2);
 
   // Sort Camera: Centred on table → bins for the gameplay view
-  const sortCameraPosition = new THREE.Vector3(0.0, 3.6, 2.2);
-  const sortCameraLookAt = new THREE.Vector3(0.0, 0.9, -2.8);
+  const sortCameraPosition = new THREE.Vector3(-0.6, 3.6, 2.2);
+  const sortCameraLookAt = new THREE.Vector3(-0.8, 0.9, -2.8);
 
   return {
     kitchenGroup,
@@ -1252,8 +1241,6 @@ export function createHomeKitchenScene(
     sortCameraLookAt,
     pendantLight,
     sunLight,
-    ecoGroup: ecoMascot.group,
-    ecoAnimations: ecoMascot.animations,
     triggerBinAnimation,
     animate,
   };

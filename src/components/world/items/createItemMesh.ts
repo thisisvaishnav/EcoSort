@@ -10,6 +10,14 @@ import { createLightBulb3D } from './models/LightBulb3D';
 import { createMedicineBottle3D } from './models/MedicineBottle3D';
 import { createMagazine3D } from './models/Magazine3D';
 import { createToyCar3D } from './models/ToyCar3D';
+import { createBreadSlice3D } from './models/BreadSlice3D';
+import { createVeggieScrap3D } from './models/VeggieScrap3D';
+import { createEggShell3D } from './models/EggShell3D';
+import { createCardboardBox3D } from './models/CardboardBox3D';
+import { createMetalCan3D } from './models/MetalCan3D';
+import { createWrapper3D } from './models/Wrapper3D';
+import { createTissue3D } from './models/Tissue3D';
+import { createBrokenPen3D } from './models/BrokenPen3D';
 
 /**
  * Unified factory function that instantiates any of the 10 production 3D models
@@ -80,6 +88,56 @@ export function createItemMesh(
       meshGroup = createToyCar3D(options);
       break;
 
+    // ── New Level 1 items ────────────────────────────────────────────────────
+
+    // 11. Leftover Bread Slice (Wet)
+    case 'bread_slice':
+    case 'bread':
+      meshGroup = createBreadSlice3D(options);
+      break;
+
+    // 12. Vegetable Scraps (Wet)
+    case 'veggie_scrap':
+    case 'veggie_scraps':
+      meshGroup = createVeggieScrap3D(options);
+      break;
+
+    // 13. Egg Shell (Wet)
+    case 'egg_shell':
+    case 'eggshell':
+      meshGroup = createEggShell3D(options);
+      break;
+
+    // 14. Cardboard Box (Dry)
+    case 'cardboard':
+    case 'cardboard_box':
+      meshGroup = createCardboardBox3D(options);
+      break;
+
+    // 15. Metal / Tin Can (Dry)
+    case 'metal_can':
+    case 'soda_can':
+    case 'tin_can':
+      meshGroup = createMetalCan3D(options);
+      break;
+
+    // ── Level 1 residual items ────────────────────────────────────────────────
+
+    // 16. Candy Wrapper (Residual)
+    case 'wrapper':
+      meshGroup = createWrapper3D(options);
+      break;
+
+    // 17. Used Tissue (Residual)
+    case 'tissue':
+      meshGroup = createTissue3D(options);
+      break;
+
+    // 18. Broken Pen (Residual)
+    case 'broken_pen':
+      meshGroup = createBrokenPen3D(options);
+      break;
+
     // Legacy Fallbacks
     case 'apple': {
       meshGroup = new THREE.Group();
@@ -96,30 +154,6 @@ export function createItemMesh(
       );
       stem.position.y = 0.58;
       meshGroup.add(stem);
-      break;
-    }
-
-    case 'soda_can': {
-      meshGroup = new THREE.Group();
-      const can = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.15, 0.15, 0.45, 20),
-        new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.8, roughness: 0.2 })
-      );
-      can.position.y = 0.225;
-      can.castShadow = true;
-      meshGroup.add(can);
-      break;
-    }
-
-    case 'cardboard': {
-      meshGroup = new THREE.Group();
-      const box = new THREE.Mesh(
-        new THREE.BoxGeometry(0.35, 0.45, 0.15),
-        new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.8 })
-      );
-      box.position.y = 0.225;
-      box.castShadow = true;
-      meshGroup.add(box);
       break;
     }
 

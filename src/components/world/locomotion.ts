@@ -80,29 +80,9 @@ export function createLocomotionEngine(
   window.addEventListener('keydown', onKeyDown);
   window.addEventListener('keyup', onKeyUp);
 
-  // 3. Click-to-Move Raycast Handler
-  const raycaster = new THREE.Raycaster();
-  const groundPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
-  const mouseCoords = new THREE.Vector2();
-
-  const createRaycastHandler = (event: MouseEvent | PointerEvent, container: HTMLElement, camera: THREE.Camera) => {
-    const rect = container.getBoundingClientRect();
-    mouseCoords.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-    mouseCoords.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-
-    raycaster.setFromCamera(mouseCoords, camera);
-    const hitPoint = new THREE.Vector3();
-    const intersect = raycaster.ray.intersectPlane(groundPlane, hitPoint);
-
-    if (intersect) {
-      // Clamp within map bounds
-      hitPoint.x = Math.max(bounds.minX, Math.min(bounds.maxX, hitPoint.x));
-      hitPoint.z = Math.max(bounds.minZ, Math.min(bounds.maxZ, hitPoint.z));
-
-      clickDestination = hitPoint.clone();
-      destinationRing.position.copy(hitPoint);
-      destinationRing.visible = true;
-    }
+  // 3. Click-to-Move Raycast Handler (Disabled per tap-and-go removal)
+  const createRaycastHandler = (_event: MouseEvent | PointerEvent, _container: HTMLElement, _camera: THREE.Camera) => {
+    // Tap-and-go feature disabled
   };
 
   // 4. Collision Resolution
@@ -190,8 +170,8 @@ export function createLocomotionEngine(
       const targetZ = currentPos.z + moveDirZ * stepDist;
 
       const resolved = resolveCollisions(targetX, targetZ, currentPos.x, currentPos.z);
-      currentPos.x = resolved.x;
-      currentPos.z = resolved.z;
+      currentPos.x = Math.max(bounds.minX, Math.min(bounds.maxX, resolved.x));
+      currentPos.z = Math.max(bounds.minZ, Math.min(bounds.maxZ, resolved.z));
 
       player.group.position.copy(currentPos);
 

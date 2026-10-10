@@ -1,17 +1,17 @@
 # Graph Report - EcoSort  (2026-10-10)
 
 ## Corpus Check
-- 106 files · ~1,187,007 words
+- 106 files · ~1,186,774 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 6 file(s) not represented in the graph (top: (none) 3, .example 1, .glb 1)
 
 ## Summary
-- 473 nodes · 927 edges · 40 communities (17 shown, 23 thin omitted)
+- 473 nodes · 924 edges · 40 communities (17 shown, 23 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 20 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `d54a079f`
+- Built from commit: `b32db393`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -55,9 +55,9 @@
 4. `ItemData` - 19 edges
 5. `ItemMeshOptions` - 17 edges
 6. `lucide-react` - 16 edges
-7. `WorldPage()` - 16 edges
-8. `compilerOptions` - 16 edges
-9. `WorldCanvas()` - 15 edges
+7. `compilerOptions` - 16 edges
+8. `WorldCanvas()` - 15 edges
+9. `WorldPage()` - 15 edges
 10. `MapItemInstance` - 15 edges
 
 ## Surprising Connections (you probably didn't know these)
@@ -83,7 +83,7 @@
 
 ### Community 0 - "WorldPage.tsx"
 Cohesion: 0.07
-Nodes (46): lucide-react, react, AVATARS, AvatarSelectModal(), AvatarSelectModalProps, EcopediaModal(), EcopediaModalProps, EcoSortGame() (+38 more)
+Nodes (45): lucide-react, react, AVATARS, AvatarSelectModalProps, EcopediaModal(), EcopediaModalProps, EcoSortGame(), EcoSortGameProps (+37 more)
 
 ### Community 1 - "progress.js"
 Cohesion: 0.07
@@ -151,7 +151,7 @@ Nodes (7): dependencies, cannon-es, canvas-confetti, lucide-react, react, react-
 
 ## Knowledge Gaps
 - **176 isolated node(s):** `{ BedrockRuntimeClient, InvokeModelCommand }`, `bedrock`, `corsHeaders`, `{ DynamoDBClient }`, `{ DynamoDBDocumentClient, PutCommand, QueryCommand }` (+171 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 224 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 225 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **23 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
@@ -162,12 +162,12 @@ _Questions this graph is uniquely positioned to answer:_
 - **What connects `{ BedrockRuntimeClient, InvokeModelCommand }`, `bedrock`, `corsHeaders` to the rest of the system?**
   _176 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `WorldPage.tsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.0730282375851996 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07205452775073028 - nodes in this community are weakly interconnected._
 - **Why does `react` connect `WorldPage.tsx` to `WorldCanvas.tsx`, `package.json`, `App.tsx`?**
-  _High betweenness centrality (0.044) - this node is a cross-community bridge._
+  _High betweenness centrality (0.045) - this node is a cross-community bridge._
 - **Should `progress.js` be split into smaller, more focused modules?**
   _Cohesion score 0.06653225806451613 - nodes in this community are weakly interconnected._
 - **Why does `lucide-react` connect `WorldPage.tsx` to `WorldCanvas.tsx`, `package.json`, `App.tsx`?**
-  _High betweenness centrality (0.031) - this node is a cross-community bridge._
+  _High betweenness centrality (0.032) - this node is a cross-community bridge._
 - **Should `package.json` be split into smaller, more focused modules?**
   _Cohesion score 0.125 - nodes in this community are weakly interconnected._

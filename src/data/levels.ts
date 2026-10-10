@@ -3,12 +3,14 @@ import { LevelConfig } from '../types/game';
 export const GAME_LEVELS: LevelConfig[] = [
   {
     id: 1,
-    name: 'Home Kitchen',
-    place: 'Kitchen Table',
-    bins: ['wet', 'dry'],
-    learningGoal: 'Food waste is not the same as paper and plastic.',
-    energyLink: 'Wet waste goes to a biogas digester to generate clean electricity.',
-    targetCount: 6,
+    name: 'Waste Detective',
+    place: 'Eco Society',
+    bins: ['wet', 'dry', 'hazardous', 'residual'],
+    learningGoal: 'Sort waste into the right bin before the truck arrives.',
+    energyLink: 'Correct sorting keeps the society clean and green.',
+    targetCount: 12,
+    sceneType: 'SOCIETY',
+    timeLimit: 90,
   },
   {
     id: 2,

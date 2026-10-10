@@ -1,4 +1,4 @@
-export type BinType = 'wet' | 'dry' | 'paper' | 'plastic' | 'hazardous' | 'ewaste' | 'reuse';
+export type BinType = 'wet' | 'dry' | 'paper' | 'plastic' | 'hazardous' | 'ewaste' | 'reuse' | 'residual';
 
 export interface BinInfo {
   id: BinType;
@@ -39,8 +39,18 @@ export interface ItemData {
     | 'charger'
     | 'glass_jar'
     | 'shirt'
-    | 'cardboard';
+    | 'cardboard'
+    // Level 1 additions
+    | 'bread_slice'
+    | 'veggie_scrap'
+    | 'egg_shell'
+    | 'metal_can'
+    // Level 1 residual additions
+    | 'wrapper'
+    | 'tissue'
+    | 'broken_pen';
   color: string;
+  isAmbiguous?: boolean;
 }
 
 export interface LevelConfig {
@@ -52,6 +62,8 @@ export interface LevelConfig {
   energyLink: string;
   targetCount: number;
   isBonus?: boolean;
+  sceneType?: 'KITCHEN' | 'SOCIETY' | 'TOWN';
+  timeLimit?: number; // seconds
 }
 
 export interface QuizQuestion {

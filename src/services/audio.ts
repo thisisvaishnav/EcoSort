@@ -178,6 +178,130 @@ class AudioService {
   }
 
   /**
+   * Sound effect: Garbage truck horn (low freq) at 10s warning.
+   */
+  public playTruckHorn() {
+    if (!this.soundEnabled) return;
+    this.initContext();
+    if (!this.audioCtx) return;
+
+    const osc = this.audioCtx.createOscillator();
+    const gain = this.audioCtx.createGain();
+    osc.type = 'sawtooth';
+    const now = this.audioCtx.currentTime;
+
+    osc.frequency.setValueAtTime(80, now);
+    osc.frequency.exponentialRampToValueAtTime(65, now + 0.4);
+
+    gain.gain.setValueAtTime(0.28, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+
+    osc.connect(gain);
+    gain.connect(this.audioCtx.destination);
+    osc.start(now);
+    osc.stop(now + 0.5);
+  }
+
+  /**
+   * Sound effect: Eco Lens scan activation (sci-fi sweep).
+   */
+  public playLensActivate() {
+    if (!this.soundEnabled) return;
+    this.initContext();
+    if (!this.audioCtx) return;
+
+    const osc = this.audioCtx.createOscillator();
+    const gain = this.audioCtx.createGain();
+    osc.type = 'sine';
+    const now = this.audioCtx.currentTime;
+
+    osc.frequency.setValueAtTime(280, now);
+    osc.frequency.exponentialRampToValueAtTime(880, now + 0.22);
+
+    gain.gain.setValueAtTime(0.18, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+
+    osc.connect(gain);
+    gain.connect(this.audioCtx.destination);
+    osc.start(now);
+    osc.stop(now + 0.25);
+  }
+
+  /**
+   * Sound effect: Timer warning ticking (gentle tick-tock at 30s).
+   */
+  public playTimerWarning() {
+    if (!this.soundEnabled) return;
+    this.initContext();
+    if (!this.audioCtx) return;
+
+    const osc = this.audioCtx.createOscillator();
+    const gain = this.audioCtx.createGain();
+    osc.type = 'triangle';
+    const now = this.audioCtx.currentTime;
+
+    osc.frequency.setValueAtTime(440, now);
+    gain.gain.setValueAtTime(0.08, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+
+    osc.connect(gain);
+    gain.connect(this.audioCtx.destination);
+    osc.start(now);
+    osc.stop(now + 0.08);
+  }
+
+  /**
+   * Sound effect: Timer urgent (faster tick at 10s).
+   */
+  public playTimerUrgent() {
+    if (!this.soundEnabled) return;
+    this.initContext();
+    if (!this.audioCtx) return;
+
+    const osc = this.audioCtx.createOscillator();
+    const gain = this.audioCtx.createGain();
+    osc.type = 'triangle';
+    const now = this.audioCtx.currentTime;
+
+    osc.frequency.setValueAtTime(600, now);
+    gain.gain.setValueAtTime(0.12, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+
+    osc.connect(gain);
+    gain.connect(this.audioCtx.destination);
+    osc.start(now);
+    osc.stop(now + 0.06);
+  }
+
+  /**
+   * Sound effect: Cheerful garbage truck arrival jingle.
+   */
+  public playTruckJingle() {
+    if (!this.soundEnabled) return;
+    this.initContext();
+    if (!this.audioCtx) return;
+
+    const melody = [523.25, 659.25, 523.25, 783.99, 659.25];
+    const now = this.audioCtx.currentTime;
+
+    melody.forEach((freq, idx) => {
+      const osc = this.audioCtx!.createOscillator();
+      const gain = this.audioCtx!.createGain();
+      osc.type = 'triangle';
+      const start = now + idx * 0.12;
+
+      osc.frequency.setValueAtTime(freq, start);
+      gain.gain.setValueAtTime(0.18, start);
+      gain.gain.exponentialRampToValueAtTime(0.001, start + 0.18);
+
+      osc.connect(gain);
+      gain.connect(this.audioCtx!.destination);
+      osc.start(start);
+      osc.stop(start + 0.18);
+    });
+  }
+
+  /**
    * Sound effect: Level complete celebration
    */
   public playCelebration() {
