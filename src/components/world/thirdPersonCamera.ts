@@ -3,7 +3,7 @@ import { WorldObstacle } from './types';
 
 export interface ThirdPersonCameraSystem {
   camera: THREE.PerspectiveCamera;
-  update: (targetPos: THREE.Vector3, delta: number) => void;
+  update: (targetPos: THREE.Vector3, delta: number, facingAngle?: number) => void;
   onWheel: (event: WheelEvent) => void;
   onPointerDown: (event: PointerEvent) => void;
   onPointerMove: (event: PointerEvent) => void;
@@ -19,15 +19,14 @@ export function createThirdPersonCamera(
 ): ThirdPersonCameraSystem {
   const camera = new THREE.PerspectiveCamera(50, aspect, 0.1, 400);
 
-  // Orbit state
+  // Orbit state — yaw is locked behind the character (facing + π)
   let currentDistance = 14.0; // default initial zoom
   let targetDistance = 14.0;
-  let yaw = 0; // horizontal azimuth angle in radians
-  let targetYaw = 0;
+  let yaw = Math.PI; // start behind Kai (he spawns facing 0)
+  let targetYaw = Math.PI;
   let pitchOffset = 0; // user fine pitch adjustment from right-click drag
 
   let isRightClickDragging = false;
-  let lastMouseX = 0;
   let lastMouseY = 0;
 
   const currentLookAt = new THREE.Vector3();
@@ -54,21 +53,17 @@ export function createThirdPersonCamera(
 
   const onPointerDown = (event: PointerEvent) => {
     if (event.button === 2) {
-      // Right click
+      // Right click (yaw orbit removed: camera always stays behind Kai)
       isRightClickDragging = true;
-      lastMouseX = event.clientX;
       lastMouseY = event.clientY;
     }
   };
 
   const onPointerMove = (event: PointerEvent) => {
     if (isRightClickDragging) {
-      const deltaX = event.clientX - lastMouseX;
       const deltaY = event.clientY - lastMouseY;
-      lastMouseX = event.clientX;
       lastMouseY = event.clientY;
 
-      targetYaw -= deltaX * 0.006;
       pitchOffset = Math.max(-0.25, Math.min(0.35, pitchOffset + deltaY * 0.004));
     }
   };
@@ -79,10 +74,19 @@ export function createThirdPersonCamera(
     }
   };
 
-  const update = (targetPos: THREE.Vector3, delta: number) => {
-    // Smooth interpolation for distance and yaw
+  const update = (targetPos: THREE.Vector3, delta: number, facingAngle?: number) => {
+    // Smooth interpolation for distance
     currentDistance = THREE.MathUtils.lerp(currentDistance, targetDistance, Math.min(1.0, delta * 10.0));
-    yaw = THREE.MathUtils.lerp(yaw, targetYaw, Math.min(1.0, delta * 12.0));
+
+    // Keep the camera locked behind the character's back:
+    // camera sits opposite to the facing direction (facing + π).
+    if (facingAngle !== undefined) {
+      targetYaw = facingAngle + Math.PI;
+    }
+
+    // Shortest-path yaw smoothing (handles ±π wrap)
+    const yawDelta = Math.atan2(Math.sin(targetYaw - yaw), Math.cos(targetYaw - yaw));
+    yaw += yawDelta * Math.min(1.0, delta * 12.0);
 
     // Dynamic pitch: base elevation + user right-drag offset
     const totalPitch = Math.max(0.18, Math.min(1.25, calculateBasePitch(currentDistance) + pitchOffset));

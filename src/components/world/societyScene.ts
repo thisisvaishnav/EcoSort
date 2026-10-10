@@ -5,11 +5,12 @@
  * 4 color-coded bins, a garbage collection area, and an animated garbage truck.
  *
  * Scene layout (top-down):
- *   Z = -12  → Road + truck path (top)
+ *   Z = -12  → Building façade (top)
  *   Z = -8   → Building façade
  *   Z = -3   → Garbage collection area (bins)
  *   Z =  0   → Open compound / scattered litter
  *   Z =  6   → Society entrance gate
+ *   Z = 11   → Road + truck path (bottom, opposite side)
  */
 
 import * as THREE from 'three';
@@ -199,12 +200,12 @@ export function createSocietyScene(activeBins: BinType[] = ['wet', 'dry', 'hazar
   ground.receiveShadow = true;
   group.add(ground);
 
-  // ── Road (top strip) ──────────────────────────────────────────────────────
+  // ── Road (bottom strip — opposite side of the scene) ──────────────────────
   const roadGeo = new THREE.PlaneGeometry(24, 4);
   const roadMat = new THREE.MeshStandardMaterial({ color: 0x374151, roughness: 0.95 });
   const road = new THREE.Mesh(roadGeo, roadMat);
   road.rotation.x = -Math.PI / 2;
-  road.position.set(0, 0.01, -11);
+  road.position.set(0, 0.01, 11);
   road.receiveShadow = true;
   group.add(road);
 
@@ -214,7 +215,7 @@ export function createSocietyScene(activeBins: BinType[] = ['wet', 'dry', 'hazar
     const lineMat = new THREE.MeshBasicMaterial({ color: 0xfbbf24 });
     const line = new THREE.Mesh(lineGeo, lineMat);
     line.rotation.x = -Math.PI / 2;
-    line.position.set(i * 1.2, 0.02, -11);
+    line.position.set(i * 1.2, 0.02, 11);
     group.add(line);
   }
 
@@ -625,9 +626,9 @@ export function createSocietyScene(activeBins: BinType[] = ['wet', 'dry', 'hazar
   exhaust.position.set(0.9, 3.0, 2.2);
   truckGroup.add(exhaust);
 
-  // Start truck parked far right off-screen
-  const truckStartPos = new THREE.Vector3(22, 0, -11);
-  const truckEndPos = new THREE.Vector3(6, 0, -11);
+  // Start truck parked far right off-screen (on the road at Z = +11)
+  const truckStartPos = new THREE.Vector3(22, 0, 11);
+  const truckEndPos = new THREE.Vector3(6, 0, 11);
   truckGroup.position.copy(truckStartPos);
   truckGroup.visible = false;
   group.add(truckGroup);

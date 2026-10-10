@@ -2,7 +2,7 @@
   "0": "WorldPage.tsx",
   "1": "progress.js",
   "2": "package.json",
-  "3": "App.tsx",
+  "3": "Level 1: Waste Detective — Implementation Plan",
   "4": "compilerOptions",
   "5": "AudioService",
   "6": "GLTFBuilder",
@@ -34,9 +34,13 @@
   "32": "vite-env.d.ts",
   "33": "tailwind.config.js",
   "34": "PART B — Visual system",
-  "35": "MapItemInstance",
+  "35": "WorldCanvas",
   "36": "PART B — Visual system",
   "37": "devDependencies",
   "38": "scripts",
-  "39": "dependencies"
+  "39": "dependencies",
+  "40": "BinType",
+  "41": "EcoLensOverlay.tsx",
+  "42": "@vitejs/plugin-react",
+  "43": "useCountdownTimer.ts"
 }

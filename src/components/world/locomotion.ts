@@ -133,11 +133,12 @@ export function createLocomotionEngine(
     const inputZ = (isS ? 1 : 0) - (isW ? 1 : 0); // -1 is forward (North)
 
     if (inputX !== 0 || inputZ !== 0) {
-      // Camera-relative direction vector
+      // Camera-relative direction: W = camera forward, D = camera right
+      // (matches camera offset (sin(yaw), cos(yaw)) so W always moves away from camera)
       const sin = Math.sin(cameraAzimuthAngle);
       const cos = Math.cos(cameraAzimuthAngle);
-      moveDirX = inputX * cos - inputZ * sin;
-      moveDirZ = inputX * sin + inputZ * cos;
+      moveDirX = inputX * cos + inputZ * sin;
+      moveDirZ = -inputX * sin + inputZ * cos;
 
       const len = Math.hypot(moveDirX, moveDirZ);
       moveDirX /= len;

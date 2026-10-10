@@ -13,8 +13,10 @@ export function calculateCameraRelativeDirection(
   const cos = Math.cos(cameraAzimuthAngle);
   // inputZ: -1 for W (forward), +1 for S (backward)
   // inputX: -1 for A (left), +1 for D (right)
-  const dirX = inputX * cos - inputZ * sin;
-  const dirZ = inputX * sin + inputZ * cos;
+  // Camera offset is (sin(yaw), cos(yaw)); camera forward (camera → player)
+  // is therefore (-sin, -cos) and camera right is (cos, -sin).
+  const dirX = inputX * cos + inputZ * sin;
+  const dirZ = -inputX * sin + inputZ * cos;
   const len = Math.hypot(dirX, dirZ);
   return { x: dirX / len, z: dirZ / len };
 }
@@ -110,11 +112,16 @@ describe('Locomotion & Camera Math', () => {
     expect(eastDir.x).toBeCloseTo(1);
     expect(eastDir.z).toBeCloseTo(0);
 
-    // When camera is rotated 90 degrees (Math.PI / 2)
+    // When camera is rotated 90 degrees (Math.PI / 2) it sits east of the
+    // player and looks west — so W must move west (-X), away from the camera.
     const rotatedW = calculateCameraRelativeDirection(0, -1, Math.PI / 2);
-    // Forward now moves east (+X)
-    expect(rotatedW.x).toBeCloseTo(1);
+    expect(rotatedW.x).toBeCloseTo(-1);
     expect(rotatedW.z).toBeCloseTo(0);
+
+    // D moves along camera right: (cos, -sin) = (0, -1) at azimuth π/2
+    const rotatedD = calculateCameraRelativeDirection(1, 0, Math.PI / 2);
+    expect(rotatedD.x).toBeCloseTo(0);
+    expect(rotatedD.z).toBeCloseTo(-1);
   });
 
   it('clamps camera distance strictly between 5.0m and 55.0m', () => {
