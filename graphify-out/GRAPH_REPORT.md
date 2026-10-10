@@ -1,7 +1,7 @@
 # Graph Report - EcoSort  (2026-10-10)
 
 ## Corpus Check
-- 118 files · ~1,198,776 words
+- 118 files · ~1,198,937 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 6 file(s) not represented in the graph (top: (none) 3, .example 1, .glb 1)
 
@@ -11,7 +11,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `09e8a536`
+- Built from commit: `14e1a73f`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -59,8 +59,8 @@
 4. `WorldPage()` - 24 edges
 5. `BinType` - 23 edges
 6. `ItemData` - 21 edges
-7. `ItemMeshOptions` - 20 edges
-8. `AudioService` - 20 edges
+7. `AudioService` - 20 edges
+8. `ItemMeshOptions` - 20 edges
 9. `lucide-react` - 20 edges
 10. `WorldCanvas()` - 17 edges
 
@@ -174,7 +174,7 @@ Cohesion: 0.50
 Nodes (3): AVATARS, AvatarSelectModalProps, PlayerProfile
 
 ## Knowledge Gaps
-- **212 isolated node(s):** `What already exists`, `What needs to be built`, `2.1 Scene Strategy`, `2.3 Game Flow State Machine`, `1.2 Create Society Scene` (+207 more)
+- **212 isolated node(s):** `MissionResultsModalProps`, `Rating`, `RATING_CONFIG`, `StatCardProps`, `KitchenCameraMode` (+207 more)
   These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 274 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **22 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -185,7 +185,7 @@ _Questions this graph is uniquely positioned to answer:_
   _High betweenness centrality (0.071) - this node is a cross-community bridge._
 - **Are the 2 inferred relationships involving `BinType` (e.g. with `1.1 Add `residual` bin type` and `2.2 Bin Mapping for Level 1: Waste Detective`) actually correct?**
   _`BinType` has 2 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `What already exists`, `What needs to be built`, `2.1 Scene Strategy` to the rest of the system?**
+- **What connects `MissionResultsModalProps`, `Rating`, `RATING_CONFIG` to the rest of the system?**
   _212 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `progress.js` be split into smaller, more focused modules?**
   _Cohesion score 0.06653225806451613 - nodes in this community are weakly interconnected._

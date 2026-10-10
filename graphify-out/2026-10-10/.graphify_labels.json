@@ -1,5 +1,5 @@
 {
-  "0": "WorldPage.tsx",
+  "0": "react",
   "1": "progress.js",
   "2": "package.json",
   "3": "Level 1: Waste Detective — Implementation Plan",
@@ -9,7 +9,7 @@
   "7": "ECC Skills Integration",
   "8": "createItemMesh.ts",
   "9": "WorldCanvas.tsx",
-  "10": "vitest",
+  "10": "BinType",
   "11": "compilerOptions",
   "12": "EcoSort Heroes Full Plan",
   "13": "Architecture Decision Records Skill",
@@ -36,11 +36,11 @@
   "34": "PART B — Visual system",
   "35": "WorldCanvas",
   "36": "PART B — Visual system",
-  "37": "devDependencies",
-  "38": "scripts",
-  "39": "dependencies",
-  "40": "BinType",
-  "41": "EcoLensOverlay.tsx",
-  "42": "@vitejs/plugin-react",
-  "43": "useCountdownTimer.ts"
+  "37": "App.tsx",
+  "38": "game.ts",
+  "39": "TeacherDashboard.tsx",
+  "40": "createLitterScatter",
+  "41": "WorldPage.tsx",
+  "42": "MissionResultsModal.tsx",
+  "43": "AvatarSelectModal.tsx"
 }

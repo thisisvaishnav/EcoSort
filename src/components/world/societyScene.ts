@@ -7,13 +7,14 @@
  * Scene layout (top-down):
  *   Z = -12  → Building façade (top)
  *   Z = -8   → Building façade
- *   Z = -3   → Garbage collection area (bins)
+ *   Z = -3.8 → Bin row, straight along the building front (openings face +Z)
  *   Z =  0   → Open compound / scattered litter
  *   Z =  6   → Society entrance gate
  *   Z = 11   → Road + truck path (bottom, opposite side)
  */
 
 import * as THREE from 'three';
+import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 import { BinType } from '../../types/game';
 import { WorldObstacle } from './types';
 
@@ -47,48 +48,110 @@ const BIN_COLORS: Record<BinType, number> = {
   reuse: 0x0d9488,
 };
 
-const BIN_LABELS: Record<BinType, string> = {
-  wet: 'Green\nBin',
-  dry: 'Blue\nBin',
-  hazardous: 'Red\nBin',
-  residual: 'Black\nBin',
-  paper: 'Paper',
-  plastic: 'Plastic',
-  ewaste: 'E-Waste',
-  reuse: 'Reuse',
-};
-
 // ─────────────────────────────────────────────────────────────────────────────
 // Canvas texture helpers
 // ─────────────────────────────────────────────────────────────────────────────
-function makeBinLabelTexture(label: string, hexColor: number): THREE.CanvasTexture {
+/** White bin icon on a transparent background (matches the home-base artwork) */
+function makeBinIconTexture(binType: BinType): THREE.CanvasTexture {
   const canvas = document.createElement('canvas');
-  canvas.width = 128;
-  canvas.height = 160;
+  canvas.width = 256;
+  canvas.height = 256;
   const ctx = canvas.getContext('2d')!;
 
-  // Background
-  const r = (hexColor >> 16) & 255;
-  const g = (hexColor >> 8) & 255;
-  const b = hexColor & 255;
-  ctx.fillStyle = `rgb(${r},${g},${b})`;
-  ctx.fillRect(0, 0, 128, 160);
-
-  // White text
+  ctx.clearRect(0, 0, 256, 256);
   ctx.fillStyle = '#ffffff';
-  ctx.font = 'bold 22px sans-serif';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  const lines = label.split('\n');
-  lines.forEach((line, i) => {
-    ctx.fillText(line, 64, 70 + i * 28);
-  });
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = 14;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
 
-  // Icon-like circle at top
-  ctx.beginPath();
-  ctx.arc(64, 30, 20, 0, Math.PI * 2);
-  ctx.fillStyle = 'rgba(255,255,255,0.3)';
-  ctx.fill();
+  if (binType === 'wet') {
+    // Leaf
+    ctx.beginPath();
+    ctx.moveTo(128, 48);
+    ctx.bezierCurveTo(70, 70, 60, 160, 128, 208);
+    ctx.bezierCurveTo(196, 160, 186, 70, 128, 48);
+    ctx.fill();
+    // Cut the central vein out of the leaf
+    ctx.save();
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.lineWidth = 7;
+    ctx.beginPath();
+    ctx.moveTo(128, 65);
+    ctx.lineTo(128, 195);
+    ctx.stroke();
+    ctx.restore();
+  } else if (binType === 'hazardous') {
+    // Caution triangle with exclamation point
+    ctx.beginPath();
+    ctx.moveTo(128, 52);
+    ctx.lineTo(214, 196);
+    ctx.lineTo(42, 196);
+    ctx.closePath();
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(128, 95);
+    ctx.lineTo(128, 148);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(128, 172, 7, 0, Math.PI * 2);
+    ctx.fill();
+  } else if (binType === 'ewaste') {
+    // Computer monitor
+    ctx.lineWidth = 12;
+    ctx.strokeRect(58, 68, 140, 96);
+    ctx.beginPath();
+    ctx.moveTo(128, 166);
+    ctx.lineTo(128, 196);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(96, 196);
+    ctx.lineTo(160, 196);
+    ctx.stroke();
+  } else if (binType === 'residual') {
+    // Simple dustbin outline (lid + tapered body)
+    ctx.lineWidth = 12;
+    ctx.beginPath();
+    ctx.moveTo(72, 70);
+    ctx.lineTo(184, 70);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(112, 52);
+    ctx.lineTo(144, 52);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(86, 88);
+    ctx.lineTo(98, 204);
+    ctx.lineTo(158, 204);
+    ctx.lineTo(170, 88);
+    ctx.stroke();
+    ctx.lineWidth = 9;
+    ctx.beginPath();
+    ctx.moveTo(116, 104);
+    ctx.lineTo(119, 186);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(140, 104);
+    ctx.lineTo(137, 186);
+    ctx.stroke();
+  } else {
+    // Recycle loop (dry, paper, plastic, reuse)
+    ctx.save();
+    ctx.translate(128, 128);
+    for (let i = 0; i < 3; i++) {
+      ctx.rotate((Math.PI * 2) / 3);
+      ctx.beginPath();
+      ctx.arc(0, -60, 36, -Math.PI * 0.4, Math.PI * 0.2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(35, -72);
+      ctx.lineTo(46, -42);
+      ctx.lineTo(20, -50);
+      ctx.closePath();
+      ctx.fill();
+    }
+    ctx.restore();
+  }
 
   const tex = new THREE.CanvasTexture(canvas);
   tex.colorSpace = THREE.SRGBColorSpace;
@@ -183,7 +246,7 @@ export function createSocietyScene(activeBins: BinType[] = ['wet', 'dry', 'hazar
 
   // Street lamp point light near bins
   const lampLight = new THREE.PointLight(0xfff3b0, 1.2, 12);
-  lampLight.position.set(-3, 4.5, -2);
+  lampLight.position.set(-6.5, 4.5, -2);
   group.add(lampLight);
 
   // ── Ground ────────────────────────────────────────────────────────────────
@@ -349,11 +412,13 @@ export function createSocietyScene(activeBins: BinType[] = ['wet', 'dry', 'hazar
   }
 
   // ── Garbage Collection Area ────────────────────────────────────────────────────
-  // Wide raised platform to accommodate 4 larger wheelie bins
-  const platformGeo = new THREE.BoxGeometry(11, 0.12, 3.5);
+  // Raised platform running along the building front, centred on the entrance axis
+  const BIN_ROW_X = 0; // aligned with the building centre + entrance arch
+  const BIN_ROW_Z = -3.8;
+  const platformGeo = new THREE.BoxGeometry(10, 0.12, 3.5);
   const platformMat = new THREE.MeshStandardMaterial({ color: 0x78716c, roughness: 0.7 });
   const platform = new THREE.Mesh(platformGeo, platformMat);
-  platform.position.set(2, 0.06, -3.8);
+  platform.position.set(BIN_ROW_X, 0.06, BIN_ROW_Z);
   platform.receiveShadow = true;
   group.add(platform);
 
@@ -371,67 +436,89 @@ export function createSocietyScene(activeBins: BinType[] = ['wet', 'dry', 'hazar
   mc.fillText('WASTE COLLECTION', 128, 32);
   const markTex = new THREE.CanvasTexture(markCanvas);
   const markSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: markTex }));
-  markSprite.position.set(2, 0.15, -3.8);
+  // Lying flat on the platform, just in front of the bin row so it stays visible
+  markSprite.position.set(BIN_ROW_X, 0.15, BIN_ROW_Z + 1.1);
   markSprite.scale.set(4.5, 1.1, 1);
   markSprite.rotation.x = -Math.PI / 2;
   group.add(markSprite);
 
-  // ── 4 Color-coded Bins ────────────────────────────────────────────────────
+  // ── 4 Color-coded Bins — straight row along the building front ──────────────
+  // Openings / icons face +Z: toward the player spawn and the compound entrance.
   const binSpacing = 2.4;
-  const binStartX = 2 - ((activeBins.length - 1) * binSpacing) / 2;
+  const binStartX = BIN_ROW_X - ((activeBins.length - 1) * binSpacing) / 2;
+  const BIN_W = 1.15;
+  const BIN_H = 1.55;
+  const BIN_D = 1.0;
 
   activeBins.forEach((binType, idx) => {
     const hexColor = BIN_COLORS[binType] ?? 0x334155;
-    const label = BIN_LABELS[binType] ?? binType;
     const xPos = binStartX + idx * binSpacing;
-    const zPos = -3.8;
+    const zPos = BIN_ROW_Z;
 
     const binGroup = new THREE.Group();
 
-    // Bin body — proper street-wheelie-bin proportions
-    const bodyGeo = new THREE.CylinderGeometry(0.65, 0.55, 1.8, 20);
+    // Bin body — soft rounded box, matte finish
     const bodyMat = new THREE.MeshStandardMaterial({
       color: hexColor,
-      roughness: 0.38,
-      metalness: 0.12,
+      roughness: 0.45,
+      metalness: 0.05,
     });
-    const bodyMesh = new THREE.Mesh(bodyGeo, bodyMat);
-    bodyMesh.position.y = 0.9;
+    const bodyMesh = new THREE.Mesh(new RoundedBoxGeometry(BIN_W, BIN_H, BIN_D, 4, 0.08), bodyMat);
+    bodyMesh.position.y = BIN_H / 2;
     bodyMesh.castShadow = true;
     bodyMesh.receiveShadow = true;
     binGroup.add(bodyMesh);
     binMeshes.set(binType, bodyMesh);
 
-    // Colour stripe band near top
-    const stripGeo = new THREE.CylinderGeometry(0.66, 0.66, 0.22, 20);
-    const stripMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.4 });
-    const strip = new THREE.Mesh(stripGeo, stripMat);
-    strip.position.y = 1.6;
-    binGroup.add(strip);
+    // Dark interior under the lid so the open bin looks deep
+    const interior = new THREE.Mesh(
+      new THREE.PlaneGeometry(BIN_W - 0.12, BIN_D - 0.12),
+      new THREE.MeshBasicMaterial({ color: 0x0a0a0a })
+    );
+    interior.rotation.x = -Math.PI / 2;
+    interior.position.y = BIN_H - 0.02;
+    binGroup.add(interior);
 
-    // Lid
-    const lidGeo = new THREE.CylinderGeometry(0.68, 0.68, 0.16, 20);
-    const lidMat = new THREE.MeshStandardMaterial({ color: 0xf1f5f9, roughness: 0.3 });
+    // Large white front icon (leaf / recycle / monitor / hazard / dustbin)
+    const icon = new THREE.Mesh(
+      new THREE.PlaneGeometry(0.72, 0.72),
+      new THREE.MeshStandardMaterial({
+        map: makeBinIconTexture(binType),
+        transparent: true,
+        alphaTest: 0.05,
+        roughness: 0.45,
+        metalness: 0,
+      })
+    );
+    icon.position.set(0, BIN_H * 0.55, BIN_D / 2 + 0.008);
+    binGroup.add(icon);
+
+    // Hinged lid in the same colour as the body (swings open on a successful throw)
+    const lidPivot = new THREE.Group();
+    lidPivot.position.set(0, BIN_H, -BIN_D / 2);
+
+    const lidMat = new THREE.MeshStandardMaterial({
+      color: hexColor,
+      roughness: 0.4,
+      metalness: 0.05,
+    });
+    const lidGeo = new RoundedBoxGeometry(BIN_W + 0.1, 0.14, BIN_D + 0.1, 3, 0.05);
+    lidGeo.translate(0, 0.07, (BIN_D + 0.1) / 2); // hinge sits at the back edge
     const lid = new THREE.Mesh(lidGeo, lidMat);
-    lid.position.y = 1.88;
     lid.castShadow = true;
-    binGroup.add(lid);
-    // Store lid reference for animation
-    bodyMesh.userData.lid = lid;
+    lidPivot.add(lid);
 
-    // Handle bar on lid
-    const handleGeo = new THREE.BoxGeometry(0.55, 0.09, 0.12);
-    const handleMat = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.5 });
-    const handle = new THREE.Mesh(handleGeo, handleMat);
-    handle.position.y = 1.97;
-    binGroup.add(handle);
+    // Handle bar across the lid front, slightly darker for contrast
+    const handleMat = new THREE.MeshStandardMaterial({
+      color: new THREE.Color(hexColor).multiplyScalar(0.72),
+      roughness: 0.5,
+    });
+    const handle = new THREE.Mesh(new RoundedBoxGeometry(0.4, 0.08, 0.12, 2, 0.03), handleMat);
+    handle.position.set(0, 0.14, (BIN_D + 0.1) / 2 + 0.02);
+    lidPivot.add(handle);
 
-    // Label sprite
-    const labelTex = makeBinLabelTexture(label, hexColor);
-    const labelSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: labelTex }));
-    labelSprite.position.set(0, 2.7, 0);
-    labelSprite.scale.set(1.2, 1.5, 1);
-    binGroup.add(labelSprite);
+    binGroup.add(lidPivot);
+    bodyMesh.userData.lid = lidPivot;
 
     // Glow ring on floor
     const ringGeo = new THREE.RingGeometry(0.8, 1.05, 24);
@@ -466,13 +553,13 @@ export function createSocietyScene(activeBins: BinType[] = ['wet', 'dry', 'hazar
   const poleGeo = new THREE.CylinderGeometry(0.06, 0.06, 5.2, 8);
   const poleMat = new THREE.MeshStandardMaterial({ color: 0x374151, roughness: 0.3, metalness: 0.7 });
   const pole = new THREE.Mesh(poleGeo, poleMat);
-  pole.position.set(-3, 2.6, -2);
+  pole.position.set(-6.5, 2.6, -2);
   pole.castShadow = true;
   group.add(pole);
 
   const armGeo = new THREE.CylinderGeometry(0.04, 0.04, 1.2, 8);
   const arm = new THREE.Mesh(armGeo, poleMat);
-  arm.position.set(-2.5, 5.0, -2);
+  arm.position.set(-5.9, 5.0, -2);
   arm.rotation.z = Math.PI / 2;
   group.add(arm);
 
@@ -483,7 +570,7 @@ export function createSocietyScene(activeBins: BinType[] = ['wet', 'dry', 'hazar
     emissiveIntensity: 1.4,
   });
   const lampMesh = new THREE.Mesh(lampGeo, lampMat);
-  lampMesh.position.set(-1.9, 5.0, -2);
+  lampMesh.position.set(-5.3, 5.0, -2);
   group.add(lampMesh);
 
   // ── Bench ─────────────────────────────────────────────────────────────────

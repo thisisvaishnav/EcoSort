@@ -736,7 +736,7 @@
       "file_type": "code",
       "norm_label": "societysceneresult",
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L19"
+      "source_location": "L20"
     },
     {
       "id": "src_components_world_thirdpersoncamera_thirdpersoncamerasystem",
@@ -2483,7 +2483,7 @@
       "file_type": "code",
       "norm_label": "createsocietyscene()",
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L153"
+      "source_location": "L154"
     },
     {
       "id": "src_components_world_societyscene_createsocietyscene_animate",
@@ -2495,7 +2495,7 @@
       "file_type": "code",
       "norm_label": "animate()",
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L660"
+      "source_location": "L661"
     },
     {
       "id": "src_components_world_societyscene_createsocietyscene_animatetruckarrival",
@@ -2507,7 +2507,7 @@
       "file_type": "code",
       "norm_label": "animatetruckarrival()",
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L692"
+      "source_location": "L693"
     },
     {
       "id": "src_components_world_societyscene_createsocietyscene_triggerbinanimation",
@@ -2519,7 +2519,7 @@
       "file_type": "code",
       "norm_label": "triggerbinanimation()",
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L679"
+      "source_location": "L680"
     },
     {
       "id": "src_components_world_societyscene_makebinlabeltexture",
@@ -2531,7 +2531,7 @@
       "file_type": "code",
       "norm_label": "makebinlabeltexture()",
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L63"
+      "source_location": "L64"
     },
     {
       "id": "src_components_world_societyscene_makeconcretetex",
@@ -2543,7 +2543,7 @@
       "file_type": "code",
       "norm_label": "makeconcretetex()",
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L97"
+      "source_location": "L98"
     },
     {
       "id": "src_components_world_societyscene_makewalltex",
@@ -2555,7 +2555,7 @@
       "file_type": "code",
       "norm_label": "makewalltex()",
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L123"
+      "source_location": "L124"
     },
     {
       "id": "src_components_world_thirdpersoncamera_createthirdpersoncamera",
@@ -2579,7 +2579,7 @@
       "file_type": "code",
       "norm_label": "calculatecamerapitchfordistance()",
       "source_file": "tests/locomotion.test.ts",
-      "source_location": "L26"
+      "source_location": "L28"
     },
     {
       "id": "tests_locomotion_test_calculatecamerarelativedirection",
@@ -2603,7 +2603,7 @@
       "file_type": "code",
       "norm_label": "clampcameradistance()",
       "source_file": "tests/locomotion.test.ts",
-      "source_location": "L22"
+      "source_location": "L24"
     },
     {
       "id": "tests_locomotion_test_isarrivedatdestination",
@@ -2615,7 +2615,7 @@
       "file_type": "code",
       "norm_label": "isarrivedatdestination()",
       "source_file": "tests/locomotion.test.ts",
-      "source_location": "L38"
+      "source_location": "L40"
     },
     {
       "id": "tests_locomotion_test_resolveboxcollision",
@@ -2627,7 +2627,7 @@
       "file_type": "code",
       "norm_label": "resolveboxcollision()",
       "source_file": "tests/locomotion.test.ts",
-      "source_location": "L47"
+      "source_location": "L49"
     },
     {
       "id": "src_components_game_cleanlinessmeter",
@@ -6202,7 +6202,7 @@
       "file_type": "code",
       "norm_label": "bin_colors",
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L38"
+      "source_location": "L39"
     },
     {
       "id": "src_components_world_societyscene_bin_labels",
@@ -6213,7 +6213,7 @@
       "file_type": "code",
       "norm_label": "bin_labels",
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L49"
+      "source_location": "L50"
     },
     {
       "id": "src_components_world_thirdpersoncamera",
@@ -7755,7 +7755,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L189",
+      "source_location": "L190",
       "weight": 1.0
     },
     {
@@ -7767,7 +7767,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L222",
+      "source_location": "L223",
       "weight": 1.0
     },
     {
@@ -7779,7 +7779,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L429",
+      "source_location": "L430",
       "weight": 1.0
     },
     {
@@ -8283,7 +8283,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/locomotion.test.ts",
-      "source_location": "L33",
+      "source_location": "L35",
       "weight": 1.0
     },
     {
@@ -8307,7 +8307,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/locomotion.test.ts",
-      "source_location": "L22",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -8319,7 +8319,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/locomotion.test.ts",
-      "source_location": "L26",
+      "source_location": "L28",
       "weight": 1.0
     },
     {
@@ -8331,7 +8331,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/locomotion.test.ts",
-      "source_location": "L38",
+      "source_location": "L40",
       "weight": 1.0
     },
     {
@@ -8343,7 +8343,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/locomotion.test.ts",
-      "source_location": "L47",
+      "source_location": "L49",
       "weight": 1.0
     },
     {
@@ -8799,7 +8799,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -8811,7 +8811,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L31",
+      "source_location": "L32",
       "weight": 1.0
     },
     {
@@ -10479,7 +10479,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0
     },
     {
@@ -10491,7 +10491,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -13779,7 +13779,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L15",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
@@ -13791,7 +13791,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0
     },
     {
@@ -13803,7 +13803,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -18180,7 +18180,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L123",
+      "source_location": "L124",
       "weight": 1.0
     },
     {
@@ -18191,7 +18191,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L153",
+      "source_location": "L154",
       "weight": 1.0
     },
     {
@@ -18202,7 +18202,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -18213,7 +18213,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L38",
+      "source_location": "L39",
       "weight": 1.0
     },
     {
@@ -18224,7 +18224,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L49",
+      "source_location": "L50",
       "weight": 1.0
     },
     {
@@ -18235,7 +18235,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L63",
+      "source_location": "L64",
       "weight": 1.0
     },
     {
@@ -18246,7 +18246,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L97",
+      "source_location": "L98",
       "weight": 1.0
     },
     {
@@ -19795,7 +19795,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L729",
+      "source_location": "L730",
       "weight": 1.0
     },
     {
@@ -19807,7 +19807,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L730",
+      "source_location": "L731",
       "weight": 1.0
     },
     {
@@ -19819,7 +19819,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "src/components/world/societyScene.ts",
-      "source_location": "L731",
+      "source_location": "L732",
       "weight": 1.0
     },
     {
@@ -20113,5 +20113,5 @@
       "source_file": "AGENTS.md"
     }
   ],
-  "built_at_commit": "09e8a5365ed9ec303d144964d477e755bf2af0c0"
+  "built_at_commit": "14e1a73fee363ae5346a26c60fff241bc15dd07b"
 }
