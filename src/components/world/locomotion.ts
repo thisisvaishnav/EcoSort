@@ -122,6 +122,7 @@ export function createLocomotionEngine(
   const update = (delta: number, cameraAzimuthAngle: number) => {
     let moveDirX = 0;
     let moveDirZ = 0;
+    let isBackwardInput = false;
 
     // Check keyboard input
     const isW = keysDown.has('w') || keysDown.has('arrowup');
@@ -144,6 +145,7 @@ export function createLocomotionEngine(
       moveDirX /= len;
       moveDirZ /= len;
       isMoving = true;
+      isBackwardInput = inputZ > 0; // S held: walk backward without turning around
     } else if (clickDestination) {
       // Move toward click destination
       const dx = clickDestination.x - currentPos.x;
@@ -176,9 +178,13 @@ export function createLocomotionEngine(
 
       player.group.position.copy(currentPos);
 
-      // Facing angle (Three.js 0 is +Z, so atan2(moveDirX, moveDirZ))
-      const targetAngle = Math.atan2(moveDirX, moveDirZ);
-      player.setFacingAngle(targetAngle, delta);
+      // Facing angle (Three.js 0 is +Z, so atan2(moveDirX, moveDirZ)).
+      // Backward input keeps the current facing so Kai walks backward
+      // instead of spinning to face the camera.
+      if (!isBackwardInput) {
+        const targetAngle = Math.atan2(moveDirX, moveDirZ);
+        player.setFacingAngle(targetAngle, delta);
+      }
     }
 
     // Update avatar procedural animation

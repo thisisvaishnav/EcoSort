@@ -122,6 +122,12 @@ describe('Locomotion & Camera Math', () => {
     const rotatedD = calculateCameraRelativeDirection(1, 0, Math.PI / 2);
     expect(rotatedD.x).toBeCloseTo(0);
     expect(rotatedD.z).toBeCloseTo(-1);
+
+    // S (inputZ = +1) moves toward the camera — i.e. backward when the
+    // camera sits behind the character at azimuth 0.
+    const backwardS = calculateCameraRelativeDirection(0, 1, 0);
+    expect(backwardS.x).toBeCloseTo(0);
+    expect(backwardS.z).toBeCloseTo(1);
   });
 
   it('clamps camera distance strictly between 5.0m and 55.0m', () => {
