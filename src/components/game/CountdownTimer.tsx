@@ -65,10 +65,10 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = ({
 
   return (
     <div
-      className={`flex items-center gap-1 sm:gap-1.5 px-1.5 py-0.5 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl border border-slate-900 sm:border-2 shadow-retro-xs sm:shadow-retro-sm font-fun font-black text-[11px] sm:text-sm ${bg} ${textColor} ${pulse}`}
+      className={`flex items-center gap-1 sm:gap-1.5 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-lg border border-slate-900 shadow-retro-xs font-fun font-black text-[10px] sm:text-xs ${bg} ${textColor} ${pulse}`}
       title={isExpired ? 'Time is up!' : `${timeLeft} seconds remaining`}
     >
-      <Timer className="w-3 h-3 sm:w-4 sm:h-4 shrink-0" />
+      <Timer className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 shrink-0" />
       <span>{formatted}</span>
     </div>
   );

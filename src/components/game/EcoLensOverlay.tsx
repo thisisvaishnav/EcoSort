@@ -109,7 +109,7 @@ export const EcoLensButton: React.FC<EcoLensButtonProps> = ({ lensState, onActiv
           ? 'No Eco Lens energy left'
           : `Use Eco Lens (${usesLeft} left) — press L`
       }
-      className={`flex items-center gap-1.5 px-3 py-1.5 min-h-[40px] md:min-h-[44px] rounded-xl border-2 border-slate-900 shadow-retro-sm font-fun font-black text-xs transition-all
+      className={`flex items-center gap-1 sm:gap-1.5 px-2 py-1 sm:px-2.5 sm:py-1 min-h-[30px] sm:min-h-[34px] rounded-lg sm:rounded-xl border-2 border-slate-900 shadow-retro-xs font-fun font-black text-[11px] sm:text-xs transition-all
         ${canUse
           ? 'bg-teal-500 hover:bg-teal-400 text-white active:translate-x-[1px] active:translate-y-[1px]'
           : 'bg-slate-300 text-slate-500 cursor-not-allowed opacity-70'
@@ -117,14 +117,14 @@ export const EcoLensButton: React.FC<EcoLensButtonProps> = ({ lensState, onActiv
         ${isActive ? 'animate-pulse bg-teal-600' : ''}
       `}
     >
-      <Scan className="w-3.5 h-3.5 shrink-0" />
+      <Scan className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
       <span>Lens</span>
       {isOnCooldown ? (
-        <span className="bg-slate-900/20 text-[10px] px-1.5 py-0.5 rounded">
+        <span className="bg-slate-900/20 text-[9px] sm:text-[10px] px-1 py-0.2 rounded">
           {Math.ceil(cooldown)}s
         </span>
       ) : (
-        <span className="bg-slate-900/20 text-[10px] px-1.5 py-0.5 rounded">
+        <span className="bg-slate-900/20 text-[9px] sm:text-[10px] px-1 py-0.2 rounded">
           {usesLeft}/5
         </span>
       )}

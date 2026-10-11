@@ -1360,7 +1360,7 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
             </div>
             <button
               onClick={pickupNearestLitter}
-              className="bg-emerald-500 hover:bg-emerald-400 text-white font-fun font-black text-xs px-3 py-1.5 min-h-[36px] rounded-xl border-2 border-slate-900 shadow-retro-sm transition-all active:translate-x-[1px] active:translate-y-[1px] shrink-0"
+              className="bg-emerald-500 hover:bg-emerald-400 text-white font-fun font-black text-[11px] sm:text-xs px-2.5 py-1 min-h-[30px] rounded-lg border-2 border-slate-900 shadow-retro-xs transition-all active:translate-x-[1px] active:translate-y-[1px] shrink-0"
             >
               Pick up
             </button>
@@ -1370,8 +1370,8 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
 
       {/* Society / Migsun: walk hint when not holding anything */}
       {(envMode === 'SOCIETY' || envMode === 'MIGSUN') && !currentItem && (
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 bg-[#FDFBF7]/90 border-2 border-slate-900 shadow-retro-sm rounded-xl px-4 py-1.5 text-[11px] font-fun font-black text-slate-900 pointer-events-none flex items-center gap-2">
-          <span>{isCoarsePointer ? '👆 Tap the ground to walk • Tap Pick up to take litter!' : '🎮 Walk with WASD • Approach litter and press E to pick up!'}</span>
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 bg-[#FDFBF7]/90 border-2 border-slate-900 shadow-retro-xs rounded-lg px-3 py-1 text-[10px] sm:text-[11px] font-fun font-black text-slate-900 pointer-events-none flex items-center gap-2">
+          <span>{isCoarsePointer ? '👆 Tap ground to walk • Tap Pick up for litter' : '🎮 WASD to walk • E to pick up'}</span>
         </div>
       )}
 
@@ -1382,12 +1382,12 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 animate-bounce max-w-[90vw]">
           <button
             onClick={() => onSetWorldMode('STATION_SORT')}
-            className="flex items-center gap-2 px-4 py-2.5 sm:px-6 sm:py-3.5 bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-fun font-black text-xs sm:text-base rounded-2xl border-2 border-slate-900 shadow-retro transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none whitespace-nowrap"
+            className="flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-fun font-black text-xs sm:text-sm rounded-xl border-2 border-slate-900 shadow-retro-sm transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-none whitespace-nowrap"
           >
             <span>Enter Mission {nearestStation.id}: {nearestStation.name}</span>
-            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-slate-950 shrink-0" />
+            <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-slate-950 shrink-0" />
             {!isCoarsePointer && (
-              <span className="bg-slate-950 text-white text-[10px] px-2 py-0.5 rounded-lg border border-slate-900">
+              <span className="bg-slate-950 text-white text-[9px] px-1.5 py-0.2 rounded border border-slate-900">
                 Press E
               </span>
             )}
@@ -1413,7 +1413,7 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
             <span className="text-slate-400">|</span>
             <span>Tap a bin to sort it!</span>
           </div>
-          <div className="flex justify-center gap-2 flex-wrap pointer-events-auto">
+          <div className="flex justify-center gap-1.5 sm:gap-2 flex-wrap pointer-events-auto">
             {activeBins.map((binType) => {
               const bin = ALL_BINS[binType];
               return (
@@ -1421,7 +1421,7 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
                   key={binType}
                   disabled={isThrowing}
                   onClick={() => executeThrow(binType)}
-                  className={`${bin.color} hover:brightness-110 text-white font-fun font-black px-3.5 py-2 md:px-5 md:py-2.5 min-h-[44px] rounded-xl shadow-retro-sm border-2 border-slate-900 transition-all flex items-center gap-1.5 text-xs md:text-sm disabled:opacity-50 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none`}
+                  className={`${bin.color} hover:brightness-110 text-white font-fun font-black px-2.5 py-1.5 sm:px-3.5 sm:py-2 min-h-[34px] sm:min-h-[40px] rounded-lg sm:rounded-xl shadow-retro-xs border-2 border-slate-900 transition-all flex items-center gap-1 text-[11px] sm:text-xs disabled:opacity-50 active:translate-x-[1px] active:translate-y-[1px] active:shadow-none`}
                 >
                   <span>{bin.label}</span>
                 </button>
@@ -1447,7 +1447,7 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
             👆 Drag item up to throw into a bin, or tap any bin below!
           </div>
 
-          <div className="flex justify-center gap-2 md:gap-3 flex-wrap pointer-events-auto">
+          <div className="flex justify-center gap-1.5 sm:gap-2 flex-wrap pointer-events-auto">
             {activeBins.map((binType) => {
               const bin = ALL_BINS[binType];
               return (
@@ -1455,7 +1455,7 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
                   key={binType}
                   disabled={isThrowing}
                   onClick={() => executeThrow(binType)}
-                  className={`${bin.color} hover:brightness-105 text-white font-fun font-black px-3.5 py-2 md:px-5 md:py-2.5 min-h-[44px] rounded-xl shadow-retro-sm border-2 border-slate-900 transition-all flex items-center gap-1.5 text-xs md:text-sm disabled:opacity-50 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none`}
+                  className={`${bin.color} hover:brightness-105 text-white font-fun font-black px-2.5 py-1.5 sm:px-3.5 sm:py-2 min-h-[34px] sm:min-h-[40px] rounded-lg sm:rounded-xl shadow-retro-xs border-2 border-slate-900 transition-all flex items-center gap-1 text-[11px] sm:text-xs disabled:opacity-50 active:translate-x-[1px] active:translate-y-[1px] active:shadow-none`}
                 >
                   <span>{bin.label}</span>
                 </button>

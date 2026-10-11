@@ -20,22 +20,22 @@ export const CleanlinessMeter: React.FC<CleanlinessMeterProps> = ({ collected, t
 
   return (
     <div
-      className="flex items-center gap-1.5 bg-[#FDFBF7]/95 border-2 border-slate-900 rounded-xl px-2 py-1 sm:px-2.5 sm:py-1.5 shadow-retro-sm"
+      className="flex items-center gap-1 sm:gap-1.5 bg-[#FDFBF7]/95 border-2 border-slate-900 rounded-lg sm:rounded-xl px-1.5 py-0.5 sm:px-2 sm:py-1 shadow-retro-xs"
       title={`Society cleanliness: ${pct}%`}
     >
-      <Sparkles className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-      <div className="flex flex-col gap-0.5 min-w-[48px] sm:min-w-[64px]">
-        <span className="text-[10px] font-fun font-black text-slate-700 leading-none">
+      <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-emerald-600 shrink-0" />
+      <div className="flex flex-col gap-0.5 min-w-[38px] sm:min-w-[50px]">
+        <span className="text-[9px] sm:text-[10px] font-fun font-black text-slate-700 leading-none">
           Clean {pct}%
         </span>
-        <div className="w-12 sm:w-16 h-2 bg-slate-200 rounded-full overflow-hidden border border-slate-400">
+        <div className="w-10 sm:w-12 h-1.5 sm:h-2 bg-slate-200 rounded-full overflow-hidden border border-slate-400">
           <div
             className={`h-full ${barColor} rounded-full transition-all duration-500`}
             style={{ width: `${pct}%` }}
           />
         </div>
       </div>
-      <span className="text-[10px] font-fun font-black text-slate-600">
+      <span className="text-[9px] sm:text-[10px] font-fun font-black text-slate-600">
         {collected}/{total}
       </span>
     </div>
