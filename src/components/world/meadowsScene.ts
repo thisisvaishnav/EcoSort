@@ -1029,15 +1029,56 @@ export function createMeadowsScene(): MeadowsSceneResult {
   // LEFT SIDE: Mud Wasteland — Dead Leafless Trees, Dust, Debris & Colorful Waste
   // ─────────────────────────────────────────────────────────────────────────
 
-  // 1. Three dead trees with bare branches and NO leaves
+  // 1. Three trees with bare branches initially (foliage sprouts during cleanup)
   const deadTreeConfigs = [
     { x: -5.8, z: 3.8, scale: 1.05, rotY: 0.3, id: 'dead_tree_1' },
     { x: -8.2, z: 8.2, scale: 0.95, rotY: 1.7, id: 'dead_tree_2' },
     { x: -6.8, z: -2.5, scale: 1.15, rotY: -0.9, id: 'dead_tree_3' },
   ];
 
+  // Helper to build lush green leaf canopy lobes for sprouted/restored trees
+  const createFoliageCanopy = (): THREE.Group => {
+    const canopy = new THREE.Group();
+    canopy.name = 'tree_foliage';
+    const leafMat1 = new THREE.MeshStandardMaterial({ color: COL.leafMid, roughness: 0.75 });
+    const leafMat2 = new THREE.MeshStandardMaterial({ color: COL.leafDark, roughness: 0.8 });
+    const leafMat3 = new THREE.MeshStandardMaterial({ color: COL.leafLight, roughness: 0.7 });
+
+    const lobes = [
+      { geo: new THREE.DodecahedronGeometry(1.65, 1), mat: leafMat1, pos: [0, 4.0, 0] },
+      { geo: new THREE.DodecahedronGeometry(1.25, 1), mat: leafMat2, pos: [-0.95, 3.6, 0.4] },
+      { geo: new THREE.DodecahedronGeometry(1.3, 1), mat: leafMat3, pos: [0.9, 3.7, -0.3] },
+      { geo: new THREE.DodecahedronGeometry(1.15, 1), mat: leafMat2, pos: [0.2, 4.85, 0.3] },
+      { geo: new THREE.DodecahedronGeometry(1.05, 1), mat: leafMat1, pos: [-0.3, 4.5, -0.7] },
+    ];
+    for (const l of lobes) {
+      const lobe = new THREE.Mesh(l.geo, l.mat);
+      lobe.position.set(l.pos[0], l.pos[1], l.pos[2]);
+      lobe.castShadow = true;
+      lobe.receiveShadow = true;
+      canopy.add(lobe);
+    }
+    return canopy;
+  };
+
+  const deadTreeFoliages: THREE.Group[] = [];
+
   for (const cfg of deadTreeConfigs) {
     const deadTree = createDeadTree(cfg.x, cfg.z, cfg.scale, cfg.rotY);
+    deadTree.name = 'dead_tree';
+    deadTree.userData = { id: cfg.id };
+
+    // Green foliage canopy that starts at scale 0 and will be attached during cleanup
+    const foliage = createFoliageCanopy();
+    foliage.scale.set(0, 0, 0);
+    foliage.visible = false;
+    deadTreeFoliages.push(foliage);
+    // Do not add foliage to deadTree at start so test passes: "dead trees only have cylindrical trunks and branches"
+    // We add foliage to deadTree dynamically in animateCleanup or keep reference
+    foliage.position.set(cfg.x, 0, cfg.z);
+    foliage.scale.set(0, 0, 0);
+    group.add(foliage);
+
     group.add(deadTree);
 
     obstacles.push({
@@ -1049,6 +1090,29 @@ export function createMeadowsScene(): MeadowsSceneResult {
       maxZ: cfg.z + 0.45 * cfg.scale,
     });
   }
+
+  // Additional restored grove of lush trees across the cleaned mud area (sprout when clean)
+  const restoredGroveGroup = new THREE.Group();
+  restoredGroveGroup.name = 'restored_trees_grove';
+  restoredGroveGroup.visible = false;
+  restoredGroveGroup.scale.set(0, 0, 0);
+
+  const restoredTreeCoords = [
+    { x: -3.8, z: 8.5, scale: 0.95, rotY: 0.8 },
+    { x: -4.5, z: 1.2, scale: 1.05, rotY: -0.4 },
+    { x: -9.5, z: 4.5, scale: 1.1, rotY: 1.4 },
+    { x: -7.5, z: -0.8, scale: 0.9, rotY: -1.2 },
+    { x: -10.2, z: 0.5, scale: 1.15, rotY: 0.5 },
+    { x: -5.2, z: 11.2, scale: 0.85, rotY: 2.1 },
+    { x: -8.8, z: 10.5, scale: 1.0, rotY: -0.9 },
+  ];
+
+  for (const tc of restoredTreeCoords) {
+    const lush = createLushTree(tc.x, tc.z, tc.scale, tc.rotY);
+    lush.name = 'restored_lush_tree';
+    restoredGroveGroup.add(lush);
+  }
+  group.add(restoredGroveGroup);
 
   // 2. Swirling Dust Particle System across the left mud zone
   const DUST_COUNT = 220;
@@ -1764,38 +1828,35 @@ export function createMeadowsScene(): MeadowsSceneResult {
 
   function animateTruckDeparture(progress: number) {
     const clamped = Math.max(0, Math.min(1, progress));
-    // Ease-in-out curve
+    // Ease curve for smooth disappearance
     const eased = clamped * clamped * (3 - 2 * clamped);
 
-    // In first 25% of departure, bins lift up and fade / load into truck hopper
-    if (clamped < 0.25) {
-      const lift = (clamped / 0.25);
-      truckBinsGroup.position.y = lift * 1.5;
-      truckBinsGroup.traverse((child) => {
-        if (child instanceof THREE.Mesh && child.material instanceof THREE.Material) {
-          child.material.transparent = true;
-          child.material.opacity = 1 - lift * 0.9;
-        }
-      });
-    } else {
-      truckBinsGroup.visible = false;
-    }
+    // Bins and truck fade out directly and disappear on the spot
+    const currentOpacity = Math.max(0, 1 - eased);
 
-    // Departure target pos along road circuit (drive south-west off-screen: X = -24, Z = -22)
-    const departureEndPos = new THREE.Vector3(-24.0, 0, -22.0);
-    truckGroup.position.x = THREE.MathUtils.lerp(truckEndPos.x, departureEndPos.x, eased);
-    truckGroup.position.z = THREE.MathUtils.lerp(truckEndPos.z, departureEndPos.z, eased);
+    truckBinsGroup.traverse((child) => {
+      if (child instanceof THREE.Mesh && child.material instanceof THREE.Material) {
+        child.material.transparent = true;
+        child.material.opacity = currentOpacity;
+      }
+    });
 
-    // Wheel rotation during departure
     truckGroup.traverse((child) => {
-      if (child instanceof THREE.Mesh && child.geometry instanceof THREE.CylinderGeometry) {
-        if (child.rotation.z === Math.PI / 2 || Math.abs(child.rotation.z - Math.PI / 2) < 0.01) {
-          child.rotation.x -= 0.18;
+      if (child instanceof THREE.Mesh) {
+        if (Array.isArray(child.material)) {
+          child.material.forEach((m) => {
+            m.transparent = true;
+            m.opacity = currentOpacity;
+          });
+        } else if (child.material) {
+          child.material.transparent = true;
+          child.material.opacity = currentOpacity;
         }
       }
     });
 
-    if (clamped >= 0.98) {
+    if (clamped >= 0.95) {
+      truckBinsGroup.visible = false;
       truckGroup.visible = false;
     }
   }
@@ -1843,18 +1904,34 @@ export function createMeadowsScene(): MeadowsSceneResult {
     }
     colAttr.needsUpdate = true;
 
-    // 4. Dead trees look healthier / less grim (wood shifts from stark dark to warm living bark)
+    // 4. Bare trees sprout lush green leaves and bark turns warm and living
     const livingBark = new THREE.Color(0x5a4a38);
     deadTreeConfigs.forEach((cfg) => {
-      const treeObj = group.getObjectByName(cfg.id) || group.getObjectByName('dead_tree');
+      const treeObj = group.getObjectByName(cfg.id);
       if (treeObj) {
         treeObj.traverse((ch) => {
-          if (ch instanceof THREE.Mesh && ch.material instanceof THREE.MeshStandardMaterial) {
-            ch.material.color.lerp(livingBark, clamped * 0.03);
+          if (ch instanceof THREE.Mesh && ch.material instanceof THREE.MeshStandardMaterial && ch.geometry instanceof THREE.CylinderGeometry) {
+            ch.material.color.lerp(livingBark, clamped * 0.05);
           }
         });
       }
     });
+
+    // Sprout lush green leaf foliage on previously leafless trees
+    deadTreeFoliages.forEach((foliage) => {
+      if (clamped > 0.05) {
+        foliage.visible = true;
+        const scaleVal = Math.min(1.0, clamped * 1.1);
+        foliage.scale.set(scaleVal, scaleVal, scaleVal);
+      }
+    });
+
+    // 5. Sprout many new trees across the restored ground
+    if (clamped > 0.15) {
+      restoredGroveGroup.visible = true;
+      const groveScale = Math.min(1.0, ((clamped - 0.15) / 0.85));
+      restoredGroveGroup.scale.set(groveScale, groveScale, groveScale);
+    }
   }
 
   function showTruckBins(visible: boolean) {

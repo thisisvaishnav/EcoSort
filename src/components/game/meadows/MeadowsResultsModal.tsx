@@ -85,39 +85,39 @@ export const MeadowsResultsModal: React.FC<MeadowsResultsModalProps> = ({
   return (
     <div
       data-testid="meadows-results-modal"
-      className="fixed inset-0 z-50 pointer-events-auto flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-300"
+      className="fixed inset-0 z-50 pointer-events-auto flex items-center justify-center p-3 sm:p-4 bg-slate-950/75 backdrop-blur-sm animate-in fade-in duration-300"
     >
-      <div className="relative w-full max-w-[340px] sm:max-w-md bg-slate-900 border-2 border-emerald-500/50 rounded-2xl sm:rounded-3xl p-4 sm:p-7 shadow-[0_0_40px_rgba(16,185,129,0.25)] text-white flex flex-col gap-3 sm:gap-5 animate-in zoom-in-95 duration-250">
+      <div className="relative w-full max-w-[340px] sm:max-w-md bg-[#FDFBF7] border-[3px] border-slate-950 rounded-3xl p-5 sm:p-7 shadow-retro-xl text-slate-900 flex flex-col gap-3 sm:gap-4 animate-in zoom-in-95 duration-200">
         {/* Floating Trophy Icon Badge */}
-        <div className="absolute -top-4 sm:-top-5 left-1/2 -translate-x-1/2 bg-gradient-to-br from-amber-400 to-amber-600 border-2 border-slate-900 rounded-xl sm:rounded-2xl p-2 sm:p-2.5 shadow-lg shadow-amber-500/30">
-          <Trophy className="w-5 h-5 sm:w-7 sm:h-7 text-slate-950 stroke-[2.5]" />
+        <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-amber-300 border-[3px] border-slate-950 rounded-2xl p-2 sm:p-2.5 shadow-retro">
+          <Trophy className="w-6 h-6 sm:w-7 sm:h-7 text-slate-950 stroke-[2.5]" />
         </div>
 
         {/* Header */}
-        <div className="pt-2 sm:pt-3 text-center">
-          <span className="text-[10px] sm:text-[11px] font-fun font-bold uppercase tracking-widest text-emerald-400">
+        <div className="pt-2 text-center">
+          <span className="px-3 py-1 rounded-xl bg-emerald-100 text-emerald-900 font-fun font-bold text-xs border border-slate-900 uppercase">
             Green Meadows • Level Complete
           </span>
-          <h2 className="text-xl sm:text-2xl font-fun font-black text-white mt-0.5 sm:mt-1">
+          <h2 className="text-2xl sm:text-3xl font-fun font-black text-slate-950 mt-1.5">
             Waste Cleared!
           </h2>
 
           {/* Star Display */}
-          <div className="flex items-center justify-center gap-1.5 sm:gap-2 mt-2 sm:mt-3" data-testid="star-rating">
+          <div className="flex items-center justify-center gap-1.5 sm:gap-2 mt-2" data-testid="star-rating">
             {[1, 2, 3].map((s) => {
               const active = s <= stars;
               return (
                 <div
                   key={s}
-                  className={`p-1 sm:p-1.5 rounded-lg sm:rounded-xl border transition-all duration-300 ${
+                  className={`p-1.5 rounded-xl border-2 border-slate-950 transition-all duration-300 ${
                     active
-                      ? 'bg-amber-400/20 border-amber-400/60 shadow-[0_0_12px_rgba(251,191,36,0.4)] scale-105 sm:scale-110'
-                      : 'bg-slate-800/50 border-slate-700/60 opacity-40'
+                      ? 'bg-amber-300 shadow-retro-xs scale-105 sm:scale-110'
+                      : 'bg-slate-200 opacity-50'
                   }`}
                 >
                   <Star
                     className={`w-5 h-5 sm:w-6 sm:h-6 ${
-                      active ? 'fill-amber-400 text-amber-400' : 'text-slate-500 fill-slate-700'
+                      active ? 'fill-slate-950 text-slate-950' : 'text-slate-400 fill-slate-300'
                     }`}
                   />
                 </div>
@@ -127,49 +127,55 @@ export const MeadowsResultsModal: React.FC<MeadowsResultsModalProps> = ({
         </div>
 
         {/* Stats Table / Card Grid */}
-        <div className="bg-slate-950/60 border border-slate-800 rounded-xl sm:rounded-2xl p-3 sm:p-4 divide-y divide-slate-800/80">
+        <div className="bg-white border-2 border-slate-950 rounded-2xl p-3 sm:p-4 divide-y-2 divide-slate-100 shadow-retro-sm">
           {/* Row 1: Items sorted correctly */}
-          <div className="flex items-center justify-between py-1.5 sm:py-2.5 first:pt-0 sm:first:pt-1">
-            <div className="flex items-center gap-2 text-[11px] sm:text-xs text-slate-300 font-sans">
-              <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 shrink-0" />
+          <div className="flex items-center justify-between py-2 first:pt-0">
+            <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-700 font-sans font-bold">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 stroke-[2.5]" />
               <span>Items sorted correctly</span>
             </div>
-            <span className="font-fun font-black text-xs sm:text-sm text-emerald-400">
+            <span className="font-fun font-black text-sm sm:text-base text-emerald-700">
               {sortedCount}/{totalCount}
             </span>
           </div>
 
           {/* Row 2: Time taken */}
-          <div className="flex items-center justify-between py-1.5 sm:py-2.5">
-            <div className="flex items-center gap-2 text-[11px] sm:text-xs text-slate-300 font-sans">
-              <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-400 shrink-0" />
+          <div className="flex items-center justify-between py-2">
+            <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-700 font-sans font-bold">
+              <Clock className="w-4 h-4 text-sky-600 shrink-0 stroke-[2.5]" />
               <span>Time taken</span>
             </div>
-            <span className="font-fun font-black text-xs sm:text-sm text-white font-mono">
+            <span className="font-fun font-black text-sm sm:text-base text-slate-950 font-mono">
               {timeTakenFormatted}
             </span>
           </div>
 
           {/* Row 3: Contamination */}
-          <div className="flex items-center justify-between py-1.5 sm:py-2.5">
-            <div className="flex items-center gap-2 text-[11px] sm:text-xs text-slate-300 font-sans">
-              <AlertTriangle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 shrink-0" />
+          <div className="flex items-center justify-between py-2">
+            <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-700 font-sans font-bold">
+              <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0 stroke-[2.5]" />
               <span>Contamination</span>
             </div>
             <span
-              className={`px-2 py-0.5 rounded-lg border text-[10px] sm:text-xs font-fun font-black ${contamination.badgeBg} ${contamination.color}`}
+              className={`px-2.5 py-0.5 rounded-lg border-2 border-slate-900 text-xs font-fun font-black ${
+                contaminationLevel <= 1
+                  ? 'bg-emerald-200 text-emerald-950'
+                  : contaminationLevel === 2
+                  ? 'bg-amber-200 text-amber-950'
+                  : 'bg-rose-200 text-rose-950'
+              }`}
             >
               {contamination.label}
             </span>
           </div>
 
           {/* Row 4: Stars */}
-          <div className="flex items-center justify-between py-1.5 sm:py-2.5 last:pb-0 sm:last:pb-1">
-            <div className="flex items-center gap-2 text-[11px] sm:text-xs text-slate-300 font-sans">
-              <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 shrink-0" />
+          <div className="flex items-center justify-between py-2 last:pb-0">
+            <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-700 font-sans font-bold">
+              <Star className="w-4 h-4 text-amber-500 shrink-0 stroke-[2.5]" />
               <span>Stars</span>
             </div>
-            <span className="font-fun font-black text-xs sm:text-sm text-amber-400">
+            <span className="font-fun font-black text-sm sm:text-base text-slate-950">
               {'⭐'.repeat(stars)}
             </span>
           </div>
@@ -177,31 +183,31 @@ export const MeadowsResultsModal: React.FC<MeadowsResultsModalProps> = ({
 
         {/* Narrator Quote Box */}
         {narratorLine && (
-          <div className="bg-emerald-950/40 border border-emerald-500/30 rounded-xl sm:rounded-2xl p-2.5 sm:p-3.5 flex items-start gap-2.5 sm:gap-3">
-            <span className="text-base sm:text-xl shrink-0">🌿</span>
-            <p className="text-[11px] sm:text-xs font-sans text-emerald-200/90 leading-relaxed italic">
+          <div className="bg-emerald-50 border-2 border-slate-900 rounded-2xl p-3 flex items-start gap-2.5 shadow-retro-xs">
+            <span className="text-lg shrink-0">🌿</span>
+            <p className="text-xs font-sans font-semibold text-emerald-950 leading-relaxed italic">
               “{narratorLine}”
             </p>
           </div>
         )}
 
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-0.5">
+        <div className="flex flex-col sm:flex-row gap-2.5 pt-1">
           <button
             onClick={onPlayAgain}
             data-testid="meadows-play-again-btn"
-            className="flex-1 py-2.5 sm:py-3 px-3 sm:px-4 rounded-xl bg-slate-800 hover:bg-slate-700/80 text-slate-300 font-fun font-bold text-[11px] sm:text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 sm:gap-2 border border-slate-700 active:scale-95 transition-all cursor-pointer"
+            className="tactile-btn flex-1 py-3 px-3 rounded-2xl bg-white hover:bg-slate-50 text-slate-950 font-fun font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 border-2 border-slate-900 shadow-retro-sm active:translate-x-[1px] active:translate-y-[1px] cursor-pointer"
           >
-            <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <RotateCcw className="w-4 h-4 text-slate-900" />
             <span>Play Again</span>
           </button>
           <button
             onClick={onNextMission}
             data-testid="meadows-next-mission-btn"
-            className="flex-1 py-2.5 sm:py-3 px-3 sm:px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-fun font-black text-[11px] sm:text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 sm:gap-2 shadow-[0_0_20px_rgba(16,185,129,0.4)] active:scale-95 transition-all cursor-pointer"
+            className="tactile-btn flex-1 py-3 px-3 rounded-2xl bg-amber-300 hover:bg-amber-400 text-slate-950 font-fun font-black text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 border-2 border-slate-950 shadow-retro active:translate-x-[1px] active:translate-y-[1px] cursor-pointer"
           >
             <span>NEXT MISSION: Restore the Garden</span>
-            <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[3]" />
+            <ArrowRight className="w-4 h-4 stroke-[3]" />
           </button>
         </div>
       </div>

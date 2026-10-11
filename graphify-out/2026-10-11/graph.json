@@ -1386,7 +1386,7 @@
       "file_type": "code",
       "norm_label": "heroadventure",
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L25"
+      "source_location": "L24"
     },
     {
       "id": "src_components_landingpage_landingpageprops",
@@ -4173,7 +4173,7 @@
       "file_type": "code",
       "norm_label": "landingpage()",
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L80"
+      "source_location": "L79"
     },
     {
       "id": "src_components_navbar_navbar",
@@ -10320,7 +10320,7 @@
       "file_type": "code",
       "norm_label": "hero_adventures",
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L33"
+      "source_location": "L32"
     },
     {
       "id": "src_components_landingpage_tagline_words",
@@ -10331,7 +10331,7 @@
       "file_type": "code",
       "norm_label": "tagline_words",
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L72"
+      "source_location": "L71"
     },
     {
       "id": "src_components_navbar",
@@ -12332,7 +12332,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/App.tsx",
-      "source_location": "L59",
+      "source_location": "L58",
       "weight": 1.0
     },
     {
@@ -12344,7 +12344,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/App.tsx",
-      "source_location": "L60",
+      "source_location": "L59",
       "weight": 1.0
     },
     {
@@ -12356,7 +12356,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/App.tsx",
-      "source_location": "L70",
+      "source_location": "L69",
       "weight": 1.0
     },
     {
@@ -31692,7 +31692,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L25",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -31703,7 +31703,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L33",
+      "source_location": "L32",
       "weight": 1.0
     },
     {
@@ -31714,7 +31714,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L72",
+      "source_location": "L71",
       "weight": 1.0
     },
     {
@@ -31725,7 +31725,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L80",
+      "source_location": "L79",
       "weight": 1.0
     },
     {
@@ -36572,5 +36572,5 @@
       "source_file": "AGENTS.md"
     }
   ],
-  "built_at_commit": "0023e67089f82097ac9dc42934c83e5a2f905efb"
+  "built_at_commit": "74e60c076d5f92e8c4616df5a74b6408489605a6"
 }

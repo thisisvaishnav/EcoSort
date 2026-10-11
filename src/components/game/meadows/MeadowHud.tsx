@@ -105,18 +105,18 @@ export const MeadowHud: React.FC<MeadowHudProps> = ({
       {narratorSpeech && (
         <div
           data-testid="narrator-speech"
-          className="pointer-events-auto relative rounded-xl sm:rounded-2xl bg-slate-950/90 backdrop-blur-md border border-teal-400/90 sm:border-2 px-3 py-1.5 sm:px-4 sm:py-2.5 max-w-[92vw] sm:max-w-xl text-center shadow-xl animate-in fade-in zoom-in-95 duration-300"
+          className="pointer-events-auto relative rounded-xl sm:rounded-2xl bg-[#FDFBF7]/95 backdrop-blur-md border-2 border-slate-900 px-3 py-1 sm:px-4 sm:py-1.5 max-w-[88vw] sm:max-w-md text-center shadow-retro-sm animate-in fade-in zoom-in-95 duration-200"
         >
-          <div className="text-[9px] sm:text-[10px] font-fun font-bold uppercase tracking-widest text-teal-300/90 mb-0.5">
+          <div className="inline-block text-[9px] sm:text-[10px] font-fun font-black uppercase tracking-wider text-emerald-800 bg-emerald-100 px-1.5 py-0.2 rounded border border-emerald-300 mb-0.5">
             Narrator
           </div>
-          <p className="text-[11px] sm:text-sm font-fun font-bold text-white leading-snug sm:leading-relaxed">
+          <p className="text-xs sm:text-sm font-fun font-bold text-slate-900 leading-snug">
             "{narratorSpeech}"
           </p>
           {onSkipIntro && (
             <button
               onClick={onSkipIntro}
-              className="mt-1 sm:mt-1.5 px-2 py-0.5 rounded-lg bg-teal-500/20 hover:bg-teal-500/30 text-[9px] sm:text-[10px] font-fun font-bold text-teal-200 border border-teal-400/50 transition-all pointer-events-auto active:scale-95"
+              className="mt-1 px-2 py-0.5 rounded-lg bg-amber-300 hover:bg-amber-400 text-[9px] sm:text-[10px] font-fun font-black text-slate-950 border border-slate-900 shadow-retro-xs transition-all pointer-events-auto active:scale-95"
             >
               Skip Intro ⏩
             </button>
