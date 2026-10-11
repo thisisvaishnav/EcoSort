@@ -122,6 +122,8 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
   const activeTouchesRef = useRef<Map<number, { x: number; y: number }>>(new Map());
   const pinchStateRef = useRef<{ dist: number; midY: number } | null>(null);
   const tapCandidateRef = useRef<{ x: number; y: number } | null>(null);
+  // Mobile right-half trackpad camera look (pan left/right, adjust pitch)
+  const trackpadDragRef = useRef<{ pointerId: number; lastX: number; lastY: number; moved: boolean } | null>(null);
   // Desktop click-to-move: tracks the mousedown so pointerup can tell a tap
   // apart from a throw drag that never left the threshold.
   const mouseDownCandidateRef = useRef<{ x: number; y: number; throwArmed: boolean } | null>(null);
@@ -1006,9 +1008,11 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
       return;
     }
 
-    // Touch bookkeeping: remember the finger for tap detection;
-    // a second finger switches the gesture to pinch zoom/pitch.
-    // Only track when the touch starts on the 3D scene, not on HUD buttons.
+    // Touch bookkeeping:
+    // When touching on the 3D canvas:
+    // - Two fingers trigger pinch zoom & pitch
+    // - Touching on the right half (or right 60%) of the screen acts as a trackpad to look left/right/up/down
+    // - Touching on the left half acts as tap-to-move candidate if not holding item
     if (e.pointerType === 'touch' && e.target instanceof HTMLCanvasElement) {
       const touches = activeTouchesRef.current;
       touches.set(e.pointerId, { x: e.clientX, y: e.clientY });
@@ -1019,8 +1023,22 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
           midY: (pts[0].y + pts[1].y) / 2,
         };
         tapCandidateRef.current = null; // pinch is not a tap
+        trackpadDragRef.current = null;
         cancelThrowDrag();
         return;
+      }
+
+      const rect = container.getBoundingClientRect();
+      const isRightSide = e.clientX - rect.left > rect.width * 0.45;
+
+      if (isRightSide && touches.size === 1) {
+        // Armed for camera trackpad view drag
+        trackpadDragRef.current = {
+          pointerId: e.pointerId,
+          lastX: e.clientX,
+          lastY: e.clientY,
+          moved: false,
+        };
       }
       tapCandidateRef.current = { x: e.clientX, y: e.clientY };
     }
@@ -1051,12 +1069,14 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
     if (!engineRef.current || !mountRef.current) return;
     engineRef.current.cameraSystem.onPointerMove(e.nativeEvent);
 
-    // Two-finger pinch: zoom + pitch
+    // Touch handling
     if (e.pointerType === 'touch') {
       const touches = activeTouchesRef.current;
       if (touches.has(e.pointerId)) {
         touches.set(e.pointerId, { x: e.clientX, y: e.clientY });
       }
+
+      // Two-finger pinch: zoom + pitch
       if (touches.size >= 2 && pinchStateRef.current) {
         const pts = [...touches.values()].slice(0, 2);
         const dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
@@ -1064,6 +1084,26 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
         engineRef.current.cameraSystem.zoomBy(pinchZoomDelta(pinchStateRef.current.dist, dist));
         engineRef.current.cameraSystem.adjustPitch(pinchPitchDelta(pinchStateRef.current.midY, midY));
         pinchStateRef.current = { dist, midY };
+        return;
+      }
+
+      // Right-side trackpad drag: pan camera yaw left/right and adjust pitch
+      if (trackpadDragRef.current && trackpadDragRef.current.pointerId === e.pointerId && !isDraggingThrowRef.current) {
+        const deltaX = e.clientX - trackpadDragRef.current.lastX;
+        const deltaY = e.clientY - trackpadDragRef.current.lastY;
+        trackpadDragRef.current.lastX = e.clientX;
+        trackpadDragRef.current.lastY = e.clientY;
+
+        if (Math.hypot(deltaX, deltaY) > 2) {
+          trackpadDragRef.current.moved = true;
+          tapCandidateRef.current = null; // Dragging camera view cancels tap-to-move
+        }
+
+        // Horizontal swipe pans yaw (drag right = look right / rotate camera around character)
+        // Sensitivity: 0.007 radians per pixel
+        engineRef.current.cameraSystem.panYaw(-deltaX * 0.007);
+        // Vertical swipe adjusts camera pitch slightly
+        engineRef.current.cameraSystem.adjustPitch(deltaY * 0.003);
         return;
       }
     }
@@ -1123,18 +1163,24 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
       }
     }
 
-    // Touch: fire tap-to-move when one finger taps (no drag, no pinch)
+    // Touch: fire tap-to-move when one finger taps (no drag, no pinch, no trackpad look)
     if (e.pointerType === 'touch') {
       const touches = activeTouchesRef.current;
       touches.delete(e.pointerId);
       if (touches.size < 2) pinchStateRef.current = null;
+
+      const trackpad = trackpadDragRef.current;
+      const wasTrackpadMove = trackpad && trackpad.pointerId === e.pointerId && trackpad.moved;
+      if (trackpad && trackpad.pointerId === e.pointerId) {
+        trackpadDragRef.current = null;
+      }
 
       const candidate = tapCandidateRef.current;
       if (touches.size === 0 && candidate) {
         tapCandidateRef.current = null;
         const moved = Math.hypot(e.clientX - candidate.x, e.clientY - candidate.y);
         const canWalk = !(envMode === 'TOWN' && worldMode === 'STATION_SORT');
-        if (moved < 12 && canWalk && !throwWasArmed) {
+        if (moved < 12 && canWalk && !throwWasArmed && !wasTrackpadMove) {
           engineRef.current.locomotion.createRaycastHandler(
             e.nativeEvent,
             mountRef.current,
@@ -1149,6 +1195,7 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
     activeTouchesRef.current.delete(e.pointerId);
     if (activeTouchesRef.current.size < 2) pinchStateRef.current = null;
     if (activeTouchesRef.current.size === 0) tapCandidateRef.current = null;
+    trackpadDragRef.current = null;
     mouseDownCandidateRef.current = null;
     cancelThrowDrag();
   };

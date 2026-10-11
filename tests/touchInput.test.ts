@@ -138,3 +138,42 @@ describe('tap-to-move (touch locomotion)', () => {
     window.dispatchEvent(new KeyboardEvent('keyup', { key: 'w' }));
   });
 });
+
+describe('trackpad camera panYaw (mobile look around)', () => {
+  it('panYaw offsets camera targetYaw and updates azimuth angle', () => {
+    const sys = createThirdPersonCamera(16 / 9);
+    settle(sys);
+    const initialAzimuth = sys.getAzimuthAngle();
+
+    // Pan camera 90 degrees (Math.PI / 2) to the right
+    sys.panYaw(Math.PI / 2);
+    settle(sys);
+
+    const newAzimuth = sys.getAzimuthAngle();
+    // Yaw should have increased by ~PI/2
+    const diff = Math.atan2(Math.sin(newAzimuth - initialAzimuth), Math.cos(newAzimuth - initialAzimuth));
+    expect(diff).toBeCloseTo(Math.PI / 2, 1);
+  });
+
+  it('panYaw prevents automatic facing angle snap unless resetManualYaw is called', () => {
+    const sys = createThirdPersonCamera(16 / 9);
+    settle(sys);
+
+    // Pan yaw manually
+    sys.panYaw(1.2);
+    const target = new THREE.Vector3(0, 0, 0);
+
+    // Update with facingAngle 0 for 60 frames
+    for (let i = 0; i < 60; i++) sys.update(target, 1 / 60, 0);
+    const manualYaw = sys.getAzimuthAngle();
+
+    // Now reset manual yaw
+    sys.resetManualYaw();
+    for (let i = 0; i < 60; i++) sys.update(target, 1 / 60, 0);
+    const snappedYaw = sys.getAzimuthAngle();
+
+    // Snapped yaw should align behind Kai (0 + Math.PI = Math.PI)
+    expect(snappedYaw).toBeCloseTo(Math.PI, 1);
+    expect(Math.abs(manualYaw - snappedYaw)).toBeGreaterThan(0.5);
+  });
+});

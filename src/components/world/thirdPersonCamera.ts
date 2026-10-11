@@ -21,6 +21,8 @@ export interface ThirdPersonCameraSystem {
   onPointerUp: (event: PointerEvent) => void;
   zoomBy: (delta: number) => void;
   adjustPitch: (delta: number) => void;
+  panYaw: (deltaYaw: number) => void;
+  resetManualYaw: () => void;
   getAzimuthAngle: () => number;
   setDistance: (distance: number) => void;
   setOrbit: (yaw: number, pitchOffset?: number) => void;
@@ -88,6 +90,8 @@ export function createThirdPersonCamera(
     }
   };
 
+  let isManualYaw = false;
+
   const onPointerUp = (event: PointerEvent) => {
     if (event.button === 2) {
       isRightClickDragging = false;
@@ -98,9 +102,8 @@ export function createThirdPersonCamera(
     // Smooth interpolation for distance
     currentDistance = THREE.MathUtils.lerp(currentDistance, targetDistance, Math.min(1.0, delta * 10.0));
 
-    // Keep the camera locked behind the character's back:
-    // camera sits opposite to the facing direction (facing + π).
-    if (facingAngle !== undefined) {
+    // When moving or not in manual yaw drag, keep the camera aligned behind Kai
+    if (facingAngle !== undefined && !isManualYaw) {
       targetYaw = facingAngle + Math.PI;
     }
 
@@ -169,6 +172,13 @@ export function createThirdPersonCamera(
     },
     adjustPitch: (delta: number) => {
       pitchOffset = Math.max(-0.25, Math.min(0.35, pitchOffset + delta));
+    },
+    panYaw: (deltaYaw: number) => {
+      isManualYaw = true;
+      targetYaw += deltaYaw;
+    },
+    resetManualYaw: () => {
+      isManualYaw = false;
     },
     getAzimuthAngle: () => yaw,
     setDistance: (dist: number) => {
