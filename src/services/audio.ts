@@ -63,6 +63,10 @@ class AudioService {
   private lastPlayedAt: Record<string, number> = {};
   private musicGain: GainNode | null = null;
   private musicWanted: boolean = false;
+  private pollyAudio: HTMLAudioElement | null = null;
+  private pollyCache: Map<string, string> = new Map();
+  private pollyVoiceId: string =
+    (typeof import.meta !== 'undefined' && import.meta.env?.VITE_POLLY_VOICE_ID) || 'Kevin';
 
   constructor() {
     this.soundEnabled = readStoredBoolean(SOUND_ENABLED_KEY, true);
@@ -129,6 +133,7 @@ class AudioService {
       if (this.musicWanted) this.startMusic();
     } else {
       this.fadeOutMusic();
+      this.stopSpeech();
     }
   }
 
@@ -138,6 +143,9 @@ class AudioService {
 
   public setVoiceEnabled(enabled: boolean) {
     this.voiceEnabled = enabled;
+    if (!enabled) {
+      this.stopSpeech();
+    }
   }
 
   public isVoiceEnabled(): boolean {
@@ -159,6 +167,13 @@ class AudioService {
     this.volume = clamped;
     if (this.masterGain) {
       this.masterGain.gain.value = clamped;
+    }
+    if (this.pollyAudio) {
+      try {
+        this.pollyAudio.volume = clamped;
+      } catch {
+        // pass
+      }
     }
     writeStoredNumber(VOLUME_KEY, clamped);
   }
@@ -212,24 +227,135 @@ class AudioService {
   }
 
   /**
-   * Mascot Speech: speaks short sentences with clear child-friendly cadence.
+   * Mascot Speech: speaks short sentences using Amazon Polly Neural Voice
+   * (falls back gracefully to browser SpeechSynthesis if offline or unconfigured).
    */
   public speak(text: string) {
-    if (!this.voiceEnabled || typeof window === 'undefined' || !window.speechSynthesis) return;
+    if (!this.voiceEnabled || typeof window === 'undefined') return;
+    const trimmed = (text || '').trim();
+    if (!trimmed) return;
 
-    window.speechSynthesis.cancel(); // Stop prior speech
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = this.slowMode ? 0.75 : 0.95;
-    utterance.pitch = 1.15; // Friendly mascot pitch
+    // Stop any speech currently playing
+    this.stopSpeech();
 
-    // Choose child-friendly or english voice if available
-    const voices = window.speechSynthesis.getVoices();
-    const friendlyVoice = voices.find((v) => v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Samantha')));
-    if (friendlyVoice) {
-      utterance.voice = friendlyVoice;
+    // Check memory cache for instant playback without API latency
+    const cacheKey = `${this.pollyVoiceId}:${trimmed}`;
+    const cachedUrl = this.pollyCache.get(cacheKey);
+    if (cachedUrl) {
+      this.playPollyAudio(cachedUrl);
+      return;
     }
 
-    window.speechSynthesis.speak(utterance);
+    const apiEndpoint = typeof import.meta !== 'undefined' ? (import.meta.env?.VITE_API_ENDPOINT || '') : '';
+    const speakEndpoint = apiEndpoint ? `${apiEndpoint}/speak` : '/api/speak';
+
+    if (typeof fetch === 'function') {
+      fetch(speakEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          text: trimmed,
+          voiceId: this.pollyVoiceId,
+        }),
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          return res.json();
+        })
+        .then((data) => {
+          if (data && data.audio) {
+            this.pollyCache.set(cacheKey, data.audio);
+            this.playPollyAudio(data.audio);
+          } else {
+            this.fallbackSpeech(trimmed);
+          }
+        })
+        .catch(() => {
+          // Fallback to browser SpeechSynthesis API
+          this.fallbackSpeech(trimmed);
+        });
+    } else {
+      this.fallbackSpeech(trimmed);
+    }
+  }
+
+  /**
+   * Stop both Amazon Polly audio and browser speech synthesis.
+   */
+  public stopSpeech() {
+    if (this.pollyAudio) {
+      try {
+        this.pollyAudio.pause();
+        this.pollyAudio.currentTime = 0;
+      } catch {
+        // pass
+      }
+      this.pollyAudio = null;
+    }
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
+      try {
+        window.speechSynthesis.cancel();
+      } catch {
+        // pass
+      }
+    }
+  }
+
+  private playPollyAudio(audioSrc: string) {
+    if (typeof Audio === 'undefined') return;
+    try {
+      const audio = new Audio(audioSrc);
+      audio.volume = this.volume;
+      this.pollyAudio = audio;
+      const playPromise = audio.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch((err) => {
+          console.warn('Polly playback notice:', err);
+        });
+      }
+    } catch {
+      // Audio element fallback
+    }
+  }
+
+  private fallbackSpeech(text: string) {
+    if (
+      typeof window === 'undefined' ||
+      !window.speechSynthesis ||
+      typeof SpeechSynthesisUtterance === 'undefined'
+    ) {
+      return;
+    }
+
+    try {
+      window.speechSynthesis.cancel(); // Stop prior speech
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = this.slowMode ? 0.75 : 0.95;
+      utterance.pitch = 1.15; // Friendly mascot pitch
+
+      // Choose child-friendly or english voice if available
+      const voices = window.speechSynthesis.getVoices();
+      const friendlyVoice = voices.find(
+        (v) =>
+          v.lang.startsWith('en') &&
+          (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Samantha'))
+      );
+      if (friendlyVoice) {
+        utterance.voice = friendlyVoice;
+      }
+
+      window.speechSynthesis.speak(utterance);
+    } catch {
+      // pass
+    }
+  }
+
+  public setPollyVoice(voiceId: string) {
+    this.pollyVoiceId = voiceId;
+  }
+
+  public getPollyVoice(): string {
+    return this.pollyVoiceId;
   }
 
   /**

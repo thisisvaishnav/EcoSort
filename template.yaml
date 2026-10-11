@@ -133,6 +133,26 @@ Resources:
             Path: /ask-eco
             Method: POST
 
+  PollySpeakFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: backend/
+      Handler: handlers/polly.handler
+      Timeout: 10
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action:
+                - polly:SynthesizeSpeech
+              Resource: '*'
+      Events:
+        PollySpeak:
+          Type: Api
+          Properties:
+            RestApiId: !Ref EcoSortApi
+            Path: /speak
+            Method: POST
+
 Outputs:
   ApiUrl:
     Description: "API Gateway endpoint URL for Prod stage"
