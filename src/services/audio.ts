@@ -65,6 +65,10 @@ class AudioService {
   private musicWanted: boolean = false;
   private pollyAudio: HTMLAudioElement | null = null;
   private pollyCache: Map<string, string> = new Map();
+  private pollyInFlight: Map<string, Promise<string | null>> = new Map();
+  private speechSequence: number = 0;
+  private lastSpokenText: string = '';
+  private lastSpokenTime: number = 0;
   private pollyVoiceId: string =
     (typeof import.meta !== 'undefined' && import.meta.env?.VITE_POLLY_VOICE_ID) || 'Kevin';
 
@@ -235,10 +239,21 @@ class AudioService {
     const trimmed = (text || '').trim();
     if (!trimmed) return;
 
-    // Stop any speech currently playing
+    // 1. Debounce rapid duplicate calls for the same text (e.g. React StrictMode double mounts)
+    const now = Date.now();
+    if (trimmed === this.lastSpokenText && now - this.lastSpokenTime < 600) {
+      return;
+    }
+    this.lastSpokenText = trimmed;
+    this.lastSpokenTime = now;
+
+    // 2. Stop any existing speech immediately
     this.stopSpeech();
 
-    // Check memory cache for instant playback without API latency
+    // 3. Increment speech token so older in-flight requests are dropped
+    const currentSeq = ++this.speechSequence;
+
+    // 4. Instant cache hit
     const cacheKey = `${this.pollyVoiceId}:${trimmed}`;
     const cachedUrl = this.pollyCache.get(cacheKey);
     if (cachedUrl) {
@@ -246,47 +261,81 @@ class AudioService {
       return;
     }
 
+    // 5. Fetch Polly audio with request deduplication
+    this.fetchPollyAudio(cacheKey, trimmed)
+      .then((audioData) => {
+        // If another speech request arrived or speech was stopped, drop this stale response
+        if (this.speechSequence !== currentSeq) return;
+
+        if (audioData) {
+          this.playPollyAudio(audioData);
+        } else {
+          this.fallbackSpeech(trimmed);
+        }
+      })
+      .catch(() => {
+        if (this.speechSequence !== currentSeq) return;
+        this.fallbackSpeech(trimmed);
+      });
+  }
+
+  private fetchPollyAudio(cacheKey: string, text: string): Promise<string | null> {
+    if (this.pollyCache.has(cacheKey)) {
+      return Promise.resolve(this.pollyCache.get(cacheKey) || null);
+    }
+
+    if (this.pollyInFlight.has(cacheKey)) {
+      return this.pollyInFlight.get(cacheKey)!;
+    }
+
+    if (typeof fetch !== 'function') {
+      return Promise.resolve(null);
+    }
+
     const apiEndpoint = typeof import.meta !== 'undefined' ? (import.meta.env?.VITE_API_ENDPOINT || '') : '';
     const speakEndpoint = apiEndpoint ? `${apiEndpoint}/speak` : '/api/speak';
 
-    if (typeof fetch === 'function') {
-      fetch(speakEndpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          text: trimmed,
-          voiceId: this.pollyVoiceId,
-        }),
+    const promise = fetch(speakEndpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        text,
+        voiceId: this.pollyVoiceId,
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
       })
-        .then((res) => {
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          return res.json();
-        })
-        .then((data) => {
-          if (data && data.audio) {
-            this.pollyCache.set(cacheKey, data.audio);
-            this.playPollyAudio(data.audio);
-          } else {
-            this.fallbackSpeech(trimmed);
-          }
-        })
-        .catch(() => {
-          // Fallback to browser SpeechSynthesis API
-          this.fallbackSpeech(trimmed);
-        });
-    } else {
-      this.fallbackSpeech(trimmed);
-    }
+      .then((data) => {
+        if (data && data.audio) {
+          this.pollyCache.set(cacheKey, data.audio);
+          return data.audio as string;
+        }
+        return null;
+      })
+      .catch((err) => {
+        console.warn('Polly synthesis notice:', err.message);
+        return null;
+      })
+      .finally(() => {
+        this.pollyInFlight.delete(cacheKey);
+      });
+
+    this.pollyInFlight.set(cacheKey, promise);
+    return promise;
   }
 
   /**
    * Stop both Amazon Polly audio and browser speech synthesis.
    */
   public stopSpeech() {
+    this.speechSequence++; // Invalidate all pending in-flight requests
     if (this.pollyAudio) {
       try {
         this.pollyAudio.pause();
         this.pollyAudio.currentTime = 0;
+        this.pollyAudio.src = '';
       } catch {
         // pass
       }
@@ -304,9 +353,36 @@ class AudioService {
   private playPollyAudio(audioSrc: string) {
     if (typeof Audio === 'undefined') return;
     try {
+      // Ensure previous audio is fully stopped
+      if (this.pollyAudio) {
+        try {
+          this.pollyAudio.pause();
+          this.pollyAudio.src = '';
+        } catch {
+          // pass
+        }
+        this.pollyAudio = null;
+      }
+
+      // Ensure no browser speech synthesis is running
+      if (typeof window !== 'undefined' && window.speechSynthesis) {
+        try {
+          window.speechSynthesis.cancel();
+        } catch {
+          // pass
+        }
+      }
+
       const audio = new Audio(audioSrc);
       audio.volume = this.volume;
       this.pollyAudio = audio;
+
+      audio.onended = () => {
+        if (this.pollyAudio === audio) {
+          this.pollyAudio = null;
+        }
+      };
+
       const playPromise = audio.play();
       if (playPromise && typeof playPromise.catch === 'function') {
         playPromise.catch((err) => {
