@@ -396,9 +396,9 @@
     "semantic_hash": "328de20931b3b3abb436e705532dec92"
   },
   "src/components/world/WorldCanvas.tsx": {
-    "mtime": 1791730041.2988615,
-    "seen": 1791730305.628824,
-    "ast_hash": "6ab41932b480ba5d22cc01a6390fd06b",
+    "mtime": 1791731182.685378,
+    "seen": 1791731403.970773,
+    "ast_hash": "d65af667d9f1c088d2198b2f5cd9e274",
     "semantic_hash": ""
   },
   "src/components/world/levelStations.ts": {
@@ -888,9 +888,9 @@
     "semantic_hash": ""
   },
   "src/components/world/WorldPage.tsx": {
-    "mtime": 1791730769.9313874,
-    "seen": 1791730819.026512,
-    "ast_hash": "4878dbbcf79892bf3a760ae453ede5bb",
+    "mtime": 1791731363.3587096,
+    "seen": 1791731403.970774,
+    "ast_hash": "ddda08bf523fbe45ce1e0978ad18f84f",
     "semantic_hash": ""
   },
   "tests/worldPage.test.ts": {
