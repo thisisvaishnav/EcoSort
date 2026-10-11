@@ -105,4 +105,17 @@ describe('Amazon Polly Audio Integration', () => {
     audio.stopSpeech();
     expect(mockCancel).toHaveBeenCalled();
   });
+
+  it('debounces rapid duplicate calls for the same text (StrictMode double-mount)', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue({
+      ok: true,
+      json: async () => ({ audio: 'data:audio/mp3;base64,SUQzBAAAAAAA', voiceId: 'Kevin' }),
+    } as Response);
+
+    // Call twice back-to-back as happens during React 18 StrictMode mount
+    audio.speak('Welcome to EcoSort heroes!');
+    audio.speak('Welcome to EcoSort heroes!');
+
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+  });
 });
