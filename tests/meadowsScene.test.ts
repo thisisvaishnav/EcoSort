@@ -350,4 +350,46 @@ describe('Meadows Scene Geometry & Layout', () => {
       expect(truckBins!.children.length).toBe(4); // Wet, Dry, Hazardous, Residual
     });
   });
+
+  describe('Ground Waste Sorting & Disappearance by Type', () => {
+    it('removes all matching bottles when a bottle is sorted', () => {
+      const sceneResult = createMeadowsScene();
+      const wasteGroup = sceneResult.meadowsGroup.getObjectByName('garbage_waste_items') as THREE.Group;
+      expect(wasteGroup).toBeDefined();
+
+      const bottleItemsBefore = wasteGroup.children.filter(
+        (c) => (c.userData.wasteType as string)?.includes('bottle')
+      );
+      expect(bottleItemsBefore.length).toBeGreaterThan(0);
+
+      sceneResult.removeWasteByType('plastic_bottle', 'dry');
+
+      // The items are immediately scheduled to shrink or become non-visible
+      // Check that targeting bottle removed their active visibility/presence
+      const bottleItemsRemainingVisible = wasteGroup.children.filter(
+        (c) => (c.userData.wasteType as string)?.includes('bottle') && c.visible && c.scale.x > 0.5
+      );
+      expect(bottleItemsRemainingVisible.length).toBeLessThan(bottleItemsBefore.length);
+    });
+
+    it('removes all food items when a food item is sorted', () => {
+      const sceneResult = createMeadowsScene();
+      const wasteGroup = sceneResult.meadowsGroup.getObjectByName('garbage_waste_items') as THREE.Group;
+      expect(wasteGroup).toBeDefined();
+
+      const foodTypes = ['banana_peel', 'veggie_scrap', 'food_plate', 'bread_slice', 'egg_shell'];
+      const foodItemsBefore = wasteGroup.children.filter((c) =>
+        foodTypes.includes(c.userData.wasteType as string)
+      );
+      expect(foodItemsBefore.length).toBeGreaterThan(0);
+
+      sceneResult.removeWasteByType('banana_peel', 'wet');
+
+      const foodItemsRemainingVisible = wasteGroup.children.filter(
+        (c) => foodTypes.includes(c.userData.wasteType as string) && c.visible && c.scale.x > 0.5
+      );
+      expect(foodItemsRemainingVisible.length).toBeLessThan(foodItemsBefore.length);
+    });
+  });
 });
+

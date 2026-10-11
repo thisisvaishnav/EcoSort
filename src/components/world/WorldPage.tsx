@@ -638,8 +638,9 @@ export const WorldPage: React.FC<WorldPageProps> = ({
         setIsThrowing(false);
 
         if (isMeadowsMode) {
-          // In Meadows: sortItem in meadowsItemsRef and advance count
+          // In Meadows: sortItem in meadowsItemsRef and remove matching waste from ground
           meadowsItemsRef.current?.sortItem(currentItem.id);
+          meadowsSceneRef.current?.removeWasteByType(currentItem.modelType || currentItem.id, currentItem.bin);
           setCurrentItem(null);
           setMeadowsSortedCount((c) => {
             const next = c + 1;

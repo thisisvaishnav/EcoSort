@@ -61,6 +61,7 @@ export interface MeadowsSceneResult {
   binGlowRings: Map<BinType, THREE.Mesh>;
   binRowCenter: THREE.Vector3;
   triggerBinAnimation: (bin: BinType) => void;
+  removeWasteByType: (modelTypeOrCategory: string, bin?: string) => void;
   animate: (elapsed: number, delta: number) => void;
 }
 
@@ -1346,6 +1347,7 @@ export function createMeadowsScene(): MeadowsSceneResult {
     if (w.rot) {
       itemMesh.rotation.set(...w.rot);
     }
+    itemMesh.userData.wasteType = w.type;
     wasteGroup.add(itemMesh);
   }
   group.add(wasteGroup);
@@ -2018,6 +2020,51 @@ export function createMeadowsScene(): MeadowsSceneResult {
     }, 450);
   }
 
+  /**
+   * Removes all background waste meshes matching a specific model type or category.
+   * E.g. sorting a plastic or glass bottle removes all bottles ('plastic_bottle', 'medicine_bottle').
+   * Sorting a food item removes all food items ('banana_peel', 'veggie_scrap', 'food_plate', 'bread_slice', 'egg_shell').
+   */
+  function removeWasteByType(modelTypeOrCategory: string, bin?: string) {
+    const target = modelTypeOrCategory.toLowerCase();
+
+    // Map specific model types or category keywords to match sets
+    const isBottle = target.includes('bottle');
+    const isFood = ['banana', 'veggie', 'food', 'bread', 'egg', 'apple'].some((f) => target.includes(f)) || bin === 'wet';
+    const isCan = target.includes('can');
+    const isPaper = ['paper', 'cardboard', 'carton', 'magazine'].some((p) => target.includes(p));
+    const isHazardous = ['battery', 'bulb', 'light'].some((h) => target.includes(h)) || bin === 'hazardous';
+    const isSanitaryOrReject = ['diaper', 'tissue', 'wrapper', 'pen', 'toy'].some((r) => target.includes(r)) || bin === 'residual';
+
+    wasteGroup.children.forEach((child) => {
+      if (!child.visible) return;
+      const type = (child.userData.wasteType as string || '').toLowerCase();
+
+      let shouldRemove = (type === target);
+
+      if (isBottle && type.includes('bottle')) {
+        shouldRemove = true;
+      } else if (isFood && ['banana_peel', 'veggie_scrap', 'food_plate', 'bread_slice', 'egg_shell'].includes(type)) {
+        shouldRemove = true;
+      } else if (isCan && type.includes('can')) {
+        shouldRemove = true;
+      } else if (isPaper && ['newspaper', 'magazine', 'cardboard_box', 'milk_carton'].includes(type)) {
+        shouldRemove = true;
+      } else if (isHazardous && ['battery', 'light_bulb'].includes(type)) {
+        shouldRemove = true;
+      } else if (isSanitaryOrReject && ['tissue', 'wrapper', 'broken_pen', 'toy_car'].includes(type)) {
+        shouldRemove = true;
+      }
+
+      if (shouldRemove) {
+        // Tag as removed and hide
+        child.userData.removed = true;
+        child.visible = false;
+        child.scale.set(0, 0, 0);
+      }
+    });
+  }
+
   return {
     meadowsGroup: group,
     obstacles,
@@ -2043,6 +2090,7 @@ export function createMeadowsScene(): MeadowsSceneResult {
     binGlowRings,
     binRowCenter,
     triggerBinAnimation,
+    removeWasteByType,
     animate,
   };
 }
