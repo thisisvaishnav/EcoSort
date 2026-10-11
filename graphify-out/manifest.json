@@ -948,9 +948,9 @@
     "semantic_hash": ""
   },
   "src/components/game/CountdownTimer.tsx": {
-    "mtime": 1791724952.2950177,
-    "seen": 1791725359.317539,
-    "ast_hash": "0a9761c1ea069e31d7d7b4fca406b0b2",
+    "mtime": 1791735870.511676,
+    "seen": 1791735963.218239,
+    "ast_hash": "fb50ab93d4c9cd03ee0af58bf3ce0104",
     "semantic_hash": ""
   },
   "src/components/game/EcoLensOverlay.tsx": {
@@ -1182,21 +1182,21 @@
     "semantic_hash": ""
   },
   "src/components/game/meadows/LevelBadge.tsx": {
-    "mtime": 1791732286.5398965,
-    "seen": 1791732478.1185122,
-    "ast_hash": "7400238e016e505143e2792f3011fada",
+    "mtime": 1791735906.4775317,
+    "seen": 1791735963.2182488,
+    "ast_hash": "ecb5ea25bd52ff0ee799986f3b9d45fe",
     "semantic_hash": ""
   },
   "src/components/game/meadows/MeadowHud.tsx": {
-    "mtime": 1791733951.9918034,
-    "seen": 1791734074.118739,
-    "ast_hash": "352bfeac4bed458f7ae276adfde80c7c",
+    "mtime": 1791735917.1971154,
+    "seen": 1791735963.2182488,
+    "ast_hash": "cc50befbd4dba2d708c7ef6e0ef03044",
     "semantic_hash": ""
   },
   "src/components/game/meadows/MissionPanel.tsx": {
-    "mtime": 1791732293.992713,
-    "seen": 1791732478.118597,
-    "ast_hash": "e8120962924a91b6f33b9861f965c5fb",
+    "mtime": 1791735892.3995917,
+    "seen": 1791735963.2182531,
+    "ast_hash": "bfecb2178b3d1e28dfd40d1cedf5a6b4",
     "semantic_hash": ""
   },
   "src/components/game/meadows/NarrativeBanner.tsx": {
@@ -1638,9 +1638,9 @@
     "semantic_hash": ""
   },
   "src/components/game/meadows/ContaminationMeter.tsx": {
-    "mtime": 1791728144.6447363,
-    "seen": 1791728700.308992,
-    "ast_hash": "1f010e32d79359cf6b10d1c288008bb2",
+    "mtime": 1791735929.5962505,
+    "seen": 1791735963.218247,
+    "ast_hash": "171f826930d9fba00427b553de9e5357",
     "semantic_hash": ""
   },
   "src/components/game/meadows/MeadowsBinModal.tsx": {

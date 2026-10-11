@@ -26,22 +26,22 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = ({
   const formatted = `${minutes}:${String(seconds).padStart(2, '0')}`;
 
   if (variant === 'glass') {
-    // Dark-glass skin for the Meadows HUD — color signals urgency, no retro chrome
+    // Retro landing page skin with urgency states
     const tone = isExpired
-      ? 'border-slate-500/60 text-slate-400'
+      ? 'bg-slate-200 text-slate-500 border-slate-900'
       : isUrgent
-      ? 'border-rose-400/70 text-rose-300 animate-pulse'
+      ? 'bg-rose-400 text-slate-950 border-slate-900 animate-pulse'
       : isWarning
-      ? 'border-amber-400/70 text-amber-300 animate-pulse'
-      : 'border-teal-400/60 text-teal-200';
+      ? 'bg-amber-300 text-slate-950 border-slate-900 animate-pulse'
+      : 'bg-emerald-400 text-slate-950 border-slate-900';
 
     return (
       <div
-        className={`hud-glass flex items-center gap-1.5 rounded-xl px-2.5 py-1.5 border font-fun font-black text-xs sm:text-sm ${tone}`}
+        className={`flex items-center gap-1.5 rounded-2xl px-3 py-1.5 border-2 shadow-retro-xs font-fun font-black text-xs sm:text-sm ${tone}`}
         title={isExpired ? 'Time is up!' : `${timeLeft} seconds remaining`}
       >
-        <Timer className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-        <span>{formatted}</span>
+        <Timer className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 text-slate-950 stroke-[2.5]" />
+        <span className="font-mono tracking-tight">{formatted}</span>
       </div>
     );
   }

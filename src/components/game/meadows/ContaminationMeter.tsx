@@ -28,17 +28,17 @@ export const ContaminationMeter: React.FC<ContaminationMeterProps> = ({
   return (
     <div
       data-testid="contamination-meter"
-      className="hud-glass pointer-events-auto rounded-xl px-3 py-1.5 border border-slate-700/60 flex flex-col gap-1 w-full max-w-[210px] sm:max-w-[240px] shadow-sm backdrop-blur-md"
+      className="pointer-events-auto rounded-2xl px-3 py-2 border-2 border-slate-900 bg-[#FDFBF7] flex flex-col gap-1.5 w-full max-w-[210px] sm:max-w-[260px] shadow-retro-xs text-slate-900"
     >
-      <div className="flex items-center justify-between text-[10px] font-fun font-bold uppercase tracking-wider text-slate-300">
-        <span className="flex items-center gap-1">
-          <AlertCircle className="w-3 h-3 text-amber-400" />
+      <div className="flex items-center justify-between text-[11px] font-fun font-black uppercase tracking-wider text-slate-950">
+        <span className="flex items-center gap-1.5">
+          <AlertCircle className="w-3.5 h-3.5 text-amber-500 stroke-[2.5]" />
           Contamination
         </span>
-        <span className="text-white/90 font-mono">{statusText}</span>
+        <span className="text-slate-950 font-mono font-bold text-xs">{statusText}</span>
       </div>
 
-      <div className="h-1.5 w-full bg-slate-800/80 rounded-full overflow-hidden border border-slate-700/50">
+      <div className="h-2 w-full bg-slate-200 rounded-full overflow-hidden border border-slate-900/30">
         <div
           data-testid="contamination-fill"
           className={`h-full rounded-full transition-all duration-300 ${colorStyle}`}

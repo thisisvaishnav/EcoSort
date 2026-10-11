@@ -12,20 +12,17 @@ export interface LevelBadgeProps {
  */
 export const LevelBadge: React.FC<LevelBadgeProps> = ({ levelNumber, title }) => (
   <div
-    className="hud-glass rounded-xl sm:rounded-2xl border border-teal-400/60 px-2 py-1 sm:px-3 sm:py-2 flex items-center gap-1.5 sm:gap-2.5 max-w-[140px] sm:max-w-none shadow-sm"
+    className="bg-[#FDFBF7] rounded-2xl border-2 border-slate-900 px-2.5 py-1.5 sm:px-3 sm:py-2 flex items-center gap-2 max-w-[170px] sm:max-w-none shadow-retro-xs text-slate-900"
     data-testid="level-badge"
   >
-    <span className="flex h-6 w-6 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-lg sm:rounded-xl bg-teal-500/20">
-      <Leaf
-        className="h-3.5 w-3.5 sm:h-5 sm:w-5 text-teal-300"
-        style={{ filter: 'drop-shadow(0 0 6px rgba(45, 212, 191, 0.9))' }}
-      />
+    <span className="flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-xl bg-amber-300 border-2 border-slate-900 shadow-retro-2xs">
+      <Leaf className="h-4 w-4 sm:h-4.5 sm:w-4.5 text-emerald-800 stroke-[2.5]" />
     </span>
     <div className="leading-tight min-w-0">
-      <div className="text-[9px] sm:text-[10px] font-fun font-black uppercase tracking-wider text-teal-300/90">
-        Lvl {levelNumber}
+      <div className="text-[9px] sm:text-[10px] font-fun font-black uppercase tracking-wider text-emerald-700">
+        Level {levelNumber}
       </div>
-      <div className="text-[11px] sm:text-xs font-fun font-black text-white truncate">{title}</div>
+      <div className="text-xs sm:text-sm font-fun font-black text-slate-950 truncate">{title}</div>
     </div>
   </div>
 );

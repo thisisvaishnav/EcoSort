@@ -1,23 +1,23 @@
 # Graph Report - EcoSort  (2026-10-11)
 
 ## Corpus Check
-- 205 files · ~885,313 words
+- 208 files · ~887,860 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 7 file(s) not represented in the graph (top: (none) 3, .example 1, .webmanifest 1)
 
 ## Summary
-- 1033 nodes · 2090 edges · 89 communities (50 shown, 39 thin omitted)
-- Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 85 edges (avg confidence: 0.88)
+- 1055 nodes · 2138 edges · 91 communities (52 shown, 39 thin omitted)
+- Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 89 edges (avg confidence: 0.88)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `8d6f42b3`
+- Built from commit: `e186f276`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - devDependencies
-- progress.js
+- backend/package.json
 - package.json
 - Level 1: Waste Detective — Implementation Plan
 - compilerOptions
@@ -48,21 +48,21 @@
 - 🏘️ Migsun Vilasa — New World Implementation Plan
 - scripts
 - dependencies
-- MapItemGalleryModal.tsx
+- game.ts
 - societyManifestContract.test.ts
 - createMeadowsItemManager
 - locomotion.test.ts
 - 4. Phase Status & Implementation Checklist
-- items.ts
+- WorldCanvas
 - manifest.ts
 - societyWave1Integration.test.ts
-- game.ts
+- ItemData
 - Phase3Controller.tsx
-- audio.ts
-- societyScene.ts
+- migsunData.ts
+- WorldCanvas.tsx
 - ask_eco.js
 - vite.config.ts
-- world/types.ts
+- societyScene.ts
 - Status: Agent 0 (Architect)
 - meadowsScene.ts
 - SocietyWorld.tsx
@@ -77,25 +77,27 @@
 - Status: Agent H (Android & Performance)
 - Status: Agent I (QA & Release)
 - build-android.sh
-- TeacherDashboard.tsx
+- vitest
 - test-polly.mjs
-- locomotion.ts
-- createMigsunScene
+- MigsunGameController.tsx
+- polly.js
 - Status: Agent D (Phase 1: Clean The Waste)
 - App.tsx
 - Status: Agent E (Phase 2: Install Dustbins)
 - Status: Agent F (Phase 3: Teach Residents & Dashboard)
-- WorldCanvas
-- 3. Implementation Phases (Step-by-Step)
-- Level 1 (Migsun Vilasa) Component Reuse Inventory
-- Phase1Controller.tsx
+- music.ts
+- audio.ts
+- usePersistentBoolean.ts
+- createMigsunScene
 - MissionResultsModal.tsx
-- Phase 1 — Level Config & Scene Foundation (Day 1)
-- Phase 2 — Character Introduction & Dialogue System (Day 2)
-- 7. Technical Notes
-- Phase 5 — Eco Lens Cause-Effect Scanning (Day 5)
-- Phase 8 — Level Complete & Polish (Day 7)
-- WorldCanvas.tsx
+- analytics.js
+- locomotion.ts
+- progress.js
+- report.js
+- MeadowsResultsModal.tsx
+- Phase1Controller.tsx
+- dependencies
+- EcoLensScanOverlay.tsx
 
 ## God Nodes (most connected - your core abstractions)
 1. `react` - 54 edges
@@ -106,20 +108,20 @@
 6. `createItemMesh()` - 35 edges
 7. `WorldPage()` - 31 edges
 8. `WorldCanvas()` - 26 edges
-9. `createMeadowsScene()` - 25 edges
-10. `vitest` - 24 edges
+9. `createMeadowsScene()` - 26 edges
+10. `vitest` - 25 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `1.3 Litter Scatter System` --references--> `createItemMesh()`  [INFERRED]
-  LEVEL1_WASTE_DETECTIVE_PLAN.md → src/components/world/items/createItemMesh.ts
 - `1.1 Add `residual` bin type` --references--> `BinType`  [INFERRED]
   LEVEL1_WASTE_DETECTIVE_PLAN.md → src/types/game.ts
 - `2.2 Bin Mapping for Level 1: Waste Detective` --references--> `BinType`  [INFERRED]
   LEVEL1_WASTE_DETECTIVE_PLAN.md → src/types/game.ts
-- `✅ Phase 3: Meadows HUD & Controls` --references--> `joystickToMoveDir()`  [INFERRED]
-  MEADOWS_WORLD_PLAN.md → src/components/world/locomotion.ts
+- `1.3 Litter Scatter System` --references--> `createItemMesh()`  [INFERRED]
+  LEVEL1_WASTE_DETECTIVE_PLAN.md → src/components/world/items/createItemMesh.ts
 - `2. Component Verification & Reuse Matrix` --references--> `BinType`  [INFERRED]
   docs/agents/REUSE_INVENTORY.md → src/types/game.ts
+- `✅ Phase 3: Meadows HUD & Controls` --references--> `joystickToMoveDir()`  [INFERRED]
+  MEADOWS_WORLD_PLAN.md → src/components/world/locomotion.ts
 
 ## Import Cycles
 - None detected.
@@ -128,15 +130,15 @@
 - **Visual Design & Aesthetics** — agents_skills_frontend_design, agents_skills_fiction, agents_skills_lingo, agents_skills_bento [EXTRACTED 0.90]
 - **Quality Assurance & Verification Flow** — agents_skills_tdd_workflow, agents_skills_verification_loop, agents_skills_ai_regression_testing, agents_skills_click_path_audit [INFERRED 0.85]
 
-## Communities (89 total, 39 thin omitted)
+## Communities (91 total, 39 thin omitted)
 
 ### Community 0 - "devDependencies"
 Cohesion: 0.15
 Nodes (13): devDependencies, autoprefixer, jsdom, postcss, tailwindcss, @types/canvas-confetti, @types/react, @types/react-dom (+5 more)
 
-### Community 1 - "progress.js"
-Cohesion: 0.07
-Nodes (23): client, corsHeaders, ddbDocClient, { DynamoDBClient }, { DynamoDBDocumentClient, PutCommand, QueryCommand }, client, corsHeaders, ddbDocClient (+15 more)
+### Community 1 - "backend/package.json"
+Cohesion: 0.29
+Nodes (6): description, main, name, version, @aws-sdk/client-dynamodb, @aws-sdk/lib-dynamodb
 
 ### Community 2 - "package.json"
 Cohesion: 0.12
@@ -167,8 +169,8 @@ Cohesion: 0.12
 Nodes (7): createLitterScatter(), dispose(), placeItem(), LitterScatterSystem, ScatteredItem, shuffle(), BOUNDS
 
 ### Community 10 - "react"
-Cohesion: 0.12
-Nodes (25): lucide-react, react, CountdownTimer(), CountdownTimerProps, EnergyMeterHUDProps, ContaminationMeter(), ContaminationMeterProps, EcoLensAbilityButton() (+17 more)
+Cohesion: 0.11
+Nodes (28): lucide-react, react, CountdownTimer(), CountdownTimerProps, EcoLensButtonProps, EcoLensOverlayProps, EnergyMeterHUDProps, ContaminationMeter() (+20 more)
 
 ### Community 11 - "compilerOptions"
 Cohesion: 0.25
@@ -192,11 +194,11 @@ Nodes (34): A1. Intake, A2. Page structure, A3. Layout selection, A4. Conversion
 
 ### Community 37 - "WorldPage.tsx"
 Cohesion: 0.15
-Nodes (20): CleanlinessMeter(), CleanlinessMeterProps, EcoLensButton(), EcoLensButtonProps, EcoLensOverlay(), EcoLensOverlayProps, EcoSortGame(), EcoSortGameProps (+12 more)
+Nodes (21): CleanlinessMeter(), CleanlinessMeterProps, EcoLensButton(), EcoLensOverlay(), EcopediaModal(), EcoSortGame(), EcoSortGameProps, LevelEndModal() (+13 more)
 
 ### Community 38 - "🏘️ Migsun Vilasa — New World Implementation Plan"
-Cohesion: 0.17
-Nodes (11): 0. Vision Summary, 1. What Already Exists (Reusable), 2. Architecture: Game Phase State Machine, 4. File Change Summary, 5. Implementation Order & Milestones, 6. Data File: `migsunData.ts`, 8. Dependency Graph, 🏘️ Migsun Vilasa — New World Implementation Plan (+3 more)
+Cohesion: 0.05
+Nodes (41): 0. Vision Summary, 1.1 Add Migsun Vilasa Level to `levels.ts`, 1.2 Add `MIGSUN` Scene Type, 1.3 Create Migsun Scene — `migsunScene.ts`, 1. What Already Exists (Reusable), 2.1 Character Intro Overlay — `CharacterIntroOverlay.tsx`, 2.2 Mission Select Panel — `MissionSelectPanel.tsx`, 2.3 Kai Front-Facing Pose (+33 more)
 
 ### Community 39 - "scripts"
 Cohesion: 0.20
@@ -206,49 +208,49 @@ Nodes (10): scripts, build, dev, graphify, graphify:hook, graphify:viz, preview,
 Cohesion: 0.25
 Nodes (8): dependencies, @aws-sdk/client-bedrock-runtime, @aws-sdk/client-polly, canvas-confetti, lucide-react, react, react-dom, three
 
-### Community 41 - "MapItemGalleryModal.tsx"
-Cohesion: 0.19
-Nodes (11): EcopediaModal(), EcopediaModalProps, QuizModal(), QuizModalProps, MapItemCard(), MapItemCardProps, MapItemGalleryModal(), MapItemGalleryModalProps (+3 more)
+### Community 41 - "game.ts"
+Cohesion: 0.17
+Nodes (12): EcopediaModalProps, LevelSelectModalProps, QuizModalProps, ALL_BINS, GAME_ITEMS, GAME_LEVELS, LEVEL_QUIZZES, BinInfo (+4 more)
 
 ### Community 42 - "societyManifestContract.test.ts"
 Cohesion: 0.16
 Nodes (8): isSocietyWorldEnabled(), setSocietyWorldEnabled(), getAvailableWorlds(), getWorldById(), WORLD_REGISTRY, buildSocietyMapPlaceholder(), getSocietyPropsCatalog(), WorldRegistryEntry
 
 ### Community 45 - "4. Phase Status & Implementation Checklist"
-Cohesion: 0.12
-Nodes (15): 1. Overview & Vision, 2. Spatial & Scene Architecture, 3. HUD & Control System, 4. Phase Status & Implementation Checklist, Control Dynamics, Core Objectives, Green Meadows Rescue (Level 7) — Architectural & Implementation Plan, Key Elements (+7 more)
+Cohesion: 0.13
+Nodes (14): 1. Overview & Vision, 2. Spatial & Scene Architecture, 3. HUD & Control System, 4. Phase Status & Implementation Checklist, Control Dynamics, Core Objectives, Green Meadows Rescue (Level 7) — Architectural & Implementation Plan, Key Elements (+6 more)
 
-### Community 46 - "items.ts"
-Cohesion: 0.26
-Nodes (6): LevelSelectModal(), LevelSelectModalProps, GAME_ITEMS, GAME_LEVELS, LEVEL_QUIZZES, LevelConfig
+### Community 46 - "WorldCanvas"
+Cohesion: 0.22
+Nodes (10): createPlayerCharacter(), createThirdPersonCamera(), pinchPitchDelta(), pinchZoomDelta(), ThirdPersonCameraSystem, resolveEnvMode(), WorldCanvas(), useCoarsePointer() (+2 more)
 
 ### Community 47 - "manifest.ts"
 Cohesion: 0.40
 Nodes (4): SOCIETY_MANIFEST, initializePhase1State(), initializePhase2State(), initializePhase3State()
 
-### Community 49 - "game.ts"
-Cohesion: 0.18
-Nodes (12): LevelEndModalProps, BIN_OPTIONS, MeadowsBinModal(), MeadowsBinModalProps, MEADOWS_CONTAMINATION_SPEECHES, MEADOWS_PHASE5_ITEMS, MEADOWS_WRONG_BIN_HINTS, MeadowsGroundItem (+4 more)
+### Community 49 - "ItemData"
+Cohesion: 0.14
+Nodes (15): LevelEndModalProps, BIN_OPTIONS, MeadowsBinModal(), MeadowsBinModalProps, MEADOWS_CONTAMINATION_SPEECHES, MEADOWS_PHASE5_ITEMS, MEADOWS_WRONG_BIN_HINTS, MapItemCard() (+7 more)
 
 ### Community 50 - "Phase3Controller.tsx"
 Cohesion: 0.15
 Nodes (11): SOCIETY_AUDIO_IDS, SOCIETY_AUDIO_KEYS, SOCIETY_VOICE_MANIFEST, SocietyVoiceManifestItem, SOCIETY_CONTENT, SOCIETY_STRINGS, SocietyHotspotContent, SocietyResidentQuiz (+3 more)
 
-### Community 51 - "audio.ts"
-Cohesion: 0.05
-Nodes (49): Modified Files (6), vitest, CallStage, MeadowsPhoneModal(), MeadowsPhoneModalProps, BinLocationChoice(), BinLocationChoiceProps, CharacterIntroOverlay() (+41 more)
+### Community 51 - "migsunData.ts"
+Cohesion: 0.16
+Nodes (14): BinLocationChoiceProps, CharacterIntroOverlayProps, DustbinCardOverlayProps, BIN_INSTALL_LOCATIONS, BinInstallLocation, DUSTBIN_CARDS, DustbinCardData, MIGSUN_HINT (+6 more)
 
-### Community 52 - "societyScene.ts"
+### Community 52 - "WorldCanvas.tsx"
 Cohesion: 0.20
-Nodes (9): BIN_COLORS, createSocietyScene(), makeBinIconTexture(), makeConcreteTex(), makeWallTex(), SocietySceneResult, TIP_LABELS, PinnedLitterSpot (+1 more)
+Nodes (18): LEVEL_STATIONS, MeadowsItemManager, MeadowsSceneResult, BIN_COLORS, MigsunSceneResult, createProceduralCity(), ProceduralCityResult, WARM_GLOW_COLOR (+10 more)
 
 ### Community 53 - "ask_eco.js"
-Cohesion: 0.33
-Nodes (3): bedrock, { BedrockRuntimeClient, InvokeModelCommand }, corsHeaders
+Cohesion: 0.29
+Nodes (7): bedrock, { BedrockRuntimeClient, InvokeModelCommand }, corsHeaders, handler(), { trackMascotInvocation, recordMetric }, trackMascotInvocation(), @aws-sdk/client-bedrock-runtime
 
-### Community 55 - "world/types.ts"
-Cohesion: 0.24
-Nodes (9): LEVEL_STATIONS, createProceduralCity(), ProceduralCityResult, WARM_GLOW_COLOR, CameraOrbitState, LevelStation, LocomotionState, WorldMode (+1 more)
+### Community 55 - "societyScene.ts"
+Cohesion: 0.23
+Nodes (7): BIN_COLORS, createSocietyScene(), makeBinIconTexture(), makeConcreteTex(), makeWallTex(), TIP_LABELS, SOCIETY_SPAWN
 
 ### Community 56 - "Status: Agent 0 (Architect)"
 Cohesion: 0.50
@@ -266,89 +268,97 @@ Nodes (8): createSocietyMap(), Phase2Controller(), Phase3Controller(), createSoc
 Cohesion: 0.33
 Nodes (5): 1. Spatial Zones & Layout Concept, 2. Master Anchor Table, 3. Bin Spot Candidates (Shared Rule Verification), 4. Visual State Progression, Society World Map Layout & Anchor Specification
 
-### Community 70 - "TeacherDashboard.tsx"
-Cohesion: 0.19
-Nodes (8): AVATARS, AvatarSelectModalProps, MascotDialogue(), MascotDialogueProps, apiService, SaveProgressPayload, PlayerProfile, TeacherReportStats
+### Community 70 - "vitest"
+Cohesion: 0.23
+Nodes (7): vitest, AVATARS, AvatarSelectModalProps, MascotDialogueProps, apiService, SaveProgressPayload, PlayerProfile
 
 ### Community 71 - "test-polly.mjs"
-Cohesion: 0.15
-Nodes (5): corsHeaders, polly, { PollyClient, SynthesizeSpeechCommand }, __dirname, __filename
+Cohesion: 0.25
+Nodes (3): @aws-sdk/client-polly, __dirname, __filename
 
-### Community 72 - "locomotion.ts"
+### Community 72 - "MigsunGameController.tsx"
+Cohesion: 0.19
+Nodes (14): 4. File Change Summary, Modified Files (6), New Files (12), BinLocationChoice(), CharacterIntroOverlay(), DustbinCardOverlay(), EcoLensScanOverlay(), MigsunGameController() (+6 more)
+
+### Community 73 - "polly.js"
 Cohesion: 0.33
-Nodes (6): createLocomotionEngine(), isTypingTarget(), JoystickMoveDir, joystickToMoveDir(), LocomotionEngine, PlayerCharacter
-
-### Community 73 - "createMigsunScene"
-Cohesion: 0.20
-Nodes (6): 4.1 Plant Revival Animation, 4.2 Bin Location Choice — `BinLocationChoice.tsx`, 4.3 Dustbin Education Cards — `DustbinCardOverlay.tsx`, Phase 4 — Area Restoration & Dustbin Installation (Day 4), createMigsunScene(), removePests()
+Nodes (5): corsHeaders, handler(), polly, { PollyClient, SynthesizeSpeechCommand }, { recordMetric }
 
 ### Community 75 - "App.tsx"
-Cohesion: 0.13
-Nodes (18): react-dom, App(), RouteFallback(), TeacherDashboard, WorldPage, calculateMeadowsStars(), formatTimeTaken(), getContaminationLabel() (+10 more)
+Cohesion: 0.20
+Nodes (12): App(), RouteFallback(), TeacherDashboard, WorldPage, HERO_ADVENTURES, HeroAdventure, LandingPage(), LandingPageProps (+4 more)
 
-### Community 78 - "WorldCanvas"
-Cohesion: 0.33
-Nodes (7): createPlayerCharacter(), createThirdPersonCamera(), pinchPitchDelta(), pinchZoomDelta(), ThirdPersonCameraSystem, WorldCanvas(), lookPoint
+### Community 78 - "music.ts"
+Cohesion: 0.19
+Nodes (9): react-dom, BAR_DURATION_SECONDS, CHORD_PROGRESSION, isMusicPlaying(), MELODY_PATTERNS, runScheduler(), scheduleBar(), startMusicLoop() (+1 more)
 
-### Community 79 - "3. Implementation Phases (Step-by-Step)"
-Cohesion: 0.22
-Nodes (9): 3.1 Sort Choice Modal — `SortChoiceModal.tsx`, 3.2 Sorting Gameplay (Reuse Existing System), 3.3 Garbage Truck Arrival with "Gadi Wala Aaya" Song, 3. Implementation Phases (Step-by-Step), 6.1 Health Dashboard Component — `HealthDashboard.tsx`, 7.1 Teach-a-Resident System — `TeachResident.tsx`, Phase 3 — Mission 1: Clean the Waste (Day 3), Phase 6 — Neighbourhood Health Dashboard (Day 5–6) (+1 more)
+### Community 79 - "audio.ts"
+Cohesion: 0.23
+Nodes (6): CallStage, MeadowsPhoneModal(), MeadowsPhoneModalProps, HealthDashboardProps, audio, MockUtterance
 
-### Community 80 - "Level 1 (Migsun Vilasa) Component Reuse Inventory"
-Cohesion: 0.33
-Nodes (5): 1. Executive Summary, 2. Component Verification & Reuse Matrix, 3. Architecture Constraints & Conventions, Level 1 (Migsun Vilasa) Component Reuse Inventory, triggerPlantRevival()
+### Community 80 - "usePersistentBoolean.ts"
+Cohesion: 0.32
+Nodes (5): SetStoredBoolean, usePersistentBoolean(), readStoredBoolean(), readStoredNumber(), writeStoredBoolean()
 
-### Community 81 - "Phase1Controller.tsx"
-Cohesion: 0.29
-Nodes (6): Phase1Controller(), Phase1ControllerProps, SAMPLE_ITEMS, Phase1LitterItem, Phase1State, Phase1Step
+### Community 81 - "createMigsunScene"
+Cohesion: 0.18
+Nodes (6): 1. Executive Summary, 2. Component Verification & Reuse Matrix, 3. Architecture Constraints & Conventions, Level 1 (Migsun Vilasa) Component Reuse Inventory, createMigsunScene(), triggerPlantRevival()
 
 ### Community 82 - "MissionResultsModal.tsx"
 Cohesion: 0.28
 Nodes (8): getRating(), MissionError, MissionResultsModal(), MissionResultsModalProps, Rating, RATING_CONFIG, StatCard(), StatCardProps
 
-### Community 83 - "Phase 1 — Level Config & Scene Foundation (Day 1)"
-Cohesion: 0.50
-Nodes (4): 1.1 Add Migsun Vilasa Level to `levels.ts`, 1.2 Add `MIGSUN` Scene Type, 1.3 Create Migsun Scene — `migsunScene.ts`, Phase 1 — Level Config & Scene Foundation (Day 1)
+### Community 83 - "analytics.js"
+Cohesion: 0.22
+Nodes (6): client, corsHeaders, ddbDocClient, { DynamoDBClient }, { DynamoDBDocumentClient, ScanCommand }, { NAMESPACE }
 
-### Community 84 - "Phase 2 — Character Introduction & Dialogue System (Day 2)"
-Cohesion: 0.50
-Nodes (4): 2.1 Character Intro Overlay — `CharacterIntroOverlay.tsx`, 2.2 Mission Select Panel — `MissionSelectPanel.tsx`, 2.3 Kai Front-Facing Pose, Phase 2 — Character Introduction & Dialogue System (Day 2)
+### Community 84 - "locomotion.ts"
+Cohesion: 0.33
+Nodes (6): createLocomotionEngine(), isTypingTarget(), JoystickMoveDir, joystickToMoveDir(), LocomotionEngine, PlayerCharacter
 
-### Community 85 - "7. Technical Notes"
-Cohesion: 0.50
-Nodes (4): 7. Technical Notes, Accessibility, Mobile / Touch, Performance
+### Community 85 - "progress.js"
+Cohesion: 0.19
+Nodes (12): { CloudWatchClient, PutMetricDataCommand }, getClient(), recordMetric(), trackSortEvent(), client, corsHeaders, ddbDocClient, { DynamoDBClient } (+4 more)
 
-### Community 86 - "Phase 5 — Eco Lens Cause-Effect Scanning (Day 5)"
-Cohesion: 0.67
-Nodes (3): 5.1 Extend Eco Lens for Environmental Scans, 5.2 Eco Lens Scan UI — `EcoLensScanOverlay.tsx`, Phase 5 — Eco Lens Cause-Effect Scanning (Day 5)
+### Community 86 - "report.js"
+Cohesion: 0.25
+Nodes (7): client, corsHeaders, ddbDocClient, { DynamoDBClient }, { DynamoDBDocumentClient, ScanCommand }, generateReport(), { recordMetric }
 
-### Community 87 - "Phase 8 — Level Complete & Polish (Day 7)"
-Cohesion: 0.67
-Nodes (3): 8.1 Level Complete Screen — `MigsunLevelComplete.tsx`, 8.3 Camera Choreography, Phase 8 — Level Complete & Polish (Day 7)
+### Community 87 - "MeadowsResultsModal.tsx"
+Cohesion: 0.62
+Nodes (5): calculateMeadowsStars(), formatTimeTaken(), getContaminationLabel(), MeadowsResultsModal(), MeadowsResultsModalProps
 
-### Community 88 - "WorldCanvas.tsx"
+### Community 88 - "Phase1Controller.tsx"
 Cohesion: 0.29
-Nodes (8): MeadowsItemManager, MeadowsSceneResult, BIN_COLORS, MigsunSceneResult, EnvMode, WorldCanvasProps, useCoarsePointer(), useIsPortrait()
+Nodes (6): Phase1Controller(), Phase1ControllerProps, SAMPLE_ITEMS, Phase1LitterItem, Phase1State, Phase1Step
+
+### Community 89 - "dependencies"
+Cohesion: 0.33
+Nodes (6): dependencies, @aws-sdk/client-bedrock-runtime, @aws-sdk/client-cloudwatch, @aws-sdk/client-dynamodb, @aws-sdk/client-polly, @aws-sdk/lib-dynamodb
+
+### Community 90 - "EcoLensScanOverlay.tsx"
+Cohesion: 0.50
+Nodes (3): EcoLensScanOverlayProps, ECO_SCAN_TARGETS, EcoScanCauseEffect
 
 ## Knowledge Gaps
-- **331 isolated node(s):** `build-android.sh script`, `{ BedrockRuntimeClient, InvokeModelCommand }`, `bedrock`, `corsHeaders`, `{ PollyClient, SynthesizeSpeechCommand }` (+326 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 468 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **341 isolated node(s):** `{ DynamoDBClient }`, `{ DynamoDBDocumentClient, ScanCommand }`, `{ NAMESPACE }`, `client`, `ddbDocClient` (+336 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 476 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **39 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `react` connect `react` to `package.json`, `worlds/types.ts`, `WorldPage.tsx`, `TeacherDashboard.tsx`, `three`, `MapItemGalleryModal.tsx`, `App.tsx`, `items.ts`, `game.ts`, `MissionResultsModal.tsx`, `audio.ts`, `Phase1Controller.tsx`, `Phase3Controller.tsx`, `WorldCanvas.tsx`, `meadowsScene.ts`, `SocietyWorld.tsx`?**
-  _High betweenness centrality (0.084) - this node is a cross-community bridge._
+- **Why does `three` connect `three` to `package.json`, `worlds/types.ts`, `WorldPage.tsx`, `createLitterScatter`, `WorldCanvas`, `manifest.ts`, `ItemData`, `WorldCanvas.tsx`, `locomotion.ts`, `societyScene.ts`, `meadowsScene.ts`, `SocietyWorld.tsx`?**
+  _High betweenness centrality (0.094) - this node is a cross-community bridge._
 - **Are the 3 inferred relationships involving `BinType` (e.g. with `2. Component Verification & Reuse Matrix` and `1.1 Add `residual` bin type`) actually correct?**
   _`BinType` has 3 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `build-android.sh script`, `{ BedrockRuntimeClient, InvokeModelCommand }`, `bedrock` to the rest of the system?**
-  _331 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `progress.js` be split into smaller, more focused modules?**
-  _Cohesion score 0.07389162561576355 - nodes in this community are weakly interconnected._
-- **Why does `three` connect `three` to `package.json`, `worlds/types.ts`, `WorldPage.tsx`, `locomotion.ts`, `createLitterScatter`, `WorldCanvas`, `manifest.ts`, `game.ts`, `audio.ts`, `societyScene.ts`, `world/types.ts`, `WorldCanvas.tsx`, `meadowsScene.ts`, `SocietyWorld.tsx`?**
-  _High betweenness centrality (0.081) - this node is a cross-community bridge._
+- **What connects `{ DynamoDBClient }`, `{ DynamoDBDocumentClient, ScanCommand }`, `{ NAMESPACE }` to the rest of the system?**
+  _341 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `package.json` be split into smaller, more focused modules?**
   _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
-- **Why does `BinType` connect `game.ts` to `Level 1: Waste Detective — Implementation Plan`, `worlds/types.ts`, `WorldPage.tsx`, `MapItemGalleryModal.tsx`, `Level 1 (Migsun Vilasa) Component Reuse Inventory`, `Phase1Controller.tsx`, `MissionResultsModal.tsx`, `audio.ts`, `societyScene.ts`, `Phase3Controller.tsx`, `world/types.ts`, `WorldCanvas.tsx`, `meadowsScene.ts`?**
-  _High betweenness centrality (0.069) - this node is a cross-community bridge._
+- **Why does `BinType` connect `WorldCanvas.tsx` to `Level 1: Waste Detective — Implementation Plan`, `worlds/types.ts`, `WorldPage.tsx`, `MigsunGameController.tsx`, `game.ts`, `react`, `createMigsunScene`, `ItemData`, `migsunData.ts`, `MissionResultsModal.tsx`, `Phase3Controller.tsx`, `societyScene.ts`, `Phase1Controller.tsx`, `meadowsScene.ts`?**
+  _High betweenness centrality (0.093) - this node is a cross-community bridge._
+- **Should `Level 1: Waste Detective — Implementation Plan` be split into smaller, more focused modules?**
+  _Cohesion score 0.047619047619047616 - nodes in this community are weakly interconnected._
+- **Why does `react` connect `react` to `package.json`, `three`, `worlds/types.ts`, `WorldPage.tsx`, `game.ts`, `WorldCanvas`, `ItemData`, `Phase3Controller.tsx`, `migsunData.ts`, `WorldCanvas.tsx`, `meadowsScene.ts`, `SocietyWorld.tsx`, `vitest`, `MigsunGameController.tsx`, `App.tsx`, `music.ts`, `audio.ts`, `usePersistentBoolean.ts`, `MissionResultsModal.tsx`, `MeadowsResultsModal.tsx`, `Phase1Controller.tsx`, `EcoLensScanOverlay.tsx`?**
+  _High betweenness centrality (0.065) - this node is a cross-community bridge._

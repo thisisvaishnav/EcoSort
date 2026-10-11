@@ -75,9 +75,9 @@ export const MeadowHud: React.FC<MeadowHudProps> = ({
           onClick={onExit}
           title="Exit to menu"
           aria-label="Exit to menu"
-          className="hud-glass pointer-events-auto flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9 rounded-xl text-white/90 transition-all active:scale-95 shadow-sm"
+          className="pointer-events-auto flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-2xl bg-white hover:bg-slate-50 text-slate-950 border-2 border-slate-900 shadow-retro-xs transition-transform active:translate-x-[1px] active:translate-y-[1px]"
         >
-          <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+          <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
         </button>
       )}
       <LevelBadge levelNumber={levelNumber} title={levelTitle} />

@@ -1,7 +1,7 @@
 # Graph Report - EcoSort  (2026-10-11)
 
 ## Corpus Check
-- 208 files · ~887,860 words
+- 208 files · ~887,869 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 7 file(s) not represented in the graph (top: (none) 3, .example 1, .webmanifest 1)
 
@@ -11,7 +11,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `ecdc1ef1`
+- Built from commit: `e186f276`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -53,7 +53,7 @@
 - createMeadowsItemManager
 - locomotion.test.ts
 - Green Meadows Rescue (Level 7) — Architectural & Implementation Plan
-- items.ts
+- react
 - manifest.ts
 - societyWave1Integration.test.ts
 - ItemData
@@ -62,7 +62,7 @@
 - WorldCanvas.tsx
 - ask_eco.js
 - vite.config.ts
-- react
+- LandingPage.tsx
 - Status: Agent 0 (Architect)
 - meadowsScene.ts
 - SocietyWorld.tsx
@@ -88,14 +88,14 @@
 - music.ts
 - audio
 - audio.ts
-- LandingPage.tsx
+- EcoLensOverlay.tsx
 - MissionResultsModal.tsx
 - analytics.js
-- EcoLensOverlay.tsx
+- meadowsItemManager.ts
 - progress.js
 - report.js
 - MeadowsResultsModal.tsx
-- meadowsItemManager.ts
+- items.ts
 - dependencies
 - AvatarSelectModal.tsx
 
@@ -220,9 +220,9 @@ Nodes (8): isSocietyWorldEnabled(), setSocietyWorldEnabled(), getAvailableWorlds
 Cohesion: 0.25
 Nodes (7): 1. Overview & Vision, 2. Spatial & Scene Architecture, 3. HUD & Control System, Control Dynamics, Core Objectives, Green Meadows Rescue (Level 7) — Architectural & Implementation Plan, Key Elements
 
-### Community 46 - "items.ts"
-Cohesion: 0.36
-Nodes (3): GAME_ITEMS, LEVEL_QUIZZES, BOUNDS
+### Community 46 - "react"
+Cohesion: 0.18
+Nodes (10): lucide-react, react, CountdownTimerProps, EnergyMeterHUDProps, LevelBadgeProps, LearningCardData, MEADOWS_LEARNING_CARDS(), MeadowsLearningCardsModal() (+2 more)
 
 ### Community 47 - "manifest.ts"
 Cohesion: 0.24
@@ -248,9 +248,9 @@ Nodes (55): 1. Executive Summary, 2. Component Verification & Reuse Matrix, 3. A
 Cohesion: 0.29
 Nodes (6): bedrock, { BedrockRuntimeClient, InvokeModelCommand }, corsHeaders, handler(), { trackMascotInvocation, recordMetric }, trackMascotInvocation()
 
-### Community 55 - "react"
-Cohesion: 0.18
-Nodes (10): lucide-react, react, CountdownTimerProps, EnergyMeterHUDProps, LevelBadgeProps, LearningCardData, MEADOWS_LEARNING_CARDS(), MeadowsLearningCardsModal() (+2 more)
+### Community 55 - "LandingPage.tsx"
+Cohesion: 0.24
+Nodes (7): LevelSelectModal(), LevelSelectModalProps, HERO_ADVENTURES, HeroAdventure, LandingPageProps, TAGLINE_WORDS, GAME_LEVELS
 
 ### Community 56 - "Status: Agent 0 (Architect)"
 Cohesion: 0.50
@@ -296,9 +296,9 @@ Nodes (7): react-dom, CallStage, MeadowsPhoneModal(), MeadowsPhoneModalProps, He
 Cohesion: 0.27
 Nodes (6): SetStoredBoolean, usePersistentBoolean(), readStoredBoolean(), readStoredNumber(), writeStoredBoolean(), writeStoredNumber()
 
-### Community 81 - "LandingPage.tsx"
-Cohesion: 0.24
-Nodes (7): LevelSelectModal(), LevelSelectModalProps, HERO_ADVENTURES, HeroAdventure, LandingPageProps, TAGLINE_WORDS, GAME_LEVELS
+### Community 81 - "EcoLensOverlay.tsx"
+Cohesion: 0.31
+Nodes (7): EcoLensButton(), EcoLensButtonProps, EcoLensOverlay(), EcoLensOverlayProps, EcoLensAbilityButtonProps, EcoLensState, getLensUsesRemaining()
 
 ### Community 82 - "MissionResultsModal.tsx"
 Cohesion: 0.28
@@ -308,9 +308,9 @@ Nodes (8): getRating(), MissionError, MissionResultsModal(), MissionResultsModal
 Cohesion: 0.22
 Nodes (6): client, corsHeaders, ddbDocClient, { DynamoDBClient }, { DynamoDBDocumentClient, ScanCommand }, { NAMESPACE }
 
-### Community 84 - "EcoLensOverlay.tsx"
-Cohesion: 0.31
-Nodes (7): EcoLensButton(), EcoLensButtonProps, EcoLensOverlay(), EcoLensOverlayProps, EcoLensAbilityButtonProps, EcoLensState, getLensUsesRemaining()
+### Community 84 - "meadowsItemManager.ts"
+Cohesion: 0.36
+Nodes (6): MEADOWS_CONTAMINATION_SPEECHES, MEADOWS_PHASE5_ITEMS, MEADOWS_WRONG_BIN_HINTS, MeadowsGroundItem, MeadowsItemManager, MEADOWS_WASTE_PILE_CENTER
 
 ### Community 85 - "progress.js"
 Cohesion: 0.25
@@ -324,9 +324,9 @@ Nodes (7): client, corsHeaders, ddbDocClient, { DynamoDBClient }, { DynamoDBDocu
 Cohesion: 0.62
 Nodes (5): calculateMeadowsStars(), formatTimeTaken(), getContaminationLabel(), MeadowsResultsModal(), MeadowsResultsModalProps
 
-### Community 88 - "meadowsItemManager.ts"
+### Community 88 - "items.ts"
 Cohesion: 0.36
-Nodes (6): MEADOWS_CONTAMINATION_SPEECHES, MEADOWS_PHASE5_ITEMS, MEADOWS_WRONG_BIN_HINTS, MeadowsGroundItem, MeadowsItemManager, MEADOWS_WASTE_PILE_CENTER
+Nodes (3): GAME_ITEMS, LEVEL_QUIZZES, BOUNDS
 
 ### Community 89 - "dependencies"
 Cohesion: 0.33
@@ -352,8 +352,8 @@ _Questions this graph is uniquely positioned to answer:_
   _343 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `package.json` be split into smaller, more focused modules?**
   _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
-- **Why does `three` connect `three` to `package.json`, `worlds/types.ts`, `WorldPage.tsx`, `vitest`, `createLitterScatter`, `items.ts`, `manifest.ts`, `WorldCanvas.tsx`, `meadowsItemManager.ts`, `meadowsScene.ts`, `SocietyWorld.tsx`?**
-  _High betweenness centrality (0.071) - this node is a cross-community bridge._
+- **Why does `three` connect `three` to `package.json`, `worlds/types.ts`, `WorldPage.tsx`, `vitest`, `createLitterScatter`, `manifest.ts`, `WorldCanvas.tsx`, `meadowsItemManager.ts`, `items.ts`, `meadowsScene.ts`, `SocietyWorld.tsx`?**
+  _High betweenness centrality (0.073) - this node is a cross-community bridge._
 - **Should `Level 1: Waste Detective — Implementation Plan` be split into smaller, more focused modules?**
   _Cohesion score 0.047619047619047616 - nodes in this community are weakly interconnected._
 - **Why does `BinType` connect `WorldCanvas.tsx` to `Level 1: Waste Detective — Implementation Plan`, `worlds/types.ts`, `WorldPage.tsx`, `MigsunGameController.tsx`, `game.ts`, `manifest.ts`, `ItemData`, `MissionResultsModal.tsx`, `migsunData.ts`, `EcoLensOverlay.tsx`, `Phase3Controller.tsx`, `meadowsScene.ts`?**
