@@ -17,7 +17,7 @@ import { GAME_LEVELS } from '../data/levels';
 interface LandingPageProps {
   onStartGame: () => void;
   onStartMeadows?: () => void;
-  onStartMigsun?: () => void;
+  onStartHouse?: () => void;
   onOpenReport: () => void;
 }
 
@@ -80,7 +80,7 @@ const TAGLINE_WORDS = [
 export const LandingPage: React.FC<LandingPageProps> = ({
   onStartGame,
   onStartMeadows,
-  onStartMigsun,
+  onStartHouse,
   onOpenReport,
 }) => {
 
@@ -334,14 +334,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 </button>
               )}
 
-              {onStartMigsun && (
+              {onStartHouse && (
                 <button
-                  onClick={onStartMigsun}
-                  data-testid="migsun-hero-btn"
-                  className="tactile-btn px-6 py-4 bg-sky-400 hover:bg-sky-300 text-slate-950 font-fun font-black text-base sm:text-lg rounded-2xl border-[3px] border-slate-950 shadow-retro-lg inline-flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                  onClick={onStartHouse}
+                  data-testid="house-hero-btn"
+                  className="tactile-btn px-6 py-4 bg-amber-300 hover:bg-amber-200 text-slate-950 font-fun font-black text-base sm:text-lg rounded-2xl border-[3px] border-slate-950 shadow-retro-lg inline-flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
                 >
                   <Sparkles className="w-5 h-5 text-slate-950 stroke-[2.5]" />
-                  <span>MIGSUN VILASA</span>
+                  <span>HOUSE WORLD</span>
                 </button>
               )}
 

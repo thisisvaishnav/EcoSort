@@ -1,7 +1,7 @@
 # Graph Report - EcoSort  (2026-10-11)
 
 ## Corpus Check
-- 205 files · ~884,827 words
+- 205 files · ~885,005 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 7 file(s) not represented in the graph (top: (none) 3, .example 1, .webmanifest 1)
 
@@ -11,7 +11,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `6f35c2b9`
+- Built from commit: `0023e670`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -107,19 +107,19 @@
 7. `WorldPage()` - 31 edges
 8. `WorldCanvas()` - 26 edges
 9. `createMeadowsScene()` - 25 edges
-10. `ItemData` - 24 edges
+10. `vitest` - 24 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `1.3 Litter Scatter System` --references--> `createItemMesh()`  [INFERRED]
+  LEVEL1_WASTE_DETECTIVE_PLAN.md → src/components/world/items/createItemMesh.ts
 - `1.1 Add `residual` bin type` --references--> `BinType`  [INFERRED]
   LEVEL1_WASTE_DETECTIVE_PLAN.md → src/types/game.ts
 - `2.2 Bin Mapping for Level 1: Waste Detective` --references--> `BinType`  [INFERRED]
   LEVEL1_WASTE_DETECTIVE_PLAN.md → src/types/game.ts
-- `1.3 Litter Scatter System` --references--> `createItemMesh()`  [INFERRED]
-  LEVEL1_WASTE_DETECTIVE_PLAN.md → src/components/world/items/createItemMesh.ts
-- `2. Component Verification & Reuse Matrix` --references--> `BinType`  [INFERRED]
-  docs/agents/REUSE_INVENTORY.md → src/types/game.ts
 - `✅ Phase 3: Meadows HUD & Controls` --references--> `joystickToMoveDir()`  [INFERRED]
   MEADOWS_WORLD_PLAN.md → src/components/world/locomotion.ts
+- `2. Component Verification & Reuse Matrix` --references--> `BinType`  [INFERRED]
+  docs/agents/REUSE_INVENTORY.md → src/types/game.ts
 
 ## Import Cycles
 - None detected.
@@ -331,24 +331,24 @@ Cohesion: 0.29
 Nodes (8): MeadowsItemManager, MeadowsSceneResult, BIN_COLORS, MigsunSceneResult, EnvMode, WorldCanvasProps, useCoarsePointer(), useIsPortrait()
 
 ## Knowledge Gaps
-- **331 isolated node(s):** `EnvMode`, `CountdownTimerProps`, `EnergyMeterHUDProps`, `ContaminationMeterProps`, `LevelBadgeProps` (+326 more)
+- **331 isolated node(s):** `build-android.sh script`, `{ BedrockRuntimeClient, InvokeModelCommand }`, `bedrock`, `corsHeaders`, `{ PollyClient, SynthesizeSpeechCommand }` (+326 more)
   These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 468 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **39 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `AudioService` connect `AudioService` to `audio.ts`?**
-  _High betweenness centrality (0.090) - this node is a cross-community bridge._
+- **Why does `react` connect `react` to `package.json`, `worlds/types.ts`, `WorldPage.tsx`, `TeacherDashboard.tsx`, `three`, `MapItemGalleryModal.tsx`, `App.tsx`, `items.ts`, `game.ts`, `MissionResultsModal.tsx`, `audio.ts`, `Phase1Controller.tsx`, `Phase3Controller.tsx`, `WorldCanvas.tsx`, `meadowsScene.ts`, `SocietyWorld.tsx`?**
+  _High betweenness centrality (0.084) - this node is a cross-community bridge._
 - **Are the 3 inferred relationships involving `BinType` (e.g. with `2. Component Verification & Reuse Matrix` and `1.1 Add `residual` bin type`) actually correct?**
   _`BinType` has 3 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `EnvMode`, `CountdownTimerProps`, `EnergyMeterHUDProps` to the rest of the system?**
+- **What connects `build-android.sh script`, `{ BedrockRuntimeClient, InvokeModelCommand }`, `bedrock` to the rest of the system?**
   _331 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `progress.js` be split into smaller, more focused modules?**
   _Cohesion score 0.07389162561576355 - nodes in this community are weakly interconnected._
-- **Why does `react` connect `react` to `package.json`, `worlds/types.ts`, `WorldPage.tsx`, `TeacherDashboard.tsx`, `three`, `MapItemGalleryModal.tsx`, `App.tsx`, `items.ts`, `game.ts`, `MissionResultsModal.tsx`, `audio.ts`, `Phase1Controller.tsx`, `Phase3Controller.tsx`, `WorldCanvas.tsx`, `meadowsScene.ts`, `SocietyWorld.tsx`?**
-  _High betweenness centrality (0.068) - this node is a cross-community bridge._
+- **Why does `three` connect `three` to `package.json`, `worlds/types.ts`, `WorldPage.tsx`, `locomotion.ts`, `createLitterScatter`, `WorldCanvas`, `manifest.ts`, `game.ts`, `audio.ts`, `societyScene.ts`, `world/types.ts`, `WorldCanvas.tsx`, `meadowsScene.ts`, `SocietyWorld.tsx`?**
+  _High betweenness centrality (0.081) - this node is a cross-community bridge._
 - **Should `package.json` be split into smaller, more focused modules?**
   _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
-- **Why does `three` connect `three` to `package.json`, `worlds/types.ts`, `WorldPage.tsx`, `locomotion.ts`, `createLitterScatter`, `WorldCanvas`, `manifest.ts`, `game.ts`, `audio.ts`, `societyScene.ts`, `world/types.ts`, `WorldCanvas.tsx`, `meadowsScene.ts`, `SocietyWorld.tsx`?**
-  _High betweenness centrality (0.068) - this node is a cross-community bridge._
+- **Why does `BinType` connect `game.ts` to `Level 1: Waste Detective — Implementation Plan`, `worlds/types.ts`, `WorldPage.tsx`, `MapItemGalleryModal.tsx`, `Level 1 (Migsun Vilasa) Component Reuse Inventory`, `Phase1Controller.tsx`, `MissionResultsModal.tsx`, `audio.ts`, `societyScene.ts`, `Phase3Controller.tsx`, `world/types.ts`, `WorldCanvas.tsx`, `meadowsScene.ts`?**
+  _High betweenness centrality (0.069) - this node is a cross-community bridge._

@@ -9,22 +9,22 @@ import { isSocietyWorldEnabled } from './featureFlags';
  */
 export const WORLD_REGISTRY: WorldRegistryEntry[] = [
   {
-    id: 'migsun',
-    displayName: 'MIGSUN VILASA',
-    buttonIcon: 'Building',
-    buttonTestId: 'migsun-hero-btn',
-    sceneLoader: () => import('../components/world/migsunScene'),
-    featureFlag: () => true,
-    description: 'Residential complex with waste pile cleanup, van arrival, and 4-bin installation.',
-  },
-  {
     id: 'meadows',
     displayName: 'MEADOWS WORLD',
     buttonIcon: 'Trees',
     buttonTestId: 'meadows-hero-btn',
     sceneLoader: () => import('../components/world/meadowsScene'),
     featureFlag: () => true,
-    description: 'Split residential complex with central paver walkway and garden restoration.',
+    description: 'Green Meadows Residency with central walkway, waste sorting, and truck collection.',
+  },
+  {
+    id: 'house',
+    displayName: 'HOUSE WORLD',
+    buttonIcon: 'Home',
+    buttonTestId: 'house-hero-btn',
+    sceneLoader: () => import('../components/world/proceduralCity'),
+    featureFlag: () => true,
+    description: 'Home Base Cottage and living room hazardous waste sorting station.',
   },
   {
     id: 'society',

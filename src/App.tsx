@@ -49,8 +49,8 @@ export function App() {
         {currentView === 'landing' && (
           <LandingPage
             onStartGame={() => handleStartGame(1)}
-            onStartMeadows={() => handleStartGame(7)}
-            onStartMigsun={() => handleStartGame(8)}
+            onStartMeadows={() => handleStartGame(1)}
+            onStartHouse={() => handleStartGame(2)}
             onOpenReport={() => setCurrentView('report')}
           />
         )}
