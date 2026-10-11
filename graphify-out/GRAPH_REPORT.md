@@ -1,7 +1,7 @@
 # Graph Report - EcoSort  (2026-10-11)
 
 ## Corpus Check
-- 194 files · ~692,636 words
+- 194 files · ~694,689 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 7 file(s) not represented in the graph (top: (none) 3, .example 1, .webmanifest 1)
 
@@ -11,7 +11,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `150e9fad`
+- Built from commit: `5a82180d`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 

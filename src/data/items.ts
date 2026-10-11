@@ -27,7 +27,7 @@ export const GAME_ITEMS: ItemData[] = [
   },
   {
     id: 'food_plate',
-    name: 'Leftover food plate',
+    name: 'Leftover food',
     bin: 'wet',
     baseWeight: 0.22,
     unlockLevel: 1,
@@ -117,6 +117,17 @@ export const GAME_ITEMS: ItemData[] = [
     color: '#94a3b8',
   },
   {
+    id: 'metal_can',
+    name: 'Metal can',
+    bin: 'dry',
+    baseWeight: 0.05,
+    unlockLevel: 1,
+    fact: 'Metal cans melt down into new clean tins forever.',
+    icon: '🥫',
+    modelType: 'metal_can',
+    color: '#94a3b8',
+  },
+  {
     id: 'plastic_bottle_water',
     name: 'Plastic water bottle',
     bin: 'dry',
@@ -138,6 +149,17 @@ export const GAME_ITEMS: ItemData[] = [
     modelType: 'newspaper',
     color: '#cbd5e1',
   },
+  {
+    id: 'glass_bottle',
+    name: 'Glass bottle',
+    bin: 'dry',
+    baseWeight: 0.18,
+    unlockLevel: 1,
+    fact: 'Clean glass bottles melt down into brand new containers.',
+    icon: '🍾',
+    modelType: 'plastic_bottle',
+    color: '#34d399',
+  },
 
   // Hazardous (available from Level 1 in Society scene)
   {
@@ -153,11 +175,11 @@ export const GAME_ITEMS: ItemData[] = [
   },
   {
     id: 'light_bulb',
-    name: 'Old light bulb',
+    name: 'Broken CFL bulb',
     bin: 'hazardous',
     baseWeight: 0.08,
     unlockLevel: 1,
-    fact: 'Light bulbs have delicate glass. Place them in hazardous waste.',
+    fact: 'CFL bulbs contain mercury. Dispose in the red bin.',
     icon: '💡',
     modelType: 'light_bulb',
     color: '#fef08a',
@@ -207,6 +229,17 @@ export const GAME_ITEMS: ItemData[] = [
     icon: '🧻',
     modelType: 'tissue',
     color: '#f1f5f9',
+  },
+  {
+    id: 'used_diaper',
+    name: 'Used diaper',
+    bin: 'residual',
+    baseWeight: 0.20,
+    unlockLevel: 1,
+    fact: 'Diapers are sanitary waste. Wrap them well for safe disposal.',
+    icon: '🧷',
+    modelType: 'tissue',
+    color: '#f8fafc',
   },
 
   // ── Level 3: School (Specific Paper & Plastic) ───────────────────────────────

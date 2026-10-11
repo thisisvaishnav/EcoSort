@@ -697,7 +697,7 @@
       "file_type": "code",
       "norm_label": "heroadventure",
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L22"
+      "source_location": "L25"
     },
     {
       "id": "src_components_landingpage_landingpageprops",
@@ -710,7 +710,7 @@
       "file_type": "code",
       "norm_label": "landingpageprops",
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L14"
+      "source_location": "L17"
     },
     {
       "id": "src_components_world_worldcanvas_envmode",
@@ -3216,7 +3216,7 @@
       "file_type": "code",
       "norm_label": "landingpage()",
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L77"
+      "source_location": "L80"
     },
     {
       "id": "src_components_navbar_navbar",
@@ -7933,7 +7933,7 @@
       "file_type": "code",
       "norm_label": "hero_adventures",
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L30"
+      "source_location": "L33"
     },
     {
       "id": "src_components_landingpage_tagline_words",
@@ -7944,7 +7944,7 @@
       "file_type": "code",
       "norm_label": "tagline_words",
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L69"
+      "source_location": "L72"
     },
     {
       "id": "src_components_world_worldcanvas",
@@ -16445,7 +16445,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L12",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -21821,7 +21821,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L12",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -29595,7 +29595,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L14",
+      "source_location": "L17",
       "weight": 1.0
     },
     {
@@ -29606,7 +29606,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L22",
+      "source_location": "L25",
       "weight": 1.0
     },
     {
@@ -29617,7 +29617,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L30",
+      "source_location": "L33",
       "weight": 1.0
     },
     {
@@ -29628,7 +29628,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L69",
+      "source_location": "L72",
       "weight": 1.0
     },
     {
@@ -29639,7 +29639,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L77",
+      "source_location": "L80",
       "weight": 1.0
     },
     {
@@ -34193,5 +34193,5 @@
       "source_file": "AGENTS.md"
     }
   ],
-  "built_at_commit": "150e9fad3ea14d57537f913a9a9a671ba703090e"
+  "built_at_commit": "5a82180de2d851565b9c8b17b77ea668b94fbdca"
 }

@@ -8,6 +8,9 @@ import {
   ZoomIn,
   X,
   Sparkles,
+  HeartPulse,
+  ExternalLink,
+  AlertOctagon,
 } from 'lucide-react';
 import { GAME_LEVELS } from '../data/levels';
 
@@ -92,9 +95,50 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   /* ── FAQ accordion state ───────────────────────────────────────────────── */
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
+  /* ── Before / After Slider state ──────────────────────────────────────── */
+  const [sliderPosition, setSliderPosition] = useState<number>(50);
+
   /* ── Tagline word-by-word reveal state (B11) ───────────────────────────── */
   const taglineRef = useRef<HTMLDivElement>(null);
   const [litWords, setLitWords] = useState<Set<number>>(new Set());
+
+  /* ── Count-up animated statistics state ────────────────────────────────── */
+  const statsRef = useRef<HTMLDivElement>(null);
+  const [counts, setCounts] = useState<{ uncollected: number; deaths: number; children: number }>({
+    uncollected: 0,
+    deaths: 0,
+    children: 0,
+  });
+
+  useEffect(() => {
+    if (!statsRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          const duration = 1600;
+          const startTime = performance.now();
+          const step = (now: number) => {
+            const elapsed = Math.min((now - startTime) / duration, 1);
+            // Ease-out cubic
+            const progress = 1 - Math.pow(1 - elapsed, 3);
+            setCounts({
+              uncollected: parseFloat((2.7 * progress).toFixed(1)),
+              deaths: parseFloat((1.4 * progress).toFixed(1)),
+              children: Math.round(395 * progress),
+            });
+            if (elapsed < 1) {
+              requestAnimationFrame(step);
+            }
+          };
+          requestAnimationFrame(step);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(statsRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   /* ── Scroll reveal: IntersectionObserver on all .reveal elements ─────── */
   /*    Properties: opacity + transform only (GPU composited per Emil B7)    */
@@ -547,6 +591,392 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               <ArrowRight className="w-4 h-4 stroke-[3]" />
             </button>
           </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════════════════════
+          CLEANING SAVES LIVES — Core Message & Urgent Stats
+          UNEP 2024 & WHO 2023 Verified Data with ASD-STE100 Copy
+          ════════════════════════════════════════════════════════════════════ */}
+      <section id="health-impact" className="max-w-7xl mx-auto px-4 sm:px-6 scroll-mt-24">
+        <div className="space-y-10">
+
+          {/* Section Heading */}
+          <div className="text-center max-w-3xl mx-auto space-y-3 reveal">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-rose-100 text-rose-900 border-2 border-slate-900 font-fun font-bold text-xs uppercase tracking-wider shadow-retro-sm">
+              <HeartPulse className="w-4 h-4 text-rose-600 animate-pulse" />
+              <span>CLEANING SAVES LIVES</span>
+            </div>
+            <h2 className="font-fun font-black text-3xl sm:text-5xl text-slate-950 uppercase tracking-tight"
+                style={{ textWrap: 'balance' } as React.CSSProperties}>
+              Clean waste. Stop disease.
+            </h2>
+            <p className="text-base sm:text-lg text-slate-700 font-medium leading-relaxed max-w-2xl mx-auto"
+               style={{ textWrap: 'pretty' } as React.CSSProperties}>
+              Poor waste management causes disease. Cleaning prevents it.
+              Sort the waste before pests and germs spread.
+            </p>
+          </div>
+
+          {/* ── 1. Animated Stat Counters ─────────────────────────────────── */}
+          <div ref={statsRef} className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Stat 1: 2.7 Billion */}
+            <div className="tactile-card bg-white rounded-3xl p-6 sm:p-8 border-[3px] border-slate-950 shadow-retro-lg text-center space-y-2 reveal reveal-delay-1">
+              <div className="w-12 h-12 mx-auto rounded-2xl bg-amber-100 border-2 border-slate-950 flex items-center justify-center text-2xl shadow-retro-sm">
+                👥
+              </div>
+              <div className="font-fun font-black text-4xl sm:text-5xl text-emerald-600">
+                {counts.uncollected} <span className="text-2xl text-slate-950 uppercase">Billion</span>
+              </div>
+              <h3 className="font-fun font-bold text-base text-slate-950 uppercase">
+                People with no waste collection
+              </h3>
+              <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                About 2.7 billion people do not have their waste collected from their homes.
+              </p>
+              <div className="pt-2 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                UNEP GWMO 2024
+              </div>
+            </div>
+
+            {/* Stat 2: 1.4 Million */}
+            <div className="tactile-card bg-white rounded-3xl p-6 sm:p-8 border-[3px] border-slate-950 shadow-retro-lg text-center space-y-2 reveal reveal-delay-2">
+              <div className="w-12 h-12 mx-auto rounded-2xl bg-rose-100 border-2 border-slate-950 flex items-center justify-center text-2xl shadow-retro-sm">
+                ⚠️
+              </div>
+              <div className="font-fun font-black text-4xl sm:text-5xl text-rose-600">
+                {counts.deaths} <span className="text-2xl text-slate-950 uppercase">Million</span>
+              </div>
+              <h3 className="font-fun font-bold text-base text-slate-950 uppercase">
+                Preventable deaths every year
+              </h3>
+              <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                Unsafe water, sanitation and hygiene, which poor waste management makes worse, led to 1.4 million preventable deaths.
+              </p>
+              <div className="pt-2 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                WHO WASH 2023
+              </div>
+            </div>
+
+            {/* Stat 3: 395 Thousand */}
+            <div className="tactile-card bg-white rounded-3xl p-6 sm:p-8 border-[3px] border-slate-950 shadow-retro-lg text-center space-y-2 reveal reveal-delay-3">
+              <div className="w-12 h-12 mx-auto rounded-2xl bg-sky-100 border-2 border-slate-950 flex items-center justify-center text-2xl shadow-retro-sm">
+                👶
+              </div>
+              <div className="font-fun font-black text-4xl sm:text-5xl text-sky-600">
+                {counts.children} <span className="text-2xl text-slate-950 uppercase">Thousand</span>
+              </div>
+              <h3 className="font-fun font-bold text-base text-slate-950 uppercase">
+                Child deaths under five years
+              </h3>
+              <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                Diarrhoeal disease and respiratory infections linked to unsafe water, sanitation and hygiene harm children most.
+              </p>
+              <div className="pt-2 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                WHO 2023
+              </div>
+            </div>
+          </div>
+
+          {/* Clarification banner */}
+          <div className="p-4 rounded-2xl bg-amber-50 border-2 border-slate-900 shadow-retro-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-slate-800 reveal">
+            <div className="flex items-center gap-2.5">
+              <span className="text-xl">ℹ️</span>
+              <span className="font-medium">
+                <strong>Data note:</strong> Figures cover unsafe water, sanitation and hygiene (WASH). Unmanaged waste piles are a direct cause that pollutes soil and drinking water.
+              </span>
+            </div>
+            <button
+              onClick={onStartGame}
+              className="tactile-btn whitespace-nowrap px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-xl border border-slate-900 font-fun font-black text-xs uppercase shadow-retro-xs"
+            >
+              Play Level 1 Drill →
+            </button>
+          </div>
+
+          {/* ── 2. Before / After Interactive Scene Comparison Slider ───── */}
+          <div className="space-y-4 pt-4">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 reveal">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-emerald-800">
+                  Interactive Cause &amp; Effect
+                </span>
+                <h3 className="font-fun font-black text-2xl sm:text-3xl text-slate-950 uppercase tracking-tight">
+                  See the difference cleaning makes
+                </h3>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setSliderPosition(0)}
+                  className={`px-3 py-1.5 text-xs font-fun font-bold rounded-lg border border-slate-900 transition-colors ${
+                    sliderPosition === 0 ? 'bg-rose-500 text-white' : 'bg-white text-slate-800 hover:bg-slate-100'
+                  }`}
+                >
+                  Dirty (0%)
+                </button>
+                <button
+                  onClick={() => setSliderPosition(50)}
+                  className={`px-3 py-1.5 text-xs font-fun font-bold rounded-lg border border-slate-900 transition-colors ${
+                    sliderPosition === 50 ? 'bg-amber-300 text-slate-950 font-black' : 'bg-white text-slate-800 hover:bg-slate-100'
+                  }`}
+                >
+                  Split (50%)
+                </button>
+                <button
+                  onClick={() => setSliderPosition(100)}
+                  className={`px-3 py-1.5 text-xs font-fun font-bold rounded-lg border border-slate-900 transition-colors ${
+                    sliderPosition === 100 ? 'bg-emerald-500 text-white' : 'bg-white text-slate-800 hover:bg-slate-100'
+                  }`}
+                >
+                  Clean (100%)
+                </button>
+              </div>
+            </div>
+
+            {/* Slider Comparison Container */}
+            <div className="relative max-w-5xl mx-auto rounded-3xl border-[3px] border-slate-950 overflow-hidden shadow-retro-xl bg-slate-950 select-none reveal">
+              {/* BEFORE LAYER (Polluted Park and Worried Boy) */}
+              <div className="relative w-full h-[360px] sm:h-[480px] md:h-[560px] bg-slate-950 flex flex-col justify-between p-5 sm:p-8 overflow-hidden">
+                {/* Real High-Res Background Image */}
+                <img
+                  src="/images/polluted-park-before.png"
+                  alt="Polluted Park and Worried Boy showing severe waste accumulation and disease risks"
+                  className="absolute inset-0 w-full h-full object-cover object-center"
+                />
+
+                {/* Subtle vignette gradient for readable text badges */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-slate-950/40 pointer-events-none" />
+
+                {/* Dirty Scene Content Badges */}
+                <div className="relative z-10 flex items-start justify-between">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-rose-600 text-white border-2 border-slate-950 font-fun font-black text-xs uppercase shadow-retro-sm">
+                    <AlertOctagon className="w-4 h-4" />
+                    <span>BEFORE: UNMANAGED WASTE PILE</span>
+                  </div>
+                  <span className="inline-block px-3 py-1 rounded-lg bg-rose-950/90 text-rose-300 border border-rose-700 font-mono text-xs font-bold shadow-md">
+                    Disease Risk: HIGH ⚠️
+                  </span>
+                </div>
+
+                <div className="relative z-10 max-w-sm bg-slate-950/85 backdrop-blur-md p-4 rounded-2xl border-2 border-rose-600 text-white space-y-1.5 shadow-xl">
+                  <div className="flex items-center gap-2 text-rose-400 font-fun font-black text-sm uppercase">
+                    <span>⚠️</span>
+                    <span>Polluted Park &amp; Worried Boy</span>
+                  </div>
+                  <p className="text-xs text-slate-200 leading-relaxed font-medium">
+                    The waste pile collects rain water. Mosquitoes and flies breed here. Unsorted food waste attracts pests and spreads sickness.
+                  </p>
+                </div>
+              </div>
+
+              {/* AFTER LAYER (Cheerful Riverside Park Adventure clipped by slider) */}
+              <div
+                className="absolute inset-0 bg-slate-950 flex flex-col justify-between p-5 sm:p-8 overflow-hidden transition-[clip-path] duration-75 ease-out"
+                style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
+              >
+                {/* Real High-Res Clean Park Image */}
+                <img
+                  src="/images/cheerful-park-after.png"
+                  alt="Cheerful Riverside Park Adventure showing restored clean park and happy children"
+                  className="absolute inset-0 w-full h-full object-cover object-center"
+                />
+
+                {/* Subtle vignette gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/40 pointer-events-none" />
+
+                {/* Clean Scene Content Badges */}
+                <div className="relative z-10 flex items-start justify-between">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-400 text-slate-950 border-2 border-slate-950 font-fun font-black text-xs uppercase shadow-retro-sm">
+                    <Sparkles className="w-4 h-4" />
+                    <span>AFTER: SORTED &amp; RESTORED</span>
+                  </div>
+                  <span className="inline-block px-3 py-1 rounded-lg bg-emerald-950/90 text-emerald-300 border border-emerald-600 font-mono text-xs font-bold shadow-md">
+                    Disease Risk: LOW ✓
+                  </span>
+                </div>
+
+                <div className="relative z-10 max-w-sm bg-slate-950/85 backdrop-blur-md p-4 rounded-2xl border-2 border-emerald-400 text-white space-y-1.5 shadow-xl">
+                  <div className="flex items-center gap-2 text-emerald-400 font-fun font-black text-sm uppercase">
+                    <span>🌱</span>
+                    <span>Cheerful Riverside Park</span>
+                  </div>
+                  <p className="text-xs text-slate-200 leading-relaxed font-medium">
+                    The waste is sorted into bins. Pests are gone. Children play safely along the river and the community thrives.
+                  </p>
+                </div>
+              </div>
+
+              {/* Slider Divider Bar */}
+              <div
+                className="absolute top-0 bottom-0 w-1.5 bg-amber-300 pointer-events-none shadow-[0_0_16px_rgba(251,191,36,0.9)]"
+                style={{ left: `${sliderPosition}%` }}
+              >
+                <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-amber-300 border-[3px] border-slate-950 flex items-center justify-center text-slate-950 text-sm font-black shadow-retro-md">
+                  ↔
+                </div>
+              </div>
+
+              {/* Range input controller */}
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value={sliderPosition}
+                onChange={(e) => setSliderPosition(Number(e.target.value))}
+                aria-label="Before and after cleanliness slider"
+                className="absolute bottom-4 left-6 right-6 h-3 bg-slate-900/80 border-2 border-slate-950 rounded-lg appearance-none cursor-ew-resize accent-amber-300 z-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
+              />
+            </div>
+
+            <p className="text-center text-xs text-slate-500 font-medium">
+              Drag the slider to compare the unmanaged waste pile with the clean neighbourhood.
+            </p>
+          </div>
+
+          {/* ── Mid CTA 1 ─────────────────────────────────────────────────── */}
+          <div className="text-center pt-2 reveal">
+            <button
+              onClick={onStartGame}
+              className="tactile-btn px-8 py-4 bg-amber-300 hover:bg-amber-400 text-slate-950 font-fun font-black text-base uppercase rounded-2xl border-[3px] border-slate-950 shadow-retro-lg inline-flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+            >
+              <span>Play Level 1: Clean the Waste Pile</span>
+              <ArrowRight className="w-5 h-5 stroke-[3]" />
+            </button>
+          </div>
+
+          {/* ── 3. The 5-Step Disease Chain Flow ──────────────────────────── */}
+          <div className="space-y-6 pt-6">
+            <div className="text-center max-w-2xl mx-auto space-y-2 reveal">
+              <span className="inline-block px-3 py-1 rounded-lg bg-rose-100 text-rose-900 border-2 border-slate-900 font-fun font-bold text-xs uppercase tracking-wider shadow-retro-sm">
+                🔬 THE DISEASE CHAIN
+              </span>
+              <h3 className="font-fun font-black text-2xl sm:text-4xl text-slate-950 uppercase tracking-tight">
+                How poor waste management causes illness
+              </h3>
+              <p className="text-slate-600 text-sm sm:text-base font-medium">
+                One pile of unsorted waste starts a five-step chain of disease.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
+              {[
+                { step: '1', icon: '🌧️', title: 'Rain collects', text: 'Waste pile collects rain water in open plastic containers.', color: 'bg-amber-100', border: 'border-amber-400' },
+                { step: '2', icon: '🦟', title: 'Pests breed', text: 'Mosquitoes and flies breed rapidly in the warm, stagnant water.', color: 'bg-rose-100', border: 'border-rose-400' },
+                { step: '3', icon: '🐀', title: 'Rats gather', text: 'Rats come to eat decomposing food scraps in the unsealed pile.', color: 'bg-orange-100', border: 'border-orange-400' },
+                { step: '4', icon: '🧫', title: 'Germs enter food', text: 'Flies and rats carry bacteria directly to family food and drinking water.', color: 'bg-red-100', border: 'border-red-400' },
+                { step: '5', icon: '🏥', title: 'People get sick', text: 'Children and adults contract cholera, diarrhoea, or fevers.', color: 'bg-rose-200', border: 'border-rose-500' },
+              ].map(({ step, icon, title, text, color, border }, idx) => (
+                <div
+                  key={step}
+                  className={`tactile-card ${color} ${border} rounded-2xl p-4 sm:p-5 border-2 shadow-retro-sm flex flex-col justify-between space-y-2 text-center reveal reveal-delay-${idx + 1 as 1|2|3|4|5}`}
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="w-6 h-6 rounded-full bg-slate-950 text-white font-fun font-black text-xs flex items-center justify-center">
+                        {step}
+                      </span>
+                      <span className="text-2xl" role="img" aria-hidden="true">{icon}</span>
+                    </div>
+                    <h4 className="font-fun font-black text-base text-slate-950 text-left">
+                      {title}
+                    </h4>
+                  </div>
+                  <p className="text-xs text-slate-700 font-medium text-left leading-relaxed">
+                    {text}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* Disease Chain Solution Breakout */}
+            <div className="bg-emerald-600 text-white rounded-3xl p-6 sm:p-8 border-[3px] border-slate-950 shadow-retro-lg flex flex-col md:flex-row items-center justify-between gap-6 reveal">
+              <div className="space-y-2 text-left">
+                <span className="px-3 py-1 bg-amber-300 text-slate-950 rounded-xl font-fun font-black text-xs uppercase border border-slate-950">
+                  HOW CLEANING BREAKS THE CHAIN
+                </span>
+                <h4 className="font-fun font-black text-2xl text-white">
+                  Sorting waste breaks step 1.
+                </h4>
+                <p className="text-sm text-emerald-100 font-medium max-w-xl leading-relaxed">
+                  When you remove the pile and sort food waste into the green bin, water does not collect. Mosquitoes cannot breed. Rats have no food. The disease cycle stops before it begins.
+                </p>
+              </div>
+              <button
+                onClick={onStartGame}
+                className="tactile-btn shrink-0 px-6 py-3.5 bg-white hover:bg-slate-100 text-slate-950 font-fun font-black text-sm uppercase rounded-2xl border-2 border-slate-950 shadow-retro-sm inline-flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+              >
+                <span>Start Drill &amp; Stop Disease</span>
+                <ArrowRight className="w-4 h-4 stroke-[3]" />
+              </button>
+            </div>
+          </div>
+
+          {/* ── 4. Economic & Circular Hope Section ───────────────────────── */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+            <div className="bg-white rounded-3xl p-6 sm:p-8 border-[3px] border-slate-950 shadow-retro-lg space-y-3 tactile-card reveal reveal-delay-1">
+              <div className="w-12 h-12 rounded-2xl bg-rose-100 border-2 border-slate-950 flex items-center justify-center text-2xl shadow-retro-sm">
+                💸
+              </div>
+              <h4 className="font-fun font-black text-xl text-slate-950">
+                The high cost of inaction
+              </h4>
+              <p className="text-slate-700 text-sm leading-relaxed">
+                Direct costs of waste management were USD 252 billion in 2020. Hidden costs of pollution and poor healthcare raise this to USD 361 billion. Without action, it could reach USD 640.3 billion each year by 2050.
+              </p>
+              <div className="pt-1 text-[11px] font-bold text-slate-500 uppercase">
+                Source: UNEP Global Waste Management Outlook (2024)
+              </div>
+            </div>
+
+            <div className="bg-emerald-50 rounded-3xl p-6 sm:p-8 border-[3px] border-slate-950 shadow-retro-lg space-y-3 tactile-card reveal reveal-delay-2">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-300 border-2 border-slate-950 flex items-center justify-center text-2xl shadow-retro-sm">
+                🔄
+              </div>
+              <h4 className="font-fun font-black text-xl text-slate-950">
+                A circular economy brings real gains
+              </h4>
+              <p className="text-slate-700 text-sm leading-relaxed">
+                Good waste prevention can limit the 2050 cost to USD 270.2 billion. A true circular economy with proper sorting can give a net gain of USD 108.5 billion each year while saving lives.
+              </p>
+              <div className="pt-1 text-[11px] font-bold text-emerald-800 uppercase">
+                Source: UNEP Global Waste Management Outlook (2024)
+              </div>
+            </div>
+          </div>
+
+          {/* ── 5. Official References & Credibility ──────────────────────── */}
+          <div className="p-4 sm:p-5 rounded-2xl bg-slate-100 border-2 border-slate-900 text-xs text-slate-600 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 reveal">
+            <div className="space-y-0.5">
+              <strong className="font-bold text-slate-900 uppercase tracking-wide block">
+                Official Data Sources:
+              </strong>
+              <span>
+                UNEP Global Waste Management Outlook (2024) • WHO Burden of Disease from Inadequate Water, Sanitation and Hygiene (2023).
+              </span>
+            </div>
+            <div className="flex items-center gap-3 shrink-0">
+              <a
+                href="https://www.unep.org/resources/global-waste-management-outlook-2024"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-emerald-700 hover:underline flex items-center gap-1"
+              >
+                <span>UNEP Report</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+              <span>•</span>
+              <a
+                href="https://www.who.int/publications/i/item/9789240075610"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-emerald-700 hover:underline flex items-center gap-1"
+              >
+                <span>WHO WASH Report</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+          </div>
+
         </div>
       </section>
 

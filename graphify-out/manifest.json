@@ -42,9 +42,9 @@
     "semantic_hash": ""
   },
   "src/components/LandingPage.tsx": {
-    "mtime": 1791724799.2989242,
-    "seen": 1791724891.429163,
-    "ast_hash": "0d1932a11f6029ee489aad1a51e50330",
+    "mtime": 1791726827.133372,
+    "seen": 1791726841.3960562,
+    "ast_hash": "1fa63ea5582cabea689cb814761ff03d",
     "semantic_hash": ""
   },
   "src/components/Navbar.tsx": {
@@ -114,9 +114,9 @@
     "semantic_hash": ""
   },
   "src/data/items.ts": {
-    "mtime": 1791623651.0500245,
-    "seen": 1791626423.09867,
-    "ast_hash": "550aab98bf6441b27c871161482c59b0",
+    "mtime": 1791726447.428525,
+    "seen": 1791726841.396111,
+    "ast_hash": "871b82202d0ee039593fdcd769c7adba",
     "semantic_hash": ""
   },
   "src/data/levels.ts": {
@@ -1611,6 +1611,18 @@
     "mtime": 1791723575.1416328,
     "seen": 1791723582.142682,
     "ast_hash": "55a9afc547d78a516715fe3564aed3da",
+    "semantic_hash": ""
+  },
+  "public/images/cheerful-park-after.png": {
+    "mtime": 1791726800.2501144,
+    "seen": 1791726841.396221,
+    "ast_hash": "2b0fb75c267e66a765bcc35b00102f88",
+    "semantic_hash": ""
+  },
+  "public/images/polluted-park-before.png": {
+    "mtime": 1791726800.2422616,
+    "seen": 1791726841.39623,
+    "ast_hash": "241f6d9317939b628990d49463344d9e",
     "semantic_hash": ""
   }
 }
