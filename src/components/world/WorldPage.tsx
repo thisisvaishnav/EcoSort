@@ -26,10 +26,9 @@ import { MigsunGameController } from '../game/migsun/MigsunGameController';
 import { MigsunSceneResult } from './migsunScene';
 import { MeadowsSceneResult, MEADOWS_WASTE_PILE_CENTER } from './meadowsScene';
 import { MeadowsPhoneModal } from '../game/meadows/MeadowsPhoneModal';
-import { MeadowsBinModal } from '../game/meadows/MeadowsBinModal';
 import { MeadowsLearningCardsModal } from '../game/meadows/MeadowsLearningCardsModal';
 import { MeadowsResultsModal } from '../game/meadows/MeadowsResultsModal';
-import { MeadowsItemManager, MeadowsGroundItem } from './meadowsItemManager';
+import { MeadowsItemManager } from './meadowsItemManager';
 import {
   MEADOWS_WRONG_BIN_HINTS,
   MEADOWS_CONTAMINATION_SPEECHES,
@@ -107,8 +106,6 @@ export const WorldPage: React.FC<WorldPageProps> = ({
   const introTimerRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   // Phase 5 Sorting Challenge State
-  const [meadowsNearbyItem, setMeadowsNearbyItem] = useState<MeadowsGroundItem | null>(null);
-  const [meadowsHeldItem, setMeadowsHeldItem] = useState<ItemData | null>(null);
   const [meadowsSortedCount, setMeadowsSortedCount] = useState<number>(0);
   const [contaminationLevel, setContaminationLevel] = useState<number>(0);
   const [meadowsTimeTaken, setMeadowsTimeTaken] = useState<number>(0);
@@ -425,8 +422,6 @@ export const WorldPage: React.FC<WorldPageProps> = ({
       setCurrentItem(null);
       setMeadowsSortedCount(0);
       setContaminationLevel(0);
-      setMeadowsHeldItem(null);
-      setMeadowsNearbyItem(null);
       timer.reset();
       const msg = 'Welcome to Green Meadows. Clean the path!';
       setMascotMessage(msg);
@@ -444,7 +439,7 @@ export const WorldPage: React.FC<WorldPageProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentLevelId]);
 
-  // ── Society: player picks up litter ────────────────────────────────────────
+  // ── Society / Meadows: player picks up litter ─────────────────────────────
   const handlePickupSocietyItem = useCallback((item: ItemData) => {
     setCurrentItem(item);
     // Start timer on first pickup
@@ -526,13 +521,7 @@ export const WorldPage: React.FC<WorldPageProps> = ({
         }, 5500);
       }
     }
-
-    // Phase 5: Check proximity to 10 scattered waste items (1.8 units)
-    if (meadowsPhase === 'SORTING' && !meadowsHeldItem) {
-      const nearest = meadowsItemsRef.current?.getNearestItem(pos, 1.8) ?? null;
-      setMeadowsNearbyItem(nearest);
-    }
-  }, [isMeadowsMode, meadowsPhase, meadowsHeldItem]);
+  }, [isMeadowsMode]);
 
   // Phase 3 Phone Call completion -> Phase 4 Truck Arrival
   const handleMeadowsPhoneFinished = useCallback(() => {
@@ -574,92 +563,7 @@ export const WorldPage: React.FC<WorldPageProps> = ({
     }, 4500);
   }, [timer]);
 
-  // Phase 5 Action: Pick up nearest item
-  const handlePickupMeadowsItem = useCallback(() => {
-    if (!meadowsNearbyItem || meadowsHeldItem) return;
-    const picked = meadowsItemsRef.current?.pickUpItem(meadowsNearbyItem.id);
-    if (picked) {
-      setMeadowsHeldItem(picked.itemData);
-      setCurrentItem(picked.itemData);
-      setMeadowsNearbyItem(null);
-      audio.playCorrect();
-    }
-  }, [meadowsNearbyItem, meadowsHeldItem]);
 
-  // Phase 5 Action: Cancel bin choice / put back
-  const handleCancelMeadowsSort = useCallback(() => {
-    if (!meadowsHeldItem) return;
-    meadowsItemsRef.current?.dropItem(meadowsHeldItem.id);
-    setMeadowsHeldItem(null);
-    setCurrentItem(null);
-  }, [meadowsHeldItem]);
-
-  // Phase 5 Action: Select bin for item
-  const handleSelectMeadowsBin = useCallback((targetBin: BinType) => {
-    if (!meadowsHeldItem) return;
-
-    const isCorrect = meadowsHeldItem.bin === targetBin;
-    if (isCorrect) {
-      // ✅ Correct: sound, points, item disappears, progress increments
-      audio.playCorrect();
-      audio.playThrow();
-      setScore((s) => s + 10);
-      setMeadowsSortedCount((c) => {
-        const next = c + 1;
-        if (next >= 10) {
-          // All 10 items sorted -> Trigger Phase 6 Cleanup
-          setMeadowsPhase('CLEANUP');
-          setMeadowsInstruction('All waste sorted! Clean the area.');
-          audio.playCelebration();
-          const elapsed = Math.max(1, timerDuration - timer.timeLeft);
-          setMeadowsTimeTaken(elapsed);
-          timer.pause();
-
-          // Start 3-second transformation: dirty mud blends to cleaner earth, waste disappears
-          setCleanupActive(true);
-
-          // After 3s cleanup transformation, workers/robotic arm lift bins and truck drives away
-          setTimeout(() => {
-            setTruckDeparting(true);
-            audio.playTruckJingle();
-
-            // After truck departs (~4.5s), transition into Phase 7: The Learning Pop-Ups
-            setTimeout(() => {
-              setMeadowsPhase('LEARNING_CARDS');
-              setIsLearningCardsOpen(true);
-            }, 4500);
-          }, 3000);
-        }
-        return next;
-      });
-      meadowsItemsRef.current?.sortItem(meadowsHeldItem.id);
-      setMeadowsHeldItem(null);
-      setCurrentItem(null);
-      setMeadowsInstruction(null);
-    } else {
-      // ❌ Wrong: red buzz, pop back out, increase contamination, narrator hint
-      audio.playIncorrect();
-      meadowsItemsRef.current?.dropItem(meadowsHeldItem.id);
-
-      // Increase contamination meter (max 3)
-      setContaminationLevel((lvl) => {
-        const next = Math.min(3, lvl + 1);
-        const narratorLine = MEADOWS_CONTAMINATION_SPEECHES[next];
-        if (narratorLine) {
-          setNarratorSubtitle(narratorLine);
-          audio.speak(narratorLine);
-        }
-        return next;
-      });
-
-      // Item specific educational hint
-      const hint = MEADOWS_WRONG_BIN_HINTS[meadowsHeldItem.id] || 'Put this item into its correct bin.';
-      setMeadowsInstruction(`Tip: ${hint}`);
-
-      setMeadowsHeldItem(null);
-      setCurrentItem(null);
-    }
-  }, [meadowsHeldItem, timer]);
 
   // Phase 7 Learning Cards Finish -> Transition to Results
   const handleMeadowsFinishLearningCards = useCallback(() => {
@@ -736,17 +640,31 @@ export const WorldPage: React.FC<WorldPageProps> = ({
         if (isMeadowsMode) {
           // In Meadows: sortItem in meadowsItemsRef and advance count
           meadowsItemsRef.current?.sortItem(currentItem.id);
-          setMeadowsHeldItem(null);
           setCurrentItem(null);
           setMeadowsSortedCount((c) => {
             const next = c + 1;
             if (next >= 10) {
               setMeadowsPhase('CLEANUP');
-              setMeadowsInstruction('All waste sorted! The area is clean!');
+              setMeadowsInstruction('All waste sorted! Clean the area.');
               audio.playCelebration();
               const elapsed = Math.max(1, timerDuration - timer.timeLeft);
               setMeadowsTimeTaken(elapsed);
               timer.pause();
+
+              // Start 3-second transformation: dirty mud blends to cleaner earth, waste disappears
+              setCleanupActive(true);
+
+              // After 3s cleanup transformation, workers/robotic arm lift bins and truck drives away
+              setTimeout(() => {
+                setTruckDeparting(true);
+                audio.playTruckJingle();
+
+                // After truck departs (~4.5s), transition into Phase 7: The Learning Pop-Ups
+                setTimeout(() => {
+                  setMeadowsPhase('LEARNING_CARDS');
+                  setIsLearningCardsOpen(true);
+                }, 4500);
+              }, 3000);
             }
             return next;
           });
@@ -802,7 +720,6 @@ export const WorldPage: React.FC<WorldPageProps> = ({
       if (isMeadowsMode) {
         // Meadows mode wrong throw: contamination increases, drop item back to ground
         meadowsItemsRef.current?.dropItem(currentItem.id);
-        setMeadowsHeldItem(null);
         setCurrentItem(null);
 
         setContaminationLevel((lvl) => {
@@ -1379,17 +1296,6 @@ export const WorldPage: React.FC<WorldPageProps> = ({
             narratorSpeech={narratorSubtitle}
             onSkipIntro={meadowsPhase === 'INTRO' ? handleSkipIntro : undefined}
             contaminationLevel={contaminationLevel}
-            nearbyItemName={meadowsNearbyItem?.itemData.name}
-            onPickupItem={handlePickupMeadowsItem}
-          />
-        )}
-
-        {/* Phase 5 Bin Selection Modal */}
-        {isMeadowsMode && meadowsHeldItem && (
-          <MeadowsBinModal
-            item={meadowsHeldItem}
-            onSelectBin={handleSelectMeadowsBin}
-            onCancel={handleCancelMeadowsSort}
           />
         )}
 

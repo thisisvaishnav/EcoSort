@@ -197,6 +197,20 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
 
   // Shared litter pickup (used by E key and the touch "Pick up" button)
   const pickupNearestLitter = () => {
+    if (envMode === 'MEADOWS') {
+      const meadowsManager = meadowsItemsRef?.current;
+      if (!meadowsManager || !engineRef.current) return;
+      const playerPos = engineRef.current.locomotion.getPosition();
+      const nearest = meadowsManager.getNearestItem(playerPos, 1.8);
+      if (nearest && !meadowsManager.getHeldItem()) {
+        const picked = meadowsManager.pickUpItem(nearest.id);
+        if (picked) {
+          onPickupSocietyItemRef.current?.(picked.itemData);
+        }
+      }
+      return;
+    }
+
     const litter = engineRef.current?.litter;
     if (!litter || !engineRef.current) return;
     const playerPos = engineRef.current.locomotion.getPosition();
@@ -499,6 +513,15 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
           onMeadowsPlayerMoveRef.current(meadowsPos);
         }
 
+        // Mission 1 mechanic: Update nearby item prompt for Meadows
+        const nearMeadows = meadowsItems.getNearestItem(meadowsPos, 1.8);
+        const nextMeadowsLitter = nearMeadows && !meadowsItems.getHeldItem() ? nearMeadows.itemData : null;
+        const nextMeadowsLitterId = nextMeadowsLitter ? nextMeadowsLitter.id : null;
+        if (nextMeadowsLitterId !== lastLitterIdRef.current) {
+          lastLitterIdRef.current = nextMeadowsLitterId;
+          setNearbyLitterItem(nextMeadowsLitter);
+        }
+
         // Mission 1 mechanic: Bin glow when holding item and near a bin
         const heldMeadowsItem = meadowsItems.getHeldItem();
         if (heldMeadowsItem) {
@@ -596,8 +619,8 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
       if (isTypingTarget(e.target)) return; // typing in Ask Eco / any field
       const key = e.key.toLowerCase();
       if (key === 'e') {
-        if (engineRef.current?.activeEnv === 'SOCIETY') {
-          // Pick up nearest litter item in society mode
+        if (engineRef.current?.activeEnv === 'SOCIETY' || engineRef.current?.activeEnv === 'MEADOWS' || engineRef.current?.activeEnv === 'MIGSUN') {
+          // Pick up nearest litter item in society / meadows / migsun mode
           pickupNearestLitter();
         } else if (worldMode === 'EXPLORE' && isNearStation && envMode === 'TOWN') {
           onSetWorldMode('STATION_SORT');
@@ -1468,9 +1491,9 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
       )}
 
       {/* =====================================================================
-          SOCIETY / MIGSUN PICKUP PROMPT
+          SOCIETY / MIGSUN / MEADOWS PICKUP PROMPT
           ===================================================================== */}
-      {(envMode === 'SOCIETY' || envMode === 'MIGSUN') && nearbyLitterItem && !currentItem && (
+      {(envMode === 'SOCIETY' || envMode === 'MIGSUN' || envMode === 'MEADOWS') && nearbyLitterItem && !currentItem && (
         <div className="absolute bottom-16 left-1/2 -translate-x-1/2 z-30 max-w-[90vw]">
           <div className="bg-[#FDFBF7]/95 border-2 border-emerald-500 shadow-retro px-3 py-1.5 rounded-2xl flex items-center gap-2">
             <span className="text-lg shrink-0">{nearbyLitterItem.icon}</span>
@@ -1490,7 +1513,7 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
         </div>
       )}
 
-      {/* Society / Migsun: walk hint when not holding anything */}
+      {/* Society / Migsun / Meadows: walk hint when not holding anything */}
       {(envMode === 'SOCIETY' || envMode === 'MIGSUN') && !currentItem && (
         <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 bg-[#FDFBF7]/90 border-2 border-slate-900 shadow-retro-xs rounded-lg px-3 py-1 text-[10px] sm:text-[11px] font-fun font-black text-slate-900 pointer-events-none flex items-center gap-2">
           <span>{isCoarsePointer ? '👆 Tap ground to walk • Tap Pick up for litter' : '🎮 WASD to walk • E to pick up'}</span>
