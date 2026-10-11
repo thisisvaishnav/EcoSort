@@ -1,13 +1,13 @@
 # Graph Report - EcoSort  (2026-10-11)
 
 ## Corpus Check
-- 151 files · ~680,918 words
+- 146 files · ~679,252 words
 - Verdict: corpus is large enough that graph structure adds value.
-- Unclassified: 8 file(s) not represented in the graph (top: (none) 3, .example 1, .pkg 1)
+- Unclassified: 7 file(s) not represented in the graph (top: (none) 3, .example 1, .webmanifest 1)
 
 ## Summary
-- 800 nodes · 1643 edges · 54 communities (29 shown, 25 thin omitted)
-- Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 64 edges (avg confidence: 0.89)
+- 781 nodes · 1595 edges · 57 communities (33 shown, 24 thin omitted)
+- Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 62 edges (avg confidence: 0.89)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
@@ -26,7 +26,7 @@
 - ECC Skills Integration
 - createItemMesh.ts
 - createLitterScatter
-- react
+- MigsunGameController.tsx
 - compilerOptions
 - EcoSort Heroes Full Plan
 - Architecture Decision Records Skill
@@ -48,29 +48,32 @@
 - 🏘️ Migsun Vilasa — New World Implementation Plan
 - scripts
 - dependencies
-- createMigsunScene
-- locomotion.test.ts
+- migsunScene.ts
 - WorldPage.tsx
+- locomotion.test.ts
+- react
 - 4. Phase Status & Implementation Checklist
 - WorldCanvas.tsx
-- BinType
+- world/types.ts
 - meadowsScene.ts
 - societyScene.ts
+- lucide-react
 - locomotion.ts
-- Plan: Browser Performance Optimization (load time + framerate)
+- audio
 - ask_eco.js
-- vitest
-- .verify-main.cjs
+- @vitejs/plugin-react
+- App.tsx
+- BinType
 
 ## God Nodes (most connected - your core abstractions)
-1. `three` - 46 edges
-2. `react` - 43 edges
+1. `three` - 45 edges
+2. `react` - 41 edges
 3. `AudioService` - 37 edges
-4. `lucide-react` - 33 edges
+4. `lucide-react` - 31 edges
 5. `createItemMesh()` - 31 edges
 6. `WorldPage()` - 28 edges
-7. `WorldCanvas()` - 26 edges
-8. `BinType` - 26 edges
+7. `BinType` - 26 edges
+8. `WorldCanvas()` - 25 edges
 9. `ItemMeshOptions` - 20 edges
 10. `ItemData` - 19 edges
 
@@ -83,8 +86,8 @@
   LEVEL1_WASTE_DETECTIVE_PLAN.md → src/types/game.ts
 - `✅ Phase 1: Configuration & Routing` --references--> `resolveEnvMode()`  [INFERRED]
   MEADOWS_WORLD_PLAN.md → src/components/world/WorldCanvas.tsx
-- `Tasks (executed)` --references--> `WorldCanvas()`  [INFERRED]
-  .claude/PRPs/plans/browser-performance-optimization.plan.md → src/components/world/WorldCanvas.tsx
+- `✅ Phase 3: Meadows HUD & Controls` --references--> `joystickToMoveDir()`  [INFERRED]
+  MEADOWS_WORLD_PLAN.md → src/components/world/locomotion.ts
 
 ## Import Cycles
 - None detected.
@@ -93,7 +96,7 @@
 - **Visual Design & Aesthetics** — agents_skills_frontend_design, agents_skills_fiction, agents_skills_lingo, agents_skills_bento [EXTRACTED 0.90]
 - **Quality Assurance & Verification Flow** — agents_skills_tdd_workflow, agents_skills_verification_loop, agents_skills_ai_regression_testing, agents_skills_click_path_audit [INFERRED 0.85]
 
-## Communities (54 total, 25 thin omitted)
+## Communities (57 total, 24 thin omitted)
 
 ### Community 0 - "devDependencies"
 Cohesion: 0.15
@@ -105,7 +108,7 @@ Nodes (21): client, corsHeaders, ddbDocClient, { DynamoDBClient }, { DynamoDBDoc
 
 ### Community 2 - "package.json"
 Cohesion: 0.12
-Nodes (16): @aws-sdk/client-bedrock-runtime, name, private, type, version, autoprefixer, canvas-confetti, jsdom (+8 more)
+Nodes (15): @aws-sdk/client-bedrock-runtime, name, private, type, version, autoprefixer, canvas-confetti, jsdom (+7 more)
 
 ### Community 3 - "Level 1: Waste Detective — Implementation Plan"
 Cohesion: 0.05
@@ -116,24 +119,24 @@ Cohesion: 0.11
 Nodes (17): compilerOptions, allowImportingTsExtensions, isolatedModules, jsx, lib, module, moduleResolution, noEmit (+9 more)
 
 ### Community 5 - "AudioService"
-Cohesion: 0.13
-Nodes (5): 4.3 Audio and Sound Effects, 8.2 Sound Effects to Add, AudioService, writeStoredNumber(), stopMusicLoop()
+Cohesion: 0.07
+Nodes (19): 4.3 Audio and Sound Effects, 8.2 Sound Effects to Add, react-dom, SetStoredBoolean, usePersistentBoolean(), AudioService, readStoredBoolean(), readStoredNumber() (+11 more)
 
 ### Community 7 - "ECC Skills Integration"
 Cohesion: 0.18
 Nodes (10): AI Regression Testing Skill, Architecture Skill, Bento Design System, Click-Path Audit Skill, Fiction Design System, Frontend Design Skill, Lingo Design System, TDD Workflow Skill (+2 more)
 
 ### Community 8 - "createItemMesh.ts"
-Cohesion: 0.10
-Nodes (36): three, MapItemPreview(), MapItemPreviewProps, disposeObject3D(), createItemMesh(), disposeItemMesh(), DEFAULT_MAP_ITEM_PLACEMENTS, createBananaPeel3D() (+28 more)
+Cohesion: 0.11
+Nodes (35): three, MapItemPreview(), MapItemPreviewProps, disposeObject3D(), createItemMesh(), disposeItemMesh(), createBananaPeel3D(), createBattery3D() (+27 more)
 
 ### Community 9 - "createLitterScatter"
-Cohesion: 0.12
-Nodes (7): createLitterScatter(), dispose(), placeItem(), LitterScatterSystem, ScatteredItem, shuffle(), BOUNDS
+Cohesion: 0.14
+Nodes (6): createLitterScatter(), dispose(), placeItem(), LitterScatterSystem, ScatteredItem, shuffle()
 
-### Community 10 - "react"
-Cohesion: 0.06
-Nodes (54): 4. File Change Summary, Modified Files (6), New Files (12), lucide-react, react, EcopediaModalProps, EnergyMeterHUDProps, MascotDialogueProps (+46 more)
+### Community 10 - "MigsunGameController.tsx"
+Cohesion: 0.09
+Nodes (31): 4. File Change Summary, Modified Files (6), New Files (12), BinLocationChoice(), BinLocationChoiceProps, CharacterIntroOverlay(), CharacterIntroOverlayProps, DustbinCardOverlay() (+23 more)
 
 ### Community 11 - "compilerOptions"
 Cohesion: 0.25
@@ -148,16 +151,16 @@ Cohesion: 0.06
 Nodes (34): A1. Intake, A2. Page structure, A3. Layout selection, A4. Conversion rules, A5. Copywriting, A6. Build order, A7. SEO and AEO, A8. Pitfalls (+26 more)
 
 ### Community 35 - "MapItemInstance"
-Cohesion: 0.16
-Nodes (5): MapItemInstance, MapItemManager, MapItemManagerOptions, MapItemConfig, MapItemState
+Cohesion: 0.15
+Nodes (6): DEFAULT_MAP_ITEM_PLACEMENTS, MapItemInstance, MapItemManager, MapItemManagerOptions, MapItemConfig, MapItemState
 
 ### Community 36 - "PART B — Visual system"
 Cohesion: 0.06
 Nodes (34): A1. Intake, A2. Page structure, A3. Layout selection, A4. Conversion rules, A5. Copywriting, A6. Build order, A7. SEO and AEO, A8. Pitfalls (+26 more)
 
 ### Community 37 - "game.ts"
-Cohesion: 0.07
-Nodes (34): App(), RouteFallback(), TeacherDashboard, WorldPage, AVATARS, AvatarSelectModalProps, LevelEndModalProps, LevelSelectModalProps (+26 more)
+Cohesion: 0.22
+Nodes (8): QuizModal(), QuizModalProps, GAME_ITEMS, GAME_LEVELS, LEVEL_QUIZZES, LevelConfig, QuizQuestion, TeacherReportStats
 
 ### Community 38 - "🏘️ Migsun Vilasa — New World Implementation Plan"
 Cohesion: 0.05
@@ -171,9 +174,17 @@ Nodes (9): scripts, build, dev, graphify, graphify:hook, graphify:viz, preview, 
 Cohesion: 0.29
 Nodes (7): dependencies, @aws-sdk/client-bedrock-runtime, canvas-confetti, lucide-react, react, react-dom, three
 
-### Community 44 - "WorldPage.tsx"
-Cohesion: 0.07
-Nodes (52): CleanlinessMeter(), CleanlinessMeterProps, CountdownTimer(), CountdownTimerProps, EcoLensButton(), EcoLensButtonProps, EcoLensOverlay(), EcoLensOverlayProps (+44 more)
+### Community 41 - "migsunScene.ts"
+Cohesion: 0.18
+Nodes (6): BIN_COLORS, createMigsunScene(), MigsunSceneResult, SocietySceneResult, PinnedLitterSpot, WorldCanvasProps
+
+### Community 42 - "WorldPage.tsx"
+Cohesion: 0.15
+Nodes (20): CleanlinessMeter(), CleanlinessMeterProps, EcoLensButton(), EcoLensButtonProps, EcoLensOverlay(), EcoLensOverlayProps, EcoSortGame(), EcoSortGameProps (+12 more)
+
+### Community 44 - "react"
+Cohesion: 0.14
+Nodes (22): react, CountdownTimer(), CountdownTimerProps, EcoLensAbilityButton(), EcoLensAbilityButtonProps, LevelBadge(), LevelBadgeProps, MeadowHud() (+14 more)
 
 ### Community 45 - "4. Phase Status & Implementation Checklist"
 Cohesion: 0.13
@@ -181,55 +192,63 @@ Nodes (14): 1. Overview & Vision, 2. Spatial & Scene Architecture, 3. HUD & Cont
 
 ### Community 46 - "WorldCanvas.tsx"
 Cohesion: 0.32
-Nodes (10): createProceduralCity(), createThirdPersonCamera(), pinchPitchDelta(), pinchZoomDelta(), ThirdPersonCameraSystem, EnvMode, resolveEnvMode(), WorldCanvas() (+2 more)
+Nodes (9): createPlayerCharacter(), createThirdPersonCamera(), pinchPitchDelta(), pinchZoomDelta(), ThirdPersonCameraSystem, EnvMode, resolveEnvMode(), WorldCanvas() (+1 more)
 
-### Community 47 - "BinType"
-Cohesion: 0.16
-Nodes (17): DustbinCardOverlayProps, LEVEL_STATIONS, MeadowsSceneResult, BIN_COLORS, MigsunSceneResult, ProceduralCityResult, WARM_GLOW_COLOR, SocietySceneResult (+9 more)
+### Community 47 - "world/types.ts"
+Cohesion: 0.22
+Nodes (10): LEVEL_STATIONS, MeadowsSceneResult, createProceduralCity(), ProceduralCityResult, WARM_GLOW_COLOR, CameraOrbitState, LevelStation, LocomotionState (+2 more)
 
 ### Community 48 - "meadowsScene.ts"
 Cohesion: 0.29
 Nodes (9): COL, createMeadowsScene(), hashNoise(), makeNameTexture(), makePaverTexture(), MEADOWS_PATH_HALF_WIDTH, MEADOWS_PATH_Z_END, MEADOWS_PATH_Z_START (+1 more)
 
 ### Community 49 - "societyScene.ts"
-Cohesion: 0.23
-Nodes (7): BIN_COLORS, createSocietyScene(), makeBinIconTexture(), makeConcreteTex(), makeWallTex(), TIP_LABELS, SOCIETY_SPAWN
+Cohesion: 0.14
+Nodes (9): vitest, BIN_COLORS, createSocietyScene(), makeBinIconTexture(), makeConcreteTex(), makeWallTex(), TIP_LABELS, SOCIETY_SPAWN (+1 more)
+
+### Community 50 - "lucide-react"
+Cohesion: 0.13
+Nodes (17): lucide-react, EcopediaModal(), EcopediaModalProps, EnergyMeterHUDProps, LevelSelectModal(), LevelSelectModalProps, getRating(), MissionResultsModal() (+9 more)
 
 ### Community 51 - "locomotion.ts"
-Cohesion: 0.24
-Nodes (8): createLocomotionEngine(), isTypingTarget(), JoystickMoveDir, joystickToMoveDir(), LocomotionEngine, createPlayerCharacter(), PlayerCharacter, lookPoint
+Cohesion: 0.33
+Nodes (6): createLocomotionEngine(), isTypingTarget(), JoystickMoveDir, joystickToMoveDir(), LocomotionEngine, PlayerCharacter
 
-### Community 52 - "Plan: Browser Performance Optimization (load time + framerate)"
-Cohesion: 0.25
-Nodes (7): Metadata, NOT Building, Plan: Browser Performance Optimization (load time + framerate), Risks accepted, Summary, Tasks (executed), Validation
+### Community 52 - "audio"
+Cohesion: 0.16
+Nodes (9): AVATARS, AvatarSelectModalProps, MascotDialogue(), MascotDialogueProps, HealthDashboardProps, apiService, SaveProgressPayload, audio (+1 more)
 
 ### Community 53 - "ask_eco.js"
 Cohesion: 0.33
 Nodes (3): bedrock, { BedrockRuntimeClient, InvokeModelCommand }, corsHeaders
 
-### Community 54 - "vitest"
+### Community 55 - "App.tsx"
+Cohesion: 0.20
+Nodes (12): App(), RouteFallback(), TeacherDashboard, WorldPage, HERO_ADVENTURES, HeroAdventure, LandingPage(), LandingPageProps (+4 more)
+
+### Community 56 - "BinType"
 Cohesion: 0.22
-Nodes (3): vite, @vitejs/plugin-react, vitest
+Nodes (8): LevelEndModal(), LevelEndModalProps, MissionError, MapItemCardProps, MapItemGalleryModalProps, AdaptiveSpawner, BinType, ItemData
 
 ## Knowledge Gaps
-- **277 isolated node(s):** `{ chromium }`, `{ BedrockRuntimeClient, InvokeModelCommand }`, `bedrock`, `corsHeaders`, `{ DynamoDBClient }` (+272 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 357 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **25 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **271 isolated node(s):** `{ BedrockRuntimeClient, InvokeModelCommand }`, `bedrock`, `corsHeaders`, `{ DynamoDBClient }`, `{ DynamoDBDocumentClient, PutCommand, QueryCommand }` (+266 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 349 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **24 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `AudioService` connect `AudioService` to `react`?**
-  _High betweenness centrality (0.071) - this node is a cross-community bridge._
-- **What connects `{ chromium }`, `{ BedrockRuntimeClient, InvokeModelCommand }`, `bedrock` to the rest of the system?**
-  _277 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Why does `react` connect `react` to `package.json`, `game.ts`, `AudioService`, `createItemMesh.ts`, `WorldPage.tsx`, `MigsunGameController.tsx`, `WorldCanvas.tsx`, `lucide-react`, `audio`, `App.tsx`, `BinType`?**
+  _High betweenness centrality (0.070) - this node is a cross-community bridge._
+- **What connects `{ BedrockRuntimeClient, InvokeModelCommand }`, `bedrock`, `corsHeaders` to the rest of the system?**
+  _271 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `progress.js` be split into smaller, more focused modules?**
   _Cohesion score 0.07977207977207977 - nodes in this community are weakly interconnected._
-- **Why does `react` connect `react` to `package.json`, `game.ts`, `createItemMesh.ts`, `WorldPage.tsx`, `WorldCanvas.tsx`?**
-  _High betweenness centrality (0.069) - this node is a cross-community bridge._
+- **Why does `BinType` connect `BinType` to `Level 1: Waste Detective — Implementation Plan`, `game.ts`, `migsunScene.ts`, `MigsunGameController.tsx`, `WorldPage.tsx`, `WorldCanvas.tsx`, `world/types.ts`, `societyScene.ts`, `lucide-react`?**
+  _High betweenness centrality (0.062) - this node is a cross-community bridge._
 - **Should `package.json` be split into smaller, more focused modules?**
-  _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
-- **Why does `BinType` connect `BinType` to `Level 1: Waste Detective — Implementation Plan`, `game.ts`, `react`, `WorldPage.tsx`, `WorldCanvas.tsx`, `societyScene.ts`?**
-  _High betweenness centrality (0.060) - this node is a cross-community bridge._
+  _Cohesion score 0.125 - nodes in this community are weakly interconnected._
 - **Should `Level 1: Waste Detective — Implementation Plan` be split into smaller, more focused modules?**
   _Cohesion score 0.047619047619047616 - nodes in this community are weakly interconnected._
+- **Should `compilerOptions` be split into smaller, more focused modules?**
+  _Cohesion score 0.1111111111111111 - nodes in this community are weakly interconnected._

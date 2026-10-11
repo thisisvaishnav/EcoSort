@@ -46,6 +46,7 @@ import {
   Flame,
   Award,
   ChevronUp,
+  ChevronDown,
   Info,
   X,
 } from 'lucide-react';
@@ -675,15 +676,16 @@ export const WorldPage: React.FC<WorldPageProps> = ({
   // re-render the whole WorldCanvas subtree (props change identity every render).
   const topBarExtrasLeft = useMemo(
     () => (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1.5 shrink-0">
         {onExit && (
-            <button
-              onClick={onExit}
-              title="Exit to menu"
-              className="tactile-btn flex items-center gap-1.5 px-3 py-2 min-h-[40px] md:min-h-[44px] min-w-[40px] md:min-w-[44px] bg-white hover:bg-slate-100 text-slate-950 rounded-xl text-xs font-fun font-black border-2 border-slate-900 shadow-retro-sm transition-all active:translate-x-[1px] active:translate-y-[1px]"
-            >
-            <ArrowLeft className="w-4 h-4 text-slate-950" />
-            <span className="hidden sm:inline">Exit</span>
+          <button
+            onClick={onExit}
+            title="Exit to menu"
+            aria-label="Exit"
+            className="tactile-btn flex items-center justify-center gap-1 px-2.5 py-1 sm:px-3 sm:py-2 min-h-[36px] sm:min-h-[44px] min-w-[36px] sm:min-w-[44px] bg-white hover:bg-slate-100 text-slate-950 rounded-xl text-xs font-fun font-black border-2 border-slate-900 shadow-retro-sm transition-all active:translate-x-[1px] active:translate-y-[1px]"
+          >
+            <ArrowLeft className="w-4 h-4 text-slate-950 shrink-0" />
+            <span className="text-xs">Exit</span>
           </button>
         )}
       </div>
@@ -694,7 +696,7 @@ export const WorldPage: React.FC<WorldPageProps> = ({
   // ── HUD: CENTER ─────────────────────────────────────────────────────────────
   const topBarCenter = useMemo(
     () => (
-    <div className="flex items-center gap-1.5 bg-[#FDFBF7]/95 border-2 border-slate-900 rounded-2xl px-2 sm:px-3 py-1 sm:py-1.5 shadow-retro text-slate-900 backdrop-blur-sm flex-wrap min-w-0">
+    <div className="flex items-center gap-1 sm:gap-1.5 bg-[#FDFBF7]/95 border-2 border-slate-900 rounded-xl sm:rounded-2xl px-1.5 sm:px-3 py-0.5 sm:py-1.5 shadow-retro-xs sm:shadow-retro text-slate-900 backdrop-blur-sm flex-nowrap min-w-0">
 
       {/* Level name */}
       <span className="hidden lg:inline-block text-[11px] font-fun font-black text-slate-700 uppercase">
@@ -704,7 +706,7 @@ export const WorldPage: React.FC<WorldPageProps> = ({
       {isSocietyMode ? (
         <>
           {/* Countdown Timer */}
-          <div className="h-4 w-[2px] bg-slate-300" />
+          <div className="hidden sm:block h-4 w-[2px] bg-slate-300" />
           <CountdownTimer
             timeLeft={timer.timeLeft}
             isWarning={timer.isWarning}
@@ -713,16 +715,16 @@ export const WorldPage: React.FC<WorldPageProps> = ({
           />
 
           {/* Cleanliness Meter */}
-          <div className="h-4 w-[2px] bg-slate-300" />
+          <div className="h-3.5 sm:h-4 w-[2px] bg-slate-300" />
           <CleanlinessMeter
             collected={societySortedCount}
             total={currentLevel.targetCount}
           />
 
           {/* Score */}
-          <div className="h-4 w-[2px] bg-slate-300" />
-          <div className="flex items-center gap-1 bg-amber-300 px-2 py-0.5 rounded-lg border border-slate-900 font-fun font-black text-xs text-slate-950">
-            <Award className="w-3.5 h-3.5" />
+          <div className="h-3.5 sm:h-4 w-[2px] bg-slate-300" />
+          <div className="flex items-center gap-1 bg-amber-300 px-1.5 py-0.5 sm:px-2 rounded-lg border border-slate-900 font-fun font-black text-[11px] sm:text-xs text-slate-950 shrink-0">
+            <Award className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
             <span>{score}</span>
           </div>
         </>
@@ -1043,17 +1045,21 @@ export const WorldPage: React.FC<WorldPageProps> = ({
         {/* Mascot (hidden in Meadows — the narrative banner carries the message) */}
         {!isMeadowsMode && (
           <div className={`absolute z-30 max-w-xs sm:max-w-sm md:max-w-md pointer-events-auto transition-all ${
-            isCoarsePointer ? 'bottom-5 left-40' : 'bottom-4 left-4'
+            isCoarsePointer ? 'top-14 left-3' : 'bottom-4 left-4'
           }`}>
             {isMascotCollapsed ? (
               <button
                 onClick={() => setIsMascotCollapsed(false)}
                 title="Show mascot tips"
-                className="flex items-center gap-2 bg-[#FDFBF7] border-2 border-slate-900 rounded-2xl px-3.5 py-2 shadow-retro text-xs font-fun font-black text-slate-900 hover:bg-amber-100 transition-all active:translate-x-[1px] active:translate-y-[1px]"
+                className="flex items-center gap-1.5 sm:gap-2 bg-[#FDFBF7] border-2 border-slate-900 rounded-xl sm:rounded-2xl px-2.5 py-1.5 sm:px-3.5 sm:py-2 shadow-retro text-xs font-fun font-black text-slate-900 hover:bg-amber-100 transition-all active:translate-x-[1px] active:translate-y-[1px]"
               >
-                <span className="text-xl">🌱</span>
+                <span className="text-lg sm:text-xl">🌱</span>
                 <span className="text-emerald-700">Eco tips</span>
-                <ChevronUp className="w-4 h-4 text-slate-700" />
+                {isCoarsePointer ? (
+                  <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-700" />
+                ) : (
+                  <ChevronUp className="w-4 h-4 text-slate-700" />
+                )}
               </button>
             ) : (
               <MascotDialogue
