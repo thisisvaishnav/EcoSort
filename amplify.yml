@@ -7,7 +7,6 @@ frontend:
     build:
       commands:
         - npm run build
-        - find dist -name '*.map' -delete
   artifacts:
     baseDirectory: dist
     files:
@@ -16,3 +15,18 @@ frontend:
     paths:
       - node_modules/**/*
       - .vite/**/*
+customHeaders:
+  # Hashed Vite bundles: cache forever (content changes → new filename)
+  - pattern: '/assets/**'
+    headers:
+      - key: Cache-Control
+        value: 'public, max-age=31536000, immutable'
+  # Entry HTML must always revalidate so users get new asset hashes
+  - pattern: '/index.html'
+    headers:
+      - key: Cache-Control
+        value: 'no-cache'
+  - pattern: '/manifest.webmanifest'
+    headers:
+      - key: Cache-Control
+        value: 'no-cache'

@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { MapItemModelType } from '../world/items/types';
 import { createItemMesh, disposeItemMesh } from '../world/items/createItemMesh';
 import { RotateCw, Sparkles, Eye } from 'lucide-react';
+import { useCoarsePointer } from '../../hooks/useMobileInput';
 
 interface MapItemPreviewProps {
   modelType: MapItemModelType;
@@ -21,6 +22,7 @@ export const MapItemPreview: React.FC<MapItemPreviewProps> = ({
 }) => {
   const mountRef = useRef<HTMLDivElement>(null);
   const [isRotating, setIsRotating] = useState(autoRotate);
+  const isCoarsePointer = useCoarsePointer();
   // Mirrored into a ref so toggling rotation doesn't tear down + rebuild the
   // whole WebGL scene (the effect below must not depend on isRotating).
   const isRotatingRef = useRef(isRotating);
@@ -42,12 +44,12 @@ export const MapItemPreview: React.FC<MapItemPreviewProps> = ({
     camera.position.set(0, 1.0, 2.2);
     camera.lookAt(0, 0.28, 0);
 
-    // 2. Renderer
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    // 2. Renderer — lighter on phones/tablets (no AA, cap 1.5x, cheap shadows)
+    const renderer = new THREE.WebGLRenderer({ antialias: !isCoarsePointer, alpha: true });
     renderer.setSize(width, h);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isCoarsePointer ? 1.5 : 2));
     renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.shadowMap.type = isCoarsePointer ? THREE.BasicShadowMap : THREE.PCFSoftShadowMap;
     container.innerHTML = '';
     container.appendChild(renderer.domElement);
 
@@ -139,6 +141,7 @@ export const MapItemPreview: React.FC<MapItemPreviewProps> = ({
 
     const animate = () => {
       animId = requestAnimationFrame(animate);
+      if (document.hidden) return;
       const delta = clock.getDelta();
 
       if (meshGroupRef.current && isRotatingRef.current && !isDragging) {
@@ -168,7 +171,7 @@ export const MapItemPreview: React.FC<MapItemPreviewProps> = ({
       disposeItemMesh(scene);
       renderer.dispose();
     };
-  }, [modelType, height]);
+  }, [modelType, height, isCoarsePointer]);
 
   return (
     <div className={`relative bg-slate-900/80 rounded-2xl border border-slate-700/60 overflow-hidden ${className}`}>

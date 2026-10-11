@@ -16,9 +16,17 @@ export default defineConfig({
         // The `build.manualChunks` shorthand is ignored by Vite 6 — declare
         // the splits under rollupOptions.output so three.js stays out of the
         // landing bundle and React is cached across lazy routes.
+        // Normalize separators so the matcher works on Windows and POSIX.
         manualChunks(id: string) {
-          if (id.includes('node_modules/three')) return 'three';
-          if (id.includes('node_modules/react')) return 'react';
+          const normalized = id.split('\\').join('/');
+          if (normalized.includes('node_modules/three')) return 'three';
+          if (
+            normalized.includes('node_modules/react-dom') ||
+            normalized.includes('node_modules/react/') ||
+            normalized.includes('node_modules/scheduler')
+          ) {
+            return 'react';
+          }
         },
       },
     },

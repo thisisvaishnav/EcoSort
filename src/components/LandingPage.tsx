@@ -1364,8 +1364,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStartGame, onOpenRep
                 <img
                   src="/hero-zoom.webp"
                   alt="Kai the Eco Hero: complete concept sheet with park scene, expressions, 360 turnaround, and daily adventures"
-                  width={1374}
-                  height={1145}
+                  width={1200}
+                  height={1000}
                   loading="lazy"
                   decoding="async"
                   className="w-full h-auto object-contain max-h-[65vh]"

@@ -268,6 +268,11 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
 
     const renderLoop = () => {
       animationFrameId = requestAnimationFrame(renderLoop);
+      // Skip work while the tab is in the background (saves battery/CPU).
+      if (document.hidden) {
+        clock.getDelta();
+        return;
+      }
       const delta = Math.min(clock.getDelta(), 0.1);
       const elapsedTime = clock.getElapsedTime();
 
