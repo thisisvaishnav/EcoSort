@@ -1,0 +1,28 @@
+{
+  "performanceBudgets": {
+    "targetFPS": {
+      "min": 30,
+      "ideal": 60,
+      "description": "Maintain 30+ FPS sustained on mid-range Android (e.g. Snapdragon 680 / Helio G88)"
+    },
+    "display": {
+      "devicePixelRatioCap": 1.5,
+      "resolutionTarget": "1080p rendered at 1.5x max DPR to prevent GPU thermal throttling"
+    },
+    "rendering": {
+      "maxDrawCallsPerFrame": 85,
+      "maxTrianglesInView": 65000,
+      "textureMemoryCapMB": 128,
+      "maxTextureResolution": 1024
+    },
+    "bundleAndStorage": {
+      "initialDownloadTargetMB": 25,
+      "offlineBundleCached": true,
+      "noExternalCDNDependenciesAtRuntime": true
+    },
+    "batteryAndThermal": {
+      "frameCap": 60,
+      "backgroundThrottleFPS": 0
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "appId": "org.ecosort.heroes",
+  "appName": "EcoSort Heroes",
+  "webDir": "../dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https",
+    "cleartext": false
+  },
+  "android": {
+    "allowMixedContent": false,
+    "captureInput": true,
+    "webContentsDebuggingEnabled": false,
+    "backgroundColor": "#020617"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 1500,
+      "backgroundColor": "#020617",
+      "showSpinner": false
+    },
+    "ScreenOrientation": {
+      "orientation": "landscape"
+    }
+  }
+}
