@@ -41,6 +41,8 @@ describe('Meadows Scene Geometry & Layout', () => {
     expect(Array.isArray(sceneResult.obstacles)).toBe(true);
     expect(sceneResult.buildingFront).toBeInstanceOf(THREE.Vector3);
     expect(sceneResult.pathCenter).toBeInstanceOf(THREE.Vector3);
+    expect(sceneResult.wastePileCenter).toBeInstanceOf(THREE.Vector3);
+    expect(typeof sceneResult.setPathGuideVisible).toBe('function');
     expect(typeof sceneResult.animate).toBe('function');
   });
 

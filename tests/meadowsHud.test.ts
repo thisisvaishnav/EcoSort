@@ -232,4 +232,66 @@ describe('Meadow HUD Components & Mechanics', () => {
       });
     });
   });
+
+  describe('Phase 1 & Phase 2 HUD Elements', () => {
+    it('renders instruction banner and narrator speech banner', async () => {
+      const container = document.createElement('div');
+      document.body.appendChild(container);
+      const root = createRoot(container);
+
+      const MeadowHudModule = await import('../src/components/game/meadows/MeadowHud');
+      const MeadowHud = MeadowHudModule.MeadowHud;
+
+      await act(async () => {
+        root.render(
+          React.createElement(MeadowHud, {
+            levelNumber: 7,
+            levelTitle: 'The Waste Pile That Changed Our Neighbourhood',
+            narrative: [],
+            timeLeft: 90,
+            isWarning: false,
+            isUrgent: false,
+            isExpired: false,
+            tasks: [
+              { id: 'clean', label: 'Clean the waste area', done: false },
+              { id: 'sort', label: 'Sort the waste correctly', done: false },
+              { id: 'garden', label: 'Restore the garden', done: false },
+            ],
+            lensState: INITIAL_ECO_LENS_STATE,
+            onActivateLens: vi.fn(),
+            showJoystick: true,
+            onJoystickMove: vi.fn(),
+            joystickPulsing: true,
+            lensGlowing: true,
+            lensHintText: 'Tip: Tap Eco Lens to see what each item is made of.',
+            instructionBanner: 'Step 1: Run to the waste pile on the left.',
+            narratorSpeech: 'Welcome to Green Meadows Residency. Look around. Same place, two different worlds.',
+          })
+        );
+      });
+
+      // Instruction banner check
+      const instrBanner = container.querySelector('[data-testid="instruction-banner"]');
+      expect(instrBanner).not.toBeNull();
+      expect(instrBanner?.textContent).toContain('Step 1: Run to the waste pile on the left.');
+
+      // Narrator speech check
+      const speechBanner = container.querySelector('[data-testid="narrator-speech"]');
+      expect(speechBanner).not.toBeNull();
+      expect(speechBanner?.textContent).toContain('Welcome to Green Meadows Residency');
+
+      // Pulsing joystick check
+      const stick = container.querySelector('[data-testid="virtual-joystick"]');
+      expect(stick).not.toBeNull();
+      expect(stick?.className).toContain('animate-pulse');
+
+      // Glowing lens and hint bubble check
+      const hintBubble = container.querySelector('[data-testid="lens-hint-bubble"]');
+      expect(hintBubble).not.toBeNull();
+      expect(hintBubble?.textContent).toContain('Tip: Tap Eco Lens to see what each item is made of.');
+
+      root.unmount();
+      container.remove();
+    });
+  });
 });

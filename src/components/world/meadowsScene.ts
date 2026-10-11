@@ -35,6 +35,10 @@ export interface MeadowsSceneResult {
   buildingFront: THREE.Vector3;
   /** Midpoint of the central path — asserts the path is centred on x = 0. */
   pathCenter: THREE.Vector3;
+  /** Waste pile center hotspot position on left mud zone */
+  wastePileCenter: THREE.Vector3;
+  /** Controls visibility of the green glowing ground trail and floating waypoint arrow */
+  setPathGuideVisible: (visible: boolean) => void;
   animate: (elapsed: number, delta: number) => void;
 }
 
@@ -87,6 +91,7 @@ export const MEADOWS_PATH_HALF_WIDTH = 1.75;
 export const MEADOWS_PATH_Z_START = -7.5;
 export const MEADOWS_PATH_Z_END = 14;
 export const MEADOWS_SPAWN = new THREE.Vector3(0, 0, 10);
+export const MEADOWS_WASTE_PILE_CENTER = new THREE.Vector3(-6.0, 0.05, 4.0);
 // Player locomotion bounds: freely roam across the central path, mud yard, green park, and perimeter road routes
 export const MEADOWS_BOUNDS = { minX: -22.5, maxX: 22.5, minZ: -22.5, maxZ: 22.5 };
 
@@ -1302,6 +1307,88 @@ export function createMeadowsScene(): MeadowsSceneResult {
   sky.name = 'sky_dome';
   group.add(sky);
 
+  // ── 10. Glowing Green Path Marker & Floating Arrow to Waste Pile ──────────
+  const pathGuideGroup = new THREE.Group();
+  pathGuideGroup.name = 'waste_path_guide';
+  group.add(pathGuideGroup);
+
+  // Curved ground discs along path from MEADOWS_SPAWN (0, 0, 10) to MEADOWS_WASTE_PILE_CENTER (-6, 0.05, 4)
+  const markerGeo = new THREE.RingGeometry(0.18, 0.32, 24);
+  const markerMat = new THREE.MeshBasicMaterial({
+    color: 0x34d399, // vibrant glowing emerald
+    side: THREE.DoubleSide,
+    transparent: true,
+    opacity: 0.85,
+  });
+
+  const markerCurvePoints = [
+    new THREE.Vector3(0, 0.04, 9.2),
+    new THREE.Vector3(-0.8, 0.04, 8.4),
+    new THREE.Vector3(-1.8, 0.04, 7.6),
+    new THREE.Vector3(-2.8, 0.04, 6.7),
+    new THREE.Vector3(-3.8, 0.04, 5.8),
+    new THREE.Vector3(-4.8, 0.04, 4.9),
+    new THREE.Vector3(-5.8, 0.04, 4.2),
+  ];
+
+  const markerMeshes: THREE.Mesh[] = [];
+  markerCurvePoints.forEach((pt) => {
+    const markerMesh = new THREE.Mesh(markerGeo, markerMat.clone());
+    markerMesh.rotation.x = -Math.PI / 2;
+    markerMesh.position.copy(pt);
+    pathGuideGroup.add(markerMesh);
+    markerMeshes.push(markerMesh);
+
+    // Inner glowing solid disc
+    const innerDot = new THREE.Mesh(
+      new THREE.CircleGeometry(0.1, 16),
+      new THREE.MeshBasicMaterial({ color: 0x6ee7b7, side: THREE.DoubleSide, transparent: true, opacity: 0.9 })
+    );
+    innerDot.rotation.x = -Math.PI / 2;
+    innerDot.position.set(pt.x, pt.y + 0.002, pt.z);
+    pathGuideGroup.add(innerDot);
+  });
+
+  // Floating 3D waypoint arrow hovering above the waste pile hotspot
+  const arrowGroup = new THREE.Group();
+  arrowGroup.position.set(MEADOWS_WASTE_PILE_CENTER.x, 2.2, MEADOWS_WASTE_PILE_CENTER.z);
+  pathGuideGroup.add(arrowGroup);
+
+  // Downward pointing cone
+  const arrowCone = new THREE.Mesh(
+    new THREE.ConeGeometry(0.38, 0.7, 16),
+    new THREE.MeshStandardMaterial({
+      color: 0x34d399,
+      emissive: 0x10b981,
+      emissiveIntensity: 0.75,
+      roughness: 0.3,
+    })
+  );
+  arrowCone.rotation.x = Math.PI; // point downwards
+  arrowGroup.add(arrowCone);
+
+  // Shaft of arrow
+  const arrowShaft = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.12, 0.12, 0.45, 12),
+    new THREE.MeshStandardMaterial({
+      color: 0x10b981,
+      emissive: 0x059669,
+      emissiveIntensity: 0.6,
+      roughness: 0.3,
+    })
+  );
+  arrowShaft.position.y = 0.5;
+  arrowGroup.add(arrowShaft);
+
+  // Glowing ring under the arrow on the ground at waste pile
+  const targetRing = new THREE.Mesh(
+    new THREE.RingGeometry(0.8, 1.1, 32),
+    new THREE.MeshBasicMaterial({ color: 0x34d399, side: THREE.DoubleSide, transparent: true, opacity: 0.75 })
+  );
+  targetRing.rotation.x = -Math.PI / 2;
+  targetRing.position.set(MEADOWS_WASTE_PILE_CENTER.x, 0.04, MEADOWS_WASTE_PILE_CENTER.z);
+  pathGuideGroup.add(targetRing);
+
   // ── Animate ───────────────────────────────────────────────────────────────
   function animate(elapsed: number, delta: number) {
     // 1. Warm lamp gentle flicker
@@ -1344,6 +1431,19 @@ export function createMeadowsScene(): MeadowsSceneResult {
       }
     }
     moteAttr.needsUpdate = true;
+
+    // 5. Waypoint guide animation: pulsating rings and bobbing arrow
+    if (pathGuideGroup.visible) {
+      arrowGroup.position.y = 2.2 + Math.sin(elapsed * 4.0) * 0.28;
+      arrowGroup.rotation.y = elapsed * 2.2;
+      const targetScale = 1.0 + Math.sin(elapsed * 3.5) * 0.12;
+      targetRing.scale.set(targetScale, targetScale, 1.0);
+
+      markerMeshes.forEach((mesh, idx) => {
+        const pulse = 0.5 + 0.45 * Math.sin(elapsed * 4.0 - idx * 0.6);
+        (mesh.material as THREE.MeshBasicMaterial).opacity = pulse;
+      });
+    }
   }
 
   return {
@@ -1355,6 +1455,10 @@ export function createMeadowsScene(): MeadowsSceneResult {
       0,
       (MEADOWS_PATH_Z_START + MEADOWS_PATH_Z_END) / 2
     ),
+    wastePileCenter: MEADOWS_WASTE_PILE_CENTER.clone(),
+    setPathGuideVisible: (visible: boolean) => {
+      pathGuideGroup.visible = visible;
+    },
     animate,
   };
 }

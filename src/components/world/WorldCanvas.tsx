@@ -60,6 +60,10 @@ export interface WorldCanvasProps {
   joystickInputRef?: React.MutableRefObject<((x: number, y: number) => void) | null>;
   // Migsun Vilasa handlers & ref sink
   migsunRef?: React.MutableRefObject<MigsunSceneResult | null>;
+  // Meadows handlers & ref sink
+  meadowsRef?: React.MutableRefObject<MeadowsSceneResult | null>;
+  /** Callback emitted on player position changes in Meadows */
+  onMeadowsPlayerMove?: (position: THREE.Vector3) => void;
 }
 
 export const WorldCanvas: React.FC<WorldCanvasProps> = ({
@@ -83,6 +87,8 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
   truckArriving = false,
   joystickInputRef,
   migsunRef,
+  meadowsRef,
+  onMeadowsPlayerMove,
 }) => {
   const mountRef = useRef<HTMLDivElement>(null);
   const currentStation = LEVEL_STATIONS.find((s) => s.id === currentLevelId) || LEVEL_STATIONS[0];
@@ -134,6 +140,8 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
   // Stable ref for onPickupSocietyItem so the render loop can call it without stale closure
   const onPickupSocietyItemRef = useRef(onPickupSocietyItem);
   useEffect(() => { onPickupSocietyItemRef.current = onPickupSocietyItem; }, [onPickupSocietyItem]);
+  const onMeadowsPlayerMoveRef = useRef(onMeadowsPlayerMove);
+  useEffect(() => { onMeadowsPlayerMoveRef.current = onMeadowsPlayerMove; }, [onMeadowsPlayerMove]);
 
   // Truck animation refs — synced from prop so the render loop (created once) can read them
   const truckArrivingRef = useRef(false);
@@ -229,6 +237,7 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
     const society = createSocietyScene(['wet', 'dry', 'hazardous', 'residual']);
     // Meadows scene (Level 7 Green Meadows Rescue)
     const meadows = createMeadowsScene();
+    if (meadowsRef) meadowsRef.current = meadows;
     // Migsun scene (Level 8 Migsun Vilasa)
     const migsun = createMigsunScene(['wet', 'dry', 'hazardous', 'residual']);
     if (migsunRef) migsunRef.current = migsun;
@@ -445,6 +454,9 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
         const meadowsPos = locomotion.getPosition();
         locomotion.update(delta, cameraSystem.getAzimuthAngle());
         cameraSystem.update(meadowsPos, delta, player.currentAngle);
+        if (onMeadowsPlayerMoveRef.current) {
+          onMeadowsPlayerMoveRef.current(meadowsPos);
+        }
       } else {
         // TOWN MODE
         city.animate(elapsedTime);
@@ -634,15 +646,20 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
       locomotion.setBounds(MEADOWS_BOUNDS.minX, MEADOWS_BOUNDS.maxX, MEADOWS_BOUNDS.minZ, MEADOWS_BOUNDS.maxZ);
       const meadowsSpawn = MEADOWS_SPAWN.clone();
       locomotion.setPosition(meadowsSpawn);
-      cameraSystem.setDistance(9.0);
-
       // Spawn facing the building so GREEN MEADOWS RESIDENCY frames the view
       const facing = Math.atan2(
         meadows.buildingFront.x - meadowsSpawn.x,
         meadows.buildingFront.z - meadowsSpawn.z
       );
       player.setFacingAngle(facing, 1.0);
-      cameraSystem.setOrbit(facing + Math.PI);
+      // Start camera high above residency in Phase 1 intro, then glides down behind Kai
+      cameraSystem.setDistance(24.0);
+      cameraSystem.setOrbit(facing + Math.PI, 0.28);
+      // Glide smoothly down to behind player
+      setTimeout(() => {
+        cameraSystem.setDistance(9.0);
+        cameraSystem.setOrbit(facing + Math.PI, 0);
+      }, 400);
     } else if (envMode === 'MIGSUN' && migsun) {
       // ── MIGSUN: Migsun Vilasa complex, Kai faces camera / gate ────────────
       scene.remove(city.cityGroup);

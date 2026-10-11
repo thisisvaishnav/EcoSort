@@ -21,8 +21,10 @@ import { MeadowHud } from '../game/meadows/MeadowHud';
 import { VirtualJoystick } from '../game/meadows/VirtualJoystick';
 import { NarrativeToken } from '../game/meadows/NarrativeBanner';
 import { MissionTask } from '../game/meadows/MissionPanel';
+import * as THREE from 'three';
 import { MigsunGameController } from '../game/migsun/MigsunGameController';
 import { MigsunSceneResult } from './migsunScene';
+import { MeadowsSceneResult, MEADOWS_WASTE_PILE_CENTER } from './meadowsScene';
 import { MigsunPhase } from '../../types/game';
 import { useCountdownTimer } from '../../hooks/useCountdownTimer';
 import { usePersistentBoolean } from '../../hooks/usePersistentBoolean';
@@ -79,6 +81,16 @@ export const WorldPage: React.FC<WorldPageProps> = ({
   const [migsunPhase, setMigsunPhase] = useState<MigsunPhase>('CHARACTER_INTRO');
   const [migsunCompletedMissions, setMigsunCompletedMissions] = useState<number[]>([]);
   const migsunSceneRef = useRef<MigsunSceneResult | null>(null);
+
+  // Meadows state machine (Phase 1 & Phase 2)
+  const [meadowsPhase, setMeadowsPhase] = useState<
+    'INTRO' | 'WALK_TO_PILE' | 'PILE_REACHED'
+  >('INTRO');
+  const [narratorSubtitle, setNarratorSubtitle] = useState<string | null>(null);
+  const [meadowsInstruction, setMeadowsInstruction] = useState<string | null>(null);
+  const [meadowsLensHint, setMeadowsLensHint] = useState<string | null>(null);
+  const meadowsSceneRef = useRef<MeadowsSceneResult | null>(null);
+  const introTimerRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   // Virtual joystick input sink → WorldCanvas registers the engine here
   const joystickInputRef = useRef<((x: number, y: number) => void) | null>(null);
@@ -273,15 +285,65 @@ export const WorldPage: React.FC<WorldPageProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timer.isExpired, isSocietyMode]);
 
-  // ── Meadows: the HUD countdown runs from level start ─────────────────────
-  // The portrait gate above owns pause/resume on rotation; this only starts
-  // the clock (or restarts it after a level reset).
+  // ── Meadows Phase 1 (Intro) & Phase 2 (Walk to Pile) Sequence ───────────
   useEffect(() => {
     if (!isMeadowsMode) return;
-    if (timer.isRunning || timer.isExpired || missionOverRef.current) return;
-    if (isCoarsePointer && isPortrait) return;
-    timer.start();
-  }, [isMeadowsMode, timer.isRunning, timer.isExpired, timer.start, isCoarsePointer, isPortrait]);
+
+    // Reset phase state
+    setMeadowsPhase('INTRO');
+    setMeadowsInstruction(null);
+    setMeadowsLensHint(null);
+    meadowsSceneRef.current?.setPathGuideVisible(true);
+
+    // Clear any previous timers
+    introTimerRef.current.forEach(clearTimeout);
+    introTimerRef.current = [];
+
+    // Line 1 (0s)
+    const line1 = 'Welcome to Green Meadows Residency. Look around. Same place, two different worlds.';
+    setNarratorSubtitle(line1);
+    audio.speak(line1);
+
+    // Line 2 (5.5s)
+    const t1 = setTimeout(() => {
+      const line2 = 'On the right, a garden full of life. On the left, a waste pile that has been growing for weeks.';
+      setNarratorSubtitle(line2);
+      audio.speak(line2);
+    }, 5500);
+
+    // Line 3 (12.0s)
+    const t2 = setTimeout(() => {
+      const line3 = 'That pile smells, attracts flies and rats, and can make people sick. Today, you will change that.';
+      setNarratorSubtitle(line3);
+      audio.speak(line3);
+    }, 12000);
+
+    // Transition to Phase 2: Walk to Pile (18.5s)
+    const t3 = setTimeout(() => {
+      setMeadowsPhase('WALK_TO_PILE');
+      const step1 = 'Step 1: Run to the waste pile on the left.';
+      setNarratorSubtitle(null);
+      setMeadowsInstruction(step1);
+      audio.speak(step1);
+    }, 18500);
+
+    introTimerRef.current = [t1, t2, t3];
+
+    return () => {
+      introTimerRef.current.forEach(clearTimeout);
+      introTimerRef.current = [];
+    };
+  }, [isMeadowsMode, currentLevelId]);
+
+  const handleSkipIntro = useCallback(() => {
+    introTimerRef.current.forEach(clearTimeout);
+    introTimerRef.current = [];
+    setMeadowsPhase('WALK_TO_PILE');
+    const step1 = 'Step 1: Run to the waste pile on the left.';
+    setNarratorSubtitle(null);
+    setMeadowsInstruction(step1);
+    audio.speak(step1);
+  }, []);
 
   // ── Level start / reset ─────────────────────────────────────────────────────
   useEffect(() => {
@@ -393,6 +455,31 @@ export const WorldPage: React.FC<WorldPageProps> = ({
       setLensState((prev) => (prev.isActive ? deactivateLens(prev) : prev));
     }, 3000);
   }, [lensState]);
+
+  // Proximity detection for Phase 2: Walk to waste pile
+  const pileTriggeredRef = useRef(false);
+  useEffect(() => {
+    pileTriggeredRef.current = false;
+  }, [currentLevelId]);
+
+  const handleMeadowsPlayerMove = useCallback((pos: THREE.Vector3) => {
+    if (!isMeadowsMode || pileTriggeredRef.current) return;
+    const dist = pos.distanceTo(MEADOWS_WASTE_PILE_CENTER);
+    if (dist < 4.0) {
+      pileTriggeredRef.current = true;
+      setMeadowsPhase('PILE_REACHED');
+      setMeadowsInstruction(null);
+
+      // Brief pause in input + Eco lens button glows + hint appears
+      setMeadowsLensHint('Tip: Tap Eco Lens to see what each item is made of.');
+      audio.playCorrect();
+
+      // Narrator: "That’s a lot of waste. We can’t carry all of it ourselves. Let’s call the municipal garbage truck."
+      const narratorLine = 'That is a lot of waste. We cannot carry all of it ourselves. Let us call the municipal garbage truck.';
+      setNarratorSubtitle(narratorLine);
+      audio.speak(narratorLine);
+    }
+  }, [isMeadowsMode]);
 
   // ── Throw / Sort item ───────────────────────────────────────────────────────
   const handleThrowItem = useCallback((targetBin: BinType) => {
@@ -967,6 +1054,8 @@ export const WorldPage: React.FC<WorldPageProps> = ({
         truckArriving={truckArriving}
         joystickInputRef={joystickInputRef}
         migsunRef={migsunSceneRef}
+        meadowsRef={meadowsSceneRef}
+        onMeadowsPlayerMove={handleMeadowsPlayerMove}
       >
         {/* Migsun Vilasa Game Controller (Level 8) */}
         {isMigsunMode && (
@@ -1023,6 +1112,12 @@ export const WorldPage: React.FC<WorldPageProps> = ({
             showJoystick={isCoarsePointer}
             onJoystickMove={handleJoystickMove}
             onExit={onExit}
+            joystickPulsing={meadowsPhase === 'WALK_TO_PILE'}
+            lensGlowing={meadowsPhase === 'PILE_REACHED'}
+            lensHintText={meadowsLensHint}
+            instructionBanner={meadowsInstruction}
+            narratorSpeech={narratorSubtitle}
+            onSkipIntro={meadowsPhase === 'INTRO' ? handleSkipIntro : undefined}
           />
         )}
 

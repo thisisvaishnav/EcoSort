@@ -4,6 +4,8 @@ import { JOYSTICK_DEAD_ZONE } from '../../world/locomotion';
 export interface VirtualJoystickProps {
   /** Emits a clamped vector: x = right+, y = down+. Centered = (0, 0). */
   onMove: (x: number, y: number) => void;
+  /** When true, pulses with a glowing ring to attract player attention during tutorials */
+  pulsing?: boolean;
 }
 
 const BASE_SIZE = 128;
@@ -20,7 +22,7 @@ interface KnobPos {
  * Uses pointer capture so a drag stays alive when the finger leaves the base,
  * and stops propagation so the canvas never sees tap-to-move from this gesture.
  */
-export const VirtualJoystick: React.FC<VirtualJoystickProps> = ({ onMove }) => {
+export const VirtualJoystick: React.FC<VirtualJoystickProps> = ({ onMove, pulsing = false }) => {
   const baseRef = useRef<HTMLDivElement>(null);
   const pointerIdRef = useRef<number | null>(null);
   const [knob, setKnob] = useState<KnobPos>({ x: 0, y: 0 });
@@ -59,7 +61,11 @@ export const VirtualJoystick: React.FC<VirtualJoystickProps> = ({ onMove }) => {
     <div
       ref={baseRef}
       data-testid="virtual-joystick"
-      className="pointer-events-auto relative touch-none select-none rounded-full border border-white/25 bg-slate-950/45 backdrop-blur-md shadow-lg"
+      className={`pointer-events-auto relative touch-none select-none rounded-full border border-white/25 bg-slate-950/45 backdrop-blur-md shadow-lg transition-all duration-300 ${
+        pulsing
+          ? 'ring-4 ring-emerald-400 ring-offset-4 ring-offset-slate-950 shadow-[0_0_24px_rgba(52,211,153,0.75)] animate-pulse'
+          : ''
+      }`}
       style={{ width: BASE_SIZE, height: BASE_SIZE }}
       onPointerDown={(e) => {
         e.stopPropagation();

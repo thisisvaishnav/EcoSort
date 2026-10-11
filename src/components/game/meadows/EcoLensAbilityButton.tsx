@@ -6,6 +6,10 @@ export interface EcoLensAbilityButtonProps {
   lensState: EcoLensState;
   onActivate: () => void;
   disabled?: boolean;
+  /** When true, button glows brightly to draw attention */
+  glowing?: boolean;
+  /** Optional hint text tooltip or bubble above button */
+  hintText?: string | null;
 }
 
 const SEGMENTS = 5;
@@ -18,6 +22,8 @@ export const EcoLensAbilityButton: React.FC<EcoLensAbilityButtonProps> = ({
   lensState,
   onActivate,
   disabled = false,
+  glowing = false,
+  hintText = null,
 }) => {
   const { energy, maxEnergy, cooldown, isActive } = lensState;
   const usesLeft = getLensUsesRemaining(lensState);
@@ -35,7 +41,18 @@ export const EcoLensAbilityButton: React.FC<EcoLensAbilityButtonProps> = ({
     : `Use Eco Lens (${usesLeft} left)`;
 
   return (
-    <div className="pointer-events-auto flex flex-col items-center gap-2">
+    <div className="pointer-events-auto flex flex-col items-center gap-2 relative">
+      {/* Tip bubble */}
+      {hintText && (
+        <div
+          data-testid="lens-hint-bubble"
+          className="absolute -top-16 right-0 max-w-xs px-3 py-1.5 rounded-xl bg-slate-900/95 border-2 border-teal-400 text-teal-200 text-xs font-fun font-bold shadow-[0_0_16px_rgba(45,212,191,0.5)] animate-bounce whitespace-nowrap z-40"
+        >
+          {hintText}
+          <div className="absolute -bottom-1.5 right-6 w-3 h-3 bg-slate-900 border-r-2 border-b-2 border-teal-400 rotate-45" />
+        </div>
+      )}
+
       {/* Segmented energy bar */}
       <div
         className="flex items-center gap-1"
@@ -74,13 +91,14 @@ export const EcoLensAbilityButton: React.FC<EcoLensAbilityButtonProps> = ({
               : 'border-white/20 bg-slate-950/50 cursor-not-allowed opacity-70'
           }
           ${isActive ? 'animate-pulse border-teal-300 bg-teal-500/40' : ''}
-          ${canUse ? 'shadow-[0_0_18px_rgba(45,212,191,0.45)]' : ''}
+          ${glowing ? 'ring-4 ring-teal-400 ring-offset-4 ring-offset-slate-950 shadow-[0_0_28px_rgba(45,212,191,0.9)] animate-pulse' : ''}
+          ${canUse && !glowing ? 'shadow-[0_0_18px_rgba(45,212,191,0.45)]' : ''}
         `}
       >
         <Leaf
-          className={`h-8 w-8 ${canUse || isActive ? 'text-teal-300' : 'text-white/40'}`}
+          className={`h-8 w-8 ${canUse || isActive || glowing ? 'text-teal-300' : 'text-white/40'}`}
           style={
-            canUse || isActive
+            canUse || isActive || glowing
               ? { filter: 'drop-shadow(0 0 8px rgba(45, 212, 191, 0.95))' }
               : undefined
           }
