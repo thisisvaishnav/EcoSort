@@ -4,7 +4,7 @@ import { BinType, ItemData } from '../../types/game';
 import { ALL_BINS } from '../../data/bins';
 import { createProceduralCity, ProceduralCityResult } from './proceduralCity';
 import { createSocietyScene, SocietySceneResult } from './societyScene';
-import { createMeadowsScene, MeadowsSceneResult, MEADOWS_SPAWN } from './meadowsScene';
+import { createMeadowsScene, MeadowsSceneResult, MEADOWS_SPAWN, MEADOWS_BOUNDS } from './meadowsScene';
 import { createMigsunScene, MigsunSceneResult } from './migsunScene';
 import { createLitterScatter, LitterScatterSystem } from './litterScatter';
 import { createPlayerCharacter, PlayerCharacter } from './playerCharacter';
@@ -275,7 +275,7 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
     if (initialEnv === 'SOCIETY') {
       locomotion.setBounds(-11, 11, -9, 7);
     } else if (initialEnv === 'MEADOWS') {
-      locomotion.setBounds(-14, 14, -6, 14);
+      locomotion.setBounds(MEADOWS_BOUNDS.minX, MEADOWS_BOUNDS.maxX, MEADOWS_BOUNDS.minZ, MEADOWS_BOUNDS.maxZ);
     } else if (initialEnv === 'MIGSUN') {
       locomotion.setBounds(-15, 15, -12, 7.5);
     } else {
@@ -631,7 +631,7 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
       scene.fog = new THREE.FogExp2(0xf3ddc0, 0.012);
 
       locomotion.setObstacles(meadows.obstacles);
-      locomotion.setBounds(-14, 14, -6, 14);
+      locomotion.setBounds(MEADOWS_BOUNDS.minX, MEADOWS_BOUNDS.maxX, MEADOWS_BOUNDS.minZ, MEADOWS_BOUNDS.maxZ);
       const meadowsSpawn = MEADOWS_SPAWN.clone();
       locomotion.setPosition(meadowsSpawn);
       cameraSystem.setDistance(9.0);

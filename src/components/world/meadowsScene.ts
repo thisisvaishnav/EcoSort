@@ -87,6 +87,8 @@ export const MEADOWS_PATH_HALF_WIDTH = 1.75;
 export const MEADOWS_PATH_Z_START = -7.5;
 export const MEADOWS_PATH_Z_END = 14;
 export const MEADOWS_SPAWN = new THREE.Vector3(0, 0, 10);
+// Player locomotion bounds: freely roam across the central path, mud yard, green park, and perimeter road routes
+export const MEADOWS_BOUNDS = { minX: -22.5, maxX: 22.5, minZ: -22.5, maxZ: 22.5 };
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Canvas texture helpers (jsdom-safe: every getContext call is guarded)
@@ -1109,6 +1111,43 @@ export function createMeadowsScene(): MeadowsSceneResult {
     { type: 'medicine_bottle', pos: [-7.2, 0.06, -1.8], rot: [Math.PI / 2, 0, -0.5], scale: 0.95 },
     { type: 'battery', pos: [-6.5, 0.05, -3.8], rot: [Math.PI / 2, 0, 0.8], scale: 1.0 },
     { type: 'wrapper', pos: [-5.5, 0.04, -1.5], rot: [0, 1.5, 0], scale: 1.1 },
+
+    // ── Additional waste scatter covering all unsprinkled mud areas ───────────
+    // South approach mud zone (Z ~ 11 to 14, X ~ -3 to -12)
+    { type: 'plastic_bottle', pos: [-3.5, 0.07, 12.2], rot: [0.1, 0.6, Math.PI / 2], scale: 0.95 },
+    { type: 'metal_can', pos: [-6.2, 0.08, 11.5], rot: [Math.PI / 2, 0, -0.7], scale: 0.9 },
+    { type: 'cardboard_box', pos: [-8.5, 0.18, 12.0], rot: [0, 0.8, 0], scale: 0.85 },
+    { type: 'wrapper', pos: [-4.8, 0.04, 13.1], rot: [0, -1.1, 0], scale: 1.1 },
+    { type: 'toy_car', pos: [-10.2, 0.08, 11.8], rot: [0, 1.9, 0], scale: 0.85 },
+    { type: 'milk_carton', pos: [-7.0, 0.12, 13.2], rot: [Math.PI / 2, -0.4, 0.6], scale: 0.9 },
+    { type: 'newspaper', pos: [-5.5, 0.04, 12.8], rot: [0, 0.4, 0], scale: 0.95 },
+    { type: 'broken_pen', pos: [-3.8, 0.03, 11.2], rot: [0, 1.3, 0], scale: 1.05 },
+
+    // Far West outer mud boundary (X ~ -9 to -14, Z ~ -5 to 10)
+    { type: 'plastic_bottle', pos: [-11.5, 0.08, 8.5], rot: [0.3, -0.9, Math.PI / 2], scale: 0.95 },
+    { type: 'metal_can', pos: [-12.2, 0.08, 5.2], rot: [Math.PI / 2, 0, 1.1], scale: 0.95 },
+    { type: 'banana_peel', pos: [-10.8, 0.04, 2.8], rot: [0, 2.3, 0], scale: 1.0 },
+    { type: 'battery', pos: [-13.0, 0.05, 0.5], rot: [Math.PI / 2, 0, -1.2], scale: 1.0 },
+    { type: 'light_bulb', pos: [-11.0, 0.06, -1.2], rot: [Math.PI / 2, 0, 0.7], scale: 0.9 },
+    { type: 'magazine', pos: [-12.4, 0.04, 7.0], rot: [0, -1.5, 0], scale: 0.95 },
+    { type: 'wrapper', pos: [-9.8, 0.04, 6.8], rot: [0, 0.5, 0], scale: 1.1 },
+    { type: 'medicine_bottle', pos: [-12.8, 0.06, 3.5], rot: [Math.PI / 2, 0, 0.4], scale: 0.95 },
+
+    // Deep North mud zone towards building corner (Z ~ -4.5 to -6.8, X ~ -3 to -13)
+    { type: 'milk_carton', pos: [-4.2, 0.12, -4.8], rot: [Math.PI / 2, 0.5, -0.9], scale: 0.9 },
+    { type: 'plastic_bottle', pos: [-8.8, 0.08, -5.2], rot: [0.1, 0.7, Math.PI / 2], scale: 0.95 },
+    { type: 'cardboard_box', pos: [-11.2, 0.18, -4.5], rot: [0, -0.6, 0], scale: 0.8 },
+    { type: 'metal_can', pos: [-9.6, 0.08, -6.0], rot: [Math.PI / 2, 0, 0.2], scale: 0.9 },
+    { type: 'veggie_scrap', pos: [-5.0, 0.05, -5.8], rot: [0, 1.4, 0], scale: 0.95 },
+    { type: 'food_plate', pos: [-7.8, 0.06, -4.6], rot: [0.1, 0.5, 0], scale: 0.85 },
+    { type: 'tissue', pos: [-3.8, 0.04, -5.5], rot: [0, -0.8, 0], scale: 1.0 },
+    { type: 'egg_shell', pos: [-12.0, 0.04, -3.2], rot: [0, 1.1, 0], scale: 1.0 },
+
+    // Central mud transitional zone near path edge (X ~ -2.4 to -3.8, Z ~ -1 to 8)
+    { type: 'broken_pen', pos: [-2.6, 0.03, 0.2], rot: [0, -1.8, 0], scale: 1.1 },
+    { type: 'plastic_bottle', pos: [-2.8, 0.07, 4.8], rot: [0.2, 0.4, Math.PI / 2], scale: 0.9 },
+    { type: 'toy_car', pos: [-2.7, 0.08, 8.5], rot: [0, 2.2, 0], scale: 0.85 },
+    { type: 'wrapper', pos: [-2.9, 0.04, -3.0], rot: [0, 0.9, 0], scale: 1.1 },
   ];
 
   for (const w of wastePlacements) {
@@ -1242,19 +1281,6 @@ export function createMeadowsScene(): MeadowsSceneResult {
   const surroundingBuildings = createSurroundingBuildings(obstacles);
   group.add(surroundingBuildings);
 
-  // ── Access Road at Z = MEADOWS_ROAD_Z (14.0) ──────────────────────────────
-  const road = createRoad(MEADOWS_ROAD_Z);
-  group.add(road);
-
-  // ── Waste / Garbage Area on Left Mud Yard ─────────────────────────────────
-  const wasteArea = createWasteArea(MEADOWS_WASTE_AREA.x, MEADOWS_WASTE_AREA.z);
-  group.add(wasteArea.group);
-  obstacles.push(wasteArea.obstacle);
-
-  // ── Garbage Van (Waste Van) on the Road ───────────────────────────────────
-  const van = createMeadowsVan(MEADOWS_ROAD_Z);
-  group.add(van.vanGroup);
-
   // ── Gradient sky dome (blue overhead → warm peach at the horizon) ────────
   const skyGeo = new THREE.SphereGeometry(140, 24, 16);
   const skyPos = skyGeo.attributes.position;
@@ -1318,12 +1344,6 @@ export function createMeadowsScene(): MeadowsSceneResult {
       }
     }
     moteAttr.needsUpdate = true;
-
-    // 5. Waste beacon ground ring pulse and overhead marker bob
-    wasteArea.beaconRing.scale.setScalar(1 + 0.05 * Math.sin(elapsed * 3.5));
-    wasteArea.beaconMarker.position.y = 3.2 + 0.15 * Math.sin(elapsed * 3.0);
-    wasteArea.beaconMarker.rotation.y = elapsed * 1.5;
-    wasteArea.beaconBeam.rotation.y = -elapsed * 0.7;
   }
 
   return {
@@ -1335,12 +1355,6 @@ export function createMeadowsScene(): MeadowsSceneResult {
       0,
       (MEADOWS_PATH_Z_START + MEADOWS_PATH_Z_END) / 2
     ),
-    wasteAreaPos: MEADOWS_WASTE_AREA.clone(),
-    wasteAreaRadius: MEADOWS_WASTE_RADIUS,
-    vanMesh: van.vanGroup,
-    vanStartPos: van.vanStartPos,
-    vanEndPos: van.vanEndPos,
-    animateVanArrival: van.animateVanArrival,
     animate,
   };
 }

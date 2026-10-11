@@ -6,6 +6,7 @@ import {
   MEADOWS_PATH_HALF_WIDTH,
   MEADOWS_PATH_Z_START,
   MEADOWS_PATH_Z_END,
+  MEADOWS_BOUNDS,
 } from '../src/components/world/meadowsScene';
 
 // jsdom has no canvas 2D backend — stub it so textures render without errors
@@ -248,12 +249,20 @@ describe('Meadows Scene Geometry & Layout', () => {
       });
 
       expect(wasteGroup).not.toBeNull();
-      expect(wasteGroup!.children.length).toBeGreaterThanOrEqual(20);
+      // Expanded waste scatter covering all mud zones
+      expect(wasteGroup!.children.length).toBeGreaterThanOrEqual(50);
 
       // Verify all waste items are placed on the left garbage/mud side
       for (const item of wasteGroup!.children) {
         expect(item.position.x).toBeLessThan(-1.75);
       }
+    });
+
+    it('defines expanded locomotion bounds allowing player to walk around the road unrestricted by the path', () => {
+      expect(MEADOWS_BOUNDS.minX).toBeLessThanOrEqual(-20);
+      expect(MEADOWS_BOUNDS.maxX).toBeGreaterThanOrEqual(20);
+      expect(MEADOWS_BOUNDS.minZ).toBeLessThanOrEqual(-20);
+      expect(MEADOWS_BOUNDS.maxZ).toBeGreaterThanOrEqual(20);
     });
   });
 
