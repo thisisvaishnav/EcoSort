@@ -55,7 +55,7 @@ export const EcoLensAbilityButton: React.FC<EcoLensAbilityButtonProps> = ({
 
       {/* Segmented energy bar */}
       <div
-        className="flex items-center gap-1"
+        className="flex items-center gap-0.5 sm:gap-1"
         role="progressbar"
         aria-label="Eco Lens energy"
         aria-valuemin={0}
@@ -68,7 +68,7 @@ export const EcoLensAbilityButton: React.FC<EcoLensAbilityButtonProps> = ({
           return (
             <span
               key={i}
-              className={`h-2 w-5 rounded-sm border transition-all duration-300 ${
+              className={`h-1.5 sm:h-2 w-3.5 sm:w-5 rounded-sm border transition-all duration-300 ${
                 filled
                   ? 'bg-teal-400 border-teal-300 shadow-[0_0_6px_rgba(45,212,191,0.7)]'
                   : 'bg-white/10 border-white/20'
@@ -84,27 +84,27 @@ export const EcoLensAbilityButton: React.FC<EcoLensAbilityButtonProps> = ({
         title={title}
         aria-label={title}
         data-testid="eco-lens-button"
-        className={`relative flex h-[68px] w-[68px] items-center justify-center rounded-full border-2 transition-all
+        className={`relative flex h-[52px] w-[52px] sm:h-[68px] sm:w-[68px] items-center justify-center rounded-full border-2 transition-all
           ${
             canUse
               ? 'border-teal-300/80 bg-teal-500/25 hover:bg-teal-500/40 active:scale-95'
               : 'border-white/20 bg-slate-950/50 cursor-not-allowed opacity-70'
           }
           ${isActive ? 'animate-pulse border-teal-300 bg-teal-500/40' : ''}
-          ${glowing ? 'ring-4 ring-teal-400 ring-offset-4 ring-offset-slate-950 shadow-[0_0_28px_rgba(45,212,191,0.9)] animate-pulse' : ''}
-          ${canUse && !glowing ? 'shadow-[0_0_18px_rgba(45,212,191,0.45)]' : ''}
+          ${glowing ? 'ring-3 sm:ring-4 ring-teal-400 ring-offset-2 sm:ring-offset-4 ring-offset-slate-950 shadow-[0_0_24px_rgba(45,212,191,0.9)] animate-pulse' : ''}
+          ${canUse && !glowing ? 'shadow-[0_0_15px_rgba(45,212,191,0.45)]' : ''}
         `}
       >
         <Leaf
-          className={`h-8 w-8 ${canUse || isActive || glowing ? 'text-teal-300' : 'text-white/40'}`}
+          className={`h-6 w-6 sm:h-8 sm:w-8 ${canUse || isActive || glowing ? 'text-teal-300' : 'text-white/40'}`}
           style={
             canUse || isActive || glowing
-              ? { filter: 'drop-shadow(0 0 8px rgba(45, 212, 191, 0.95))' }
+              ? { filter: 'drop-shadow(0 0 6px rgba(45, 212, 191, 0.95))' }
               : undefined
           }
         />
         {isOnCooldown && (
-          <span className="absolute -top-1 -right-1 flex h-6 min-w-6 items-center justify-center rounded-full border border-teal-300/60 bg-slate-950/90 px-1 text-[10px] font-fun font-black text-teal-200">
+          <span className="absolute -top-1 -right-1 flex h-5 min-w-5 sm:h-6 sm:min-w-6 items-center justify-center rounded-full border border-teal-300/60 bg-slate-950/90 px-1 text-[9px] sm:text-[10px] font-fun font-black text-teal-200">
             {Math.ceil(cooldown)}s
           </span>
         )}

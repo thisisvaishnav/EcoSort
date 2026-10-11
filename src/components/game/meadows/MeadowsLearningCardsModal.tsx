@@ -137,40 +137,40 @@ export const MeadowsLearningCardsModal: React.FC<MeadowsLearningCardsModalProps>
   return (
     <div
       data-testid="meadows-learning-modal"
-      className="fixed inset-0 z-50 pointer-events-auto flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-md animate-in fade-in duration-300"
+      className="fixed inset-0 z-50 pointer-events-auto flex items-center justify-center p-3 sm:p-4 bg-slate-950/75 backdrop-blur-md animate-in fade-in duration-300"
     >
-      <div className="relative w-full max-w-lg bg-slate-900 border-2 border-slate-700/80 rounded-3xl p-6 sm:p-7 shadow-2xl text-white flex flex-col gap-4 animate-in zoom-in-95 duration-250">
+      <div className="relative w-full max-w-[340px] sm:max-w-lg bg-slate-900 border-2 border-slate-700/80 rounded-2xl sm:rounded-3xl p-4 sm:p-7 shadow-2xl text-white flex flex-col gap-3 sm:gap-4 animate-in zoom-in-95 duration-250">
         {/* Top Progress Indicators */}
-        <div className="flex items-center justify-between gap-2 border-b border-slate-800 pb-3">
-          <div className="flex items-center gap-1.5">
+        <div className="flex items-center justify-between gap-2 border-b border-slate-800 pb-2 sm:pb-3">
+          <div className="flex items-center gap-1 sm:gap-1.5">
             {cards.map((c, idx) => (
               <div
                 key={c.id}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
+                className={`h-1 sm:h-1.5 rounded-full transition-all duration-300 ${
                   idx === currentIndex
-                    ? 'w-8 bg-emerald-400'
+                    ? 'w-6 sm:w-8 bg-emerald-400'
                     : idx < currentIndex
-                    ? 'w-4 bg-emerald-600/70'
-                    : 'w-4 bg-slate-700'
+                    ? 'w-3 sm:w-4 bg-emerald-600/70'
+                    : 'w-3 sm:w-4 bg-slate-700'
                 }`}
               />
             ))}
           </div>
-          <span className="text-[11px] font-fun font-bold text-slate-400 uppercase tracking-wider">
+          <span className="text-[9px] sm:text-[11px] font-fun font-bold text-slate-400 uppercase tracking-wider">
             {currentCard.badge}
           </span>
         </div>
 
         {/* Card Content Header */}
-        <div className="flex items-start gap-4 pt-1">
-          <div className="p-3 rounded-2xl bg-slate-800 border border-slate-700 shadow-md shrink-0">
+        <div className="flex items-start gap-2.5 sm:gap-4 pt-0.5 sm:pt-1">
+          <div className="p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-slate-800 border border-slate-700 shadow-md shrink-0">
             {currentCard.icon}
           </div>
           <div>
-            <h3 className="text-lg sm:text-xl font-fun font-bold text-white tracking-tight">
+            <h3 className="text-base sm:text-xl font-fun font-bold text-white tracking-tight">
               {currentCard.title}
             </h3>
-            <p className="text-xs sm:text-sm font-sans text-slate-300 mt-1 leading-relaxed">
+            <p className="text-[11px] sm:text-sm font-sans text-slate-300 mt-0.5 sm:mt-1 leading-snug sm:leading-relaxed">
               {currentCard.description}
             </p>
           </div>
@@ -178,9 +178,9 @@ export const MeadowsLearningCardsModal: React.FC<MeadowsLearningCardsModalProps>
 
         {/* Bullets List */}
         {currentCard.bullets && (
-          <div className="bg-slate-950/50 rounded-2xl p-4 border border-slate-800 flex flex-col gap-2.5 my-1">
+          <div className="bg-slate-950/50 rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-slate-800 flex flex-col gap-2 sm:gap-2.5 my-0.5 sm:my-1">
             {currentCard.bullets.map((bullet, idx) => (
-              <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-200">
+              <div key={idx} className="flex items-start gap-2 sm:gap-2.5 text-[11px] sm:text-sm text-slate-200">
                 <span className="text-emerald-400 font-bold shrink-0 mt-0.5">•</span>
                 <span className="leading-snug">{bullet}</span>
               </div>
@@ -189,14 +189,14 @@ export const MeadowsLearningCardsModal: React.FC<MeadowsLearningCardsModalProps>
         )}
 
         {/* Bottom CTA Button */}
-        <div className="pt-2 flex items-center justify-end">
+        <div className="pt-1 sm:pt-2 flex items-center justify-end">
           <button
             onClick={handleNext}
             data-testid="learning-card-next-btn"
-            className="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-fun font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(16,185,129,0.4)] active:scale-95 transition-all cursor-pointer"
+            className="w-full sm:w-auto px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-fun font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(16,185,129,0.4)] active:scale-95 transition-all cursor-pointer"
           >
             <span>{isLast ? 'View Results' : 'Next Fact'}</span>
-            {isLast ? <Check className="w-4 h-4 stroke-[3]" /> : <ArrowRight className="w-4 h-4" />}
+            {isLast ? <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[3]" /> : <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
           </button>
         </div>
       </div>

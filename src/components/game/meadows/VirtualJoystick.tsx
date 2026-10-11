@@ -8,8 +8,8 @@ export interface VirtualJoystickProps {
   pulsing?: boolean;
 }
 
-const BASE_SIZE = 128;
-const KNOB_SIZE = 52;
+const BASE_SIZE = 104;
+const KNOB_SIZE = 42;
 const MAX_TRAVEL = (BASE_SIZE - KNOB_SIZE) / 2;
 
 interface KnobPos {

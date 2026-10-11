@@ -38,9 +38,9 @@ export const MissionPanel: React.FC<MissionPanelProps> = ({
         title="Show mission"
         aria-label="Show mission"
         data-testid="mission-reopen"
-        className="hud-glass pointer-events-auto flex items-center justify-center w-9 h-24 rounded-l-xl border border-r-0 border-teal-400/60 text-teal-300 transition-all active:translate-x-[1px]"
+        className="hud-glass pointer-events-auto flex items-center justify-center w-7 h-16 sm:w-9 sm:h-24 rounded-l-xl border border-r-0 border-teal-400/60 text-teal-300 transition-all active:translate-x-[1px] shadow-sm"
       >
-        <ChevronLeft className="w-5 h-5" />
+        <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
       </button>
     );
   }
@@ -49,7 +49,7 @@ export const MissionPanel: React.FC<MissionPanelProps> = ({
 
   return (
     <div
-      className="hud-glass pointer-events-auto relative rounded-2xl border border-teal-400/60 px-3.5 py-3 w-[210px] sm:w-[240px]"
+      className="hud-glass pointer-events-auto relative rounded-xl sm:rounded-2xl border border-teal-400/60 px-2.5 py-2 sm:px-3.5 sm:py-3 w-[185px] sm:w-[240px] shadow-sm"
       data-testid="mission-panel"
     >
       <button
@@ -57,9 +57,9 @@ export const MissionPanel: React.FC<MissionPanelProps> = ({
         title="Hide mission"
         aria-label="Hide mission"
         data-testid="mission-collapse"
-        className="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-10 flex items-center justify-center hud-glass rounded-l-lg border border-r-0 border-teal-400/60 text-teal-300"
+        className="absolute -left-2.5 sm:-left-3 top-1/2 -translate-y-1/2 w-5 h-8 sm:w-6 sm:h-10 flex items-center justify-center hud-glass rounded-l-lg border border-r-0 border-teal-400/60 text-teal-300"
       >
-        <ChevronRight className="w-4 h-4" />
+        <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
       </button>
 
       <div className="flex items-center justify-between gap-2 mb-2.5">
