@@ -34562,7 +34562,7 @@
     },
     {
       "source": "src_worlds_registry",
-      "target": "src_components_world_migsunscene",
+      "target": "src_components_world_proceduralcity",
       "relation": "dynamic_import",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -36572,5 +36572,5 @@
       "source_file": "AGENTS.md"
     }
   ],
-  "built_at_commit": "6f35c2b9cd24c8a4082af9d5015ce3da3fff193f"
+  "built_at_commit": "0023e67089f82097ac9dc42934c83e5a2f905efb"
 }

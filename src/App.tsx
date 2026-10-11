@@ -50,7 +50,6 @@ export function App() {
           <LandingPage
             onStartGame={() => handleStartGame(1)}
             onStartMeadows={() => handleStartGame(1)}
-            onStartHouse={() => handleStartGame(2)}
             onOpenReport={() => setCurrentView('report')}
           />
         )}
