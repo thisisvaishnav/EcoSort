@@ -888,9 +888,9 @@
     "semantic_hash": ""
   },
   "src/components/world/WorldPage.tsx": {
-    "mtime": 1791734034.853445,
-    "seen": 1791734074.118757,
-    "ast_hash": "ddda08bf523fbe45ce1e0978ad18f84f",
+    "mtime": 1791734183.7922387,
+    "seen": 1791734209.188407,
+    "ast_hash": "3e99d1292c3ce60eea00f611d98f5025",
     "semantic_hash": ""
   },
   "tests/worldPage.test.ts": {

@@ -71,6 +71,11 @@ Resources:
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref ProgressTable
+        - Statement:
+            - Effect: Allow
+              Action:
+                - cloudwatch:PutMetricData
+              Resource: '*'
       Events:
         SaveProgress:
           Type: Api
@@ -105,6 +110,11 @@ Resources:
             TableName: !Ref ProgressTable
         - DynamoDBCrudPolicy:
             TableName: !Ref ReportsTable
+        - Statement:
+            - Effect: Allow
+              Action:
+                - cloudwatch:PutMetricData
+              Resource: '*'
       Events:
         GetReport:
           Type: Api
@@ -124,6 +134,7 @@ Resources:
             - Effect: Allow
               Action:
                 - bedrock:InvokeModel
+                - cloudwatch:PutMetricData
               Resource: '*'
       Events:
         AskEco:
@@ -144,6 +155,7 @@ Resources:
             - Effect: Allow
               Action:
                 - polly:SynthesizeSpeech
+                - cloudwatch:PutMetricData
               Resource: '*'
       Events:
         PollySpeak:
@@ -152,6 +164,64 @@ Resources:
             RestApiId: !Ref EcoSortApi
             Path: /speak
             Method: POST
+
+  # ==========================================
+  # Analytics, Reporting & Observability Lambda
+  # ==========================================
+  ObservabilityMetricsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: backend/
+      Handler: handlers/analytics.getObservabilityMetrics
+      Timeout: 10
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref ProgressTable
+        - Statement:
+            - Effect: Allow
+              Action:
+                - cloudwatch:GetMetricData
+                - cloudwatch:GetMetricStatistics
+                - cloudwatch:ListMetrics
+                - cloudwatch:PutMetricData
+              Resource: '*'
+      Events:
+        GetObservability:
+          Type: Api
+          Properties:
+            RestApiId: !Ref EcoSortApi
+            Path: /observability
+            Method: GET
+
+  # ==========================================
+  # Amazon CloudWatch Alarms
+  # ==========================================
+  HighLambdaErrorsAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmDescription: "Alerts when EcoSort Lambda functions experience error spikes"
+      Namespace: "AWS/Lambda"
+      MetricName: "Errors"
+      Statistic: "Sum"
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 5
+      ComparisonOperator: "GreaterThanThreshold"
+
+  HighLatencyAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmDescription: "Alerts when API Gateway latency exceeds 1.5 seconds"
+      Namespace: "AWS/ApiGateway"
+      MetricName: "Latency"
+      Dimensions:
+        - Name: ApiName
+          Value: !Ref EcoSortApi
+      Statistic: "Average"
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 1500
+      ComparisonOperator: "GreaterThanThreshold"
 
 Outputs:
   ApiUrl:
@@ -163,3 +233,7 @@ Outputs:
   ReportsTableName:
     Description: "DynamoDB Reports Table"
     Value: !Ref ReportsTable
+  ObservabilityEndpoint:
+    Description: "CloudWatch & DynamoDB Observability Endpoint"
+    Value: !Sub "https://${EcoSortApi}.execute-api.${AWS::Region}.amazonaws.com/v1/observability"
+

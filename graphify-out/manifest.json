@@ -1,26 +1,26 @@
 {
   "backend/handlers/ask_eco.js": {
-    "mtime": 1791490686.5143597,
-    "seen": 1791491200.126882,
-    "ast_hash": "198b2eee2b5bb6da12be8ee64abb774b",
-    "semantic_hash": "198b2eee2b5bb6da12be8ee64abb774b"
+    "mtime": 1791734533.8270109,
+    "seen": 1791734838.565255,
+    "ast_hash": "42d32e5baba2eb982e41d5a0d3d4427b",
+    "semantic_hash": ""
   },
   "backend/handlers/progress.js": {
-    "mtime": 1791490668.2042308,
-    "seen": 1791491200.1268852,
-    "ast_hash": "614c9b84dc918f2e7c87fbef8da62aaa",
-    "semantic_hash": "614c9b84dc918f2e7c87fbef8da62aaa"
+    "mtime": 1791734521.7195249,
+    "seen": 1791734838.565258,
+    "ast_hash": "e959cea058585a96637c2ff8fa8174dd",
+    "semantic_hash": ""
   },
   "backend/handlers/report.js": {
-    "mtime": 1791490675.9331133,
-    "seen": 1791491200.1268868,
-    "ast_hash": "c03a74567b15cab2eda9ac04b4a243c5",
-    "semantic_hash": "c03a74567b15cab2eda9ac04b4a243c5"
+    "mtime": 1791734560.676813,
+    "seen": 1791734838.565259,
+    "ast_hash": "2c475d5d179ede9f2d39b94503d2c604",
+    "semantic_hash": ""
   },
   "backend/package.json": {
-    "mtime": 1791724952.2797651,
-    "seen": 1791725359.3175302,
-    "ast_hash": "9519d3e7946a9460c40816a19bd0fcf6",
+    "mtime": 1791734501.2808511,
+    "seen": 1791734838.56526,
+    "ast_hash": "5ea1b4676fe406796c9fbe82aa5fa56e",
     "semantic_hash": ""
   },
   "package.json": {
@@ -102,10 +102,10 @@
     "semantic_hash": "a61d3a6a99946217f11a775af4b15ce0"
   },
   "src/components/teacher/TeacherDashboard.tsx": {
-    "mtime": 1791493603.873774,
-    "seen": 1791493656.8491,
-    "ast_hash": "d1022014364afcd4a24fa595a633bf08",
-    "semantic_hash": "d1022014364afcd4a24fa595a633bf08"
+    "mtime": 1791734789.4328902,
+    "seen": 1791734838.565294,
+    "ast_hash": "1951f0c468cf2c020dbbbcae257afd2e",
+    "semantic_hash": ""
   },
   "src/data/bins.ts": {
     "mtime": 1791623603.0647385,
@@ -138,10 +138,10 @@
     "semantic_hash": ""
   },
   "src/services/api.ts": {
-    "mtime": 1791490788.885917,
-    "seen": 1791491200.126903,
-    "ast_hash": "c87846b65906e83bcd914c62900e6005",
-    "semantic_hash": "c87846b65906e83bcd914c62900e6005"
+    "mtime": 1791734657.0202405,
+    "seen": 1791734838.56533,
+    "ast_hash": "1eba818f864b514fe7ef88e99db8e6ca",
+    "semantic_hash": ""
   },
   "src/services/audio.ts": {
     "mtime": 1791727641.6898117,
@@ -156,9 +156,9 @@
     "semantic_hash": "44a62fb9405c80a20541a5ffd43c4753"
   },
   "src/types/game.ts": {
-    "mtime": 1791721921.6475134,
-    "seen": 1791722426.6804538,
-    "ast_hash": "6469638b1e90cf2098579601e8a3cc45",
+    "mtime": 1791734637.1099904,
+    "seen": 1791734838.565335,
+    "ast_hash": "f1edce213013ddb97c7512d6ffb4d5dc",
     "semantic_hash": ""
   },
   "src/vite-env.d.ts": {
@@ -222,9 +222,9 @@
     "semantic_hash": ""
   },
   "template.yaml": {
-    "mtime": 1791724952.298918,
-    "seen": 1791725359.3176708,
-    "ast_hash": "b5f79fd24d88910503ef4accc8cf2378",
+    "mtime": 1791734619.546582,
+    "seen": 1791734838.565411,
+    "ast_hash": "a90a0182ec7e8e0eaa0cd438a5af67e8",
     "semantic_hash": ""
   },
   ".agents/skills/ai-regression-testing/SKILL.md": {
@@ -888,9 +888,9 @@
     "semantic_hash": ""
   },
   "src/components/world/WorldPage.tsx": {
-    "mtime": 1791734183.7922387,
-    "seen": 1791734209.188407,
-    "ast_hash": "3e99d1292c3ce60eea00f611d98f5025",
+    "mtime": 1791734771.230915,
+    "seen": 1791734838.5652962,
+    "ast_hash": "74061806a13bd7754c177fc440a367db",
     "semantic_hash": ""
   },
   "tests/worldPage.test.ts": {
@@ -1212,9 +1212,9 @@
     "semantic_hash": ""
   },
   "src/components/world/meadowsScene.ts": {
-    "mtime": 1791733928.1438372,
-    "seen": 1791734074.11878,
-    "ast_hash": "fed2d77cce78d3314858dea0562b2120",
+    "mtime": 1791734802.280796,
+    "seen": 1791734838.5653188,
+    "ast_hash": "64e0b9b73a70d860b5de218dab0bc631",
     "semantic_hash": ""
   },
   "src/hooks/usePersistentBoolean.ts": {
@@ -1248,9 +1248,9 @@
     "semantic_hash": ""
   },
   "tests/meadowsScene.test.ts": {
-    "mtime": 1791727942.5321126,
-    "seen": 1791728066.920501,
-    "ast_hash": "fad9caa4efd033a500bbdb3f2a90175e",
+    "mtime": 1791734784.1903362,
+    "seen": 1791734838.565362,
+    "ast_hash": "d3f38c53ddcba9aaaba251ed004a58a5",
     "semantic_hash": ""
   },
   "MEADOWS_WORLD_PLAN.md": {
@@ -1536,9 +1536,9 @@
     "semantic_hash": ""
   },
   "backend/handlers/polly.js": {
-    "mtime": 1791724952.27939,
-    "seen": 1791725359.317527,
-    "ast_hash": "ef505771d4779c7e3f921400cf437cb0",
+    "mtime": 1791734580.8335202,
+    "seen": 1791734838.565257,
+    "ast_hash": "d935c3ab5ee48b18fff8c1cd68435ac9",
     "semantic_hash": ""
   },
   "scripts/test-polly.mjs": {
@@ -1689,6 +1689,24 @@
     "mtime": 1791730796.3510947,
     "seen": 1791730819.0265799,
     "ast_hash": "1ab1f2b779e994a0fc05db997de4e879",
+    "semantic_hash": ""
+  },
+  "backend/handlers/analytics.js": {
+    "mtime": 1791734591.6140199,
+    "seen": 1791734838.565254,
+    "ast_hash": "83c0995234b022993a681b29609274ab",
+    "semantic_hash": ""
+  },
+  "backend/handlers/cloudwatch.js": {
+    "mtime": 1791734510.6116533,
+    "seen": 1791734838.5652559,
+    "ast_hash": "85ad559ad90a411f0bdb8c229810d9dc",
+    "semantic_hash": ""
+  },
+  "tests/observability.test.ts": {
+    "mtime": 1791734816.4631078,
+    "seen": 1791734838.565363,
+    "ast_hash": "51a74679a1394fdff2175267fc5e9a2c",
     "semantic_hash": ""
   }
 }

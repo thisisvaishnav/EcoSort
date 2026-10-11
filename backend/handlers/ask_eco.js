@@ -4,6 +4,7 @@
  */
 
 const { BedrockRuntimeClient, InvokeModelCommand } = require("@aws-sdk/client-bedrock-runtime");
+const { trackMascotInvocation, recordMetric } = require("./cloudwatch");
 
 const bedrock = new BedrockRuntimeClient({ region: process.env.AWS_REGION || "us-east-1" });
 
@@ -14,6 +15,7 @@ const corsHeaders = {
 };
 
 exports.handler = async (event) => {
+  const startTime = Date.now();
   try {
     const body = JSON.parse(event.body || "{}");
     const question = body.question || "";
@@ -57,8 +59,20 @@ Eco's short answer:`;
       const response = await bedrock.send(command);
       const responseBody = JSON.parse(new TextDecoder().decode(response.body));
       reply = responseBody.content?.[0]?.text?.trim() || "";
+
+      await trackMascotInvocation({
+        durationMs: Date.now() - startTime,
+        success: true,
+        model: "Bedrock-Claude-3",
+      });
     } catch (bedrockErr) {
       console.warn("Bedrock unavailable or unconfigured, using rule-based fallback:", bedrockErr.message);
+
+      await trackMascotInvocation({
+        durationMs: Date.now() - startTime,
+        success: false,
+        model: "LocalFallback-RuleEngine",
+      });
 
       // Fast fallback for local/offline testing
       const q = question.toLowerCase();

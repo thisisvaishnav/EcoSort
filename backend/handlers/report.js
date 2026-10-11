@@ -5,6 +5,7 @@
 
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const { DynamoDBDocumentClient, ScanCommand } = require("@aws-sdk/lib-dynamodb");
+const { recordMetric } = require("./cloudwatch");
 
 const client = new DynamoDBClient({});
 const ddbDocClient = DynamoDBDocumentClient.from(client);
@@ -18,6 +19,7 @@ const corsHeaders = {
 };
 
 exports.generateReport = async (event) => {
+  const startTime = Date.now();
   try {
     const classId = event.pathParameters?.classId || "default";
 
@@ -71,6 +73,14 @@ exports.generateReport = async (event) => {
       generatedAt: new Date().toISOString(),
     };
 
+    // Emit CloudWatch Metrics for classroom observability
+    await Promise.all([
+      recordMetric("ReportGenerated", 1, "Count", [{ Name: "ClassId", Value: classId }]),
+      recordMetric("ClassroomAvgAccuracy", avgAccuracy, "Percent", [{ Name: "ClassId", Value: classId }]),
+      recordMetric("ActiveLearnersObserved", studentCount, "Count", [{ Name: "ClassId", Value: classId }]),
+      recordMetric("ReportGenerationLatency", Date.now() - startTime, "Milliseconds", [{ Name: "ClassId", Value: classId }]),
+    ]);
+
     return {
       statusCode: 200,
       headers: corsHeaders,
@@ -78,6 +88,7 @@ exports.generateReport = async (event) => {
     };
   } catch (error) {
     console.error("Error generating report:", error);
+    await recordMetric("ReportGenerationErrors", 1, "Count");
     return {
       statusCode: 500,
       headers: corsHeaders,

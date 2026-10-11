@@ -5,6 +5,7 @@
 
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const { DynamoDBDocumentClient, PutCommand, QueryCommand } = require("@aws-sdk/lib-dynamodb");
+const { recordMetric, trackSortEvent } = require("./cloudwatch");
 
 const client = new DynamoDBClient({});
 const ddbDocClient = DynamoDBDocumentClient.from(client);
@@ -18,6 +19,7 @@ const corsHeaders = {
 };
 
 exports.saveProgress = async (event) => {
+  const startTime = Date.now();
   try {
     const body = JSON.parse(event.body || "{}");
     const { userId, nickname, levelId, score, stars, accuracy, errors, unlockedCards } = body;
@@ -49,6 +51,28 @@ exports.saveProgress = async (event) => {
       })
     );
 
+    // Emit CloudWatch Observability Metrics
+    await Promise.all([
+      recordMetric("ProgressSaves", 1, "Count", [
+        { Name: "Level", Value: String(levelId) },
+      ]),
+      recordMetric("PlayerAccuracy", accuracy || 0, "Percent", [
+        { Name: "Level", Value: String(levelId) },
+      ]),
+      recordMetric("SaveProgressLatency", Date.now() - startTime, "Milliseconds", [
+        { Name: "Level", Value: String(levelId) },
+      ]),
+    ]);
+
+    // Record error events if any
+    if (Array.isArray(errors) && errors.length > 0) {
+      for (const err of errors) {
+        if (err.bin) {
+          await trackSortEvent({ category: err.bin, isCorrect: false, levelId });
+        }
+      }
+    }
+
     return {
       statusCode: 200,
       headers: corsHeaders,
@@ -56,6 +80,7 @@ exports.saveProgress = async (event) => {
     };
   } catch (error) {
     console.error("Error saving progress:", error);
+    await recordMetric("ProgressSaveErrors", 1, "Count");
     return {
       statusCode: 500,
       headers: corsHeaders,

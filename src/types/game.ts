@@ -114,3 +114,41 @@ export interface TeacherReportStats {
     learningDelta: string;
   };
 }
+
+export interface ObservabilityMetrics {
+  namespace: string;
+  status: 'HEALTHY' | 'DEGRADED' | 'DOWN';
+  uptime: string;
+  lambdaMetrics: {
+    invocations24h: number;
+    avgLatencyMs: number;
+    p95LatencyMs: number;
+    errorRatePercent: number;
+  };
+  dynamoDbMetrics: {
+    tableStatus: string;
+    billingMode: string;
+    consumedReadUnits: number;
+    consumedWriteUnits: number;
+    itemCount: number;
+  };
+  aiMascotMetrics: {
+    bedrockInvocations: number;
+    avgBedrockLatencyMs: number;
+    pollySyntheses: number;
+    avgPollyLatencyMs: number;
+  };
+  liveSortingStats: {
+    avgAccuracyPercent: number;
+    avgScorePoints: number;
+    totalErrorsObserved: number;
+    mistakesByBin: Record<string, number>;
+  };
+  cloudWatchAlarms: {
+    alarmName: string;
+    status: 'OK' | 'ALARM' | 'INSUFFICIENT_DATA';
+    threshold: string;
+  }[];
+  timestamp: string;
+}
+

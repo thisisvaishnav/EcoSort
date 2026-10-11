@@ -4,6 +4,7 @@
  */
 
 const { PollyClient, SynthesizeSpeechCommand } = require("@aws-sdk/client-polly");
+const { recordMetric } = require("./cloudwatch");
 
 const polly = new PollyClient({
   region: process.env.AWS_REGION || "ap-south-1",
@@ -16,6 +17,7 @@ const corsHeaders = {
 };
 
 exports.handler = async (event) => {
+  const startTime = Date.now();
   // Handle CORS preflight
   if (event.httpMethod === "OPTIONS") {
     return {
@@ -53,6 +55,13 @@ exports.handler = async (event) => {
     const audioBytes = await pollyResponse.AudioStream.transformToByteArray();
     const base64Audio = Buffer.from(audioBytes).toString("base64");
 
+    // CloudWatch Observability metrics
+    await Promise.all([
+      recordMetric("PollySpeechSyntheses", 1, "Count", [{ Name: "VoiceId", Value: voiceId }]),
+      recordMetric("PollyLatency", Date.now() - startTime, "Milliseconds", [{ Name: "VoiceId", Value: voiceId }]),
+      recordMetric("SynthesizedTextLength", sanitizedText.length, "Count", [{ Name: "VoiceId", Value: voiceId }]),
+    ]);
+
     return {
       statusCode: 200,
       headers: {
@@ -66,6 +75,7 @@ exports.handler = async (event) => {
     };
   } catch (error) {
     console.error("Polly synthesis error:", error);
+    await recordMetric("PollyErrors", 1, "Count");
     return {
       statusCode: 500,
       headers: corsHeaders,
