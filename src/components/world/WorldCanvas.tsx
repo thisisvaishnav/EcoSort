@@ -54,6 +54,8 @@ export interface WorldCanvasProps {
   onPickupSocietyItem?: (item: ItemData) => void;
   // Truck arrival (triggers when mission complete)
   truckArriving?: boolean;
+  truckDeparting?: boolean;
+  cleanupActive?: boolean;
   /**
    * Filled with an input sink for the Meadows virtual joystick:
    * call fn(x, y) to steer the player (x = right+, y = down+).
@@ -87,6 +89,8 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
   societyItemPool,
   onPickupSocietyItem,
   truckArriving = false,
+  truckDeparting = false,
+  cleanupActive = false,
   joystickInputRef,
   migsunRef,
   meadowsRef,
@@ -149,6 +153,10 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
   // Truck animation refs — synced from prop so the render loop (created once) can read them
   const truckArrivingRef = useRef(false);
   const truckProgressRef = useRef(0);
+  const truckDepartingRef = useRef(false);
+  const truckDepartureProgressRef = useRef(0);
+  const cleanupActiveRef = useRef(false);
+  const cleanupProgressRef = useRef(0);
   // Guards litter-scatter creation — must be cleared whenever the engine is rebuilt
   // (React StrictMode remounts effects in dev, otherwise the scatter is never recreated)
   const societyItemPoolRef = useRef<ItemData[]>([]);
@@ -156,6 +164,16 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
     truckArrivingRef.current = truckArriving;
     if (!truckArriving) truckProgressRef.current = 0;
   }, [truckArriving]);
+
+  useEffect(() => {
+    truckDepartingRef.current = truckDeparting;
+    if (!truckDeparting) truckDepartureProgressRef.current = 0;
+  }, [truckDeparting]);
+
+  useEffect(() => {
+    cleanupActiveRef.current = cleanupActive;
+    if (!cleanupActive) cleanupProgressRef.current = 0;
+  }, [cleanupActive]);
 
   // Engine references
   const engineRef = useRef<{
@@ -457,18 +475,50 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
         // ── MEADOWS MODE (Level 7 Green Meadows Rescue) ─────────────────────
         // Walk-around scaffold: animate the scene, move Kai, follow with camera.
         meadows.animate(elapsedTime, delta);
-        meadowsItems.update(locomotion.getPosition(), elapsedTime, delta);
+        const meadowsPos = locomotion.getPosition();
+        meadowsItems.update(meadowsPos, elapsedTime, delta);
 
         if (truckArrivingRef.current && truckProgressRef.current < 1.0) {
           truckProgressRef.current = Math.min(1.0, truckProgressRef.current + delta * 0.22);
           meadows.animateTruckArrival(truckProgressRef.current);
         }
 
-        const meadowsPos = locomotion.getPosition();
+        if (truckDepartingRef.current && truckDepartureProgressRef.current < 1.0) {
+          truckDepartureProgressRef.current = Math.min(1.0, truckDepartureProgressRef.current + delta * 0.2);
+          meadows.animateTruckDeparture(truckDepartureProgressRef.current);
+        }
+
+        if (cleanupActiveRef.current && cleanupProgressRef.current < 1.0) {
+          cleanupProgressRef.current = Math.min(1.0, cleanupProgressRef.current + delta * 0.35);
+          meadows.animateCleanup(cleanupProgressRef.current);
+        }
+
         locomotion.update(delta, cameraSystem.getAzimuthAngle());
         cameraSystem.update(meadowsPos, delta, player.currentAngle);
         if (onMeadowsPlayerMoveRef.current) {
           onMeadowsPlayerMoveRef.current(meadowsPos);
+        }
+
+        // Mission 1 mechanic: Bin glow when holding item and near a bin
+        const heldMeadowsItem = meadowsItems.getHeldItem();
+        if (heldMeadowsItem) {
+          meadows.binTriggers.forEach((triggerMesh, binType) => {
+            triggerMesh.getWorldPosition(binTriggerScratch);
+            const dist = meadowsPos.distanceTo(binTriggerScratch);
+            const near = dist < 1.4;
+            const glowMesh = meadows.binGlowRings.get(binType);
+            if (glowMesh) {
+              const mat = glowMesh.material as THREE.MeshBasicMaterial;
+              const targetOpacity = near ? (binType === heldMeadowsItem.itemData.bin ? 0.85 : 0.25) : 0;
+              mat.opacity = THREE.MathUtils.lerp(mat.opacity, targetOpacity, delta * 8);
+            }
+            if (near) meadows.triggerBinAnimation(binType);
+          });
+        } else {
+          meadows.binGlowRings.forEach((glowMesh) => {
+            const mat = glowMesh.material as THREE.MeshBasicMaterial;
+            mat.opacity = THREE.MathUtils.lerp(mat.opacity, 0, delta * 5);
+          });
         }
       } else {
         // TOWN MODE
@@ -878,6 +928,7 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
 
       const isSociety = envMode === 'SOCIETY';
       const isMigsun = envMode === 'MIGSUN';
+      const isMeadows = envMode === 'MEADOWS';
 
       if (isSociety || isMigsun) {
         // In society / migsun mode, throw the litter scatter's held item mesh
@@ -912,6 +963,47 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
             requestAnimationFrame(throwStep);
           } else {
             host.triggerBinAnimation(targetBin);
+            engineRef.current?.player.celebrate();
+            onThrowItem(targetBin);
+          }
+        };
+        requestAnimationFrame(throwStep);
+        return;
+      }
+
+      if (isMeadows) {
+        // In Meadows mode, throw the held item mesh from meadowsItemsRef toward meadows.binMeshes
+        const meadowsHost = engineRef.current.meadows;
+        const meadowsManager = meadowsItemsRef?.current;
+        if (!meadowsHost || !meadowsManager) { onThrowItem(targetBin); return; }
+        const heldItem = meadowsManager.getHeldItem();
+        if (!heldItem) { onThrowItem(targetBin); return; }
+
+        const binMesh = meadowsHost.binMeshes.get(targetBin);
+        if (!binMesh) { onThrowItem(targetBin); return; }
+
+        const binWorldPos = new THREE.Vector3();
+        binMesh.getWorldPosition(binWorldPos);
+
+        const itemMesh = heldItem.mesh;
+        const startPos = itemMesh.position.clone();
+        const endPos = binWorldPos.clone().add(new THREE.Vector3(0, 0.6, 0));
+        const duration = slowMode ? 1.0 : 0.55;
+        const startTime = performance.now();
+
+        const throwStep = (now: number) => {
+          const elapsed = (now - startTime) / 1000;
+          const progress = Math.min(1.0, elapsed / duration);
+
+          itemMesh.position.x = THREE.MathUtils.lerp(startPos.x, endPos.x, progress);
+          itemMesh.position.z = THREE.MathUtils.lerp(startPos.z, endPos.z, progress);
+          itemMesh.position.y = THREE.MathUtils.lerp(startPos.y, endPos.y, progress) + 1.6 * Math.sin(progress * Math.PI);
+          itemMesh.rotation.y += 0.2;
+
+          if (progress < 1.0) {
+            requestAnimationFrame(throwStep);
+          } else {
+            meadowsHost.triggerBinAnimation(targetBin);
             engineRef.current?.player.celebrate();
             onThrowItem(targetBin);
           }
@@ -1433,9 +1525,9 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
       )}
 
       {/* =====================================================================
-          SOCIETY BOTTOM CONTROLS — holding item: show 4 bin buttons
+          SOCIETY / MEADOWS BOTTOM CONTROLS — holding item: show 4 bin buttons
           ===================================================================== */}
-      {envMode === 'SOCIETY' && currentItem && (
+      {(envMode === 'SOCIETY' || envMode === 'MEADOWS') && currentItem && (
         <div className="absolute bottom-3 left-0 right-0 px-4 flex flex-col items-center gap-2 z-20 pointer-events-none">
           <div className="bg-[#FDFBF7]/95 border-2 border-slate-900 shadow-retro-sm rounded-xl px-3 py-1.5 text-[11px] font-fun font-black text-slate-900 pointer-events-auto flex items-center gap-2">
             <span>{currentItem.icon}</span>
@@ -1461,8 +1553,8 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
         </div>
       )}
 
-      {/* Society: walk hint when not holding anything */}
-      {envMode === 'SOCIETY' && !currentItem && (
+      {/* Society / Meadows: walk hint when not holding anything */}
+      {(envMode === 'SOCIETY' || envMode === 'MEADOWS') && !currentItem && (
         <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 bg-[#FDFBF7]/90 border-2 border-slate-900 shadow-retro-sm rounded-xl px-4 py-1.5 text-[11px] font-fun font-black text-slate-900 pointer-events-none flex items-center gap-2">
           <span>{isCoarsePointer ? '👆 Tap the ground to walk • Tap Pick up to take litter!' : '🎮 Walk with WASD • Approach litter and press E to pick up!'}</span>
         </div>

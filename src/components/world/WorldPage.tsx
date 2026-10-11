@@ -27,6 +27,7 @@ import { MigsunSceneResult } from './migsunScene';
 import { MeadowsSceneResult, MEADOWS_WASTE_PILE_CENTER } from './meadowsScene';
 import { MeadowsPhoneModal } from '../game/meadows/MeadowsPhoneModal';
 import { MeadowsBinModal } from '../game/meadows/MeadowsBinModal';
+import { MeadowsLearningCardsModal } from '../game/meadows/MeadowsLearningCardsModal';
 import { MeadowsItemManager, MeadowsGroundItem } from './meadowsItemManager';
 import {
   MEADOWS_WRONG_BIN_HINTS,
@@ -89,11 +90,14 @@ export const WorldPage: React.FC<WorldPageProps> = ({
   const [migsunCompletedMissions, setMigsunCompletedMissions] = useState<number[]>([]);
   const migsunSceneRef = useRef<MigsunSceneResult | null>(null);
 
-  // Meadows state machine (Phase 1 to Phase 5)
+  // Meadows state machine (Phase 1 to Phase 8)
   const [meadowsPhase, setMeadowsPhase] = useState<
-    'INTRO' | 'WALK_TO_PILE' | 'PILE_REACHED' | 'PHONE_CALL' | 'TRUCK_ARRIVING' | 'TRUCK_ARRIVED' | 'SORTING' | 'CLEANUP'
+    'INTRO' | 'WALK_TO_PILE' | 'PILE_REACHED' | 'PHONE_CALL' | 'TRUCK_ARRIVING' | 'TRUCK_ARRIVED' | 'SORTING' | 'CLEANUP' | 'LEARNING_CARDS' | 'RESULTS'
   >('INTRO');
   const [isPhoneModalOpen, setIsPhoneModalOpen] = useState<boolean>(false);
+  const [isLearningCardsOpen, setIsLearningCardsOpen] = useState<boolean>(false);
+  const [truckDeparting, setTruckDeparting] = useState<boolean>(false);
+  const [cleanupActive, setCleanupActive] = useState<boolean>(false);
   const [narratorSubtitle, setNarratorSubtitle] = useState<string | null>(null);
   const [meadowsInstruction, setMeadowsInstruction] = useState<string | null>(null);
   const [meadowsLensHint, setMeadowsLensHint] = useState<string | null>(null);
@@ -573,6 +577,7 @@ export const WorldPage: React.FC<WorldPageProps> = ({
     const picked = meadowsItemsRef.current?.pickUpItem(meadowsNearbyItem.id);
     if (picked) {
       setMeadowsHeldItem(picked.itemData);
+      setCurrentItem(picked.itemData);
       setMeadowsNearbyItem(null);
       audio.playCorrect();
     }
@@ -583,6 +588,7 @@ export const WorldPage: React.FC<WorldPageProps> = ({
     if (!meadowsHeldItem) return;
     meadowsItemsRef.current?.dropItem(meadowsHeldItem.id);
     setMeadowsHeldItem(null);
+    setCurrentItem(null);
   }, [meadowsHeldItem]);
 
   // Phase 5 Action: Select bin for item
@@ -600,14 +606,30 @@ export const WorldPage: React.FC<WorldPageProps> = ({
         if (next >= 10) {
           // All 10 items sorted -> Trigger Phase 6 Cleanup
           setMeadowsPhase('CLEANUP');
-          setMeadowsInstruction('All waste sorted! The area is clean!');
+          setMeadowsInstruction('All waste sorted! Clean the area.');
           audio.playCelebration();
           timer.pause();
+
+          // Start 3-second transformation: dirty mud blends to cleaner earth, waste disappears
+          setCleanupActive(true);
+
+          // After 3s cleanup transformation, workers/robotic arm lift bins and truck drives away
+          setTimeout(() => {
+            setTruckDeparting(true);
+            audio.playTruckJingle();
+
+            // After truck departs (~4.5s), transition into Phase 7: The Learning Pop-Ups
+            setTimeout(() => {
+              setMeadowsPhase('LEARNING_CARDS');
+              setIsLearningCardsOpen(true);
+            }, 4500);
+          }, 3000);
         }
         return next;
       });
       meadowsItemsRef.current?.sortItem(meadowsHeldItem.id);
       setMeadowsHeldItem(null);
+      setCurrentItem(null);
       setMeadowsInstruction(null);
     } else {
       // ❌ Wrong: red buzz, pop back out, increase contamination, narrator hint
@@ -630,8 +652,37 @@ export const WorldPage: React.FC<WorldPageProps> = ({
       setMeadowsInstruction(`Tip: ${hint}`);
 
       setMeadowsHeldItem(null);
+      setCurrentItem(null);
     }
   }, [meadowsHeldItem, timer]);
+
+  // Phase 7 Learning Cards Finish -> Transition to Results
+  const handleMeadowsFinishLearningCards = useCallback(() => {
+    setIsLearningCardsOpen(false);
+    setMeadowsPhase('RESULTS');
+    const earnedStars = meadowsSortedCount >= 9 ? 3 : meadowsSortedCount >= 6 ? 2 : 1;
+
+    const updatedStars = { ...profile.stars, [currentLevelId]: earnedStars };
+    const updatedHighScores = {
+      ...profile.highScores,
+      [currentLevelId]: Math.max(profile.highScores[currentLevelId] || 0, score),
+    };
+    const updatedProfile: PlayerProfile = {
+      ...profile,
+      stars: updatedStars,
+      highScores: updatedHighScores,
+      totalScore: profile.totalScore + score,
+    };
+    setProfile(updatedProfile);
+    apiService.saveLocalProfile(updatedProfile);
+
+    // Narrator line for Phase 8 level end
+    const narratorEnd = 'The waste pile is gone, but the land is still bare. Next, let’s bring this side back to life.';
+    setNarratorSubtitle(narratorEnd);
+    audio.speak(narratorEnd);
+
+    setShowMissionResults(true);
+  }, [contaminationLevel, meadowsSortedCount, profile, currentLevelId, score]);
 
   // ── Throw / Sort item ───────────────────────────────────────────────────────
   const handleThrowItem = useCallback((targetBin: BinType) => {
@@ -677,7 +728,22 @@ export const WorldPage: React.FC<WorldPageProps> = ({
       setTimeout(() => {
         setIsThrowing(false);
 
-        if (isMigsunMode) {
+        if (isMeadowsMode) {
+          // In Meadows: sortItem in meadowsItemsRef and advance count
+          meadowsItemsRef.current?.sortItem(currentItem.id);
+          setMeadowsHeldItem(null);
+          setCurrentItem(null);
+          setMeadowsSortedCount((c) => {
+            const next = c + 1;
+            if (next >= 10) {
+              setMeadowsPhase('CLEANUP');
+              setMeadowsInstruction('All waste sorted! The area is clean!');
+              audio.playCelebration();
+              timer.pause();
+            }
+            return next;
+          });
+        } else if (isMigsunMode) {
           setCurrentItem(null);
           setSocietySortedCount((c) => {
             if (c >= currentLevel.targetCount) {
@@ -726,7 +792,27 @@ export const WorldPage: React.FC<WorldPageProps> = ({
       setStreak(0);
       setLevelErrors((prev) => [...prev, { itemId: currentItem.id, bin: targetBin }]);
 
-      if (isSocietyMode || isMigsunMode) {
+      if (isMeadowsMode) {
+        // Meadows mode wrong throw: contamination increases, drop item back to ground
+        meadowsItemsRef.current?.dropItem(currentItem.id);
+        setMeadowsHeldItem(null);
+        setCurrentItem(null);
+
+        setContaminationLevel((lvl) => {
+          const next = Math.min(3, lvl + 1);
+          const narratorLine = MEADOWS_CONTAMINATION_SPEECHES[next];
+          if (narratorLine) {
+            setNarratorSubtitle(narratorLine);
+            audio.speak(narratorLine);
+          }
+          return next;
+        });
+
+        const hint = MEADOWS_WRONG_BIN_HINTS[currentItem.id] || 'Put this item into its correct bin.';
+        setMeadowsInstruction(`Tip: ${hint}`);
+
+        setTimeout(() => setIsThrowing(false), slowMode ? 1300 : 700);
+      } else if (isSocietyMode || isMigsunMode) {
         // Track wrong attempts per item
         const prev = wrongAttemptsRef.current[currentItem.id] ?? 0;
         wrongAttemptsRef.current[currentItem.id] = prev + 1;
@@ -1216,6 +1302,8 @@ export const WorldPage: React.FC<WorldPageProps> = ({
         societyItemPool={societyItemPool}
         onPickupSocietyItem={handlePickupSocietyItem}
         truckArriving={truckArriving}
+        truckDeparting={truckDeparting}
+        cleanupActive={cleanupActive}
         joystickInputRef={joystickInputRef}
         migsunRef={migsunSceneRef}
         meadowsRef={meadowsSceneRef}
@@ -1306,6 +1394,16 @@ export const WorldPage: React.FC<WorldPageProps> = ({
           />
         )}
 
+        {/* Phase 7 Learning Cards Modal */}
+        {isMeadowsMode && (
+          <MeadowsLearningCardsModal
+            isOpen={isLearningCardsOpen}
+            sortedCount={meadowsSortedCount}
+            totalCount={10}
+            onFinish={handleMeadowsFinishLearningCards}
+          />
+        )}
+
         {/* Eco Lens overlay (SOCIETY mode) */}
         {isSocietyMode && lensState.isActive && currentItem && (
           <EcoLensOverlay
@@ -1371,17 +1469,17 @@ export const WorldPage: React.FC<WorldPageProps> = ({
           />
         )}
 
-        {/* Society Mission Results */}
-        {showMissionResults && isSocietyMode && (
+        {/* Society & Meadows Mission Results */}
+        {showMissionResults && (isSocietyMode || isMeadowsMode) && (
           <MissionResultsModal
-            totalItems={currentLevel.targetCount}
-            sortedItems={societySortedCount}
-            correctFirstTry={societyFirstTryCount}
-            incorrectAttempts={societyWrongAttempts}
-            litterLeft={Math.max(0, currentLevel.targetCount - societySortedCount)}
+            totalItems={isMeadowsMode ? 10 : currentLevel.targetCount}
+            sortedItems={isMeadowsMode ? meadowsSortedCount : societySortedCount}
+            correctFirstTry={isMeadowsMode ? Math.max(0, meadowsSortedCount - contaminationLevel) : societyFirstTryCount}
+            incorrectAttempts={isMeadowsMode ? contaminationLevel : societyWrongAttempts}
+            litterLeft={isMeadowsMode ? Math.max(0, 10 - meadowsSortedCount) : Math.max(0, currentLevel.targetCount - societySortedCount)}
             ecoLensUses={lensUseCount}
             timeRemaining={timer.timeLeft}
-            errors={societyErrors}
+            errors={isMeadowsMode ? [] : societyErrors}
             onPlayAgain={handleRetryLevel}
             onNextLevel={handleNextLevel}
           />

@@ -25,6 +25,8 @@
  */
 
 import * as THREE from 'three';
+import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
+import { BinType } from '../../types/game';
 import { WorldObstacle } from './types';
 import { createItemMesh } from './items/createItemMesh';
 
@@ -47,8 +49,18 @@ export interface MeadowsSceneResult {
   truckEndPos: THREE.Vector3;
   /** Animate truck driving in from the road to the waste pile (0 to 1 progress) */
   animateTruckArrival: (progress: number) => void;
+  /** Animate truck lifting bins and driving away after sorting (0 to 1 progress) */
+  animateTruckDeparture: (progress: number) => void;
   /** Set four color-coded bins visibility beside the truck */
   showTruckBins: (visible: boolean) => void;
+  /** Phase 6 cleanup transformation: blends ground to cleaner earth, fades trash/dust (0 to 1 progress) */
+  animateCleanup: (progress: number) => void;
+  /** Four color-coded bin meshes for Mission 1 style sorting */
+  binMeshes: Map<BinType, THREE.Mesh>;
+  binTriggers: Map<BinType, THREE.Mesh>;
+  binGlowRings: Map<BinType, THREE.Mesh>;
+  binRowCenter: THREE.Vector3;
+  triggerBinAnimation: (bin: BinType) => void;
   animate: (elapsed: number, delta: number) => void;
 }
 
@@ -173,6 +185,101 @@ function makeNameTexture(): THREE.CanvasTexture {
 function hashNoise(x: number, y: number): number {
   const n = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
   return n - Math.floor(n);
+}
+
+/** White bin icon on transparent background for Mission 1 dustbins */
+function makeMeadowsBinIconTexture(binType: BinType): THREE.CanvasTexture {
+  const canvas = document.createElement('canvas');
+  canvas.width = 256;
+  canvas.height = 256;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return new THREE.CanvasTexture(canvas);
+
+  ctx.clearRect(0, 0, 256, 256);
+  ctx.fillStyle = '#ffffff';
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = 14;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+
+  if (binType === 'wet') {
+    // Leaf
+    ctx.beginPath();
+    ctx.moveTo(128, 48);
+    ctx.bezierCurveTo(70, 70, 60, 160, 128, 208);
+    ctx.bezierCurveTo(196, 160, 186, 70, 128, 48);
+    ctx.fill();
+    ctx.save();
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.lineWidth = 7;
+    ctx.beginPath();
+    ctx.moveTo(128, 65);
+    ctx.lineTo(128, 195);
+    ctx.stroke();
+    ctx.restore();
+  } else if (binType === 'hazardous') {
+    // Caution triangle
+    ctx.beginPath();
+    ctx.moveTo(128, 52);
+    ctx.lineTo(214, 196);
+    ctx.lineTo(42, 196);
+    ctx.closePath();
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(128, 95);
+    ctx.lineTo(128, 148);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(128, 172, 7, 0, Math.PI * 2);
+    ctx.fill();
+  } else if (binType === 'residual') {
+    // Dustbin outline
+    ctx.lineWidth = 12;
+    ctx.beginPath();
+    ctx.moveTo(72, 70);
+    ctx.lineTo(184, 70);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(112, 52);
+    ctx.lineTo(144, 52);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(86, 88);
+    ctx.lineTo(98, 204);
+    ctx.lineTo(158, 204);
+    ctx.lineTo(170, 88);
+    ctx.stroke();
+    ctx.lineWidth = 9;
+    ctx.beginPath();
+    ctx.moveTo(116, 104);
+    ctx.lineTo(119, 186);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(140, 104);
+    ctx.lineTo(137, 186);
+    ctx.stroke();
+  } else {
+    // Recycle loop (dry)
+    ctx.save();
+    ctx.translate(128, 128);
+    for (let i = 0; i < 3; i++) {
+      ctx.rotate((Math.PI * 2) / 3);
+      ctx.beginPath();
+      ctx.arc(0, -60, 36, -Math.PI * 0.4, Math.PI * 0.2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(35, -72);
+      ctx.lineTo(46, -42);
+      ctx.lineTo(20, -50);
+      ctx.closePath();
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1400,6 +1507,7 @@ export function createMeadowsScene(): MeadowsSceneResult {
   pathGuideGroup.add(targetRing);
 
   // ── 11. Garbage Truck & 4 Color-Coded Bins (Phase 4 Arrival) ──────────────
+  // ── 11. Garbage Truck (Arrives on the Road) ──────────────────────────────
   const truckGroup = new THREE.Group();
   truckGroup.name = 'meadows_garbage_truck';
 
@@ -1477,61 +1585,150 @@ export function createMeadowsScene(): MeadowsSceneResult {
   exhaust.position.set(0.9, 3.0, 2.2);
   truckGroup.add(exhaust);
 
-  // Start truck parked far out on the west perimeter road (X = -19, Z = 18)
-  // End pos: parked near the waste pile along the mud edge (X = -10.5, Z = 4.2)
-  const truckStartPos = new THREE.Vector3(-19.0, 0, 18.0);
-  const truckEndPos = new THREE.Vector3(-10.5, 0, 4.2);
+  // Truck arrives along South Road:
+  // Starts far west: (-21.0, 0, 19.0)
+  // Drives east and stops in front of the park entrance curb: (-4.5, 0, 19.0)
+  // Facing East along the road: rotation.y = Math.PI / 2
+  const truckStartPos = new THREE.Vector3(-21.0, 0, 19.0);
+  const truckEndPos = new THREE.Vector3(-4.5, 0, 19.0);
   truckGroup.position.copy(truckStartPos);
-  truckGroup.rotation.y = -Math.PI / 2; // facing towards the waste pile (+X)
+  truckGroup.rotation.y = Math.PI / 2; // facing eastward along South Road
   truckGroup.visible = false;
   group.add(truckGroup);
 
-  // Four color-coded bins placed beside the truck
-  // Green (Wet/Compost), Blue (Dry/Recycle), Red (Hazardous), Gray (Residual/E-Waste)
+  // ── 12. Four Color-Coded Bins (At side in park beside where truck stops) ───
+  // Positioned inside the park at the curb edge directly adjacent to the parked truck
+  // Truck stops at X = -4.5, Z = 19.0 on the road (curb is at Z = 16.2).
+  // The bins are placed in a row inside the park side edge (Z = 15.0),
+  // running parallel to the curb right beside the truck from X = -6.6 to -1.8,
+  // facing toward the park (-Z).
+  const binMeshes = new Map<BinType, THREE.Mesh>();
+  const binTriggers = new Map<BinType, THREE.Mesh>();
+  const binGlowRings = new Map<BinType, THREE.Mesh>();
+
+  const activeBinTypes: BinType[] = ['wet', 'dry', 'hazardous', 'residual'];
+  const BIN_PALETTE: Record<BinType, number> = {
+    wet: 0x10b981,        // emerald green
+    dry: 0x3b82f6,        // blue
+    hazardous: 0xef4444,  // red
+    residual: 0x1e293b,   // black
+    paper: 0x0284c7,
+    plastic: 0xf59e0b,
+    ewaste: 0xf97316,
+    reuse: 0x0d9488,
+  };
+
   const truckBinsGroup = new THREE.Group();
   truckBinsGroup.name = 'truck_bins';
-  truckBinsGroup.visible = false;
   group.add(truckBinsGroup);
 
-  const binSpecs = [
-    { label: 'WET', color: 0x16a34a, offsetZ: -2.0 },
-    { label: 'DRY', color: 0x2563eb, offsetZ: -0.7 },
-    { label: 'HAZARDOUS', color: 0xdc2626, offsetZ: 0.6 },
-    { label: 'RESIDUAL', color: 0x4b5563, offsetZ: 1.9 },
-  ];
+  // Row along the side in the park by the truck stopping spot:
+  // Z = 15.0 (park side ground inside curb), spaced across X: -6.6, -5.0, -3.4, -1.8
+  const binStartZ = 15.0;
+  const binStartX = -6.6;
+  const binSpacingX = 1.6;
+  const BIN_W = 1.05;
+  const BIN_H = 1.45;
+  const BIN_D = 0.95;
 
-  binSpecs.forEach((spec) => {
-    const singleBin = new THREE.Group();
-    // Bin body
-    const bodyGeo = new THREE.BoxGeometry(0.8, 1.1, 0.8);
-    const bodyMat = new THREE.MeshStandardMaterial({ color: spec.color, roughness: 0.4, metalness: 0.1 });
-    const body = new THREE.Mesh(bodyGeo, bodyMat);
-    body.position.y = 0.55;
-    body.castShadow = true;
-    body.receiveShadow = true;
-    singleBin.add(body);
+  activeBinTypes.forEach((binType, idx) => {
+    const hexColor = BIN_PALETTE[binType] ?? 0x10b981;
+    const bx = binStartX + idx * binSpacingX;
+    const bz = binStartZ;
 
-    // Lid
-    const binLid = new THREE.Mesh(
-      new THREE.BoxGeometry(0.88, 0.12, 0.88),
-      new THREE.MeshStandardMaterial({ color: spec.color, roughness: 0.35 })
+    const singleBinGroup = new THREE.Group();
+    singleBinGroup.position.set(bx, 0, bz);
+    singleBinGroup.rotation.y = Math.PI; // Face inward into the park (-Z) toward Kai
+
+    // Bin body with rounded corners
+    const bodyMat = new THREE.MeshStandardMaterial({
+      color: hexColor,
+      roughness: 0.45,
+      metalness: 0.08,
+    });
+    const bodyMesh = new THREE.Mesh(new RoundedBoxGeometry(BIN_W, BIN_H, BIN_D, 4, 0.08), bodyMat);
+    bodyMesh.position.y = BIN_H / 2;
+    bodyMesh.castShadow = true;
+    bodyMesh.receiveShadow = true;
+    singleBinGroup.add(bodyMesh);
+    binMeshes.set(binType, bodyMesh);
+
+    // Dark interior under the lid
+    const interior = new THREE.Mesh(
+      new THREE.PlaneGeometry(BIN_W - 0.12, BIN_D - 0.12),
+      new THREE.MeshBasicMaterial({ color: 0x0a0a0a })
     );
-    binLid.position.y = 1.15;
-    binLid.castShadow = true;
-    singleBin.add(binLid);
+    interior.rotation.x = -Math.PI / 2;
+    interior.position.y = BIN_H - 0.02;
+    singleBinGroup.add(interior);
 
-    // Ground shadow disk
-    const groundShadow = new THREE.Mesh(
-      new THREE.CircleGeometry(0.5, 16),
-      new THREE.MeshBasicMaterial({ color: 0x000000, opacity: 0.3, transparent: true })
+    // Front icon (leaf / recycle loop / caution triangle / dustbin)
+    const iconMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(0.68, 0.68),
+      new THREE.MeshStandardMaterial({
+        map: makeMeadowsBinIconTexture(binType),
+        transparent: true,
+        alphaTest: 0.05,
+        roughness: 0.45,
+      })
     );
-    groundShadow.rotation.x = -Math.PI / 2;
-    groundShadow.position.y = 0.02;
-    singleBin.add(groundShadow);
+    iconMesh.position.set(0, BIN_H * 0.55, BIN_D / 2 + 0.008);
+    singleBinGroup.add(iconMesh);
 
-    singleBin.position.set(truckEndPos.x + 2.2, 0, truckEndPos.z + spec.offsetZ);
-    truckBinsGroup.add(singleBin);
+    // Hinged lid
+    const lidPivot = new THREE.Group();
+    lidPivot.position.set(0, BIN_H, -BIN_D / 2);
+
+    const lidMat = new THREE.MeshStandardMaterial({
+      color: hexColor,
+      roughness: 0.4,
+      metalness: 0.05,
+    });
+    const lidGeo = new RoundedBoxGeometry(BIN_W + 0.1, 0.14, BIN_D + 0.1, 3, 0.05);
+    lidGeo.translate(0, 0.07, (BIN_D + 0.1) / 2);
+    const lid = new THREE.Mesh(lidGeo, lidMat);
+    lid.castShadow = true;
+    lidPivot.add(lid);
+
+    singleBinGroup.add(lidPivot);
+    bodyMesh.userData.lid = lidPivot;
+
+    // Proximity glow ring on ground
+    const ringGeo = new THREE.RingGeometry(0.75, 1.05, 24);
+    const ringMat = new THREE.MeshBasicMaterial({
+      color: hexColor,
+      transparent: true,
+      opacity: 0,
+      side: THREE.DoubleSide,
+    });
+    const ring = new THREE.Mesh(ringGeo, ringMat);
+    ring.rotation.x = -Math.PI / 2;
+    ring.position.y = 0.02;
+    singleBinGroup.add(ring);
+    binGlowRings.set(binType, ring);
+
+    // Proximity trigger cylinder
+    const trigGeo = new THREE.CylinderGeometry(1.2, 1.2, 2.2, 12);
+    const trigMat = new THREE.MeshBasicMaterial({ visible: false });
+    const trigger = new THREE.Mesh(trigGeo, trigMat);
+    trigger.position.y = 1.1;
+    singleBinGroup.add(trigger);
+    binTriggers.set(binType, trigger);
+
+    truckBinsGroup.add(singleBinGroup);
+
+    // Register obstacle
+    obstacles.push({
+      id: `meadows_bin_${binType}`,
+      type: 'prop',
+      minX: bx - 0.7,
+      maxX: bx + 0.7,
+      minZ: bz - 0.7,
+      maxZ: bz + 0.7,
+    });
   });
+
+  const binRowCenter = new THREE.Vector3(binStartX + 1.5 * binSpacingX, 0, binStartZ);
 
   function animateTruckArrival(progress: number) {
     if (progress > 0) {
@@ -1563,6 +1760,101 @@ export function createMeadowsScene(): MeadowsSceneResult {
     if (clamped >= 0.85) {
       truckBinsGroup.visible = true;
     }
+  }
+
+  function animateTruckDeparture(progress: number) {
+    const clamped = Math.max(0, Math.min(1, progress));
+    // Ease-in-out curve
+    const eased = clamped * clamped * (3 - 2 * clamped);
+
+    // In first 25% of departure, bins lift up and fade / load into truck hopper
+    if (clamped < 0.25) {
+      const lift = (clamped / 0.25);
+      truckBinsGroup.position.y = lift * 1.5;
+      truckBinsGroup.traverse((child) => {
+        if (child instanceof THREE.Mesh && child.material instanceof THREE.Material) {
+          child.material.transparent = true;
+          child.material.opacity = 1 - lift * 0.9;
+        }
+      });
+    } else {
+      truckBinsGroup.visible = false;
+    }
+
+    // Departure target pos along road circuit (drive south-west off-screen: X = -24, Z = -22)
+    const departureEndPos = new THREE.Vector3(-24.0, 0, -22.0);
+    truckGroup.position.x = THREE.MathUtils.lerp(truckEndPos.x, departureEndPos.x, eased);
+    truckGroup.position.z = THREE.MathUtils.lerp(truckEndPos.z, departureEndPos.z, eased);
+
+    // Wheel rotation during departure
+    truckGroup.traverse((child) => {
+      if (child instanceof THREE.Mesh && child.geometry instanceof THREE.CylinderGeometry) {
+        if (child.rotation.z === Math.PI / 2 || Math.abs(child.rotation.z - Math.PI / 2) < 0.01) {
+          child.rotation.x -= 0.18;
+        }
+      }
+    });
+
+    if (clamped >= 0.98) {
+      truckGroup.visible = false;
+    }
+  }
+
+  function animateCleanup(progress: number) {
+    const clamped = Math.max(0, Math.min(1, progress));
+
+    // 1. Waste scatter items fade out and disappear
+    wasteGroup.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+        if (Array.isArray(child.material)) {
+          child.material.forEach((m) => {
+            m.transparent = true;
+            m.opacity = Math.max(0, 1 - clamped);
+          });
+        } else if (child.material) {
+          child.material.transparent = true;
+          child.material.opacity = Math.max(0, 1 - clamped);
+        }
+      }
+    });
+    if (clamped >= 0.98) {
+      wasteGroup.visible = false;
+    }
+
+    // 2. Mud puddles and dust haze discs fade out
+    hazeDisks.forEach((d) => {
+      (d.material as THREE.MeshBasicMaterial).opacity = Math.max(0, 0.22 * (1 - clamped));
+    });
+    puddleMat.opacity = Math.max(0, 1 - clamped);
+    puddleMat.transparent = true;
+
+    // 3. Left mud wasteland ground blends to clean, healthy earth / grass
+    const pos = groundGeo.attributes.position;
+    const colAttr = groundGeo.attributes.color as THREE.BufferAttribute;
+    const cleanEarth = new THREE.Color(0x608044); // warm fertile greener earth
+    const curCol = new THREE.Color();
+    for (let i = 0; i < pos.count; i++) {
+      const x = pos.getX(i);
+      if (x < -0.5) {
+        curCol.fromBufferAttribute(colAttr, i);
+        curCol.lerp(cleanEarth, clamped * 0.035);
+        colAttr.setXYZ(i, curCol.r, curCol.g, curCol.b);
+      }
+    }
+    colAttr.needsUpdate = true;
+
+    // 4. Dead trees look healthier / less grim (wood shifts from stark dark to warm living bark)
+    const livingBark = new THREE.Color(0x5a4a38);
+    deadTreeConfigs.forEach((cfg) => {
+      const treeObj = group.getObjectByName(cfg.id) || group.getObjectByName('dead_tree');
+      if (treeObj) {
+        treeObj.traverse((ch) => {
+          if (ch instanceof THREE.Mesh && ch.material instanceof THREE.MeshStandardMaterial) {
+            ch.material.color.lerp(livingBark, clamped * 0.03);
+          }
+        });
+      }
+    });
   }
 
   function showTruckBins(visible: boolean) {
@@ -1624,6 +1916,29 @@ export function createMeadowsScene(): MeadowsSceneResult {
         (mesh.material as THREE.MeshBasicMaterial).opacity = pulse;
       });
     }
+
+    // 6. Soft glow ring decay for bins
+    binGlowRings.forEach((ring) => {
+      const mat = ring.material as THREE.MeshBasicMaterial;
+      if (mat.opacity > 0.05) {
+        mat.opacity = Math.max(0, mat.opacity - delta * 2.0);
+      }
+    });
+  }
+
+  function triggerBinAnimation(bin: BinType) {
+    const bodyMesh = binMeshes.get(bin);
+    if (!bodyMesh) return;
+    const lid = bodyMesh.userData.lid as THREE.Mesh | undefined;
+    if (!lid) return;
+    const targetAngle = -1.1;
+    lid.rotation.x = THREE.MathUtils.lerp(lid.rotation.x, targetAngle, 0.45);
+    setTimeout(() => {
+      lid.rotation.x = THREE.MathUtils.lerp(lid.rotation.x, 0, 0.4);
+      setTimeout(() => {
+        lid.rotation.x = 0;
+      }, 350);
+    }, 450);
   }
 
   return {
@@ -1643,7 +1958,14 @@ export function createMeadowsScene(): MeadowsSceneResult {
     truckStartPos,
     truckEndPos,
     animateTruckArrival,
+    animateTruckDeparture,
     showTruckBins,
+    animateCleanup,
+    binMeshes,
+    binTriggers,
+    binGlowRings,
+    binRowCenter,
+    triggerBinAnimation,
     animate,
   };
 }

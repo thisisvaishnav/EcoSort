@@ -98,26 +98,26 @@ export const MeadowsPhoneModal: React.FC<MeadowsPhoneModalProps> = ({
       {/* Background dimmer & blur for the 3D world */}
       <div className="absolute inset-0 bg-slate-950/45 backdrop-blur-[2px] transition-opacity duration-500" />
 
-      {/* Smartphone Container: Slides up from bottom, covers ~40% screen height */}
+      {/* Smartphone Container: Matches Landing Page tactile retro cards */}
       <div
-        className={`relative z-10 w-full max-w-[340px] sm:max-w-[360px] h-[45dvh] min-h-[330px] max-h-[440px] bg-slate-900 border-4 border-slate-700/80 rounded-t-[2.5rem] sm:rounded-[2.5rem] shadow-[0_-10px_40px_rgba(0,0,0,0.6)] flex flex-col overflow-hidden text-white transition-all transform duration-500 ease-out ${
+        className={`relative z-10 w-full max-w-[340px] sm:max-w-[360px] h-[46dvh] min-h-[350px] max-h-[460px] bg-[#FDFBF7] border-[3.5px] border-slate-950 rounded-t-[2.5rem] sm:rounded-[2.5rem] shadow-retro-xl flex flex-col overflow-hidden text-slate-900 transition-all transform duration-500 ease-out ${
           stage === 'COMPLETED' ? 'translate-y-full opacity-0' : 'translate-y-0 opacity-100'
         }`}
       >
-        {/* Smartphone Notch / Speaker Grille */}
-        <div className="w-full flex justify-center pt-2 pb-1 shrink-0">
-          <div className="w-20 h-3.5 bg-black rounded-full flex items-center justify-center gap-2 px-2 shadow-inner">
-            <div className="w-1.5 h-1.5 rounded-full bg-slate-800" />
-            <div className="w-7 h-1 rounded-full bg-slate-700" />
+        {/* Smartphone Dynamic Island / Notch */}
+        <div className="w-full flex justify-center pt-2.5 pb-1 shrink-0 bg-[#FDFBF7]">
+          <div className="w-24 h-4 bg-slate-950 rounded-full flex items-center justify-center gap-2 px-2 shadow-inner">
+            <div className="w-2 h-2 rounded-full bg-slate-800" />
+            <div className="w-8 h-1 rounded-full bg-slate-700" />
           </div>
         </div>
 
         {/* Status Bar */}
-        <div className="px-5 py-1 flex items-center justify-between text-[11px] font-sans font-semibold text-slate-300 shrink-0">
+        <div className="px-6 py-1 flex items-center justify-between text-[11px] font-sans font-black text-slate-700 shrink-0">
           <span>{currentTime}</span>
-          <div className="flex items-center gap-1.5 text-slate-300">
-            <Wifi className="w-3.5 h-3.5" />
-            <Battery className="w-3.5 h-3.5" />
+          <div className="flex items-center gap-1.5 text-slate-800">
+            <Wifi className="w-3.5 h-3.5 stroke-[2.5]" />
+            <Battery className="w-3.5 h-3.5 stroke-[2.5]" />
           </div>
         </div>
 
@@ -126,29 +126,29 @@ export const MeadowsPhoneModal: React.FC<MeadowsPhoneModalProps> = ({
           {stage === 'CONTACTS' && (
             <div className="flex-1 flex flex-col justify-between items-center text-center py-2 animate-in fade-in duration-300">
               {/* App Header */}
-              <div className="w-full text-left border-b border-slate-800 pb-2">
-                <span className="text-[11px] uppercase tracking-wider text-emerald-400 font-bold">Contacts</span>
-                <h3 className="text-base font-fun font-bold text-white flex items-center gap-2">
+              <div className="w-full text-left border-b-2 border-slate-950/15 pb-2">
+                <span className="text-[10px] uppercase tracking-wider text-emerald-700 font-fun font-black">Contacts</span>
+                <h3 className="text-base font-fun font-black text-slate-950 flex items-center gap-2">
                   <span>Waste Dispatch</span>
                 </h3>
               </div>
 
               {/* Contact Card */}
               <div className="flex flex-col items-center my-auto">
-                <div className="w-20 h-20 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center mb-3 shadow-[0_0_20px_rgba(52,211,153,0.35)]">
-                  <Truck className="w-10 h-10 text-emerald-300" />
+                <div className="w-20 h-20 rounded-3xl bg-emerald-100 border-2 border-slate-950 flex items-center justify-center mb-3 shadow-retro-sm">
+                  <Truck className="w-10 h-10 text-emerald-700" />
                 </div>
-                <h2 className="text-base font-fun font-bold text-white flex items-center gap-1.5">
+                <h2 className="text-base font-fun font-black text-slate-950 flex items-center gap-1.5">
                   Municipal Waste Collection 🚛
                 </h2>
-                <p className="text-xs text-slate-400 mt-0.5">Government Service • Green Meadows</p>
+                <p className="text-xs text-slate-600 font-semibold mt-0.5">Municipal Service • Green Meadows</p>
               </div>
 
-              {/* Big Green CALL Button */}
+              {/* Big Green CALL Button matching landing page CTA */}
               <button
                 data-testid="call-garbage-truck-btn"
                 onClick={handleStartCall}
-                className="w-full py-3.5 px-4 bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 font-fun font-black text-sm uppercase tracking-wider rounded-2xl border-2 border-emerald-300 shadow-[0_0_25px_rgba(16,185,129,0.7)] flex items-center justify-center gap-2 transition-all cursor-pointer animate-pulse"
+                className="w-full py-3.5 px-4 bg-emerald-500 hover:bg-emerald-400 active:translate-x-[2px] active:translate-y-[2px] text-slate-950 font-fun font-black text-sm uppercase tracking-wider rounded-2xl border-2 border-slate-950 shadow-retro flex items-center justify-center gap-2 transition-all cursor-pointer animate-pulse"
               >
                 <PhoneCall className="w-5 h-5 fill-slate-950 stroke-slate-950" />
                 <span>CALL GARBAGE TRUCK</span>
@@ -159,8 +159,8 @@ export const MeadowsPhoneModal: React.FC<MeadowsPhoneModalProps> = ({
           {stage === 'RINGING' && (
             <div className="flex-1 flex flex-col justify-between items-center text-center py-4 animate-in fade-in duration-300">
               <div className="flex flex-col items-center">
-                <div className="text-[11px] text-emerald-400 uppercase tracking-widest font-bold">Calling...</div>
-                <h2 className="text-base font-fun font-bold text-white mt-1">
+                <div className="text-[11px] text-emerald-700 uppercase tracking-widest font-fun font-black">Calling...</div>
+                <h2 className="text-base font-fun font-black text-slate-950 mt-1">
                   Municipal Waste Collection
                 </h2>
               </div>
@@ -168,14 +168,14 @@ export const MeadowsPhoneModal: React.FC<MeadowsPhoneModalProps> = ({
               {/* Ringing Radar Pulses */}
               <div className="relative flex items-center justify-center my-auto">
                 <div className="absolute w-28 h-28 rounded-full border-2 border-emerald-400/40 animate-ping" />
-                <div className="absolute w-20 h-20 rounded-full border-2 border-emerald-400/60 animate-pulse" />
-                <div className="w-16 h-16 rounded-full bg-emerald-500 border-2 border-emerald-300 flex items-center justify-center shadow-lg">
+                <div className="absolute w-20 h-20 rounded-full border-2 border-emerald-500/50 animate-pulse" />
+                <div className="w-16 h-16 rounded-full bg-emerald-500 border-2 border-slate-950 flex items-center justify-center shadow-retro-sm">
                   <Phone className="w-8 h-8 text-slate-950 animate-bounce" />
                 </div>
               </div>
 
-              <div className="text-xs text-slate-400 flex items-center gap-1">
-                <Volume2 className="w-3.5 h-3.5 text-emerald-400" />
+              <div className="text-xs text-slate-600 font-bold flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-950/20">
+                <Volume2 className="w-3.5 h-3.5 text-emerald-600" />
                 <span>Connecting to Green Meadows line...</span>
               </div>
             </div>
@@ -184,47 +184,47 @@ export const MeadowsPhoneModal: React.FC<MeadowsPhoneModalProps> = ({
           {(stage === 'DIALOGUE_DISP_1' || stage === 'DIALOGUE_PLAYER' || stage === 'DIALOGUE_DISP_2') && (
             <div className="flex-1 flex flex-col justify-between py-2 animate-in fade-in duration-300">
               {/* Call in progress info header */}
-              <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+              <div className="flex items-center justify-between border-b-2 border-slate-950/15 pb-2">
                 <div className="flex items-center gap-2">
-                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-xs font-bold text-emerald-300">Call Connected</span>
+                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-xs font-fun font-black text-emerald-800">Call Connected</span>
                 </div>
-                <span className="text-[11px] text-slate-400">Waste Dispatch</span>
+                <span className="text-[11px] font-bold text-slate-500">Waste Dispatch</span>
               </div>
 
-              {/* GTA-Style Voice Call Dialogue Bubbles */}
+              {/* GTA-Style Voice Call Dialogue Bubbles — Retro tactile styled */}
               <div className="flex-1 flex flex-col justify-center gap-3 my-2 px-1">
                 {stage === 'DIALOGUE_DISP_1' && (
-                  <div className="bg-slate-800/90 border border-emerald-500/50 rounded-2xl p-3 shadow-md animate-in slide-in-from-bottom-2 duration-300">
-                    <div className="flex items-center gap-1.5 text-[11px] font-bold text-emerald-400 mb-1">
+                  <div className="bg-white border-2 border-slate-950 rounded-2xl p-3 shadow-retro-sm animate-in slide-in-from-bottom-2 duration-300">
+                    <div className="flex items-center gap-1.5 text-[11px] font-fun font-black text-emerald-700 mb-1">
                       <Truck className="w-3.5 h-3.5" />
                       <span>Dispatcher</span>
                     </div>
-                    <p className="text-xs sm:text-sm font-fun font-bold text-white leading-relaxed">
+                    <p className="text-xs sm:text-sm font-fun font-bold text-slate-900 leading-relaxed">
                       "Municipal waste control. How can I help?"
                     </p>
                   </div>
                 )}
 
                 {stage === 'DIALOGUE_PLAYER' && (
-                  <div className="bg-emerald-950/70 border border-teal-400/60 rounded-2xl p-3 shadow-md ml-auto max-w-[92%] animate-in slide-in-from-bottom-2 duration-300">
-                    <div className="flex items-center gap-1.5 text-[11px] font-bold text-teal-300 mb-1 justify-end">
+                  <div className="bg-emerald-50 border-2 border-slate-950 rounded-2xl p-3 shadow-retro-sm ml-auto max-w-[92%] animate-in slide-in-from-bottom-2 duration-300">
+                    <div className="flex items-center gap-1.5 text-[11px] font-fun font-black text-emerald-800 mb-1 justify-end">
                       <span>Kai (Player)</span>
                       <User className="w-3.5 h-3.5" />
                     </div>
-                    <p className="text-xs sm:text-sm font-fun font-bold text-white leading-relaxed text-right">
+                    <p className="text-xs sm:text-sm font-fun font-bold text-slate-950 leading-relaxed text-right">
                       "There is a large waste pile at Green Meadows Residency. Please send a truck."
                     </p>
                   </div>
                 )}
 
                 {stage === 'DIALOGUE_DISP_2' && (
-                  <div className="bg-slate-800/90 border border-emerald-500/50 rounded-2xl p-3 shadow-md animate-in slide-in-from-bottom-2 duration-300">
-                    <div className="flex items-center gap-1.5 text-[11px] font-bold text-emerald-400 mb-1">
+                  <div className="bg-white border-2 border-slate-950 rounded-2xl p-3 shadow-retro-sm animate-in slide-in-from-bottom-2 duration-300">
+                    <div className="flex items-center gap-1.5 text-[11px] font-fun font-black text-emerald-700 mb-1">
                       <Truck className="w-3.5 h-3.5" />
                       <span>Dispatcher</span>
                     </div>
-                    <p className="text-xs sm:text-sm font-fun font-bold text-white leading-relaxed">
+                    <p className="text-xs sm:text-sm font-fun font-bold text-slate-900 leading-relaxed">
                       "Understood. A truck is on its way. Please sort the waste into the right bins before we arrive."
                     </p>
                   </div>
@@ -233,8 +233,8 @@ export const MeadowsPhoneModal: React.FC<MeadowsPhoneModalProps> = ({
 
               {/* End Call / Active Speaker Footer */}
               <div className="w-full flex justify-center pt-1">
-                <div className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-[10px] text-slate-300 flex items-center gap-1.5">
-                  <Volume2 className="w-3 h-3 text-emerald-400 animate-pulse" />
+                <div className="px-3 py-1 rounded-full bg-slate-100 border border-slate-950/20 text-[10px] text-slate-700 font-bold flex items-center gap-1.5">
+                  <Volume2 className="w-3 h-3 text-emerald-600 animate-pulse" />
                   <span>Dispatcher line active</span>
                 </div>
               </div>
@@ -243,7 +243,7 @@ export const MeadowsPhoneModal: React.FC<MeadowsPhoneModalProps> = ({
 
           {stage === 'COMPLETED' && (
             <div className="flex-1 flex items-center justify-center">
-              <div className="flex items-center gap-2 text-rose-400 font-bold text-xs">
+              <div className="flex items-center gap-2 text-rose-600 font-fun font-black text-xs">
                 <PhoneOff className="w-4 h-4" />
                 <span>Call ended</span>
               </div>
@@ -252,8 +252,8 @@ export const MeadowsPhoneModal: React.FC<MeadowsPhoneModalProps> = ({
         </div>
 
         {/* Bottom Home Indicator Bar */}
-        <div className="w-full flex justify-center pb-2 pt-1">
-          <div className="w-24 h-1 bg-slate-600 rounded-full" />
+        <div className="w-full flex justify-center pb-2 pt-1 bg-[#FDFBF7]">
+          <div className="w-24 h-1.5 bg-slate-400 rounded-full" />
         </div>
       </div>
     </div>

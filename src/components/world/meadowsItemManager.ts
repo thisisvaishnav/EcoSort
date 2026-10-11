@@ -23,6 +23,7 @@ export interface MeadowsItemManager {
   pickUpItem: (itemId: string) => MeadowsGroundItem | null;
   dropItem: (itemId: string) => void;
   sortItem: (itemId: string, binPosition?: THREE.Vector3) => void;
+  getHeldItem: () => MeadowsGroundItem | null;
   reset: () => void;
   dispose: () => void;
 }
@@ -113,6 +114,18 @@ export function createMeadowsItemManager(): MeadowsItemManager {
         ring.material.color.setHex(isNearby ? 0x10b981 : 0xf59e0b);
       }
     });
+
+    // Follow player hand when picked up (like Mission 1 litterScatter)
+    if (heldItem) {
+      heldItem.mesh.position.set(playerPos.x + 0.35, playerPos.y + 1.1, playerPos.z - 0.25);
+      heldItem.mesh.rotation.y += 0.03;
+    }
+  }
+
+  let heldItem: MeadowsGroundItem | null = null;
+
+  function getHeldItem(): MeadowsGroundItem | null {
+    return heldItem;
   }
 
   function getNearestItem(playerPos: THREE.Vector3, maxRadius = 1.8): MeadowsGroundItem | null {
@@ -132,9 +145,13 @@ export function createMeadowsItemManager(): MeadowsItemManager {
 
   function pickUpItem(itemId: string): MeadowsGroundItem | null {
     const item = items.find((i) => i.id === itemId);
-    if (!item || item.isSorted) return null;
+    if (!item || item.isSorted || heldItem) return null;
     item.isPickedUp = true;
-    item.mesh.visible = false;
+    item.mesh.visible = true;
+    item.mesh.scale.setScalar(1.05);
+    const ring = item.mesh.getObjectByName('highlight_ring');
+    if (ring) ring.visible = false;
+    heldItem = item;
     return item;
   }
 
@@ -143,7 +160,11 @@ export function createMeadowsItemManager(): MeadowsItemManager {
     if (!item || item.isSorted) return;
     item.isPickedUp = false;
     item.mesh.position.copy(item.initialPosition);
+    item.mesh.scale.setScalar(0.9);
     item.mesh.visible = true;
+    const ring = item.mesh.getObjectByName('highlight_ring');
+    if (ring) ring.visible = true;
+    if (heldItem === item) heldItem = null;
   }
 
   function sortItem(itemId: string, binPosition?: THREE.Vector3) {
@@ -155,15 +176,20 @@ export function createMeadowsItemManager(): MeadowsItemManager {
     if (binPosition) {
       item.currentPosition.copy(binPosition);
     }
+    if (heldItem === item) heldItem = null;
   }
 
   function reset() {
+    heldItem = null;
     items.forEach((item) => {
       item.isSorted = false;
       item.isPickedUp = false;
       item.wrongAttempts = 0;
       item.mesh.position.copy(item.initialPosition);
+      item.mesh.scale.setScalar(0.9);
       item.mesh.visible = true;
+      const ring = item.mesh.getObjectByName('highlight_ring');
+      if (ring) ring.visible = true;
     });
   }
 
@@ -172,6 +198,7 @@ export function createMeadowsItemManager(): MeadowsItemManager {
       disposeItemMesh(item.mesh);
     });
     group.clear();
+    heldItem = null;
   }
 
   return {
@@ -182,6 +209,7 @@ export function createMeadowsItemManager(): MeadowsItemManager {
     pickUpItem,
     dropItem,
     sortItem,
+    getHeldItem,
     reset,
     dispose,
   };
