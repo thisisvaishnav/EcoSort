@@ -43,7 +43,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 10,
-      "community_name": "migsunData.ts",
+      "community_name": "BinType",
       "file_type": "code",
       "norm_label": "binlocationchoiceprops",
       "source_file": "src/components/game/migsun/BinLocationChoice.tsx",
@@ -56,11 +56,24 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 10,
-      "community_name": "migsunData.ts",
+      "community_name": "BinType",
       "file_type": "code",
       "norm_label": "characterintrooverlayprops",
       "source_file": "src/components/game/migsun/CharacterIntroOverlay.tsx",
       "source_location": "L11"
+    },
+    {
+      "id": "src_components_game_migsun_dustbincardoverlay_dustbincardoverlayprops",
+      "label": "DustbinCardOverlayProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "dustbincardoverlayprops",
+      "source_file": "src/components/game/migsun/DustbinCardOverlay.tsx",
+      "source_location": "L7"
     },
     {
       "id": "src_components_game_migsun_ecolensscanoverlay_ecolensscanoverlayprops",
@@ -69,11 +82,63 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 10,
-      "community_name": "migsunData.ts",
+      "community_name": "BinType",
       "file_type": "code",
       "norm_label": "ecolensscanoverlayprops",
       "source_file": "src/components/game/migsun/EcoLensScanOverlay.tsx",
       "source_location": "L6"
+    },
+    {
+      "id": "src_components_game_migsun_healthdashboard_healthdashboardprops",
+      "label": "HealthDashboardProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "healthdashboardprops",
+      "source_file": "src/components/game/migsun/HealthDashboard.tsx",
+      "source_location": "L5"
+    },
+    {
+      "id": "src_components_game_migsun_migsungamecontroller_migsungamecontrollerprops",
+      "label": "MigsunGameControllerProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "migsungamecontrollerprops",
+      "source_file": "src/components/game/migsun/MigsunGameController.tsx",
+      "source_location": "L11"
+    },
+    {
+      "id": "src_components_game_migsun_missionselectpanel_missionselectpanelprops",
+      "label": "MissionSelectPanelProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "missionselectpanelprops",
+      "source_file": "src/components/game/migsun/MissionSelectPanel.tsx",
+      "source_location": "L4"
+    },
+    {
+      "id": "src_components_game_migsun_sortchoicemodal_sortchoicemodalprops",
+      "label": "SortChoiceModalProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "sortchoicemodalprops",
+      "source_file": "src/components/game/migsun/SortChoiceModal.tsx",
+      "source_location": "L5"
     },
     {
       "id": "src_data_migsundata_bininstalllocation",
@@ -82,11 +147,24 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 10,
-      "community_name": "migsunData.ts",
+      "community_name": "BinType",
       "file_type": "code",
       "norm_label": "bininstalllocation",
       "source_file": "src/data/migsunData.ts",
       "source_location": "L19"
+    },
+    {
+      "id": "src_data_migsundata_dustbincarddata",
+      "label": "DustbinCardData",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "dustbincarddata",
+      "source_file": "src/data/migsunData.ts",
+      "source_location": "L55"
     },
     {
       "id": "src_data_migsundata_ecoscancauseeffect",
@@ -95,7 +173,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 10,
-      "community_name": "migsunData.ts",
+      "community_name": "BinType",
       "file_type": "code",
       "norm_label": "ecoscancauseeffect",
       "source_file": "src/data/migsunData.ts",
@@ -108,7 +186,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 10,
-      "community_name": "migsunData.ts",
+      "community_name": "BinType",
       "file_type": "code",
       "norm_label": "migsundialogueline",
       "source_file": "src/data/migsunData.ts",
@@ -121,11 +199,63 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 10,
-      "community_name": "migsunData.ts",
+      "community_name": "BinType",
       "file_type": "code",
       "norm_label": "residentquiz",
       "source_file": "src/data/migsunData.ts",
       "source_location": "L283"
+    },
+    {
+      "id": "src_hooks_usepersistentboolean_setstoredboolean",
+      "label": "SetStoredBoolean",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "setstoredboolean",
+      "source_file": "src/hooks/usePersistentBoolean.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "src_types_game_bintype",
+      "label": "BinType",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "bintype",
+      "source_file": "src/types/game.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_types_game_migsunphase",
+      "label": "MigsunPhase",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "migsunphase",
+      "source_file": "src/types/game.ts",
+      "source_location": "L56"
+    },
+    {
+      "id": "tests_audio_polly_test_mockutterance",
+      "label": "MockUtterance",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "mockutterance",
+      "source_file": "tests/audio-polly.test.ts",
+      "source_location": "L52"
     },
     {
       "id": "src_worlds_society_map_createsocietymap_societymapresult",
@@ -139,6 +269,71 @@
       "norm_label": "societymapresult",
       "source_file": "src/worlds/society/map/createSocietyMap.ts",
       "source_location": "L5"
+    },
+    {
+      "id": "src_worlds_society_phases_phase2_phase2controller_educationalcard",
+      "label": "EducationalCard",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 35,
+      "community_name": "worlds/types.ts",
+      "file_type": "code",
+      "norm_label": "educationalcard",
+      "source_file": "src/worlds/society/phases/phase2/Phase2Controller.tsx",
+      "source_location": "L14"
+    },
+    {
+      "id": "src_worlds_society_phases_phase2_phase2controller_phase2controllerprops",
+      "label": "Phase2ControllerProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 35,
+      "community_name": "worlds/types.ts",
+      "file_type": "code",
+      "norm_label": "phase2controllerprops",
+      "source_file": "src/worlds/society/phases/phase2/Phase2Controller.tsx",
+      "source_location": "L8"
+    },
+    {
+      "id": "src_worlds_society_phases_phase2_types_phase2state",
+      "label": "Phase2State",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 35,
+      "community_name": "worlds/types.ts",
+      "file_type": "code",
+      "norm_label": "phase2state",
+      "source_file": "src/worlds/society/phases/phase2/types.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "src_worlds_society_phases_phase2_types_phase2step",
+      "label": "Phase2Step",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 35,
+      "community_name": "worlds/types.ts",
+      "file_type": "code",
+      "norm_label": "phase2step",
+      "source_file": "src/worlds/society/phases/phase2/types.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "src_worlds_types_binspotcandidate",
+      "label": "BinSpotCandidate",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 35,
+      "community_name": "worlds/types.ts",
+      "file_type": "code",
+      "norm_label": "binspotcandidate",
+      "source_file": "src/worlds/types.ts",
+      "source_location": "L67"
     },
     {
       "id": "src_worlds_types_cameraanchor",
@@ -557,55 +752,68 @@
       "source_location": "L167"
     },
     {
-      "id": "src_components_game_meadows_meadowsintrooverlay_meadowsintrooverlayprops",
-      "label": "MeadowsIntroOverlayProps",
+      "id": "src_components_world_items_mapiteminstance_mapiteminstance",
+      "label": "MapItemInstance",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
       "community": 44,
-      "community_name": "audio.ts",
+      "community_name": "MapItemInstance",
       "file_type": "code",
-      "norm_label": "meadowsintrooverlayprops",
-      "source_file": "src/components/game/meadows/MeadowsIntroOverlay.tsx",
-      "source_location": "L5"
+      "norm_label": "mapiteminstance",
+      "source_file": "src/components/world/items/MapItemInstance.ts",
+      "source_location": "L11"
     },
     {
-      "id": "src_components_game_meadows_meadowsphonemodal_meadowsphonemodalprops",
-      "label": "MeadowsPhoneModalProps",
+      "id": "src_components_world_items_mapitemmanager_mapitemmanager",
+      "label": "MapItemManager",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
       "community": 44,
-      "community_name": "audio.ts",
+      "community_name": "MapItemInstance",
       "file_type": "code",
-      "norm_label": "meadowsphonemodalprops",
-      "source_file": "src/components/game/meadows/MeadowsPhoneModal.tsx",
-      "source_location": "L5"
+      "norm_label": "mapitemmanager",
+      "source_file": "src/components/world/items/MapItemManager.ts",
+      "source_location": "L16"
     },
     {
-      "id": "src_components_game_migsun_healthdashboard_healthdashboardprops",
-      "label": "HealthDashboardProps",
+      "id": "src_components_world_items_mapitemmanager_mapitemmanageroptions",
+      "label": "MapItemManagerOptions",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
       "community": 44,
-      "community_name": "audio.ts",
+      "community_name": "MapItemInstance",
       "file_type": "code",
-      "norm_label": "healthdashboardprops",
-      "source_file": "src/components/game/migsun/HealthDashboard.tsx",
-      "source_location": "L5"
+      "norm_label": "mapitemmanageroptions",
+      "source_file": "src/components/world/items/MapItemManager.ts",
+      "source_location": "L6"
     },
     {
-      "id": "tests_audio_polly_test_mockutterance",
-      "label": "MockUtterance",
+      "id": "src_components_world_items_types_mapitemconfig",
+      "label": "MapItemConfig",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
       "community": 44,
-      "community_name": "audio.ts",
+      "community_name": "MapItemInstance",
       "file_type": "code",
-      "norm_label": "mockutterance",
-      "source_file": "tests/audio-polly.test.ts",
+      "norm_label": "mapitemconfig",
+      "source_file": "src/components/world/items/types.ts",
+      "source_location": "L39"
+    },
+    {
+      "id": "src_components_world_items_types_mapitemstate",
+      "label": "MapItemState",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "MapItemInstance",
+      "file_type": "code",
+      "norm_label": "mapitemstate",
+      "source_file": "src/components/world/items/types.ts",
       "source_location": "L52"
     },
     {
@@ -615,23 +823,10 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 46,
-      "community_name": "game.ts",
+      "community_name": "ItemData",
       "file_type": "code",
       "norm_label": "levelendmodalprops",
       "source_file": "src/components/game/LevelEndModal.tsx",
-      "source_location": "L7"
-    },
-    {
-      "id": "src_components_game_quizmodal_quizmodalprops",
-      "label": "QuizModalProps",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 46,
-      "community_name": "game.ts",
-      "file_type": "code",
-      "norm_label": "quizmodalprops",
-      "source_file": "src/components/game/QuizModal.tsx",
       "source_location": "L7"
     },
     {
@@ -641,7 +836,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 46,
-      "community_name": "game.ts",
+      "community_name": "ItemData",
       "file_type": "code",
       "norm_label": "mapitemcardprops",
       "source_file": "src/components/items/MapItemCard.tsx",
@@ -654,11 +849,24 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 46,
-      "community_name": "game.ts",
+      "community_name": "ItemData",
       "file_type": "code",
       "norm_label": "mapitemgallerymodalprops",
       "source_file": "src/components/items/MapItemGalleryModal.tsx",
       "source_location": "L9"
+    },
+    {
+      "id": "src_components_world_litterscatter_scattereditem",
+      "label": "ScatteredItem",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 46,
+      "community_name": "ItemData",
+      "file_type": "code",
+      "norm_label": "scattereditem",
+      "source_file": "src/components/world/litterScatter.ts",
+      "source_location": "L13"
     },
     {
       "id": "src_services_spawner_adaptivespawner",
@@ -667,24 +875,11 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 46,
-      "community_name": "game.ts",
+      "community_name": "ItemData",
       "file_type": "code",
       "norm_label": "adaptivespawner",
       "source_file": "src/services/spawner.ts",
       "source_location": "L4"
-    },
-    {
-      "id": "src_types_game_bininfo",
-      "label": "BinInfo",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 46,
-      "community_name": "game.ts",
-      "file_type": "code",
-      "norm_label": "bininfo",
-      "source_file": "src/types/game.ts",
-      "source_location": "L3"
     },
     {
       "id": "src_types_game_itemdata",
@@ -693,24 +888,11 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 46,
-      "community_name": "game.ts",
+      "community_name": "ItemData",
       "file_type": "code",
       "norm_label": "itemdata",
       "source_file": "src/types/game.ts",
       "source_location": "L14"
-    },
-    {
-      "id": "src_types_game_quizquestion",
-      "label": "QuizQuestion",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 46,
-      "community_name": "game.ts",
-      "file_type": "code",
-      "norm_label": "quizquestion",
-      "source_file": "src/types/game.ts",
-      "source_location": "L83"
     },
     {
       "id": "src_worlds_society_android_androidbridge_androidbridgeoptions",
@@ -817,30 +999,30 @@
       "source_location": "L2"
     },
     {
+      "id": "src_components_game_energymeterhud_energymeterhudprops",
+      "label": "EnergyMeterHUDProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 51,
+      "community_name": "EnergyMeterHUD.tsx",
+      "file_type": "code",
+      "norm_label": "energymeterhudprops",
+      "source_file": "src/components/game/EnergyMeterHUD.tsx",
+      "source_location": "L4"
+    },
+    {
       "id": "src_components_game_avatarselectmodal_avatarselectmodalprops",
       "label": "AvatarSelectModalProps",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
       "community": 52,
-      "community_name": "lucide-react",
+      "community_name": "MascotDialogue.tsx",
       "file_type": "code",
       "norm_label": "avatarselectmodalprops",
       "source_file": "src/components/game/AvatarSelectModal.tsx",
       "source_location": "L5"
-    },
-    {
-      "id": "src_components_game_energymeterhud_energymeterhudprops",
-      "label": "EnergyMeterHUDProps",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 52,
-      "community_name": "lucide-react",
-      "file_type": "code",
-      "norm_label": "energymeterhudprops",
-      "source_file": "src/components/game/EnergyMeterHUD.tsx",
-      "source_location": "L4"
     },
     {
       "id": "src_components_game_mascotdialogue_mascotdialogueprops",
@@ -849,7 +1031,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 52,
-      "community_name": "lucide-react",
+      "community_name": "MascotDialogue.tsx",
       "file_type": "code",
       "norm_label": "mascotdialogueprops",
       "source_file": "src/components/game/MascotDialogue.tsx",
@@ -862,7 +1044,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 52,
-      "community_name": "lucide-react",
+      "community_name": "MascotDialogue.tsx",
       "file_type": "code",
       "norm_label": "saveprogresspayload",
       "source_file": "src/services/api.ts",
@@ -875,24 +1057,11 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 52,
-      "community_name": "lucide-react",
+      "community_name": "MascotDialogue.tsx",
       "file_type": "code",
       "norm_label": "playerprofile",
       "source_file": "src/types/game.ts",
       "source_location": "L93"
-    },
-    {
-      "id": "src_types_game_teacherreportstats",
-      "label": "TeacherReportStats",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 52,
-      "community_name": "lucide-react",
-      "file_type": "code",
-      "norm_label": "teacherreportstats",
-      "source_file": "src/types/game.ts",
-      "source_location": "L104"
     },
     {
       "id": "src_components_landingpage_heroadventure",
@@ -905,7 +1074,7 @@
       "file_type": "code",
       "norm_label": "heroadventure",
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L23"
+      "source_location": "L22"
     },
     {
       "id": "src_components_landingpage_landingpageprops",
@@ -945,19 +1114,6 @@
       "norm_label": "litterscattersystem",
       "source_file": "src/components/world/litterScatter.ts",
       "source_location": "L23"
-    },
-    {
-      "id": "src_components_world_litterscatter_scattereditem",
-      "label": "ScatteredItem",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 57,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "scattereditem",
-      "source_file": "src/components/world/litterScatter.ts",
-      "source_location": "L13"
     },
     {
       "id": "src_components_world_locomotion_joystickmovedir",
@@ -1220,65 +1376,13 @@
       "source_location": "L58"
     },
     {
-      "id": "src_components_game_migsun_migsungamecontroller_migsungamecontrollerprops",
-      "label": "MigsunGameControllerProps",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "MigsunGameController.tsx",
-      "file_type": "code",
-      "norm_label": "migsungamecontrollerprops",
-      "source_file": "src/components/game/migsun/MigsunGameController.tsx",
-      "source_location": "L11"
-    },
-    {
-      "id": "src_components_game_migsun_missionselectpanel_missionselectpanelprops",
-      "label": "MissionSelectPanelProps",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "MigsunGameController.tsx",
-      "file_type": "code",
-      "norm_label": "missionselectpanelprops",
-      "source_file": "src/components/game/migsun/MissionSelectPanel.tsx",
-      "source_location": "L4"
-    },
-    {
-      "id": "src_components_game_migsun_sortchoicemodal_sortchoicemodalprops",
-      "label": "SortChoiceModalProps",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "MigsunGameController.tsx",
-      "file_type": "code",
-      "norm_label": "sortchoicemodalprops",
-      "source_file": "src/components/game/migsun/SortChoiceModal.tsx",
-      "source_location": "L5"
-    },
-    {
-      "id": "src_types_game_migsunphase",
-      "label": "MigsunPhase",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "MigsunGameController.tsx",
-      "file_type": "code",
-      "norm_label": "migsunphase",
-      "source_file": "src/types/game.ts",
-      "source_location": "L56"
-    },
-    {
       "id": "src_components_game_ecopediamodal_ecopediamodalprops",
       "label": "EcopediaModalProps",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
       "community": 72,
-      "community_name": "items.ts",
+      "community_name": "game.ts",
       "file_type": "code",
       "norm_label": "ecopediamodalprops",
       "source_file": "src/components/game/EcopediaModal.tsx",
@@ -1291,11 +1395,37 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 72,
-      "community_name": "items.ts",
+      "community_name": "game.ts",
       "file_type": "code",
       "norm_label": "levelselectmodalprops",
       "source_file": "src/components/game/LevelSelectModal.tsx",
       "source_location": "L6"
+    },
+    {
+      "id": "src_components_game_quizmodal_quizmodalprops",
+      "label": "QuizModalProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 72,
+      "community_name": "game.ts",
+      "file_type": "code",
+      "norm_label": "quizmodalprops",
+      "source_file": "src/components/game/QuizModal.tsx",
+      "source_location": "L7"
+    },
+    {
+      "id": "src_types_game_bininfo",
+      "label": "BinInfo",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 72,
+      "community_name": "game.ts",
+      "file_type": "code",
+      "norm_label": "bininfo",
+      "source_file": "src/types/game.ts",
+      "source_location": "L3"
     },
     {
       "id": "src_types_game_levelconfig",
@@ -1304,24 +1434,37 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 72,
-      "community_name": "items.ts",
+      "community_name": "game.ts",
       "file_type": "code",
       "norm_label": "levelconfig",
       "source_file": "src/types/game.ts",
       "source_location": "L70"
     },
     {
-      "id": "src_hooks_usepersistentboolean_setstoredboolean",
-      "label": "SetStoredBoolean",
+      "id": "src_types_game_quizquestion",
+      "label": "QuizQuestion",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 75,
-      "community_name": "usePersistentBoolean.ts",
+      "community": 72,
+      "community_name": "game.ts",
       "file_type": "code",
-      "norm_label": "setstoredboolean",
-      "source_file": "src/hooks/usePersistentBoolean.ts",
-      "source_location": "L4"
+      "norm_label": "quizquestion",
+      "source_file": "src/types/game.ts",
+      "source_location": "L83"
+    },
+    {
+      "id": "src_types_game_teacherreportstats",
+      "label": "TeacherReportStats",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 72,
+      "community_name": "game.ts",
+      "file_type": "code",
+      "norm_label": "teacherreportstats",
+      "source_file": "src/types/game.ts",
+      "source_location": "L104"
     },
     {
       "id": "src_components_game_missionresultsmodal_missionerror",
@@ -1389,45 +1532,6 @@
       "source_location": "L8"
     },
     {
-      "id": "src_components_world_items_mapiteminstance_mapiteminstance",
-      "label": "MapItemInstance",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": "mapiteminstance",
-      "source_file": "src/components/world/items/MapItemInstance.ts",
-      "source_location": "L11"
-    },
-    {
-      "id": "src_components_world_items_mapitemmanager_mapitemmanager",
-      "label": "MapItemManager",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": "mapitemmanager",
-      "source_file": "src/components/world/items/MapItemManager.ts",
-      "source_location": "L16"
-    },
-    {
-      "id": "src_components_world_items_mapitemmanager_mapitemmanageroptions",
-      "label": "MapItemManagerOptions",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": "mapitemmanageroptions",
-      "source_file": "src/components/world/items/MapItemManager.ts",
-      "source_location": "L6"
-    },
-    {
       "id": "src_components_world_items_types_itemmeshoptions",
       "label": "ItemMeshOptions",
       "_callable": true,
@@ -1439,19 +1543,6 @@
       "norm_label": "itemmeshoptions",
       "source_file": "src/components/world/items/types.ts",
       "source_location": "L30"
-    },
-    {
-      "id": "src_components_world_items_types_mapitemconfig",
-      "label": "MapItemConfig",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": "mapitemconfig",
-      "source_file": "src/components/world/items/types.ts",
-      "source_location": "L39"
     },
     {
       "id": "src_components_world_items_types_mapitemmodeltype",
@@ -1467,19 +1558,6 @@
       "source_location": "L4"
     },
     {
-      "id": "src_components_world_items_types_mapitemstate",
-      "label": "MapItemState",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": "mapitemstate",
-      "source_file": "src/components/world/items/types.ts",
-      "source_location": "L52"
-    },
-    {
       "id": "src_components_world_items_types_placementmode",
       "label": "PlacementMode",
       "_callable": true,
@@ -1493,52 +1571,13 @@
       "source_location": "L28"
     },
     {
-      "id": "src_components_game_migsun_dustbincardoverlay_dustbincardoverlayprops",
-      "label": "DustbinCardOverlayProps",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "BinType",
-      "file_type": "code",
-      "norm_label": "dustbincardoverlayprops",
-      "source_file": "src/components/game/migsun/DustbinCardOverlay.tsx",
-      "source_location": "L7"
-    },
-    {
-      "id": "src_data_migsundata_dustbincarddata",
-      "label": "DustbinCardData",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "BinType",
-      "file_type": "code",
-      "norm_label": "dustbincarddata",
-      "source_file": "src/data/migsunData.ts",
-      "source_location": "L55"
-    },
-    {
-      "id": "src_types_game_bintype",
-      "label": "BinType",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "BinType",
-      "file_type": "code",
-      "norm_label": "bintype",
-      "source_file": "src/types/game.ts",
-      "source_location": "L1"
-    },
-    {
       "id": "src_worlds_society_phases_phase1_phase1controller_phase1controllerprops",
       "label": "Phase1ControllerProps",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "BinType",
+      "community_name": "Phase1Controller.tsx",
       "file_type": "code",
       "norm_label": "phase1controllerprops",
       "source_file": "src/worlds/society/phases/phase1/Phase1Controller.tsx",
@@ -1551,7 +1590,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "BinType",
+      "community_name": "Phase1Controller.tsx",
       "file_type": "code",
       "norm_label": "phase1litteritem",
       "source_file": "src/worlds/society/phases/phase1/types.ts",
@@ -1564,7 +1603,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "BinType",
+      "community_name": "Phase1Controller.tsx",
       "file_type": "code",
       "norm_label": "phase1state",
       "source_file": "src/worlds/society/phases/phase1/types.ts",
@@ -1577,76 +1616,11 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "BinType",
+      "community_name": "Phase1Controller.tsx",
       "file_type": "code",
       "norm_label": "phase1step",
       "source_file": "src/worlds/society/phases/phase1/types.ts",
       "source_location": "L3"
-    },
-    {
-      "id": "src_worlds_society_phases_phase2_phase2controller_educationalcard",
-      "label": "EducationalCard",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "BinType",
-      "file_type": "code",
-      "norm_label": "educationalcard",
-      "source_file": "src/worlds/society/phases/phase2/Phase2Controller.tsx",
-      "source_location": "L14"
-    },
-    {
-      "id": "src_worlds_society_phases_phase2_phase2controller_phase2controllerprops",
-      "label": "Phase2ControllerProps",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "BinType",
-      "file_type": "code",
-      "norm_label": "phase2controllerprops",
-      "source_file": "src/worlds/society/phases/phase2/Phase2Controller.tsx",
-      "source_location": "L8"
-    },
-    {
-      "id": "src_worlds_society_phases_phase2_types_phase2state",
-      "label": "Phase2State",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "BinType",
-      "file_type": "code",
-      "norm_label": "phase2state",
-      "source_file": "src/worlds/society/phases/phase2/types.ts",
-      "source_location": "L11"
-    },
-    {
-      "id": "src_worlds_society_phases_phase2_types_phase2step",
-      "label": "Phase2Step",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "BinType",
-      "file_type": "code",
-      "norm_label": "phase2step",
-      "source_file": "src/worlds/society/phases/phase2/types.ts",
-      "source_location": "L4"
-    },
-    {
-      "id": "src_worlds_types_binspotcandidate",
-      "label": "BinSpotCandidate",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "BinType",
-      "file_type": "code",
-      "norm_label": "binspotcandidate",
-      "source_file": "src/worlds/types.ts",
-      "source_location": "L67"
     },
     {
       "id": "backend_handlers_progress_getprogress",
@@ -1683,6 +1657,282 @@
       "norm_label": "generatereport()",
       "source_file": "backend/handlers/report.js",
       "source_location": "L20"
+    },
+    {
+      "id": "src_components_game_migsun_binlocationchoice_binlocationchoice",
+      "label": "BinLocationChoice()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "binlocationchoice()",
+      "source_file": "src/components/game/migsun/BinLocationChoice.tsx",
+      "source_location": "L10"
+    },
+    {
+      "id": "src_components_game_migsun_characterintrooverlay_characterintrooverlay",
+      "label": "CharacterIntroOverlay()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "characterintrooverlay()",
+      "source_file": "src/components/game/migsun/CharacterIntroOverlay.tsx",
+      "source_location": "L15"
+    },
+    {
+      "id": "src_components_game_migsun_dustbincardoverlay_dustbincardoverlay",
+      "label": "DustbinCardOverlay()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "dustbincardoverlay()",
+      "source_file": "src/components/game/migsun/DustbinCardOverlay.tsx",
+      "source_location": "L13"
+    },
+    {
+      "id": "src_components_game_migsun_ecolensscanoverlay_ecolensscanoverlay",
+      "label": "EcoLensScanOverlay()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "ecolensscanoverlay()",
+      "source_file": "src/components/game/migsun/EcoLensScanOverlay.tsx",
+      "source_location": "L10"
+    },
+    {
+      "id": "src_components_game_migsun_healthdashboard_healthdashboard",
+      "label": "HealthDashboard()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "healthdashboard()",
+      "source_file": "src/components/game/migsun/HealthDashboard.tsx",
+      "source_location": "L12"
+    },
+    {
+      "id": "src_components_game_migsun_migsungamecontroller_migsungamecontroller",
+      "label": "MigsunGameController()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "migsungamecontroller()",
+      "source_file": "src/components/game/migsun/MigsunGameController.tsx",
+      "source_location": "L28"
+    },
+    {
+      "id": "src_components_game_migsun_missionselectpanel_missionselectpanel",
+      "label": "MissionSelectPanel()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "missionselectpanel()",
+      "source_file": "src/components/game/migsun/MissionSelectPanel.tsx",
+      "source_location": "L9"
+    },
+    {
+      "id": "src_components_game_migsun_sortchoicemodal_sortchoicemodal",
+      "label": "SortChoiceModal()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "sortchoicemodal()",
+      "source_file": "src/components/game/migsun/SortChoiceModal.tsx",
+      "source_location": "L9"
+    },
+    {
+      "id": "src_hooks_usepersistentboolean_usepersistentboolean",
+      "label": "usePersistentBoolean()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "usepersistentboolean()",
+      "source_file": "src/hooks/usePersistentBoolean.ts",
+      "source_location": "L10"
+    },
+    {
+      "id": "src_services_audio_audioservice_constructor",
+      "label": ".constructor()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": ".constructor()",
+      "source_file": "src/services/audio.ts",
+      "source_location": "L75"
+    },
+    {
+      "id": "src_services_audio_audioservice_ismusicon",
+      "label": ".isMusicOn()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": ".ismusicon()",
+      "source_file": "src/services/audio.ts",
+      "source_location": "L219"
+    },
+    {
+      "id": "src_services_audio_audioservice_setslowmode",
+      "label": ".setSlowMode()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": ".setslowmode()",
+      "source_file": "src/services/audio.ts",
+      "source_location": "L159"
+    },
+    {
+      "id": "src_services_audio_audioservice_setvolume",
+      "label": ".setVolume()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": ".setvolume()",
+      "source_file": "src/services/audio.ts",
+      "source_location": "L169"
+    },
+    {
+      "id": "src_services_audio_readstoredboolean",
+      "label": "readStoredBoolean()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "readstoredboolean()",
+      "source_file": "src/services/audio.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "src_services_audio_readstorednumber",
+      "label": "readStoredNumber()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "readstorednumber()",
+      "source_file": "src/services/audio.ts",
+      "source_location": "L34"
+    },
+    {
+      "id": "src_services_audio_writestoredboolean",
+      "label": "writeStoredBoolean()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "writestoredboolean()",
+      "source_file": "src/services/audio.ts",
+      "source_location": "L25"
+    },
+    {
+      "id": "src_services_audio_writestorednumber",
+      "label": "writeStoredNumber()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "writestorednumber()",
+      "source_file": "src/services/audio.ts",
+      "source_location": "L46"
+    },
+    {
+      "id": "src_services_music_ismusicplaying",
+      "label": "isMusicPlaying()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "ismusicplaying()",
+      "source_file": "src/services/music.ts",
+      "source_location": "L95"
+    },
+    {
+      "id": "src_services_music_runscheduler",
+      "label": "runScheduler()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "runscheduler()",
+      "source_file": "src/services/music.ts",
+      "source_location": "L63"
+    },
+    {
+      "id": "src_services_music_schedulebar",
+      "label": "scheduleBar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "schedulebar()",
+      "source_file": "src/services/music.ts",
+      "source_location": "L28"
+    },
+    {
+      "id": "src_services_music_startmusicloop",
+      "label": "startMusicLoop()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "startmusicloop()",
+      "source_file": "src/services/music.ts",
+      "source_location": "L71"
+    },
+    {
+      "id": "src_services_uiaudio_installglobaluiaudio",
+      "label": "installGlobalUiAudio()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "installglobaluiaudio()",
+      "source_file": "src/services/uiAudio.ts",
+      "source_location": "L9"
+    },
+    {
+      "id": "tests_audio_polly_test_mockutterance_constructor",
+      "label": ".constructor()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": ".constructor()",
+      "source_file": "tests/audio-polly.test.ts",
+      "source_location": "L57"
     },
     {
       "id": "src_components_game_countdowntimer_countdowntimer",
@@ -1925,6 +2175,30 @@
       "source_location": "L23"
     },
     {
+      "id": "src_hooks_usemobileinput_usecoarsepointer",
+      "label": "useCoarsePointer()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 41,
+      "community_name": "WorldPage.tsx",
+      "file_type": "code",
+      "norm_label": "usecoarsepointer()",
+      "source_file": "src/hooks/useMobileInput.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "src_hooks_usemobileinput_useisportrait",
+      "label": "useIsPortrait()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 41,
+      "community_name": "WorldPage.tsx",
+      "file_type": "code",
+      "norm_label": "useisportrait()",
+      "source_file": "src/hooks/useMobileInput.ts",
+      "source_location": "L20"
+    },
+    {
       "id": "src_systems_ecolens_activatelens",
       "label": "activateLens()",
       "_callable": true,
@@ -1959,6 +2233,18 @@
       "norm_label": "ticklenscooldown()",
       "source_file": "src/systems/ecoLens.ts",
       "source_location": "L50"
+    },
+    {
+      "id": "src_worlds_featureflags_issocietyworldenabled",
+      "label": "isSocietyWorldEnabled()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 42,
+      "community_name": "societyManifestContract.test.ts",
+      "file_type": "code",
+      "norm_label": "issocietyworldenabled()",
+      "source_file": "src/worlds/featureFlags.ts",
+      "source_location": "L8"
     },
     {
       "id": "src_worlds_featureflags_setsocietyworldenabled",
@@ -2026,7 +2312,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 43,
-      "community_name": "locomotion.test.ts",
+      "community_name": "vitest",
       "file_type": "code",
       "norm_label": "calculatecamerapitchfordistance()",
       "source_file": "tests/locomotion.test.ts",
@@ -2038,7 +2324,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 43,
-      "community_name": "locomotion.test.ts",
+      "community_name": "vitest",
       "file_type": "code",
       "norm_label": "calculatecamerarelativedirection()",
       "source_file": "tests/locomotion.test.ts",
@@ -2050,7 +2336,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 43,
-      "community_name": "locomotion.test.ts",
+      "community_name": "vitest",
       "file_type": "code",
       "norm_label": "clampcameradistance()",
       "source_file": "tests/locomotion.test.ts",
@@ -2062,7 +2348,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 43,
-      "community_name": "locomotion.test.ts",
+      "community_name": "vitest",
       "file_type": "code",
       "norm_label": "isarrivedatdestination()",
       "source_file": "tests/locomotion.test.ts",
@@ -2074,107 +2360,227 @@
       "_callable": true,
       "_origin": "ast",
       "community": 43,
-      "community_name": "locomotion.test.ts",
+      "community_name": "vitest",
       "file_type": "code",
       "norm_label": "resolveboxcollision()",
       "source_file": "tests/locomotion.test.ts",
       "source_location": "L49"
     },
     {
-      "id": "src_components_game_meadows_meadowsintrooverlay_meadowsintrooverlay",
-      "label": "MeadowsIntroOverlay()",
+      "id": "src_components_world_items_mapiteminstance_mapiteminstance_collect",
+      "label": ".collect()",
       "_callable": true,
       "_origin": "ast",
       "community": 44,
-      "community_name": "audio.ts",
+      "community_name": "MapItemInstance",
       "file_type": "code",
-      "norm_label": "meadowsintrooverlay()",
-      "source_file": "src/components/game/meadows/MeadowsIntroOverlay.tsx",
-      "source_location": "L20"
+      "norm_label": ".collect()",
+      "source_file": "src/components/world/items/MapItemInstance.ts",
+      "source_location": "L196"
     },
     {
-      "id": "src_components_game_meadows_meadowsphonemodal_meadowsphonemodal",
-      "label": "MeadowsPhoneModal()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "audio.ts",
-      "file_type": "code",
-      "norm_label": "meadowsphonemodal()",
-      "source_file": "src/components/game/meadows/MeadowsPhoneModal.tsx",
-      "source_location": "L15"
-    },
-    {
-      "id": "src_components_game_migsun_healthdashboard_healthdashboard",
-      "label": "HealthDashboard()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "audio.ts",
-      "file_type": "code",
-      "norm_label": "healthdashboard()",
-      "source_file": "src/components/game/migsun/HealthDashboard.tsx",
-      "source_location": "L12"
-    },
-    {
-      "id": "src_services_audio_audioservice_setvolume",
-      "label": ".setVolume()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "audio.ts",
-      "file_type": "code",
-      "norm_label": ".setvolume()",
-      "source_file": "src/services/audio.ts",
-      "source_location": "L169"
-    },
-    {
-      "id": "src_services_audio_writestorednumber",
-      "label": "writeStoredNumber()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "audio.ts",
-      "file_type": "code",
-      "norm_label": "writestorednumber()",
-      "source_file": "src/services/audio.ts",
-      "source_location": "L46"
-    },
-    {
-      "id": "tests_audio_polly_test_mockutterance_constructor",
+      "id": "src_components_world_items_mapiteminstance_mapiteminstance_constructor",
       "label": ".constructor()",
       "_callable": true,
       "_origin": "ast",
       "community": 44,
-      "community_name": "audio.ts",
+      "community_name": "MapItemInstance",
       "file_type": "code",
       "norm_label": ".constructor()",
-      "source_file": "tests/audio-polly.test.ts",
-      "source_location": "L57"
+      "source_file": "src/components/world/items/MapItemInstance.ts",
+      "source_location": "L29"
     },
     {
-      "id": "src_components_items_mapitemcard_mapitemcard",
-      "label": "MapItemCard()",
+      "id": "src_components_world_items_mapiteminstance_mapiteminstance_dispose",
+      "label": ".dispose()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "MapItemInstance",
+      "file_type": "code",
+      "norm_label": ".dispose()",
+      "source_file": "src/components/world/items/MapItemInstance.ts",
+      "source_location": "L221"
+    },
+    {
+      "id": "src_components_world_items_mapiteminstance_mapiteminstance_getstate",
+      "label": ".getState()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "MapItemInstance",
+      "file_type": "code",
+      "norm_label": ".getstate()",
+      "source_file": "src/components/world/items/MapItemInstance.ts",
+      "source_location": "L214"
+    },
+    {
+      "id": "src_components_world_items_mapiteminstance_mapiteminstance_respawn",
+      "label": ".respawn()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "MapItemInstance",
+      "file_type": "code",
+      "norm_label": ".respawn()",
+      "source_file": "src/components/world/items/MapItemInstance.ts",
+      "source_location": "L204"
+    },
+    {
+      "id": "src_components_world_items_mapiteminstance_mapiteminstance_setupplacementmode",
+      "label": ".setupPlacementMode()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "MapItemInstance",
+      "file_type": "code",
+      "norm_label": ".setupplacementmode()",
+      "source_file": "src/components/world/items/MapItemInstance.ts",
+      "source_location": "L72"
+    },
+    {
+      "id": "src_components_world_items_mapiteminstance_mapiteminstance_update",
+      "label": ".update()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "MapItemInstance",
+      "file_type": "code",
+      "norm_label": ".update()",
+      "source_file": "src/components/world/items/MapItemInstance.ts",
+      "source_location": "L123"
+    },
+    {
+      "id": "src_components_world_items_mapitemmanager_mapitemmanager_additem",
+      "label": ".addItem()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "MapItemInstance",
+      "file_type": "code",
+      "norm_label": ".additem()",
+      "source_file": "src/components/world/items/MapItemManager.ts",
+      "source_location": "L34"
+    },
+    {
+      "id": "src_components_world_items_mapitemmanager_mapitemmanager_collectitem",
+      "label": ".collectItem()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "MapItemInstance",
+      "file_type": "code",
+      "norm_label": ".collectitem()",
+      "source_file": "src/components/world/items/MapItemManager.ts",
+      "source_location": "L109"
+    },
+    {
+      "id": "src_components_world_items_mapitemmanager_mapitemmanager_constructor",
+      "label": ".constructor()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "MapItemInstance",
+      "file_type": "code",
+      "norm_label": ".constructor()",
+      "source_file": "src/components/world/items/MapItemManager.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "src_components_world_items_mapitemmanager_mapitemmanager_dispose",
+      "label": ".dispose()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "MapItemInstance",
+      "file_type": "code",
+      "norm_label": ".dispose()",
+      "source_file": "src/components/world/items/MapItemManager.ts",
+      "source_location": "L147"
+    },
+    {
+      "id": "src_components_world_items_mapitemmanager_mapitemmanager_getactiveitems",
+      "label": ".getActiveItems()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "MapItemInstance",
+      "file_type": "code",
+      "norm_label": ".getactiveitems()",
+      "source_file": "src/components/world/items/MapItemManager.ts",
+      "source_location": "L119"
+    },
+    {
+      "id": "src_components_world_items_mapitemmanager_mapitemmanager_getnearestitem",
+      "label": ".getNearestItem()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "MapItemInstance",
+      "file_type": "code",
+      "norm_label": ".getnearestitem()",
+      "source_file": "src/components/world/items/MapItemManager.ts",
+      "source_location": "L88"
+    },
+    {
+      "id": "src_components_world_items_mapitemmanager_mapitemmanager_getstats",
+      "label": ".getStats()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "MapItemInstance",
+      "file_type": "code",
+      "norm_label": ".getstats()",
+      "source_file": "src/components/world/items/MapItemManager.ts",
+      "source_location": "L132"
+    },
+    {
+      "id": "src_components_world_items_mapitemmanager_mapitemmanager_removeitem",
+      "label": ".removeItem()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "MapItemInstance",
+      "file_type": "code",
+      "norm_label": ".removeitem()",
+      "source_file": "src/components/world/items/MapItemManager.ts",
+      "source_location": "L66"
+    },
+    {
+      "id": "src_components_world_items_mapitemmanager_mapitemmanager_spawnpresetcityitems",
+      "label": ".spawnPresetCityItems()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "MapItemInstance",
+      "file_type": "code",
+      "norm_label": ".spawnpresetcityitems()",
+      "source_file": "src/components/world/items/MapItemManager.ts",
+      "source_location": "L56"
+    },
+    {
+      "id": "src_components_world_items_mapitemmanager_mapitemmanager_update",
+      "label": ".update()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "MapItemInstance",
+      "file_type": "code",
+      "norm_label": ".update()",
+      "source_file": "src/components/world/items/MapItemManager.ts",
+      "source_location": "L79"
+    },
+    {
+      "id": "src_services_spawner_adaptivespawner_constructor",
+      "label": ".constructor()",
       "_callable": true,
       "_origin": "ast",
       "community": 46,
-      "community_name": "game.ts",
+      "community_name": "ItemData",
       "file_type": "code",
-      "norm_label": "mapitemcard()",
-      "source_file": "src/components/items/MapItemCard.tsx",
+      "norm_label": ".constructor()",
+      "source_file": "src/services/spawner.ts",
       "source_location": "L12"
-    },
-    {
-      "id": "src_components_items_mapitemgallerymodal_mapitemgallerymodal",
-      "label": "MapItemGalleryModal()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 46,
-      "community_name": "game.ts",
-      "file_type": "code",
-      "norm_label": "mapitemgallerymodal()",
-      "source_file": "src/components/items/MapItemGalleryModal.tsx",
-      "source_location": "L15"
     },
     {
       "id": "src_services_spawner_adaptivespawner_getnextitem",
@@ -2182,7 +2588,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 46,
-      "community_name": "game.ts",
+      "community_name": "ItemData",
       "file_type": "code",
       "norm_label": ".getnextitem()",
       "source_file": "src/services/spawner.ts",
@@ -2194,7 +2600,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 46,
-      "community_name": "game.ts",
+      "community_name": "ItemData",
       "file_type": "code",
       "norm_label": ".pickweighted()",
       "source_file": "src/services/spawner.ts",
@@ -2206,7 +2612,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 46,
-      "community_name": "game.ts",
+      "community_name": "ItemData",
       "file_type": "code",
       "norm_label": ".recordattempt()",
       "source_file": "src/services/spawner.ts",
@@ -2366,7 +2772,7 @@
       "file_type": "code",
       "norm_label": "animate()",
       "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1267"
+      "source_location": "L1280"
     },
     {
       "id": "src_components_world_meadowsscene_createperimeterroute",
@@ -2570,7 +2976,7 @@
       "file_type": "code",
       "norm_label": ".playbininstall()",
       "source_file": "src/services/audio.ts",
-      "source_location": "L858"
+      "source_location": "L811"
     },
     {
       "id": "src_services_audio_audioservice_playcelebration",
@@ -2582,7 +2988,7 @@
       "file_type": "code",
       "norm_label": ".playcelebration()",
       "source_file": "src/services/audio.ts",
-      "source_location": "L765"
+      "source_location": "L718"
     },
     {
       "id": "src_services_audio_audioservice_playclick",
@@ -2618,7 +3024,7 @@
       "file_type": "code",
       "norm_label": ".playdashboardreveal()",
       "source_file": "src/services/audio.ts",
-      "source_location": "L963"
+      "source_location": "L916"
     },
     {
       "id": "src_services_audio_audioservice_playecoscan",
@@ -2630,7 +3036,7 @@
       "file_type": "code",
       "norm_label": ".playecoscan()",
       "source_file": "src/services/audio.ts",
-      "source_location": "L941"
+      "source_location": "L894"
     },
     {
       "id": "src_services_audio_audioservice_playgadiwalaaaya",
@@ -2642,7 +3048,7 @@
       "file_type": "code",
       "norm_label": ".playgadiwalaaaya()",
       "source_file": "src/services/audio.ts",
-      "source_location": "L793"
+      "source_location": "L746"
     },
     {
       "id": "src_services_audio_audioservice_playincorrect",
@@ -2665,30 +3071,6 @@
       "community_name": "AudioService",
       "file_type": "code",
       "norm_label": ".playlensactivate()",
-      "source_file": "src/services/audio.ts",
-      "source_location": "L666"
-    },
-    {
-      "id": "src_services_audio_audioservice_playphoneconnect",
-      "label": ".playPhoneConnect()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "AudioService",
-      "file_type": "code",
-      "norm_label": ".playphoneconnect()",
-      "source_file": "src/services/audio.ts",
-      "source_location": "L643"
-    },
-    {
-      "id": "src_services_audio_audioservice_playphonering",
-      "label": ".playPhoneRing()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "AudioService",
-      "file_type": "code",
-      "norm_label": ".playphonering()",
       "source_file": "src/services/audio.ts",
       "source_location": "L619"
     },
@@ -2714,7 +3096,7 @@
       "file_type": "code",
       "norm_label": ".playplantrevival()",
       "source_file": "src/services/audio.ts",
-      "source_location": "L831"
+      "source_location": "L784"
     },
     {
       "id": "src_services_audio_audioservice_playpollyaudio",
@@ -2738,7 +3120,7 @@
       "file_type": "code",
       "norm_label": ".playresidentcorrect()",
       "source_file": "src/services/audio.ts",
-      "source_location": "L917"
+      "source_location": "L870"
     },
     {
       "id": "src_services_audio_audioservice_playresidentquestion",
@@ -2750,7 +3132,7 @@
       "file_type": "code",
       "norm_label": ".playresidentquestion()",
       "source_file": "src/services/audio.ts",
-      "source_location": "L893"
+      "source_location": "L846"
     },
     {
       "id": "src_services_audio_audioservice_playthrow",
@@ -2774,7 +3156,7 @@
       "file_type": "code",
       "norm_label": ".playtimerurgent()",
       "source_file": "src/services/audio.ts",
-      "source_location": "L714"
+      "source_location": "L667"
     },
     {
       "id": "src_services_audio_audioservice_playtimerwarning",
@@ -2786,7 +3168,7 @@
       "file_type": "code",
       "norm_label": ".playtimerwarning()",
       "source_file": "src/services/audio.ts",
-      "source_location": "L691"
+      "source_location": "L644"
     },
     {
       "id": "src_services_audio_audioservice_playtruckhorn",
@@ -2810,7 +3192,7 @@
       "file_type": "code",
       "norm_label": ".playtruckjingle()",
       "source_file": "src/services/audio.ts",
-      "source_location": "L737"
+      "source_location": "L690"
     },
     {
       "id": "src_services_audio_audioservice_setpollyvoice",
@@ -2921,16 +3303,16 @@
       "source_location": "L87"
     },
     {
-      "id": "src_components_world_migsunscene_createmigsunscene_triggerplantrevival",
-      "label": "triggerPlantRevival()",
+      "id": "src_components_game_energymeterhud_energymeterhud",
+      "label": "EnergyMeterHUD()",
       "_callable": true,
       "_origin": "ast",
       "community": 51,
-      "community_name": "Level 1 (Migsun Vilasa) Component Reuse Inventory",
+      "community_name": "EnergyMeterHUD.tsx",
       "file_type": "code",
-      "norm_label": "triggerplantrevival()",
-      "source_file": "src/components/world/migsunScene.ts",
-      "source_location": "L515"
+      "norm_label": "energymeterhud()",
+      "source_file": "src/components/game/EnergyMeterHUD.tsx",
+      "source_location": "L13"
     },
     {
       "id": "src_components_game_avatarselectmodal_avatarselectmodal",
@@ -2938,35 +3320,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 52,
-      "community_name": "lucide-react",
+      "community_name": "MascotDialogue.tsx",
       "file_type": "code",
       "norm_label": "avatarselectmodal()",
       "source_file": "src/components/game/AvatarSelectModal.tsx",
       "source_location": "L13"
-    },
-    {
-      "id": "src_components_game_energymeterhud_energymeterhud",
-      "label": "EnergyMeterHUD()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 52,
-      "community_name": "lucide-react",
-      "file_type": "code",
-      "norm_label": "energymeterhud()",
-      "source_file": "src/components/game/EnergyMeterHUD.tsx",
-      "source_location": "L13"
-    },
-    {
-      "id": "src_components_teacher_teacherdashboard_teacherdashboard",
-      "label": "TeacherDashboard()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 52,
-      "community_name": "lucide-react",
-      "file_type": "code",
-      "norm_label": "teacherdashboard()",
-      "source_file": "src/components/teacher/TeacherDashboard.tsx",
-      "source_location": "L8"
     },
     {
       "id": "backend_handlers_ask_eco_handler",
@@ -3014,7 +3372,7 @@
       "file_type": "code",
       "norm_label": "app()",
       "source_file": "src/App.tsx",
-      "source_location": "L30"
+      "source_location": "L26"
     },
     {
       "id": "src_app_routefallback",
@@ -3026,7 +3384,7 @@
       "file_type": "code",
       "norm_label": "routefallback()",
       "source_file": "src/App.tsx",
-      "source_location": "L18"
+      "source_location": "L14"
     },
     {
       "id": "src_components_landingpage_landingpage",
@@ -3038,7 +3396,7 @@
       "file_type": "code",
       "norm_label": "landingpage()",
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L78"
+      "source_location": "L77"
     },
     {
       "id": "src_components_navbar_navbar",
@@ -3051,162 +3409,6 @@
       "norm_label": "navbar()",
       "source_file": "src/components/Navbar.tsx",
       "source_location": "L19"
-    },
-    {
-      "id": "src_worlds_featureflags_issocietyworldenabled",
-      "label": "isSocietyWorldEnabled()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 55,
-      "community_name": "App.tsx",
-      "file_type": "code",
-      "norm_label": "issocietyworldenabled()",
-      "source_file": "src/worlds/featureFlags.ts",
-      "source_location": "L8"
-    },
-    {
-      "id": "src_components_world_litterscatter_createlitterscatter",
-      "label": "createLitterScatter()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 57,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "createlitterscatter()",
-      "source_file": "src/components/world/litterScatter.ts",
-      "source_location": "L59"
-    },
-    {
-      "id": "src_components_world_litterscatter_createlitterscatter_dispose",
-      "label": "dispose()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 57,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "dispose()",
-      "source_file": "src/components/world/litterScatter.ts",
-      "source_location": "L270"
-    },
-    {
-      "id": "src_components_world_litterscatter_createlitterscatter_droptoground",
-      "label": "dropToGround()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 57,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "droptoground()",
-      "source_file": "src/components/world/litterScatter.ts",
-      "source_location": "L240"
-    },
-    {
-      "id": "src_components_world_litterscatter_createlitterscatter_getcollectedcount",
-      "label": "getCollectedCount()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 57,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "getcollectedcount()",
-      "source_file": "src/components/world/litterScatter.ts",
-      "source_location": "L266"
-    },
-    {
-      "id": "src_components_world_litterscatter_createlitterscatter_gethelditem",
-      "label": "getHeldItem()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 57,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "gethelditem()",
-      "source_file": "src/components/world/litterScatter.ts",
-      "source_location": "L258"
-    },
-    {
-      "id": "src_components_world_litterscatter_createlitterscatter_getnearestpickupitem",
-      "label": "getNearestPickupItem()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 57,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "getnearestpickupitem()",
-      "source_file": "src/components/world/litterScatter.ts",
-      "source_location": "L205"
-    },
-    {
-      "id": "src_components_world_litterscatter_createlitterscatter_getremainingcount",
-      "label": "getRemainingCount()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 57,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "getremainingcount()",
-      "source_file": "src/components/world/litterScatter.ts",
-      "source_location": "L262"
-    },
-    {
-      "id": "src_components_world_litterscatter_createlitterscatter_markinbin",
-      "label": "markInBin()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 57,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "markinbin()",
-      "source_file": "src/components/world/litterScatter.ts",
-      "source_location": "L249"
-    },
-    {
-      "id": "src_components_world_litterscatter_createlitterscatter_pickup",
-      "label": "pickUp()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 57,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "pickup()",
-      "source_file": "src/components/world/litterScatter.ts",
-      "source_location": "L220"
-    },
-    {
-      "id": "src_components_world_litterscatter_createlitterscatter_placeitem",
-      "label": "placeItem()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 57,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "placeitem()",
-      "source_file": "src/components/world/litterScatter.ts",
-      "source_location": "L74"
-    },
-    {
-      "id": "src_components_world_litterscatter_createlitterscatter_update",
-      "label": "update()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 57,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "update()",
-      "source_file": "src/components/world/litterScatter.ts",
-      "source_location": "L163"
-    },
-    {
-      "id": "src_components_world_litterscatter_shuffle",
-      "label": "shuffle()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 57,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "shuffle()",
-      "source_file": "src/components/world/litterScatter.ts",
-      "source_location": "L40"
     },
     {
       "id": "src_components_world_locomotion_createlocomotionengine",
@@ -3303,6 +3505,18 @@
       "norm_label": "triggerbinanimation()",
       "source_file": "src/components/world/migsunScene.ts",
       "source_location": "L498"
+    },
+    {
+      "id": "src_components_world_migsunscene_createmigsunscene_triggerplantrevival",
+      "label": "triggerPlantRevival()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 57,
+      "community_name": "WorldCanvas.tsx",
+      "file_type": "code",
+      "norm_label": "triggerplantrevival()",
+      "source_file": "src/components/world/migsunScene.ts",
+      "source_location": "L515"
     },
     {
       "id": "src_components_world_playercharacter_createplayercharacter",
@@ -3482,43 +3696,7 @@
       "file_type": "code",
       "norm_label": "worldcanvas()",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L67"
-    },
-    {
-      "id": "src_hooks_usemobileinput_usecoarsepointer",
-      "label": "useCoarsePointer()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 57,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "usecoarsepointer()",
-      "source_file": "src/hooks/useMobileInput.ts",
-      "source_location": "L4"
-    },
-    {
-      "id": "src_hooks_usemobileinput_useisportrait",
-      "label": "useIsPortrait()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 57,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "useisportrait()",
-      "source_file": "src/hooks/useMobileInput.ts",
-      "source_location": "L20"
-    },
-    {
-      "id": "tests_societyscenelayout_test_disttorow",
-      "label": "distToRow()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 57,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "disttorow()",
-      "source_file": "tests/societySceneLayout.test.ts",
-      "source_location": "L31"
+      "source_location": "L65"
     },
     {
       "id": "tests_touchinput_test_settle",
@@ -3603,18 +3781,6 @@
       "norm_label": "setvisualstate()",
       "source_file": "src/worlds/society/map/createSocietyMap.ts",
       "source_location": "L240"
-    },
-    {
-      "id": "src_worlds_society_phases_phase1_phase1controller_phase1controller",
-      "label": "Phase1Controller()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 58,
-      "community_name": "SocietyWorld.tsx",
-      "file_type": "code",
-      "norm_label": "phase1controller()",
-      "source_file": "src/worlds/society/phases/phase1/Phase1Controller.tsx",
-      "source_location": "L32"
     },
     {
       "id": "src_worlds_society_phases_phase2_phase2controller_phase2controller",
@@ -3833,90 +3999,6 @@
       "source_location": "L71"
     },
     {
-      "id": "src_components_game_migsun_binlocationchoice_binlocationchoice",
-      "label": "BinLocationChoice()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "MigsunGameController.tsx",
-      "file_type": "code",
-      "norm_label": "binlocationchoice()",
-      "source_file": "src/components/game/migsun/BinLocationChoice.tsx",
-      "source_location": "L10"
-    },
-    {
-      "id": "src_components_game_migsun_characterintrooverlay_characterintrooverlay",
-      "label": "CharacterIntroOverlay()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "MigsunGameController.tsx",
-      "file_type": "code",
-      "norm_label": "characterintrooverlay()",
-      "source_file": "src/components/game/migsun/CharacterIntroOverlay.tsx",
-      "source_location": "L15"
-    },
-    {
-      "id": "src_components_game_migsun_dustbincardoverlay_dustbincardoverlay",
-      "label": "DustbinCardOverlay()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "MigsunGameController.tsx",
-      "file_type": "code",
-      "norm_label": "dustbincardoverlay()",
-      "source_file": "src/components/game/migsun/DustbinCardOverlay.tsx",
-      "source_location": "L13"
-    },
-    {
-      "id": "src_components_game_migsun_ecolensscanoverlay_ecolensscanoverlay",
-      "label": "EcoLensScanOverlay()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "MigsunGameController.tsx",
-      "file_type": "code",
-      "norm_label": "ecolensscanoverlay()",
-      "source_file": "src/components/game/migsun/EcoLensScanOverlay.tsx",
-      "source_location": "L10"
-    },
-    {
-      "id": "src_components_game_migsun_migsungamecontroller_migsungamecontroller",
-      "label": "MigsunGameController()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "MigsunGameController.tsx",
-      "file_type": "code",
-      "norm_label": "migsungamecontroller()",
-      "source_file": "src/components/game/migsun/MigsunGameController.tsx",
-      "source_location": "L28"
-    },
-    {
-      "id": "src_components_game_migsun_missionselectpanel_missionselectpanel",
-      "label": "MissionSelectPanel()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "MigsunGameController.tsx",
-      "file_type": "code",
-      "norm_label": "missionselectpanel()",
-      "source_file": "src/components/game/migsun/MissionSelectPanel.tsx",
-      "source_location": "L9"
-    },
-    {
-      "id": "src_components_game_migsun_sortchoicemodal_sortchoicemodal",
-      "label": "SortChoiceModal()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "MigsunGameController.tsx",
-      "file_type": "code",
-      "norm_label": "sortchoicemodal()",
-      "source_file": "src/components/game/migsun/SortChoiceModal.tsx",
-      "source_location": "L9"
-    },
-    {
       "id": "backend_handlers_polly_handler",
       "label": "handler()",
       "_callable": true,
@@ -3941,160 +4023,52 @@
       "source_location": "L18"
     },
     {
+      "id": "src_components_items_mapitemcard_mapitemcard",
+      "label": "MapItemCard()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 72,
+      "community_name": "game.ts",
+      "file_type": "code",
+      "norm_label": "mapitemcard()",
+      "source_file": "src/components/items/MapItemCard.tsx",
+      "source_location": "L12"
+    },
+    {
+      "id": "src_components_items_mapitemgallerymodal_mapitemgallerymodal",
+      "label": "MapItemGalleryModal()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 72,
+      "community_name": "game.ts",
+      "file_type": "code",
+      "norm_label": "mapitemgallerymodal()",
+      "source_file": "src/components/items/MapItemGalleryModal.tsx",
+      "source_location": "L15"
+    },
+    {
+      "id": "src_components_teacher_teacherdashboard_teacherdashboard",
+      "label": "TeacherDashboard()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 72,
+      "community_name": "game.ts",
+      "file_type": "code",
+      "norm_label": "teacherdashboard()",
+      "source_file": "src/components/teacher/TeacherDashboard.tsx",
+      "source_location": "L8"
+    },
+    {
       "id": "src_data_quizzes_getitem",
       "label": "getItem()",
       "_callable": true,
       "_origin": "ast",
       "community": 72,
-      "community_name": "items.ts",
+      "community_name": "game.ts",
       "file_type": "code",
       "norm_label": "getitem()",
       "source_file": "src/data/quizzes.ts",
       "source_location": "L4"
-    },
-    {
-      "id": "src_services_audio_audioservice_ismusicon",
-      "label": ".isMusicOn()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 73,
-      "community_name": "music.ts",
-      "file_type": "code",
-      "norm_label": ".ismusicon()",
-      "source_file": "src/services/audio.ts",
-      "source_location": "L219"
-    },
-    {
-      "id": "src_services_music_ismusicplaying",
-      "label": "isMusicPlaying()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 73,
-      "community_name": "music.ts",
-      "file_type": "code",
-      "norm_label": "ismusicplaying()",
-      "source_file": "src/services/music.ts",
-      "source_location": "L95"
-    },
-    {
-      "id": "src_services_music_runscheduler",
-      "label": "runScheduler()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 73,
-      "community_name": "music.ts",
-      "file_type": "code",
-      "norm_label": "runscheduler()",
-      "source_file": "src/services/music.ts",
-      "source_location": "L63"
-    },
-    {
-      "id": "src_services_music_schedulebar",
-      "label": "scheduleBar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 73,
-      "community_name": "music.ts",
-      "file_type": "code",
-      "norm_label": "schedulebar()",
-      "source_file": "src/services/music.ts",
-      "source_location": "L28"
-    },
-    {
-      "id": "src_services_music_startmusicloop",
-      "label": "startMusicLoop()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 73,
-      "community_name": "music.ts",
-      "file_type": "code",
-      "norm_label": "startmusicloop()",
-      "source_file": "src/services/music.ts",
-      "source_location": "L71"
-    },
-    {
-      "id": "src_services_uiaudio_installglobaluiaudio",
-      "label": "installGlobalUiAudio()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 73,
-      "community_name": "music.ts",
-      "file_type": "code",
-      "norm_label": "installglobaluiaudio()",
-      "source_file": "src/services/uiAudio.ts",
-      "source_location": "L9"
-    },
-    {
-      "id": "src_hooks_usepersistentboolean_usepersistentboolean",
-      "label": "usePersistentBoolean()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 75,
-      "community_name": "usePersistentBoolean.ts",
-      "file_type": "code",
-      "norm_label": "usepersistentboolean()",
-      "source_file": "src/hooks/usePersistentBoolean.ts",
-      "source_location": "L10"
-    },
-    {
-      "id": "src_services_audio_audioservice_constructor",
-      "label": ".constructor()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 75,
-      "community_name": "usePersistentBoolean.ts",
-      "file_type": "code",
-      "norm_label": ".constructor()",
-      "source_file": "src/services/audio.ts",
-      "source_location": "L75"
-    },
-    {
-      "id": "src_services_audio_audioservice_setslowmode",
-      "label": ".setSlowMode()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 75,
-      "community_name": "usePersistentBoolean.ts",
-      "file_type": "code",
-      "norm_label": ".setslowmode()",
-      "source_file": "src/services/audio.ts",
-      "source_location": "L159"
-    },
-    {
-      "id": "src_services_audio_readstoredboolean",
-      "label": "readStoredBoolean()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 75,
-      "community_name": "usePersistentBoolean.ts",
-      "file_type": "code",
-      "norm_label": "readstoredboolean()",
-      "source_file": "src/services/audio.ts",
-      "source_location": "L14"
-    },
-    {
-      "id": "src_services_audio_readstorednumber",
-      "label": "readStoredNumber()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 75,
-      "community_name": "usePersistentBoolean.ts",
-      "file_type": "code",
-      "norm_label": "readstorednumber()",
-      "source_file": "src/services/audio.ts",
-      "source_location": "L34"
-    },
-    {
-      "id": "src_services_audio_writestoredboolean",
-      "label": "writeStoredBoolean()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 75,
-      "community_name": "usePersistentBoolean.ts",
-      "file_type": "code",
-      "norm_label": "writestoredboolean()",
-      "source_file": "src/services/audio.ts",
-      "source_location": "L25"
     },
     {
       "id": "src_components_game_missionresultsmodal_getrating",
@@ -4179,210 +4153,6 @@
       "norm_label": "disposeitemmesh()",
       "source_file": "src/components/world/items/createItemMesh.ts",
       "source_location": "L199"
-    },
-    {
-      "id": "src_components_world_items_mapiteminstance_mapiteminstance_collect",
-      "label": ".collect()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": ".collect()",
-      "source_file": "src/components/world/items/MapItemInstance.ts",
-      "source_location": "L196"
-    },
-    {
-      "id": "src_components_world_items_mapiteminstance_mapiteminstance_constructor",
-      "label": ".constructor()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": ".constructor()",
-      "source_file": "src/components/world/items/MapItemInstance.ts",
-      "source_location": "L29"
-    },
-    {
-      "id": "src_components_world_items_mapiteminstance_mapiteminstance_dispose",
-      "label": ".dispose()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": ".dispose()",
-      "source_file": "src/components/world/items/MapItemInstance.ts",
-      "source_location": "L221"
-    },
-    {
-      "id": "src_components_world_items_mapiteminstance_mapiteminstance_getstate",
-      "label": ".getState()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": ".getstate()",
-      "source_file": "src/components/world/items/MapItemInstance.ts",
-      "source_location": "L214"
-    },
-    {
-      "id": "src_components_world_items_mapiteminstance_mapiteminstance_respawn",
-      "label": ".respawn()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": ".respawn()",
-      "source_file": "src/components/world/items/MapItemInstance.ts",
-      "source_location": "L204"
-    },
-    {
-      "id": "src_components_world_items_mapiteminstance_mapiteminstance_setupplacementmode",
-      "label": ".setupPlacementMode()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": ".setupplacementmode()",
-      "source_file": "src/components/world/items/MapItemInstance.ts",
-      "source_location": "L72"
-    },
-    {
-      "id": "src_components_world_items_mapiteminstance_mapiteminstance_update",
-      "label": ".update()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": ".update()",
-      "source_file": "src/components/world/items/MapItemInstance.ts",
-      "source_location": "L123"
-    },
-    {
-      "id": "src_components_world_items_mapitemmanager_mapitemmanager_additem",
-      "label": ".addItem()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": ".additem()",
-      "source_file": "src/components/world/items/MapItemManager.ts",
-      "source_location": "L34"
-    },
-    {
-      "id": "src_components_world_items_mapitemmanager_mapitemmanager_collectitem",
-      "label": ".collectItem()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": ".collectitem()",
-      "source_file": "src/components/world/items/MapItemManager.ts",
-      "source_location": "L109"
-    },
-    {
-      "id": "src_components_world_items_mapitemmanager_mapitemmanager_constructor",
-      "label": ".constructor()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": ".constructor()",
-      "source_file": "src/components/world/items/MapItemManager.ts",
-      "source_location": "L21"
-    },
-    {
-      "id": "src_components_world_items_mapitemmanager_mapitemmanager_dispose",
-      "label": ".dispose()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": ".dispose()",
-      "source_file": "src/components/world/items/MapItemManager.ts",
-      "source_location": "L147"
-    },
-    {
-      "id": "src_components_world_items_mapitemmanager_mapitemmanager_getactiveitems",
-      "label": ".getActiveItems()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": ".getactiveitems()",
-      "source_file": "src/components/world/items/MapItemManager.ts",
-      "source_location": "L119"
-    },
-    {
-      "id": "src_components_world_items_mapitemmanager_mapitemmanager_getnearestitem",
-      "label": ".getNearestItem()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": ".getnearestitem()",
-      "source_file": "src/components/world/items/MapItemManager.ts",
-      "source_location": "L88"
-    },
-    {
-      "id": "src_components_world_items_mapitemmanager_mapitemmanager_getstats",
-      "label": ".getStats()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": ".getstats()",
-      "source_file": "src/components/world/items/MapItemManager.ts",
-      "source_location": "L132"
-    },
-    {
-      "id": "src_components_world_items_mapitemmanager_mapitemmanager_removeitem",
-      "label": ".removeItem()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": ".removeitem()",
-      "source_file": "src/components/world/items/MapItemManager.ts",
-      "source_location": "L66"
-    },
-    {
-      "id": "src_components_world_items_mapitemmanager_mapitemmanager_spawnpresetcityitems",
-      "label": ".spawnPresetCityItems()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": ".spawnpresetcityitems()",
-      "source_file": "src/components/world/items/MapItemManager.ts",
-      "source_location": "L56"
-    },
-    {
-      "id": "src_components_world_items_mapitemmanager_mapitemmanager_update",
-      "label": ".update()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": ".update()",
-      "source_file": "src/components/world/items/MapItemManager.ts",
-      "source_location": "L79"
     },
     {
       "id": "src_components_world_items_models_bananapeel3d_createbananapeel3d",
@@ -4685,16 +4455,172 @@
       "source_location": "L11"
     },
     {
-      "id": "src_services_spawner_adaptivespawner_constructor",
-      "label": ".constructor()",
+      "id": "src_components_world_litterscatter_createlitterscatter",
+      "label": "createLitterScatter()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "createItemMesh.ts",
+      "file_type": "code",
+      "norm_label": "createlitterscatter()",
+      "source_file": "src/components/world/litterScatter.ts",
+      "source_location": "L59"
+    },
+    {
+      "id": "src_components_world_litterscatter_createlitterscatter_dispose",
+      "label": "dispose()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "createItemMesh.ts",
+      "file_type": "code",
+      "norm_label": "dispose()",
+      "source_file": "src/components/world/litterScatter.ts",
+      "source_location": "L270"
+    },
+    {
+      "id": "src_components_world_litterscatter_createlitterscatter_droptoground",
+      "label": "dropToGround()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "createItemMesh.ts",
+      "file_type": "code",
+      "norm_label": "droptoground()",
+      "source_file": "src/components/world/litterScatter.ts",
+      "source_location": "L240"
+    },
+    {
+      "id": "src_components_world_litterscatter_createlitterscatter_getcollectedcount",
+      "label": "getCollectedCount()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "createItemMesh.ts",
+      "file_type": "code",
+      "norm_label": "getcollectedcount()",
+      "source_file": "src/components/world/litterScatter.ts",
+      "source_location": "L266"
+    },
+    {
+      "id": "src_components_world_litterscatter_createlitterscatter_gethelditem",
+      "label": "getHeldItem()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "createItemMesh.ts",
+      "file_type": "code",
+      "norm_label": "gethelditem()",
+      "source_file": "src/components/world/litterScatter.ts",
+      "source_location": "L258"
+    },
+    {
+      "id": "src_components_world_litterscatter_createlitterscatter_getnearestpickupitem",
+      "label": "getNearestPickupItem()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "createItemMesh.ts",
+      "file_type": "code",
+      "norm_label": "getnearestpickupitem()",
+      "source_file": "src/components/world/litterScatter.ts",
+      "source_location": "L205"
+    },
+    {
+      "id": "src_components_world_litterscatter_createlitterscatter_getremainingcount",
+      "label": "getRemainingCount()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "createItemMesh.ts",
+      "file_type": "code",
+      "norm_label": "getremainingcount()",
+      "source_file": "src/components/world/litterScatter.ts",
+      "source_location": "L262"
+    },
+    {
+      "id": "src_components_world_litterscatter_createlitterscatter_markinbin",
+      "label": "markInBin()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "createItemMesh.ts",
+      "file_type": "code",
+      "norm_label": "markinbin()",
+      "source_file": "src/components/world/litterScatter.ts",
+      "source_location": "L249"
+    },
+    {
+      "id": "src_components_world_litterscatter_createlitterscatter_pickup",
+      "label": "pickUp()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "createItemMesh.ts",
+      "file_type": "code",
+      "norm_label": "pickup()",
+      "source_file": "src/components/world/litterScatter.ts",
+      "source_location": "L220"
+    },
+    {
+      "id": "src_components_world_litterscatter_createlitterscatter_placeitem",
+      "label": "placeItem()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "createItemMesh.ts",
+      "file_type": "code",
+      "norm_label": "placeitem()",
+      "source_file": "src/components/world/litterScatter.ts",
+      "source_location": "L74"
+    },
+    {
+      "id": "src_components_world_litterscatter_createlitterscatter_update",
+      "label": "update()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "createItemMesh.ts",
+      "file_type": "code",
+      "norm_label": "update()",
+      "source_file": "src/components/world/litterScatter.ts",
+      "source_location": "L163"
+    },
+    {
+      "id": "src_components_world_litterscatter_shuffle",
+      "label": "shuffle()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "createItemMesh.ts",
+      "file_type": "code",
+      "norm_label": "shuffle()",
+      "source_file": "src/components/world/litterScatter.ts",
+      "source_location": "L40"
+    },
+    {
+      "id": "tests_societyscenelayout_test_disttorow",
+      "label": "distToRow()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "createItemMesh.ts",
+      "file_type": "code",
+      "norm_label": "disttorow()",
+      "source_file": "tests/societySceneLayout.test.ts",
+      "source_location": "L31"
+    },
+    {
+      "id": "src_worlds_society_phases_phase1_phase1controller_phase1controller",
+      "label": "Phase1Controller()",
       "_callable": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "BinType",
+      "community_name": "Phase1Controller.tsx",
       "file_type": "code",
-      "norm_label": ".constructor()",
-      "source_file": "src/services/spawner.ts",
-      "source_location": "L12"
+      "norm_label": "phase1controller()",
+      "source_file": "src/worlds/society/phases/phase1/Phase1Controller.tsx",
+      "source_location": "L32"
     },
     {
       "id": "package_devdependencies",
@@ -5130,7 +5056,7 @@
       "label": "BinLocationChoice.tsx",
       "_origin": "ast",
       "community": 10,
-      "community_name": "migsunData.ts",
+      "community_name": "BinType",
       "file_type": "code",
       "norm_label": "binlocationchoice.tsx",
       "source_file": "src/components/game/migsun/BinLocationChoice.tsx",
@@ -5141,10 +5067,21 @@
       "label": "CharacterIntroOverlay.tsx",
       "_origin": "ast",
       "community": 10,
-      "community_name": "migsunData.ts",
+      "community_name": "BinType",
       "file_type": "code",
       "norm_label": "characterintrooverlay.tsx",
       "source_file": "src/components/game/migsun/CharacterIntroOverlay.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_game_migsun_dustbincardoverlay",
+      "label": "DustbinCardOverlay.tsx",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "dustbincardoverlay.tsx",
+      "source_file": "src/components/game/migsun/DustbinCardOverlay.tsx",
       "source_location": "L1"
     },
     {
@@ -5152,10 +5089,54 @@
       "label": "EcoLensScanOverlay.tsx",
       "_origin": "ast",
       "community": 10,
-      "community_name": "migsunData.ts",
+      "community_name": "BinType",
       "file_type": "code",
       "norm_label": "ecolensscanoverlay.tsx",
       "source_file": "src/components/game/migsun/EcoLensScanOverlay.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_game_migsun_healthdashboard",
+      "label": "HealthDashboard.tsx",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "healthdashboard.tsx",
+      "source_file": "src/components/game/migsun/HealthDashboard.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_game_migsun_migsungamecontroller",
+      "label": "MigsunGameController.tsx",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "migsungamecontroller.tsx",
+      "source_file": "src/components/game/migsun/MigsunGameController.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_game_migsun_missionselectpanel",
+      "label": "MissionSelectPanel.tsx",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "missionselectpanel.tsx",
+      "source_file": "src/components/game/migsun/MissionSelectPanel.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_game_migsun_sortchoicemodal",
+      "label": "SortChoiceModal.tsx",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "sortchoicemodal.tsx",
+      "source_file": "src/components/game/migsun/SortChoiceModal.tsx",
       "source_location": "L1"
     },
     {
@@ -5163,7 +5144,7 @@
       "label": "migsunData.ts",
       "_origin": "ast",
       "community": 10,
-      "community_name": "migsunData.ts",
+      "community_name": "BinType",
       "file_type": "code",
       "norm_label": "migsundata.ts",
       "source_file": "src/data/migsunData.ts",
@@ -5174,7 +5155,7 @@
       "label": "BIN_INSTALL_LOCATIONS",
       "_origin": "ast",
       "community": 10,
-      "community_name": "migsunData.ts",
+      "community_name": "BinType",
       "file_type": "code",
       "norm_label": "bin_install_locations",
       "source_file": "src/data/migsunData.ts",
@@ -5185,7 +5166,7 @@
       "label": "DUSTBIN_CARDS",
       "_origin": "ast",
       "community": 10,
-      "community_name": "migsunData.ts",
+      "community_name": "BinType",
       "file_type": "code",
       "norm_label": "dustbin_cards",
       "source_file": "src/data/migsunData.ts",
@@ -5196,7 +5177,7 @@
       "label": "ECO_SCAN_TARGETS",
       "_origin": "ast",
       "community": 10,
-      "community_name": "migsunData.ts",
+      "community_name": "BinType",
       "file_type": "code",
       "norm_label": "eco_scan_targets",
       "source_file": "src/data/migsunData.ts",
@@ -5207,7 +5188,7 @@
       "label": "MIGSUN_HINT",
       "_origin": "ast",
       "community": 10,
-      "community_name": "migsunData.ts",
+      "community_name": "BinType",
       "file_type": "code",
       "norm_label": "migsun_hint",
       "source_file": "src/data/migsunData.ts",
@@ -5218,7 +5199,7 @@
       "label": "MIGSUN_INTRO_DIALOGUE",
       "_origin": "ast",
       "community": 10,
-      "community_name": "migsunData.ts",
+      "community_name": "BinType",
       "file_type": "code",
       "norm_label": "migsun_intro_dialogue",
       "source_file": "src/data/migsunData.ts",
@@ -5229,7 +5210,7 @@
       "label": "MIGSUN_LEVEL_TITLE",
       "_origin": "ast",
       "community": 10,
-      "community_name": "migsunData.ts",
+      "community_name": "BinType",
       "file_type": "code",
       "norm_label": "migsun_level_title",
       "source_file": "src/data/migsunData.ts",
@@ -5240,7 +5221,7 @@
       "label": "MIGSUN_OBJECTIVE",
       "_origin": "ast",
       "community": 10,
-      "community_name": "migsunData.ts",
+      "community_name": "BinType",
       "file_type": "code",
       "norm_label": "migsun_objective",
       "source_file": "src/data/migsunData.ts",
@@ -5251,11 +5232,179 @@
       "label": "RESIDENT_QUESTIONS",
       "_origin": "ast",
       "community": 10,
-      "community_name": "migsunData.ts",
+      "community_name": "BinType",
       "file_type": "code",
       "norm_label": "resident_questions",
       "source_file": "src/data/migsunData.ts",
       "source_location": "L292"
+    },
+    {
+      "id": "src_hooks_usepersistentboolean",
+      "label": "usePersistentBoolean.ts",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "usepersistentboolean.ts",
+      "source_file": "src/hooks/usePersistentBoolean.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_main",
+      "label": "main.tsx",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "main.tsx",
+      "source_file": "src/main.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_services_audio",
+      "label": "audio.ts",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "audio.ts",
+      "source_file": "src/services/audio.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_services_audio_audio",
+      "label": "audio",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "audio",
+      "source_file": "src/services/audio.ts",
+      "source_location": "L938"
+    },
+    {
+      "id": "src_services_music",
+      "label": "music.ts",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "music.ts",
+      "source_file": "src/services/music.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_services_music_bar_duration_seconds",
+      "label": "BAR_DURATION_SECONDS",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "bar_duration_seconds",
+      "source_file": "src/services/music.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "src_services_music_chord_progression",
+      "label": "CHORD_PROGRESSION",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "chord_progression",
+      "source_file": "src/services/music.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "src_services_music_melody_patterns",
+      "label": "MELODY_PATTERNS",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "melody_patterns",
+      "source_file": "src/services/music.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "src_services_uiaudio",
+      "label": "uiAudio.ts",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "uiaudio.ts",
+      "source_file": "src/services/uiAudio.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "tests_audio_polly_test",
+      "label": "audio-polly.test.ts",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "audio-polly.test.ts",
+      "source_file": "tests/audio-polly.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "tests_audio_test",
+      "label": "audio.test.ts",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "code",
+      "norm_label": "audio.test.ts",
+      "source_file": "tests/audio.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "ref_react_dom",
+      "label": "react-dom",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "concept",
+      "norm_label": "react-dom",
+      "source_file": "package.json",
+      "source_location": "L23"
+    },
+    {
+      "id": "migsun_vilasa_plan_4_file_change_summary",
+      "label": "4. File Change Summary",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "4. file change summary",
+      "source_file": "MIGSUN_VILASA_PLAN.md",
+      "source_location": "L647"
+    },
+    {
+      "id": "migsun_vilasa_plan_modified_files_6",
+      "label": "Modified Files (6)",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "modified files (6)",
+      "source_file": "MIGSUN_VILASA_PLAN.md",
+      "source_location": "L666"
+    },
+    {
+      "id": "migsun_vilasa_plan_new_files_12",
+      "label": "New Files (12)",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "BinType",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "new files (12)",
+      "source_file": "MIGSUN_VILASA_PLAN.md",
+      "source_location": "L649"
     },
     {
       "id": "tsconfig_node",
@@ -5432,17 +5581,6 @@
       "norm_label": "autoprefixer",
       "source_file": "package.json",
       "source_location": "L32"
-    },
-    {
-      "id": "ref_canvas_confetti",
-      "label": "canvas-confetti",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "package.json",
-      "file_type": "concept",
-      "norm_label": "canvas-confetti",
-      "source_file": "package.json",
-      "source_location": "L20"
     },
     {
       "id": "ref_jsdom",
@@ -6516,6 +6654,39 @@
       "source_location": "L1"
     },
     {
+      "id": "src_worlds_society_phases_phase2_phase2controller",
+      "label": "Phase2Controller.tsx",
+      "_origin": "ast",
+      "community": 35,
+      "community_name": "worlds/types.ts",
+      "file_type": "code",
+      "norm_label": "phase2controller.tsx",
+      "source_file": "src/worlds/society/phases/phase2/Phase2Controller.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_worlds_society_phases_phase2_phase2controller_bin_cards",
+      "label": "BIN_CARDS",
+      "_origin": "ast",
+      "community": 35,
+      "community_name": "worlds/types.ts",
+      "file_type": "code",
+      "norm_label": "bin_cards",
+      "source_file": "src/worlds/society/phases/phase2/Phase2Controller.tsx",
+      "source_location": "L29"
+    },
+    {
+      "id": "src_worlds_society_phases_phase2_types",
+      "label": "phase2/types.ts",
+      "_origin": "ast",
+      "community": 35,
+      "community_name": "worlds/types.ts",
+      "file_type": "code",
+      "norm_label": "phase2/types.ts",
+      "source_file": "src/worlds/society/phases/phase2/types.ts",
+      "source_location": "L1"
+    },
+    {
       "id": "src_worlds_types",
       "label": "worlds/types.ts",
       "_origin": "ast",
@@ -7059,28 +7230,6 @@
       "norm_label": "joystick_dead_zone",
       "source_file": "src/components/world/locomotion.ts",
       "source_location": "L20"
-    },
-    {
-      "id": "src_systems_ecolens",
-      "label": "ecoLens.ts",
-      "_origin": "ast",
-      "community": 37,
-      "community_name": "react",
-      "file_type": "code",
-      "norm_label": "ecolens.ts",
-      "source_file": "src/systems/ecoLens.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_systems_ecolens_initial_eco_lens_state",
-      "label": "INITIAL_ECO_LENS_STATE",
-      "_origin": "ast",
-      "community": 37,
-      "community_name": "react",
-      "file_type": "code",
-      "norm_label": "initial_eco_lens_state",
-      "source_file": "src/systems/ecoLens.ts",
-      "source_location": "L14"
     },
     {
       "id": "tests_meadowshud_test",
@@ -8037,6 +8186,39 @@
       "source_location": "L1"
     },
     {
+      "id": "src_hooks_usemobileinput",
+      "label": "useMobileInput.ts",
+      "_origin": "ast",
+      "community": 41,
+      "community_name": "WorldPage.tsx",
+      "file_type": "code",
+      "norm_label": "usemobileinput.ts",
+      "source_file": "src/hooks/useMobileInput.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_systems_ecolens",
+      "label": "ecoLens.ts",
+      "_origin": "ast",
+      "community": 41,
+      "community_name": "WorldPage.tsx",
+      "file_type": "code",
+      "norm_label": "ecolens.ts",
+      "source_file": "src/systems/ecoLens.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_systems_ecolens_initial_eco_lens_state",
+      "label": "INITIAL_ECO_LENS_STATE",
+      "_origin": "ast",
+      "community": 41,
+      "community_name": "WorldPage.tsx",
+      "file_type": "code",
+      "norm_label": "initial_eco_lens_state",
+      "source_file": "src/systems/ecoLens.ts",
+      "source_location": "L14"
+    },
+    {
       "id": "tests_worldpage_test",
       "label": "worldPage.test.ts",
       "_origin": "ast",
@@ -8092,91 +8274,91 @@
       "source_location": "L1"
     },
     {
+      "id": "tests_kaiglb_test",
+      "label": "kaiGlb.test.ts",
+      "_origin": "ast",
+      "community": 43,
+      "community_name": "vitest",
+      "file_type": "code",
+      "norm_label": "kaiglb.test.ts",
+      "source_file": "tests/kaiGlb.test.ts",
+      "source_location": "L1"
+    },
+    {
       "id": "tests_locomotion_test",
       "label": "locomotion.test.ts",
       "_origin": "ast",
       "community": 43,
-      "community_name": "locomotion.test.ts",
+      "community_name": "vitest",
       "file_type": "code",
       "norm_label": "locomotion.test.ts",
       "source_file": "tests/locomotion.test.ts",
       "source_location": "L1"
     },
     {
-      "id": "src_components_game_meadows_meadowsintrooverlay",
-      "label": "MeadowsIntroOverlay.tsx",
+      "id": "vitest_config",
+      "label": "vitest.config.ts",
       "_origin": "ast",
-      "community": 44,
-      "community_name": "audio.ts",
+      "community": 43,
+      "community_name": "vitest",
       "file_type": "code",
-      "norm_label": "meadowsintrooverlay.tsx",
-      "source_file": "src/components/game/meadows/MeadowsIntroOverlay.tsx",
+      "norm_label": "vitest.config.ts",
+      "source_file": "vitest.config.ts",
       "source_location": "L1"
     },
     {
-      "id": "src_components_game_meadows_meadowsintrooverlay_meadows_intro_steps",
-      "label": "MEADOWS_INTRO_STEPS",
+      "id": "ref_vitejs_plugin_react",
+      "label": "@vitejs/plugin-react",
+      "_origin": "ast",
+      "community": 43,
+      "community_name": "vitest",
+      "file_type": "concept",
+      "norm_label": "@vitejs/plugin-react",
+      "source_file": "package.json",
+      "source_location": "L31"
+    },
+    {
+      "id": "ref_vitest",
+      "label": "vitest",
+      "_origin": "ast",
+      "community": 43,
+      "community_name": "vitest",
+      "file_type": "concept",
+      "norm_label": "vitest",
+      "source_file": "package.json",
+      "source_location": "L38"
+    },
+    {
+      "id": "src_components_world_items_defaultmapplacements",
+      "label": "defaultMapPlacements.ts",
       "_origin": "ast",
       "community": 44,
-      "community_name": "audio.ts",
+      "community_name": "MapItemInstance",
       "file_type": "code",
-      "norm_label": "meadows_intro_steps",
-      "source_file": "src/components/game/meadows/MeadowsIntroOverlay.tsx",
+      "norm_label": "defaultmapplacements.ts",
+      "source_file": "src/components/world/items/defaultMapPlacements.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_world_items_defaultmapplacements_default_map_item_placements",
+      "label": "DEFAULT_MAP_ITEM_PLACEMENTS",
+      "_origin": "ast",
+      "community": 44,
+      "community_name": "MapItemInstance",
+      "file_type": "code",
+      "norm_label": "default_map_item_placements",
+      "source_file": "src/components/world/items/defaultMapPlacements.ts",
       "source_location": "L9"
     },
     {
-      "id": "src_components_game_meadows_meadowsphonemodal",
-      "label": "MeadowsPhoneModal.tsx",
+      "id": "src_components_world_items_mapitemmanager",
+      "label": "MapItemManager.ts",
       "_origin": "ast",
       "community": 44,
-      "community_name": "audio.ts",
+      "community_name": "MapItemInstance",
       "file_type": "code",
-      "norm_label": "meadowsphonemodal.tsx",
-      "source_file": "src/components/game/meadows/MeadowsPhoneModal.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_components_game_migsun_healthdashboard",
-      "label": "HealthDashboard.tsx",
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "audio.ts",
-      "file_type": "code",
-      "norm_label": "healthdashboard.tsx",
-      "source_file": "src/components/game/migsun/HealthDashboard.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_services_audio",
-      "label": "audio.ts",
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "audio.ts",
-      "file_type": "code",
-      "norm_label": "audio.ts",
-      "source_file": "src/services/audio.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_services_audio_audio",
-      "label": "audio",
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "audio.ts",
-      "file_type": "code",
-      "norm_label": "audio",
-      "source_file": "src/services/audio.ts",
-      "source_location": "L985"
-    },
-    {
-      "id": "tests_audio_polly_test",
-      "label": "audio-polly.test.ts",
-      "_origin": "ast",
-      "community": 44,
-      "community_name": "audio.ts",
-      "file_type": "code",
-      "norm_label": "audio-polly.test.ts",
-      "source_file": "tests/audio-polly.test.ts",
+      "norm_label": "mapitemmanager.ts",
+      "source_file": "src/components/world/items/MapItemManager.ts",
       "source_location": "L1"
     },
     {
@@ -8364,87 +8546,21 @@
       "label": "LevelEndModal.tsx",
       "_origin": "ast",
       "community": 46,
-      "community_name": "game.ts",
+      "community_name": "ItemData",
       "file_type": "code",
       "norm_label": "levelendmodal.tsx",
       "source_file": "src/components/game/LevelEndModal.tsx",
       "source_location": "L1"
     },
     {
-      "id": "src_components_game_quizmodal",
-      "label": "QuizModal.tsx",
-      "_origin": "ast",
-      "community": 46,
-      "community_name": "game.ts",
-      "file_type": "code",
-      "norm_label": "quizmodal.tsx",
-      "source_file": "src/components/game/QuizModal.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_components_items_mapitemcard",
-      "label": "MapItemCard.tsx",
-      "_origin": "ast",
-      "community": 46,
-      "community_name": "game.ts",
-      "file_type": "code",
-      "norm_label": "mapitemcard.tsx",
-      "source_file": "src/components/items/MapItemCard.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_components_items_mapitemgallerymodal",
-      "label": "MapItemGalleryModal.tsx",
-      "_origin": "ast",
-      "community": 46,
-      "community_name": "game.ts",
-      "file_type": "code",
-      "norm_label": "mapitemgallerymodal.tsx",
-      "source_file": "src/components/items/MapItemGalleryModal.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_data_bins",
-      "label": "bins.ts",
-      "_origin": "ast",
-      "community": 46,
-      "community_name": "game.ts",
-      "file_type": "code",
-      "norm_label": "bins.ts",
-      "source_file": "src/data/bins.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_data_bins_all_bins",
-      "label": "ALL_BINS",
-      "_origin": "ast",
-      "community": 46,
-      "community_name": "game.ts",
-      "file_type": "code",
-      "norm_label": "all_bins",
-      "source_file": "src/data/bins.ts",
-      "source_location": "L3"
-    },
-    {
       "id": "src_services_spawner",
       "label": "spawner.ts",
       "_origin": "ast",
       "community": 46,
-      "community_name": "game.ts",
+      "community_name": "ItemData",
       "file_type": "code",
       "norm_label": "spawner.ts",
       "source_file": "src/services/spawner.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_types_game",
-      "label": "game.ts",
-      "_origin": "ast",
-      "community": 46,
-      "community_name": "game.ts",
-      "file_type": "code",
-      "norm_label": "game.ts",
-      "source_file": "src/types/game.ts",
       "source_location": "L1"
     },
     {
@@ -8452,11 +8568,22 @@
       "label": "spawner.test.ts",
       "_origin": "ast",
       "community": 46,
-      "community_name": "game.ts",
+      "community_name": "ItemData",
       "file_type": "code",
       "norm_label": "spawner.test.ts",
       "source_file": "tests/spawner.test.ts",
       "source_location": "L1"
+    },
+    {
+      "id": "ref_canvas_confetti",
+      "label": "canvas-confetti",
+      "_origin": "ast",
+      "community": 46,
+      "community_name": "ItemData",
+      "file_type": "concept",
+      "norm_label": "canvas-confetti",
+      "source_file": "package.json",
+      "source_location": "L20"
     },
     {
       "id": "src_worlds_society_index",
@@ -8813,63 +8940,14 @@
       "source_location": "L1"
     },
     {
-      "id": "docs_agents_reuse_inventory",
-      "label": "REUSE_INVENTORY.md",
+      "id": "src_components_game_energymeterhud",
+      "label": "EnergyMeterHUD.tsx",
       "_origin": "ast",
       "community": 51,
-      "community_name": "Level 1 (Migsun Vilasa) Component Reuse Inventory",
-      "file_type": "document",
-      "node_kind": "page",
-      "norm_label": "reuse_inventory.md",
-      "source_file": "docs/agents/REUSE_INVENTORY.md",
-      "source_location": "L1"
-    },
-    {
-      "id": "docs_agents_reuse_inventory_1_executive_summary",
-      "label": "1. Executive Summary",
-      "_origin": "ast",
-      "community": 51,
-      "community_name": "Level 1 (Migsun Vilasa) Component Reuse Inventory",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "1. executive summary",
-      "source_file": "docs/agents/REUSE_INVENTORY.md",
-      "source_location": "L10"
-    },
-    {
-      "id": "docs_agents_reuse_inventory_2_component_verification_reuse_matrix",
-      "label": "2. Component Verification & Reuse Matrix",
-      "_origin": "ast",
-      "community": 51,
-      "community_name": "Level 1 (Migsun Vilasa) Component Reuse Inventory",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "2. component verification & reuse matrix",
-      "source_file": "docs/agents/REUSE_INVENTORY.md",
-      "source_location": "L16"
-    },
-    {
-      "id": "docs_agents_reuse_inventory_3_architecture_constraints_conventions",
-      "label": "3. Architecture Constraints & Conventions",
-      "_origin": "ast",
-      "community": 51,
-      "community_name": "Level 1 (Migsun Vilasa) Component Reuse Inventory",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "3. architecture constraints & conventions",
-      "source_file": "docs/agents/REUSE_INVENTORY.md",
-      "source_location": "L44"
-    },
-    {
-      "id": "docs_agents_reuse_inventory_level_1_migsun_vilasa_component_reuse_inventory",
-      "label": "Level 1 (Migsun Vilasa) Component Reuse Inventory",
-      "_origin": "ast",
-      "community": 51,
-      "community_name": "Level 1 (Migsun Vilasa) Component Reuse Inventory",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "level 1 (migsun vilasa) component reuse inventory",
-      "source_file": "docs/agents/REUSE_INVENTORY.md",
+      "community_name": "EnergyMeterHUD.tsx",
+      "file_type": "code",
+      "norm_label": "energymeterhud.tsx",
+      "source_file": "src/components/game/EnergyMeterHUD.tsx",
       "source_location": "L1"
     },
     {
@@ -8877,7 +8955,7 @@
       "label": "AvatarSelectModal.tsx",
       "_origin": "ast",
       "community": 52,
-      "community_name": "lucide-react",
+      "community_name": "MascotDialogue.tsx",
       "file_type": "code",
       "norm_label": "avatarselectmodal.tsx",
       "source_file": "src/components/game/AvatarSelectModal.tsx",
@@ -8888,43 +8966,21 @@
       "label": "AVATARS",
       "_origin": "ast",
       "community": 52,
-      "community_name": "lucide-react",
+      "community_name": "MascotDialogue.tsx",
       "file_type": "code",
       "norm_label": "avatars",
       "source_file": "src/components/game/AvatarSelectModal.tsx",
       "source_location": "L11"
     },
     {
-      "id": "src_components_game_energymeterhud",
-      "label": "EnergyMeterHUD.tsx",
-      "_origin": "ast",
-      "community": 52,
-      "community_name": "lucide-react",
-      "file_type": "code",
-      "norm_label": "energymeterhud.tsx",
-      "source_file": "src/components/game/EnergyMeterHUD.tsx",
-      "source_location": "L1"
-    },
-    {
       "id": "src_components_game_mascotdialogue",
       "label": "MascotDialogue.tsx",
       "_origin": "ast",
       "community": 52,
-      "community_name": "lucide-react",
+      "community_name": "MascotDialogue.tsx",
       "file_type": "code",
       "norm_label": "mascotdialogue.tsx",
       "source_file": "src/components/game/MascotDialogue.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_components_teacher_teacherdashboard",
-      "label": "TeacherDashboard.tsx",
-      "_origin": "ast",
-      "community": 52,
-      "community_name": "lucide-react",
-      "file_type": "code",
-      "norm_label": "teacherdashboard.tsx",
-      "source_file": "src/components/teacher/TeacherDashboard.tsx",
       "source_location": "L1"
     },
     {
@@ -8932,7 +8988,7 @@
       "label": "api.ts",
       "_origin": "ast",
       "community": 52,
-      "community_name": "lucide-react",
+      "community_name": "MascotDialogue.tsx",
       "file_type": "code",
       "norm_label": "api.ts",
       "source_file": "src/services/api.ts",
@@ -8943,7 +8999,7 @@
       "label": "apiService",
       "_origin": "ast",
       "community": 52,
-      "community_name": "lucide-react",
+      "community_name": "MascotDialogue.tsx",
       "file_type": "code",
       "norm_label": "apiservice",
       "source_file": "src/services/api.ts",
@@ -8954,22 +9010,11 @@
       "label": "api.test.ts",
       "_origin": "ast",
       "community": 52,
-      "community_name": "lucide-react",
+      "community_name": "MascotDialogue.tsx",
       "file_type": "code",
       "norm_label": "api.test.ts",
       "source_file": "tests/api.test.ts",
       "source_location": "L1"
-    },
-    {
-      "id": "ref_lucide_react",
-      "label": "lucide-react",
-      "_origin": "ast",
-      "community": 52,
-      "community_name": "lucide-react",
-      "file_type": "concept",
-      "norm_label": "lucide-react",
-      "source_file": "package.json",
-      "source_location": "L21"
     },
     {
       "id": "backend_handlers_ask_eco",
@@ -9038,17 +9083,6 @@
       "source_location": "L1"
     },
     {
-      "id": "vitest_config",
-      "label": "vitest.config.ts",
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "vite.config.ts",
-      "file_type": "code",
-      "norm_label": "vitest.config.ts",
-      "source_file": "vitest.config.ts",
-      "source_location": "L1"
-    },
-    {
       "id": "ref_vite",
       "label": "vite",
       "_origin": "ast",
@@ -9060,17 +9094,6 @@
       "source_location": "L37"
     },
     {
-      "id": "ref_vitejs_plugin_react",
-      "label": "@vitejs/plugin-react",
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "vite.config.ts",
-      "file_type": "concept",
-      "norm_label": "@vitejs/plugin-react",
-      "source_file": "package.json",
-      "source_location": "L31"
-    },
-    {
       "id": "src_app",
       "label": "App.tsx",
       "_origin": "ast",
@@ -9080,17 +9103,6 @@
       "norm_label": "app.tsx",
       "source_file": "src/App.tsx",
       "source_location": "L1"
-    },
-    {
-      "id": "src_app_societyworld",
-      "label": "SocietyWorld",
-      "_origin": "ast",
-      "community": 55,
-      "community_name": "App.tsx",
-      "file_type": "code",
-      "norm_label": "societyworld",
-      "source_file": "src/App.tsx",
-      "source_location": "L13"
     },
     {
       "id": "src_app_teacherdashboard",
@@ -9134,7 +9146,7 @@
       "file_type": "code",
       "norm_label": "hero_adventures",
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L31"
+      "source_location": "L30"
     },
     {
       "id": "src_components_landingpage_tagline_words",
@@ -9145,7 +9157,7 @@
       "file_type": "code",
       "norm_label": "tagline_words",
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L70"
+      "source_location": "L69"
     },
     {
       "id": "src_components_navbar",
@@ -9168,28 +9180,6 @@
       "norm_label": "nav_links",
       "source_file": "src/components/Navbar.tsx",
       "source_location": "L9"
-    },
-    {
-      "id": "src_main",
-      "label": "main.tsx",
-      "_origin": "ast",
-      "community": 55,
-      "community_name": "App.tsx",
-      "file_type": "code",
-      "norm_label": "main.tsx",
-      "source_file": "src/main.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "ref_react_dom",
-      "label": "react-dom",
-      "_origin": "ast",
-      "community": 55,
-      "community_name": "App.tsx",
-      "file_type": "concept",
-      "norm_label": "react-dom",
-      "source_file": "package.json",
-      "source_location": "L23"
     },
     {
       "id": "docs_agents_status_agent_0",
@@ -9260,17 +9250,6 @@
       "norm_label": "level_stations",
       "source_file": "src/components/world/levelStations.ts",
       "source_location": "L4"
-    },
-    {
-      "id": "src_components_world_litterscatter",
-      "label": "litterScatter.ts",
-      "_origin": "ast",
-      "community": 57,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "litterscatter.ts",
-      "source_file": "src/components/world/litterScatter.ts",
-      "source_location": "L1"
     },
     {
       "id": "src_components_world_locomotion",
@@ -9405,17 +9384,6 @@
       "source_location": "L1"
     },
     {
-      "id": "src_hooks_usemobileinput",
-      "label": "useMobileInput.ts",
-      "_origin": "ast",
-      "community": 57,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "usemobileinput.ts",
-      "source_file": "src/hooks/useMobileInput.ts",
-      "source_location": "L1"
-    },
-    {
       "id": "tests_societyscene_test",
       "label": "societyScene.test.ts",
       "_origin": "ast",
@@ -9436,28 +9404,6 @@
       "norm_label": "society_spawn",
       "source_file": "tests/societyScene.test.ts",
       "source_location": "L6"
-    },
-    {
-      "id": "tests_societyscenelayout_test",
-      "label": "societySceneLayout.test.ts",
-      "_origin": "ast",
-      "community": 57,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "societyscenelayout.test.ts",
-      "source_file": "tests/societySceneLayout.test.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "tests_societyscenelayout_test_bounds",
-      "label": "BOUNDS",
-      "_origin": "ast",
-      "community": 57,
-      "community_name": "WorldCanvas.tsx",
-      "file_type": "code",
-      "norm_label": "bounds",
-      "source_file": "tests/societySceneLayout.test.ts",
-      "source_location": "L29"
     },
     {
       "id": "tests_touchinput_test",
@@ -9490,6 +9436,66 @@
       "file_type": "code",
       "norm_label": "typingguard.test.ts",
       "source_file": "tests/typingGuard.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "docs_agents_reuse_inventory",
+      "label": "REUSE_INVENTORY.md",
+      "_origin": "ast",
+      "community": 57,
+      "community_name": "WorldCanvas.tsx",
+      "file_type": "document",
+      "node_kind": "page",
+      "norm_label": "reuse_inventory.md",
+      "source_file": "docs/agents/REUSE_INVENTORY.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "docs_agents_reuse_inventory_1_executive_summary",
+      "label": "1. Executive Summary",
+      "_origin": "ast",
+      "community": 57,
+      "community_name": "WorldCanvas.tsx",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "1. executive summary",
+      "source_file": "docs/agents/REUSE_INVENTORY.md",
+      "source_location": "L10"
+    },
+    {
+      "id": "docs_agents_reuse_inventory_2_component_verification_reuse_matrix",
+      "label": "2. Component Verification & Reuse Matrix",
+      "_origin": "ast",
+      "community": 57,
+      "community_name": "WorldCanvas.tsx",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "2. component verification & reuse matrix",
+      "source_file": "docs/agents/REUSE_INVENTORY.md",
+      "source_location": "L16"
+    },
+    {
+      "id": "docs_agents_reuse_inventory_3_architecture_constraints_conventions",
+      "label": "3. Architecture Constraints & Conventions",
+      "_origin": "ast",
+      "community": 57,
+      "community_name": "WorldCanvas.tsx",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "3. architecture constraints & conventions",
+      "source_file": "docs/agents/REUSE_INVENTORY.md",
+      "source_location": "L44"
+    },
+    {
+      "id": "docs_agents_reuse_inventory_level_1_migsun_vilasa_component_reuse_inventory",
+      "label": "Level 1 (Migsun Vilasa) Component Reuse Inventory",
+      "_origin": "ast",
+      "community": 57,
+      "community_name": "WorldCanvas.tsx",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "level 1 (migsun vilasa) component reuse inventory",
+      "source_file": "docs/agents/REUSE_INVENTORY.md",
       "source_location": "L1"
     },
     {
@@ -9961,75 +9967,6 @@
       "source_location": "L1"
     },
     {
-      "id": "src_components_game_migsun_migsungamecontroller",
-      "label": "MigsunGameController.tsx",
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "MigsunGameController.tsx",
-      "file_type": "code",
-      "norm_label": "migsungamecontroller.tsx",
-      "source_file": "src/components/game/migsun/MigsunGameController.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_components_game_migsun_missionselectpanel",
-      "label": "MissionSelectPanel.tsx",
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "MigsunGameController.tsx",
-      "file_type": "code",
-      "norm_label": "missionselectpanel.tsx",
-      "source_file": "src/components/game/migsun/MissionSelectPanel.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_components_game_migsun_sortchoicemodal",
-      "label": "SortChoiceModal.tsx",
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "MigsunGameController.tsx",
-      "file_type": "code",
-      "norm_label": "sortchoicemodal.tsx",
-      "source_file": "src/components/game/migsun/SortChoiceModal.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "migsun_vilasa_plan_4_file_change_summary",
-      "label": "4. File Change Summary",
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "MigsunGameController.tsx",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "4. file change summary",
-      "source_file": "MIGSUN_VILASA_PLAN.md",
-      "source_location": "L647"
-    },
-    {
-      "id": "migsun_vilasa_plan_modified_files_6",
-      "label": "Modified Files (6)",
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "MigsunGameController.tsx",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "modified files (6)",
-      "source_file": "MIGSUN_VILASA_PLAN.md",
-      "source_location": "L666"
-    },
-    {
-      "id": "migsun_vilasa_plan_new_files_12",
-      "label": "New Files (12)",
-      "_origin": "ast",
-      "community": 70,
-      "community_name": "MigsunGameController.tsx",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "new files (12)",
-      "source_file": "MIGSUN_VILASA_PLAN.md",
-      "source_location": "L649"
-    },
-    {
       "id": "backend_handlers_polly",
       "label": "polly.js",
       "_origin": "ast",
@@ -10111,7 +10048,7 @@
       "label": "EcopediaModal.tsx",
       "_origin": "ast",
       "community": 72,
-      "community_name": "items.ts",
+      "community_name": "game.ts",
       "file_type": "code",
       "norm_label": "ecopediamodal.tsx",
       "source_file": "src/components/game/EcopediaModal.tsx",
@@ -10122,18 +10059,84 @@
       "label": "LevelSelectModal.tsx",
       "_origin": "ast",
       "community": 72,
-      "community_name": "items.ts",
+      "community_name": "game.ts",
       "file_type": "code",
       "norm_label": "levelselectmodal.tsx",
       "source_file": "src/components/game/LevelSelectModal.tsx",
       "source_location": "L1"
     },
     {
+      "id": "src_components_game_quizmodal",
+      "label": "QuizModal.tsx",
+      "_origin": "ast",
+      "community": 72,
+      "community_name": "game.ts",
+      "file_type": "code",
+      "norm_label": "quizmodal.tsx",
+      "source_file": "src/components/game/QuizModal.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_items_mapitemcard",
+      "label": "MapItemCard.tsx",
+      "_origin": "ast",
+      "community": 72,
+      "community_name": "game.ts",
+      "file_type": "code",
+      "norm_label": "mapitemcard.tsx",
+      "source_file": "src/components/items/MapItemCard.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_items_mapitemgallerymodal",
+      "label": "MapItemGalleryModal.tsx",
+      "_origin": "ast",
+      "community": 72,
+      "community_name": "game.ts",
+      "file_type": "code",
+      "norm_label": "mapitemgallerymodal.tsx",
+      "source_file": "src/components/items/MapItemGalleryModal.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_teacher_teacherdashboard",
+      "label": "TeacherDashboard.tsx",
+      "_origin": "ast",
+      "community": 72,
+      "community_name": "game.ts",
+      "file_type": "code",
+      "norm_label": "teacherdashboard.tsx",
+      "source_file": "src/components/teacher/TeacherDashboard.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_data_bins",
+      "label": "bins.ts",
+      "_origin": "ast",
+      "community": 72,
+      "community_name": "game.ts",
+      "file_type": "code",
+      "norm_label": "bins.ts",
+      "source_file": "src/data/bins.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_data_bins_all_bins",
+      "label": "ALL_BINS",
+      "_origin": "ast",
+      "community": 72,
+      "community_name": "game.ts",
+      "file_type": "code",
+      "norm_label": "all_bins",
+      "source_file": "src/data/bins.ts",
+      "source_location": "L3"
+    },
+    {
       "id": "src_data_items",
       "label": "items.ts",
       "_origin": "ast",
       "community": 72,
-      "community_name": "items.ts",
+      "community_name": "game.ts",
       "file_type": "code",
       "norm_label": "items.ts",
       "source_file": "src/data/items.ts",
@@ -10144,7 +10147,7 @@
       "label": "GAME_ITEMS",
       "_origin": "ast",
       "community": 72,
-      "community_name": "items.ts",
+      "community_name": "game.ts",
       "file_type": "code",
       "norm_label": "game_items",
       "source_file": "src/data/items.ts",
@@ -10155,7 +10158,7 @@
       "label": "levels.ts",
       "_origin": "ast",
       "community": 72,
-      "community_name": "items.ts",
+      "community_name": "game.ts",
       "file_type": "code",
       "norm_label": "levels.ts",
       "source_file": "src/data/levels.ts",
@@ -10166,7 +10169,7 @@
       "label": "GAME_LEVELS",
       "_origin": "ast",
       "community": 72,
-      "community_name": "items.ts",
+      "community_name": "game.ts",
       "file_type": "code",
       "norm_label": "game_levels",
       "source_file": "src/data/levels.ts",
@@ -10177,7 +10180,7 @@
       "label": "quizzes.ts",
       "_origin": "ast",
       "community": 72,
-      "community_name": "items.ts",
+      "community_name": "game.ts",
       "file_type": "code",
       "norm_label": "quizzes.ts",
       "source_file": "src/data/quizzes.ts",
@@ -10188,88 +10191,44 @@
       "label": "LEVEL_QUIZZES",
       "_origin": "ast",
       "community": 72,
-      "community_name": "items.ts",
+      "community_name": "game.ts",
       "file_type": "code",
       "norm_label": "level_quizzes",
       "source_file": "src/data/quizzes.ts",
       "source_location": "L6"
     },
     {
+      "id": "src_types_game",
+      "label": "game.ts",
+      "_origin": "ast",
+      "community": 72,
+      "community_name": "game.ts",
+      "file_type": "code",
+      "norm_label": "game.ts",
+      "source_file": "src/types/game.ts",
+      "source_location": "L1"
+    },
+    {
       "id": "tests_ste_compliance_test",
       "label": "ste-compliance.test.ts",
       "_origin": "ast",
       "community": 72,
-      "community_name": "items.ts",
+      "community_name": "game.ts",
       "file_type": "code",
       "norm_label": "ste-compliance.test.ts",
       "source_file": "tests/ste-compliance.test.ts",
       "source_location": "L1"
     },
     {
-      "id": "src_services_music",
-      "label": "music.ts",
+      "id": "ref_lucide_react",
+      "label": "lucide-react",
       "_origin": "ast",
-      "community": 73,
-      "community_name": "music.ts",
-      "file_type": "code",
-      "norm_label": "music.ts",
-      "source_file": "src/services/music.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_services_music_bar_duration_seconds",
-      "label": "BAR_DURATION_SECONDS",
-      "_origin": "ast",
-      "community": 73,
-      "community_name": "music.ts",
-      "file_type": "code",
-      "norm_label": "bar_duration_seconds",
-      "source_file": "src/services/music.ts",
+      "community": 72,
+      "community_name": "game.ts",
+      "file_type": "concept",
+      "norm_label": "lucide-react",
+      "source_file": "package.json",
       "source_location": "L21"
-    },
-    {
-      "id": "src_services_music_chord_progression",
-      "label": "CHORD_PROGRESSION",
-      "_origin": "ast",
-      "community": 73,
-      "community_name": "music.ts",
-      "file_type": "code",
-      "norm_label": "chord_progression",
-      "source_file": "src/services/music.ts",
-      "source_location": "L7"
-    },
-    {
-      "id": "src_services_music_melody_patterns",
-      "label": "MELODY_PATTERNS",
-      "_origin": "ast",
-      "community": 73,
-      "community_name": "music.ts",
-      "file_type": "code",
-      "norm_label": "melody_patterns",
-      "source_file": "src/services/music.ts",
-      "source_location": "L14"
-    },
-    {
-      "id": "src_services_uiaudio",
-      "label": "uiAudio.ts",
-      "_origin": "ast",
-      "community": 73,
-      "community_name": "music.ts",
-      "file_type": "code",
-      "norm_label": "uiaudio.ts",
-      "source_file": "src/services/uiAudio.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "tests_audio_test",
-      "label": "audio.test.ts",
-      "_origin": "ast",
-      "community": 73,
-      "community_name": "music.ts",
-      "file_type": "code",
-      "norm_label": "audio.test.ts",
-      "source_file": "tests/audio.test.ts",
-      "source_location": "L1"
     },
     {
       "id": "docs_agents_status_agent_d",
@@ -10305,17 +10264,6 @@
       "node_kind": "heading",
       "norm_label": "status: agent d (phase 1: clean the waste)",
       "source_file": "docs/agents/status/agent-D.md",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_hooks_usepersistentboolean",
-      "label": "usePersistentBoolean.ts",
-      "_origin": "ast",
-      "community": 75,
-      "community_name": "usePersistentBoolean.ts",
-      "file_type": "code",
-      "norm_label": "usepersistentboolean.ts",
-      "source_file": "src/hooks/usePersistentBoolean.ts",
       "source_location": "L1"
     },
     {
@@ -10446,28 +10394,6 @@
       "source_location": "L1"
     },
     {
-      "id": "src_components_world_items_defaultmapplacements",
-      "label": "defaultMapPlacements.ts",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": "defaultmapplacements.ts",
-      "source_file": "src/components/world/items/defaultMapPlacements.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_components_world_items_defaultmapplacements_default_map_item_placements",
-      "label": "DEFAULT_MAP_ITEM_PLACEMENTS",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": "default_map_item_placements",
-      "source_file": "src/components/world/items/defaultMapPlacements.ts",
-      "source_location": "L9"
-    },
-    {
       "id": "src_components_world_items_index",
       "label": "items/index.ts",
       "_origin": "ast",
@@ -10487,17 +10413,6 @@
       "file_type": "code",
       "norm_label": "mapiteminstance.ts",
       "source_file": "src/components/world/items/MapItemInstance.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_components_world_items_mapitemmanager",
-      "label": "MapItemManager.ts",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "createItemMesh.ts",
-      "file_type": "code",
-      "norm_label": "mapitemmanager.ts",
-      "source_file": "src/components/world/items/MapItemManager.ts",
       "source_location": "L1"
     },
     {
@@ -10732,6 +10647,17 @@
       "source_location": "L1"
     },
     {
+      "id": "src_components_world_litterscatter",
+      "label": "litterScatter.ts",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "createItemMesh.ts",
+      "file_type": "code",
+      "norm_label": "litterscatter.ts",
+      "source_file": "src/components/world/litterScatter.ts",
+      "source_location": "L1"
+    },
+    {
       "id": "tests_map_items_test",
       "label": "map-items.test.ts",
       "_origin": "ast",
@@ -10741,6 +10667,28 @@
       "norm_label": "map-items.test.ts",
       "source_file": "tests/map-items.test.ts",
       "source_location": "L1"
+    },
+    {
+      "id": "tests_societyscenelayout_test",
+      "label": "societySceneLayout.test.ts",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "createItemMesh.ts",
+      "file_type": "code",
+      "norm_label": "societyscenelayout.test.ts",
+      "source_file": "tests/societySceneLayout.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "tests_societyscenelayout_test_bounds",
+      "label": "BOUNDS",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "createItemMesh.ts",
+      "file_type": "code",
+      "norm_label": "bounds",
+      "source_file": "tests/societySceneLayout.test.ts",
+      "source_location": "L29"
     },
     {
       "id": "ref_three",
@@ -10754,44 +10702,11 @@
       "source_location": "L24"
     },
     {
-      "id": "tests_kaiglb_test",
-      "label": "kaiGlb.test.ts",
-      "_origin": "ast",
-      "community": 80,
-      "community_name": "vitest",
-      "file_type": "code",
-      "norm_label": "kaiglb.test.ts",
-      "source_file": "tests/kaiGlb.test.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "ref_vitest",
-      "label": "vitest",
-      "_origin": "ast",
-      "community": 80,
-      "community_name": "vitest",
-      "file_type": "concept",
-      "norm_label": "vitest",
-      "source_file": "package.json",
-      "source_location": "L38"
-    },
-    {
-      "id": "src_components_game_migsun_dustbincardoverlay",
-      "label": "DustbinCardOverlay.tsx",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "BinType",
-      "file_type": "code",
-      "norm_label": "dustbincardoverlay.tsx",
-      "source_file": "src/components/game/migsun/DustbinCardOverlay.tsx",
-      "source_location": "L1"
-    },
-    {
       "id": "src_worlds_society_phases_phase1_phase1controller",
       "label": "Phase1Controller.tsx",
       "_origin": "ast",
       "community": 9,
-      "community_name": "BinType",
+      "community_name": "Phase1Controller.tsx",
       "file_type": "code",
       "norm_label": "phase1controller.tsx",
       "source_file": "src/worlds/society/phases/phase1/Phase1Controller.tsx",
@@ -10802,7 +10717,7 @@
       "label": "SAMPLE_ITEMS",
       "_origin": "ast",
       "community": 9,
-      "community_name": "BinType",
+      "community_name": "Phase1Controller.tsx",
       "file_type": "code",
       "norm_label": "sample_items",
       "source_file": "src/worlds/society/phases/phase1/Phase1Controller.tsx",
@@ -10813,43 +10728,10 @@
       "label": "phase1/types.ts",
       "_origin": "ast",
       "community": 9,
-      "community_name": "BinType",
+      "community_name": "Phase1Controller.tsx",
       "file_type": "code",
       "norm_label": "phase1/types.ts",
       "source_file": "src/worlds/society/phases/phase1/types.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_worlds_society_phases_phase2_phase2controller",
-      "label": "Phase2Controller.tsx",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "BinType",
-      "file_type": "code",
-      "norm_label": "phase2controller.tsx",
-      "source_file": "src/worlds/society/phases/phase2/Phase2Controller.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_worlds_society_phases_phase2_phase2controller_bin_cards",
-      "label": "BIN_CARDS",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "BinType",
-      "file_type": "code",
-      "norm_label": "bin_cards",
-      "source_file": "src/worlds/society/phases/phase2/Phase2Controller.tsx",
-      "source_location": "L29"
-    },
-    {
-      "id": "src_worlds_society_phases_phase2_types",
-      "label": "phase2/types.ts",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "BinType",
-      "file_type": "code",
-      "norm_label": "phase2/types.ts",
-      "source_file": "src/worlds/society/phases/phase2/types.ts",
       "source_location": "L1"
     },
     {
@@ -11299,6 +11181,17 @@
       "source_file": "AGENTS.md"
     },
     {
+      "id": "src_index",
+      "label": "src_index",
+      "community": 10,
+      "community_name": "BinType",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "src_index",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "src_worlds_society_index_buildsocietymapplaceholder",
       "label": "src_worlds_society_index_buildsocietymapplaceholder",
       "community": 42,
@@ -11372,6 +11265,28 @@
       "external": true,
       "file_type": "concept",
       "norm_label": "src_worlds_society_index_society_content",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "ref_fs",
+      "label": "ref_fs",
+      "community": 43,
+      "community_name": "vitest",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "ref_fs",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "ref_path",
+      "label": "ref_path",
+      "community": 43,
+      "community_name": "vitest",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "ref_path",
       "source_file": "",
       "type": "external"
     },
@@ -11471,17 +11386,6 @@
       "external": true,
       "file_type": "concept",
       "norm_label": "ref_aws_sdk_client_bedrock_runtime",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "src_index",
-      "label": "src_index",
-      "community": 55,
-      "community_name": "App.tsx",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "src_index",
       "source_file": "",
       "type": "external"
     },
@@ -11704,28 +11608,6 @@
       "norm_label": "src_components_world_items_index_mapitemmodeltype",
       "source_file": "",
       "type": "external"
-    },
-    {
-      "id": "ref_fs",
-      "label": "ref_fs",
-      "community": 80,
-      "community_name": "vitest",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "ref_fs",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "ref_path",
-      "label": "ref_path",
-      "community": 80,
-      "community_name": "vitest",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "ref_path",
-      "source_file": "",
-      "type": "external"
     }
   ],
   "links": [
@@ -11810,7 +11692,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/App.tsx",
-      "source_location": "L51",
+      "source_location": "L45",
       "weight": 1.0
     },
     {
@@ -11822,19 +11704,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/App.tsx",
-      "source_location": "L56",
-      "weight": 1.0
-    },
-    {
-      "source": "src_app_app",
-      "target": "src_worlds_featureflags_issocietyworldenabled",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/App.tsx",
-      "source_location": "L60",
+      "source_location": "L50",
       "weight": 1.0
     },
     {
@@ -11846,7 +11716,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/App.tsx",
-      "source_location": "L66",
+      "source_location": "L59",
       "weight": 1.0
     },
     {
@@ -11858,19 +11728,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/App.tsx",
-      "source_location": "L67",
-      "weight": 1.0
-    },
-    {
-      "source": "src_app_app",
-      "target": "src_app_societyworld",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/App.tsx",
-      "source_location": "L77",
+      "source_location": "L60",
       "weight": 1.0
     },
     {
@@ -11882,7 +11740,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/App.tsx",
-      "source_location": "L83",
+      "source_location": "L70",
       "weight": 1.0
     },
     {
@@ -12926,7 +12784,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L1105",
+      "source_location": "L1084",
       "weight": 1.0
     },
     {
@@ -12938,7 +12796,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L1106",
+      "source_location": "L1085",
       "weight": 1.0
     },
     {
@@ -12950,7 +12808,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L127",
+      "source_location": "L120",
       "weight": 1.0
     },
     {
@@ -12962,7 +12820,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L128",
+      "source_location": "L121",
       "weight": 1.0
     },
     {
@@ -12974,7 +12832,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L1513",
+      "source_location": "L1492",
       "weight": 1.0
     },
     {
@@ -12986,7 +12844,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L230",
+      "source_location": "L223",
       "weight": 1.0
     },
     {
@@ -12998,7 +12856,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L234",
+      "source_location": "L227",
       "weight": 1.0
     },
     {
@@ -13010,7 +12868,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L236",
+      "source_location": "L229",
       "weight": 1.0
     },
     {
@@ -13022,7 +12880,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L238",
+      "source_location": "L231",
       "weight": 1.0
     },
     {
@@ -13034,7 +12892,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L240",
+      "source_location": "L233",
       "weight": 1.0
     },
     {
@@ -13046,7 +12904,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L279",
+      "source_location": "L272",
       "weight": 1.0
     },
     {
@@ -13058,7 +12916,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L293",
+      "source_location": "L286",
       "weight": 1.0
     },
     {
@@ -13070,7 +12928,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L311",
+      "source_location": "L304",
       "weight": 1.0
     },
     {
@@ -13082,7 +12940,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L542",
+      "source_location": "L521",
       "weight": 1.0
     },
     {
@@ -13094,7 +12952,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L583",
+      "source_location": "L562",
       "weight": 1.0
     },
     {
@@ -13106,7 +12964,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L786",
+      "source_location": "L765",
       "weight": 1.0
     },
     {
@@ -13118,7 +12976,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L794",
+      "source_location": "L773",
       "weight": 1.0
     },
     {
@@ -13130,7 +12988,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L833",
+      "source_location": "L812",
       "weight": 1.0
     },
     {
@@ -13142,7 +13000,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L98",
+      "source_location": "L91",
       "weight": 1.0
     },
     {
@@ -13538,7 +13396,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/services/audio.ts",
-      "source_location": "L859",
+      "source_location": "L812",
       "weight": 1.0
     },
     {
@@ -13550,7 +13408,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/services/audio.ts",
-      "source_location": "L860",
+      "source_location": "L813",
       "weight": 1.0
     },
     {
@@ -13562,7 +13420,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/services/audio.ts",
-      "source_location": "L766",
+      "source_location": "L719",
       "weight": 1.0
     },
     {
@@ -13574,7 +13432,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/services/audio.ts",
-      "source_location": "L767",
+      "source_location": "L720",
       "weight": 1.0
     },
     {
@@ -13634,7 +13492,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/services/audio.ts",
-      "source_location": "L964",
+      "source_location": "L917",
       "weight": 1.0
     },
     {
@@ -13646,7 +13504,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/services/audio.ts",
-      "source_location": "L965",
+      "source_location": "L918",
       "weight": 1.0
     },
     {
@@ -13658,7 +13516,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/services/audio.ts",
-      "source_location": "L942",
+      "source_location": "L895",
       "weight": 1.0
     },
     {
@@ -13670,7 +13528,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/services/audio.ts",
-      "source_location": "L943",
+      "source_location": "L896",
       "weight": 1.0
     },
     {
@@ -13682,7 +13540,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/services/audio.ts",
-      "source_location": "L794",
+      "source_location": "L747",
       "weight": 1.0
     },
     {
@@ -13694,7 +13552,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/services/audio.ts",
-      "source_location": "L795",
+      "source_location": "L748",
       "weight": 1.0
     },
     {
@@ -13730,59 +13588,11 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/services/audio.ts",
-      "source_location": "L667",
-      "weight": 1.0
-    },
-    {
-      "source": "src_services_audio_audioservice_playlensactivate",
-      "target": "src_services_audio_audioservice_getoutput",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/services/audio.ts",
-      "source_location": "L668",
-      "weight": 1.0
-    },
-    {
-      "source": "src_services_audio_audioservice_playphoneconnect",
-      "target": "src_services_audio_audioservice_canplay",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/services/audio.ts",
-      "source_location": "L644",
-      "weight": 1.0
-    },
-    {
-      "source": "src_services_audio_audioservice_playphoneconnect",
-      "target": "src_services_audio_audioservice_getoutput",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/services/audio.ts",
-      "source_location": "L645",
-      "weight": 1.0
-    },
-    {
-      "source": "src_services_audio_audioservice_playphonering",
-      "target": "src_services_audio_audioservice_canplay",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/services/audio.ts",
       "source_location": "L620",
       "weight": 1.0
     },
     {
-      "source": "src_services_audio_audioservice_playphonering",
+      "source": "src_services_audio_audioservice_playlensactivate",
       "target": "src_services_audio_audioservice_getoutput",
       "relation": "calls",
       "_origin": "ast",
@@ -13826,7 +13636,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/services/audio.ts",
-      "source_location": "L832",
+      "source_location": "L785",
       "weight": 1.0
     },
     {
@@ -13838,7 +13648,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/services/audio.ts",
-      "source_location": "L833",
+      "source_location": "L786",
       "weight": 1.0
     },
     {
@@ -13850,7 +13660,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/services/audio.ts",
-      "source_location": "L918",
+      "source_location": "L871",
       "weight": 1.0
     },
     {
@@ -13862,7 +13672,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/services/audio.ts",
-      "source_location": "L919",
+      "source_location": "L872",
       "weight": 1.0
     },
     {
@@ -13874,7 +13684,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/services/audio.ts",
-      "source_location": "L894",
+      "source_location": "L847",
       "weight": 1.0
     },
     {
@@ -13886,7 +13696,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/services/audio.ts",
-      "source_location": "L895",
+      "source_location": "L848",
       "weight": 1.0
     },
     {
@@ -13922,7 +13732,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/services/audio.ts",
-      "source_location": "L715",
+      "source_location": "L668",
       "weight": 1.0
     },
     {
@@ -13934,7 +13744,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/services/audio.ts",
-      "source_location": "L716",
+      "source_location": "L669",
       "weight": 1.0
     },
     {
@@ -13946,7 +13756,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/services/audio.ts",
-      "source_location": "L692",
+      "source_location": "L645",
       "weight": 1.0
     },
     {
@@ -13958,7 +13768,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/services/audio.ts",
-      "source_location": "L693",
+      "source_location": "L646",
       "weight": 1.0
     },
     {
@@ -13994,7 +13804,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/services/audio.ts",
-      "source_location": "L738",
+      "source_location": "L691",
       "weight": 1.0
     },
     {
@@ -14006,7 +13816,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/services/audio.ts",
-      "source_location": "L739",
+      "source_location": "L692",
       "weight": 1.0
     },
     {
@@ -15426,19 +15236,6 @@
       "weight": 1.0
     },
     {
-      "source": "src_app_societyworld",
-      "target": "src_worlds_society_societyworld",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "deferred": true,
-      "source_file": "src/App.tsx",
-      "source_location": "L14",
-      "weight": 1.0
-    },
-    {
       "source": "src_app_teacherdashboard",
       "target": "src_components_teacher_teacherdashboard",
       "relation": "imports_from",
@@ -15790,18 +15587,6 @@
     },
     {
       "source": "src_app",
-      "target": "src_worlds_featureflags_issocietyworldenabled",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/App.tsx",
-      "source_location": "L16",
-      "weight": 1.0
-    },
-    {
-      "source": "src_app",
       "target": "src_components_navbar_navbar",
       "relation": "imports",
       "_origin": "ast",
@@ -16110,30 +15895,6 @@
       "context": "import",
       "source_file": "src/components/game/meadows/MeadowHud.tsx",
       "source_location": "L8",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_game_meadows_meadowsintrooverlay",
-      "target": "src_services_audio_audio",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/game/meadows/MeadowsIntroOverlay.tsx",
-      "source_location": "L3",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_game_meadows_meadowsphonemodal",
-      "target": "src_services_audio_audio",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/game/meadows/MeadowsPhoneModal.tsx",
-      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -20638,18 +20399,6 @@
     },
     {
       "source": "src_app",
-      "target": "src_worlds_featureflags",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/App.tsx",
-      "source_location": "L16",
-      "weight": 1.0
-    },
-    {
-      "source": "src_app",
       "target": "src_components_navbar",
       "relation": "imports_from",
       "_origin": "ast",
@@ -21222,78 +20971,6 @@
       "context": "import",
       "source_file": "src/components/game/meadows/MeadowHud.tsx",
       "source_location": "L8",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_game_meadows_meadowsintrooverlay",
-      "target": "ref_react",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/game/meadows/MeadowsIntroOverlay.tsx",
-      "source_location": "L1",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_game_meadows_meadowsintrooverlay",
-      "target": "ref_lucide_react",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/game/meadows/MeadowsIntroOverlay.tsx",
-      "source_location": "L2",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_game_meadows_meadowsintrooverlay",
-      "target": "src_services_audio",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/game/meadows/MeadowsIntroOverlay.tsx",
-      "source_location": "L3",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_game_meadows_meadowsphonemodal",
-      "target": "ref_react",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/game/meadows/MeadowsPhoneModal.tsx",
-      "source_location": "L1",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_game_meadows_meadowsphonemodal",
-      "target": "ref_lucide_react",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/game/meadows/MeadowsPhoneModal.tsx",
-      "source_location": "L2",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_game_meadows_meadowsphonemodal",
-      "target": "src_services_audio",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/game/meadows/MeadowsPhoneModal.tsx",
-      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -29052,24 +28729,13 @@
     },
     {
       "source": "src_app",
-      "target": "src_app_societyworld",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/App.tsx",
-      "source_location": "L13",
-      "weight": 1.0
-    },
-    {
-      "source": "src_app",
       "target": "src_app_routefallback",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/App.tsx",
-      "source_location": "L18",
+      "source_location": "L14",
       "weight": 1.0
     },
     {
@@ -29080,7 +28746,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/App.tsx",
-      "source_location": "L30",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -29411,61 +29077,6 @@
       "confidence_score": 1.0,
       "source_file": "src/components/game/meadows/MeadowHud.tsx",
       "source_location": "L32",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_game_meadows_meadowsintrooverlay",
-      "target": "src_components_game_meadows_meadowsintrooverlay_meadowsintrooverlay",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/components/game/meadows/MeadowsIntroOverlay.tsx",
-      "source_location": "L20",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_game_meadows_meadowsintrooverlay",
-      "target": "src_components_game_meadows_meadowsintrooverlay_meadowsintrooverlayprops",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/components/game/meadows/MeadowsIntroOverlay.tsx",
-      "source_location": "L5",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_game_meadows_meadowsintrooverlay",
-      "target": "src_components_game_meadows_meadowsintrooverlay_meadows_intro_steps",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/components/game/meadows/MeadowsIntroOverlay.tsx",
-      "source_location": "L9",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_game_meadows_meadowsphonemodal",
-      "target": "src_components_game_meadows_meadowsphonemodal_meadowsphonemodal",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/components/game/meadows/MeadowsPhoneModal.tsx",
-      "source_location": "L15",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_game_meadows_meadowsphonemodal",
-      "target": "src_components_game_meadows_meadowsphonemodal_meadowsphonemodalprops",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/components/game/meadows/MeadowsPhoneModal.tsx",
-      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -29960,7 +29571,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L23",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -29971,7 +29582,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L31",
+      "source_location": "L30",
       "weight": 1.0
     },
     {
@@ -29982,7 +29593,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L70",
+      "source_location": "L69",
       "weight": 1.0
     },
     {
@@ -29993,7 +29604,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/LandingPage.tsx",
-      "source_location": "L78",
+      "source_location": "L77",
       "weight": 1.0
     },
     {
@@ -31115,7 +30726,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L67",
+      "source_location": "L65",
       "weight": 1.0
     },
     {
@@ -31500,7 +31111,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/services/audio.ts",
-      "source_location": "L985",
+      "source_location": "L938",
       "weight": 1.0
     },
     {
@@ -32754,15 +32365,6 @@
       "source_file": "src/App.tsx"
     },
     {
-      "source": "src_app",
-      "target": "src_worlds_society_societyworld",
-      "relation": "dynamic_import",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/App.tsx"
-    },
-    {
       "source": "src_worlds_registry",
       "target": "src_components_world_meadowsscene",
       "relation": "dynamic_import",
@@ -33414,7 +33016,7 @@
     },
     {
       "source": "src_services_audio_audioservice",
-      "target": "src_services_audio_audioservice_playphonering",
+      "target": "src_services_audio_audioservice_playlensactivate",
       "relation": "method",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -33425,35 +33027,13 @@
     },
     {
       "source": "src_services_audio_audioservice",
-      "target": "src_services_audio_audioservice_playphoneconnect",
-      "relation": "method",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/services/audio.ts",
-      "source_location": "L643",
-      "weight": 1.0
-    },
-    {
-      "source": "src_services_audio_audioservice",
-      "target": "src_services_audio_audioservice_playlensactivate",
-      "relation": "method",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/services/audio.ts",
-      "source_location": "L666",
-      "weight": 1.0
-    },
-    {
-      "source": "src_services_audio_audioservice",
       "target": "src_services_audio_audioservice_playtimerwarning",
       "relation": "method",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/services/audio.ts",
-      "source_location": "L691",
+      "source_location": "L644",
       "weight": 1.0
     },
     {
@@ -33464,7 +33044,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/services/audio.ts",
-      "source_location": "L714",
+      "source_location": "L667",
       "weight": 1.0
     },
     {
@@ -33475,7 +33055,29 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/services/audio.ts",
-      "source_location": "L737",
+      "source_location": "L690",
+      "weight": 1.0
+    },
+    {
+      "source": "src_services_audio_audioservice",
+      "target": "src_services_audio_audioservice_playcelebration",
+      "relation": "method",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/services/audio.ts",
+      "source_location": "L718",
+      "weight": 1.0
+    },
+    {
+      "source": "src_services_audio_audioservice",
+      "target": "src_services_audio_audioservice_playgadiwalaaaya",
+      "relation": "method",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/services/audio.ts",
+      "source_location": "L746",
       "weight": 1.0
     },
     {
@@ -33491,35 +33093,24 @@
     },
     {
       "source": "src_services_audio_audioservice",
-      "target": "src_services_audio_audioservice_playcelebration",
-      "relation": "method",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/services/audio.ts",
-      "source_location": "L765",
-      "weight": 1.0
-    },
-    {
-      "source": "src_services_audio_audioservice",
-      "target": "src_services_audio_audioservice_playgadiwalaaaya",
-      "relation": "method",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/services/audio.ts",
-      "source_location": "L793",
-      "weight": 1.0
-    },
-    {
-      "source": "src_services_audio_audioservice",
       "target": "src_services_audio_audioservice_playplantrevival",
       "relation": "method",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/services/audio.ts",
-      "source_location": "L831",
+      "source_location": "L784",
+      "weight": 1.0
+    },
+    {
+      "source": "src_services_audio_audioservice",
+      "target": "src_services_audio_audioservice_playbininstall",
+      "relation": "method",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/services/audio.ts",
+      "source_location": "L811",
       "weight": 1.0
     },
     {
@@ -33535,24 +33126,13 @@
     },
     {
       "source": "src_services_audio_audioservice",
-      "target": "src_services_audio_audioservice_playbininstall",
-      "relation": "method",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/services/audio.ts",
-      "source_location": "L858",
-      "weight": 1.0
-    },
-    {
-      "source": "src_services_audio_audioservice",
       "target": "src_services_audio_audioservice_playresidentquestion",
       "relation": "method",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/services/audio.ts",
-      "source_location": "L893",
+      "source_location": "L846",
       "weight": 1.0
     },
     {
@@ -33563,7 +33143,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/services/audio.ts",
-      "source_location": "L917",
+      "source_location": "L870",
       "weight": 1.0
     },
     {
@@ -33574,7 +33154,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/services/audio.ts",
-      "source_location": "L941",
+      "source_location": "L894",
       "weight": 1.0
     },
     {
@@ -33585,7 +33165,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/services/audio.ts",
-      "source_location": "L963",
+      "source_location": "L916",
       "weight": 1.0
     },
     {
@@ -33805,7 +33385,7 @@
       "confidence_score": 0.85,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L475",
+      "source_location": "L454",
       "weight": 1.0
     },
     {
@@ -33817,7 +33397,7 @@
       "confidence_score": 0.85,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L476",
+      "source_location": "L455",
       "weight": 1.0
     },
     {
@@ -33829,7 +33409,7 @@
       "confidence_score": 0.85,
       "context": "call",
       "source_file": "src/components/world/WorldCanvas.tsx",
-      "source_location": "L580",
+      "source_location": "L559",
       "weight": 1.0
     },
     {
@@ -33949,7 +33529,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1319",
+      "source_location": "L1344",
       "weight": 1.0
     },
     {

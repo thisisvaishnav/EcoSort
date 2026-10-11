@@ -36,15 +36,15 @@
     "semantic_hash": "ef3ba2a81ba19f8ea5ddf625521e96f0"
   },
   "src/App.tsx": {
-    "mtime": 1791722951.5368476,
-    "seen": 1791723104.085854,
-    "ast_hash": "d1759f0b2d7be7cacfec75a3ec1f8424",
+    "mtime": 1791724799.2978237,
+    "seen": 1791724891.429162,
+    "ast_hash": "783725947b704eb3253c9b7bb50b9dcd",
     "semantic_hash": ""
   },
   "src/components/LandingPage.tsx": {
-    "mtime": 1791723043.4636633,
-    "seen": 1791723104.085855,
-    "ast_hash": "cb424c62283613969f8c2efaa365f56f",
+    "mtime": 1791724799.2989242,
+    "seen": 1791724891.429163,
+    "ast_hash": "0d1932a11f6029ee489aad1a51e50330",
     "semantic_hash": ""
   },
   "src/components/Navbar.tsx": {
@@ -144,9 +144,9 @@
     "semantic_hash": "c87846b65906e83bcd914c62900e6005"
   },
   "src/services/audio.ts": {
-    "mtime": 1791724351.365918,
-    "seen": 1791724622.550396,
-    "ast_hash": "f6d53c4d88764e23581f9f7295d6af3d",
+    "mtime": 1791724799.2997057,
+    "seen": 1791724891.4292312,
+    "ast_hash": "a97a66f7376e9b7944523aecf4cf569d",
     "semantic_hash": ""
   },
   "src/services/spawner.ts": {
@@ -396,9 +396,9 @@
     "semantic_hash": "328de20931b3b3abb436e705532dec92"
   },
   "src/components/world/WorldCanvas.tsx": {
-    "mtime": 1791724621.3500988,
-    "seen": 1791724622.550359,
-    "ast_hash": "8fa8ce5d8572248e1ae122d698fb4984",
+    "mtime": 1791724684.4823527,
+    "seen": 1791724891.4291909,
+    "ast_hash": "a34951dc343301763c8f14f7b3b3e971",
     "semantic_hash": ""
   },
   "src/components/world/levelStations.ts": {
@@ -888,8 +888,8 @@
     "semantic_hash": ""
   },
   "src/components/world/WorldPage.tsx": {
-    "mtime": 1791723385.4480884,
-    "seen": 1791723556.0833259,
+    "mtime": 1791724746.7035518,
+    "seen": 1791724891.4291918,
     "ast_hash": "8fcb0c02baecf1b94ecef5ea3d02066d",
     "semantic_hash": ""
   },
@@ -1212,9 +1212,9 @@
     "semantic_hash": ""
   },
   "src/components/world/meadowsScene.ts": {
-    "mtime": 1791724588.2734106,
-    "seen": 1791724622.5503821,
-    "ast_hash": "fa5b26a861c364940d379607c0381548",
+    "mtime": 1791724882.2346768,
+    "seen": 1791724891.429216,
+    "ast_hash": "72820643c6bba132890b932ef398cc9e",
     "semantic_hash": ""
   },
   "src/hooks/usePersistentBoolean.ts": {
@@ -1617,18 +1617,6 @@
     "mtime": 1791723575.1416328,
     "seen": 1791723582.142682,
     "ast_hash": "55a9afc547d78a516715fe3564aed3da",
-    "semantic_hash": ""
-  },
-  "src/components/game/meadows/MeadowsIntroOverlay.tsx": {
-    "mtime": 1791724549.601773,
-    "seen": 1791724622.550345,
-    "ast_hash": "e2437979a768a512fb5588a6bd6568fe",
-    "semantic_hash": ""
-  },
-  "src/components/game/meadows/MeadowsPhoneModal.tsx": {
-    "mtime": 1791724565.1240861,
-    "seen": 1791724622.550346,
-    "ast_hash": "48c06c643f5d059236b822f8489aaf5c",
     "semantic_hash": ""
   }
 }
