@@ -14,6 +14,7 @@
     "graphify:hook": "graphify hook install"
   },
   "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.1149.0",
     "canvas-confetti": "^1.9.4",
     "lucide-react": "^1.16.0",
     "react": "^18.3.1",

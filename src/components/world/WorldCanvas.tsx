@@ -4,6 +4,8 @@ import { BinType, ItemData } from '../../types/game';
 import { ALL_BINS } from '../../data/bins';
 import { createProceduralCity, ProceduralCityResult } from './proceduralCity';
 import { createSocietyScene, SocietySceneResult } from './societyScene';
+import { createMeadowsScene, MeadowsSceneResult, MEADOWS_SPAWN } from './meadowsScene';
+import { createMigsunScene, MigsunSceneResult } from './migsunScene';
 import { createLitterScatter, LitterScatterSystem } from './litterScatter';
 import { createPlayerCharacter, PlayerCharacter } from './playerCharacter';
 import { createLocomotionEngine, LocomotionEngine, isTypingTarget } from './locomotion';
@@ -21,6 +23,14 @@ import { createItemMesh, disposeItemMesh } from './items/createItemMesh';
 import { MapItemManager } from './items/MapItemManager';
 import { MapItemGalleryModal } from '../items/MapItemGalleryModal';
 import { GAME_ITEMS } from '../../data/items';
+import { GAME_LEVELS } from '../../data/levels';
+
+type EnvMode = 'TOWN' | 'SOCIETY' | 'MEADOWS' | 'MIGSUN';
+
+/** Level id → environment, driven by LevelConfig.sceneType (default TOWN). */
+function resolveEnvMode(levelId: number): EnvMode {
+  return GAME_LEVELS.find((l) => l.id === levelId)?.sceneType ?? 'TOWN';
+}
 
 export interface WorldCanvasProps {
   currentLevelId: number;
@@ -43,6 +53,13 @@ export interface WorldCanvasProps {
   onPickupSocietyItem?: (item: ItemData) => void;
   // Truck arrival (triggers when mission complete)
   truckArriving?: boolean;
+  /**
+   * Filled with an input sink for the Meadows virtual joystick:
+   * call fn(x, y) to steer the player (x = right+, y = down+).
+   */
+  joystickInputRef?: React.MutableRefObject<((x: number, y: number) => void) | null>;
+  // Migsun Vilasa handlers & ref sink
+  migsunRef?: React.MutableRefObject<MigsunSceneResult | null>;
 }
 
 export const WorldCanvas: React.FC<WorldCanvasProps> = ({
@@ -64,14 +81,14 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
   societyItemPool,
   onPickupSocietyItem,
   truckArriving = false,
+  joystickInputRef,
+  migsunRef,
 }) => {
   const mountRef = useRef<HTMLDivElement>(null);
   const currentStation = LEVEL_STATIONS.find((s) => s.id === currentLevelId) || LEVEL_STATIONS[0];
 
-  // Environment Mode: 'TOWN' or 'SOCIETY' (Level 1 Waste Detective)
-  const [envMode, setEnvMode] = useState<'TOWN' | 'SOCIETY'>(
-    currentLevelId === 1 ? 'SOCIETY' : 'TOWN'
-  );
+  // Environment Mode: 'TOWN' | 'SOCIETY' (Level 1) | 'MEADOWS' (Level 7) | 'MIGSUN' (Level 8)
+  const [envMode, setEnvMode] = useState<EnvMode>(() => resolveEnvMode(currentLevelId));
 
   // Proximity trigger state (Town)
   const [isNearStation, setIsNearStation] = useState<boolean>(true);
@@ -136,12 +153,14 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
     player: PlayerCharacter;
     city: ProceduralCityResult;
     society: SocietySceneResult | null;
+    meadows: MeadowsSceneResult | null;
+    migsun: MigsunSceneResult | null;
     litter: LitterScatterSystem | null;
     mapItemManager: MapItemManager;
     itemMeshGroup: THREE.Group | null;
     townBinMeshGroups: Map<BinType, THREE.Group>;
     clock: THREE.Clock;
-    activeEnv: 'TOWN' | 'SOCIETY';
+    activeEnv: EnvMode;
     cleanup: () => void;
   } | null>(null);
 
@@ -158,11 +177,7 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
 
   // Synchronize environment mode on level change
   useEffect(() => {
-    if (currentLevelId === 1) {
-      setEnvMode('SOCIETY');
-    } else {
-      setEnvMode('TOWN');
-    }
+    setEnvMode(resolveEnvMode(currentLevelId));
   }, [currentLevelId]);
 
   // Keep ref updated with latest env mode
@@ -206,42 +221,76 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
     const player = createPlayerCharacter(0xfacc15); // Golden yellow hoodie
     scene.add(player.group);
 
-    // 4. Create Both 3D Environments
+    // 4. Create All 3D Environments
     const city = createProceduralCity();
     // Society scene (Level 1 Waste Detective)
     const society = createSocietyScene(['wet', 'dry', 'hazardous', 'residual']);
+    // Meadows scene (Level 7 Green Meadows Rescue)
+    const meadows = createMeadowsScene();
+    // Migsun scene (Level 8 Migsun Vilasa)
+    const migsun = createMigsunScene(['wet', 'dry', 'hazardous', 'residual']);
+    if (migsunRef) migsunRef.current = migsun;
 
-    // Default: Level 1 → SOCIETY, else TOWN
-    const isInitialSociety = currentLevelId === 1;
-    if (isInitialSociety) {
+    const initialEnv = resolveEnvMode(currentLevelId);
+    if (initialEnv === 'SOCIETY') {
       scene.add(society.societyGroup);
       scene.background = new THREE.Color(0xfff5e6);
+    } else if (initialEnv === 'MEADOWS') {
+      scene.add(meadows.meadowsGroup);
+      scene.background = new THREE.Color(0xf3ddc0);
+      scene.fog = new THREE.FogExp2(0xf3ddc0, 0.012);
+    } else if (initialEnv === 'MIGSUN') {
+      scene.add(migsun.migsunGroup);
+      scene.background = new THREE.Color(0xffedd5);
+      scene.fog = null;
     } else {
       scene.add(city.cityGroup);
       scene.background = new THREE.Color(0x0f172a);
     }
 
     // 5. Locomotion Engine
-    const initialPos = isInitialSociety
-      ? new THREE.Vector3(0, 0, 4)   // Compound centre
-      : new THREE.Vector3(0, 0, 8);  // Outside cottage in town
+    const initialPos =
+      initialEnv === 'SOCIETY'
+        ? new THREE.Vector3(0, 0, 4)   // Compound centre
+        : initialEnv === 'MEADOWS'
+        ? MEADOWS_SPAWN.clone()        // Path start, facing the building
+        : initialEnv === 'MIGSUN'
+        ? migsun.spawnPoint.clone()
+        : new THREE.Vector3(0, 0, 8);  // Outside cottage in town
 
-    const locomotion = createLocomotionEngine(
-      player,
-      isInitialSociety ? society.obstacles : city.obstacles,
-      initialPos
-    );
+    const initialObstacles =
+      initialEnv === 'SOCIETY'
+        ? society.obstacles
+        : initialEnv === 'MEADOWS'
+        ? meadows.obstacles
+        : initialEnv === 'MIGSUN'
+        ? migsun.obstacles
+        : city.obstacles;
+
+    const locomotion = createLocomotionEngine(player, initialObstacles, initialPos);
     scene.add(locomotion.destinationRing);
 
-    if (isInitialSociety) {
+    if (initialEnv === 'SOCIETY') {
       locomotion.setBounds(-11, 11, -9, 7);
+    } else if (initialEnv === 'MEADOWS') {
+      locomotion.setBounds(-14, 14, -6, 14);
+    } else if (initialEnv === 'MIGSUN') {
+      locomotion.setBounds(-15, 15, -12, 7.5);
     } else {
       locomotion.setBounds(-75, 75, -105, 22);
     }
 
     // 6. Camera System
-    const cameraSystem = createThirdPersonCamera(width / height, isInitialSociety ? society.obstacles : city.obstacles);
-    cameraSystem.setDistance(isInitialSociety ? 10.0 : 14.0);
+    const cameraSystem = createThirdPersonCamera(width / height, initialObstacles);
+    cameraSystem.setDistance(
+      initialEnv === 'SOCIETY' ? 10.0 : initialEnv === 'MEADOWS' ? 9.0 : initialEnv === 'MIGSUN' ? 10.5 : 14.0
+    );
+
+    // Virtual joystick sink (Meadows HUD) — engine-backed, stable across renders
+    if (joystickInputRef) {
+      joystickInputRef.current = (x: number, y: number) =>
+        engineRef.current?.locomotion.setJoystickVector(x, y);
+    }
 
     // Litter scatter for society scene (uses societyItemPool prop captured at init)
     let litter: LitterScatterSystem | null = null;
@@ -336,6 +385,64 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
             });
           }
         }
+      } else if (currentActiveEnv === 'MIGSUN') {
+        // ── MIGSUN VILASA MODE (Level 8) ──────────────────────────────────────
+        migsun.animate(elapsedTime, delta);
+
+        if (truckArrivingRef.current && truckProgressRef.current < 1.0) {
+          truckProgressRef.current = Math.min(1.0, truckProgressRef.current + delta * 0.22);
+          migsun.animateTruckArrival(truckProgressRef.current);
+        }
+
+        const avatarPos = locomotion.getPosition();
+        locomotion.update(delta, cameraSystem.getAzimuthAngle());
+        cameraSystem.update(avatarPos, delta, player.currentAngle);
+
+        const litSystem = engineRef.current?.litter;
+        if (litSystem) {
+          litSystem.update(avatarPos, elapsedTime, delta);
+          const nearItem = litSystem.getNearestPickupItem(avatarPos, 1.5);
+          const nextLitter = nearItem && !litSystem.getHeldItem() ? nearItem.itemData : null;
+          const nextLitterId = nextLitter ? nextLitter.id : null;
+          if (nextLitterId !== lastLitterIdRef.current) {
+            lastLitterIdRef.current = nextLitterId;
+            setNearbyLitterItem(nextLitter);
+          }
+
+          const heldNow = litSystem.getHeldItem();
+          if (heldNow && prevItemIdRef.current !== heldNow.itemData.id) {
+            prevItemIdRef.current = heldNow.itemData.id;
+            onPickupSocietyItemRef.current?.(heldNow.itemData);
+          }
+
+          const heldItem = litSystem.getHeldItem();
+          if (heldItem) {
+            migsun.binTriggers.forEach((triggerMesh, binType) => {
+              triggerMesh.getWorldPosition(binTriggerScratch);
+              const dist = avatarPos.distanceTo(binTriggerScratch);
+              const near2 = dist < 1.4;
+              const glowMesh = migsun.binGlowRings.get(binType);
+              if (glowMesh) {
+                const mat = glowMesh.material as THREE.MeshBasicMaterial;
+                const targetOpacity = near2 ? (binType === heldItem.itemData.bin ? 0.85 : 0.25) : 0;
+                mat.opacity = THREE.MathUtils.lerp(mat.opacity, targetOpacity, delta * 8);
+              }
+              if (near2) migsun.triggerBinAnimation(binType);
+            });
+          } else {
+            migsun.binGlowRings.forEach((glowMesh) => {
+              const mat = glowMesh.material as THREE.MeshBasicMaterial;
+              mat.opacity = THREE.MathUtils.lerp(mat.opacity, 0, delta * 5);
+            });
+          }
+        }
+      } else if (currentActiveEnv === 'MEADOWS' && meadows) {
+        // ── MEADOWS MODE (Level 7 Green Meadows Rescue) ─────────────────────
+        // Walk-around scaffold: animate the scene, move Kai, follow with camera.
+        meadows.animate(elapsedTime, delta);
+        const meadowsPos = locomotion.getPosition();
+        locomotion.update(delta, cameraSystem.getAzimuthAngle());
+        cameraSystem.update(meadowsPos, delta, player.currentAngle);
       } else {
         // TOWN MODE
         city.animate(elapsedTime);
@@ -445,6 +552,7 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
         engine.litter = null;
       }
       societyItemPoolRef.current = [];
+      if (joystickInputRef) joystickInputRef.current = null;
       locomotion.dispose();
       mapItemManager.dispose();
       // Free every GPU resource still in the scene graph (disposeObject3D
@@ -465,12 +573,14 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
       player,
       city,
       society,
+      meadows,
+      migsun,
       litter,
       mapItemManager,
       itemMeshGroup: null,
       townBinMeshGroups,
       clock,
-      activeEnv: isInitialSociety ? 'SOCIETY' : 'TOWN',
+      activeEnv: initialEnv,
       cleanup,
     };
 
@@ -480,16 +590,19 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
   }, []);
 
   // -------------------------------------------------------------------------
-  // ENVIRONMENT SWITCHING (Society <-> Town)
+  // ENVIRONMENT SWITCHING (Society <-> Town <-> Meadows <-> Migsun)
   // -------------------------------------------------------------------------
   useEffect(() => {
     if (!engineRef.current) return;
-    const { scene, city, society, locomotion, cameraSystem, player } = engineRef.current;
+    const { scene, city, society, meadows, migsun, locomotion, cameraSystem, player } = engineRef.current;
 
     if (envMode === 'SOCIETY') {
       scene.remove(city.cityGroup);
+      if (meadows) scene.remove(meadows.meadowsGroup);
+      if (migsun) scene.remove(migsun.migsunGroup);
       if (society) scene.add(society.societyGroup);
       scene.background = new THREE.Color(0xfff5e6);
+      scene.fog = null;
 
       locomotion.setObstacles(society ? society.obstacles : []);
       locomotion.setBounds(-11, 11, -9, 7);
@@ -506,11 +619,54 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
         player.setFacingAngle(spawnFacing, 1.0);
         cameraSystem.setOrbit(spawnFacing + Math.PI);
       }
+    } else if (envMode === 'MEADOWS' && meadows) {
+      // ── MEADOWS: split-world scaffold, Kai spawns on the path ─────────────
+      scene.remove(city.cityGroup);
+      if (society) scene.remove(society.societyGroup);
+      if (migsun) scene.remove(migsun.migsunGroup);
+      scene.add(meadows.meadowsGroup);
+      scene.background = new THREE.Color(0xf3ddc0);
+      scene.fog = new THREE.FogExp2(0xf3ddc0, 0.012);
+
+      locomotion.setObstacles(meadows.obstacles);
+      locomotion.setBounds(-14, 14, -6, 14);
+      const meadowsSpawn = MEADOWS_SPAWN.clone();
+      locomotion.setPosition(meadowsSpawn);
+      cameraSystem.setDistance(9.0);
+
+      // Spawn facing the building so GREEN MEADOWS RESIDENCY frames the view
+      const facing = Math.atan2(
+        meadows.buildingFront.x - meadowsSpawn.x,
+        meadows.buildingFront.z - meadowsSpawn.z
+      );
+      player.setFacingAngle(facing, 1.0);
+      cameraSystem.setOrbit(facing + Math.PI);
+    } else if (envMode === 'MIGSUN' && migsun) {
+      // ── MIGSUN: Migsun Vilasa complex, Kai faces camera / gate ────────────
+      scene.remove(city.cityGroup);
+      if (society) scene.remove(society.societyGroup);
+      if (meadows) scene.remove(meadows.meadowsGroup);
+      scene.add(migsun.migsunGroup);
+      scene.background = new THREE.Color(0xffedd5);
+      scene.fog = null;
+
+      locomotion.setObstacles(migsun.obstacles);
+      locomotion.setBounds(-15, 15, -12, 7.5);
+      const migsunSpawn = migsun.spawnPoint.clone();
+      locomotion.setPosition(migsunSpawn);
+      cameraSystem.setDistance(10.5);
+
+      const spawnFacing = Math.PI; // Face towards society building/north
+      player.setFacingAngle(spawnFacing, 1.0);
+      cameraSystem.setOrbit(spawnFacing + Math.PI);
     } else {
       // TOWN
       if (society) scene.remove(society.societyGroup);
+      if (meadows) scene.remove(meadows.meadowsGroup);
+      if (migsun) scene.remove(migsun.migsunGroup);
       scene.add(city.cityGroup);
       scene.background = new THREE.Color(0x0f172a);
+      scene.fog = null;
 
       locomotion.setObstacles(city.obstacles);
       locomotion.setBounds(-75, 75, -105, 22);
@@ -547,8 +703,8 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
     });
     townBinMeshGroups.clear();
 
-    // Society mode uses its own bins built into the scene — no town bins
-    if (envMode === 'SOCIETY') return;
+    // Society/Meadows scenes have no town stations — no town bins
+    if (envMode !== 'TOWN') return;
 
     const stationX = currentStation.position.x;
     const stationZ = currentStation.position.z + 3.2;
@@ -608,8 +764,8 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
       engineRef.current.itemMeshGroup = null;
     }
 
-    // Society scene manages item meshes via litter scatter — no table mesh needed
-    if (envMode === 'SOCIETY') return;
+    // Society/Meadows scenes manage their own props — no table mesh needed
+    if (envMode !== 'TOWN') return;
     if (!currentItem) return;
 
     const itemGroup = createItemMesh(currentItem.modelType, {
@@ -629,36 +785,47 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
   }, [currentItem, currentStation, envMode]);
 
   // -------------------------------------------------------------------------
-  // SOCIETY: create litter scatter when item pool is available
+  // SOCIETY / MIGSUN: create litter scatter when item pool is available
   // -------------------------------------------------------------------------
   useEffect(() => {
-    if (!engineRef.current?.society || !societyItemPool?.length) return;
+    const isSociety = envMode === 'SOCIETY';
+    const isMigsun = envMode === 'MIGSUN';
+    if (!isSociety && !isMigsun) return;
+
+    const sceneHost = isSociety ? engineRef.current?.society : engineRef.current?.migsun;
+    const parentGroup = isSociety
+      ? engineRef.current?.society?.societyGroup
+      : engineRef.current?.migsun?.migsunGroup;
+
+    if (!sceneHost || !parentGroup || !societyItemPool?.length) return;
     if (societyItemPoolRef.current === societyItemPool) return; // no change
     societyItemPoolRef.current = societyItemPool;
 
     // Dispose old scatter
-    if (engineRef.current.litter) {
+    if (engineRef.current?.litter) {
       engineRef.current.litter.dispose();
       engineRef.current.litter = null;
     }
 
     const newLitter = createLitterScatter(
       societyItemPool,
-      engineRef.current.society.litterSpawnPoints,
-      engineRef.current.society.hiddenSpawnPoints,
-      engineRef.current.society.societyGroup,
+      sceneHost.litterSpawnPoints,
+      sceneHost.hiddenSpawnPoints,
+      parentGroup,
       12,
-      engineRef.current.society.pinnedLitterSpots
+      sceneHost.pinnedLitterSpots
     );
-    engineRef.current.litter = newLitter;
-  }, [societyItemPool]);
+    if (engineRef.current) {
+      engineRef.current.litter = newLitter;
+    }
+  }, [societyItemPool, envMode]);
 
   // -------------------------------------------------------------------------
-  // SOCIETY: when currentItem clears (correct throw), mark held item as in bin
+  // SOCIETY / MIGSUN: when currentItem clears (correct throw), mark held item as in bin
   // -------------------------------------------------------------------------
   const prevItemIdRef = useRef<string | null>(null);
   useEffect(() => {
-    if (envMode !== 'SOCIETY') return;
+    if (envMode !== 'SOCIETY' && envMode !== 'MIGSUN') return;
     const litter = engineRef.current?.litter;
     if (!litter) return;
     const heldItem = litter.getHeldItem();
@@ -678,16 +845,17 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
       if (!engineRef.current) return;
 
       const isSociety = envMode === 'SOCIETY';
+      const isMigsun = envMode === 'MIGSUN';
 
-      if (isSociety) {
-        // In society mode, throw the litter scatter's held item mesh
+      if (isSociety || isMigsun) {
+        // In society / migsun mode, throw the litter scatter's held item mesh
         const litter = engineRef.current.litter;
-        const society = engineRef.current.society;
-        if (!litter || !society) return;
+        const host = isSociety ? engineRef.current.society : engineRef.current.migsun;
+        if (!litter || !host) return;
         const heldItem = litter.getHeldItem();
         if (!heldItem) return;
 
-        const binMesh = society.binMeshes.get(targetBin);
+        const binMesh = host.binMeshes.get(targetBin);
         if (!binMesh) { onThrowItem(targetBin); return; }
 
         const binWorldPos = new THREE.Vector3();
@@ -711,7 +879,7 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
           if (progress < 1.0) {
             requestAnimationFrame(throwStep);
           } else {
-            society.triggerBinAnimation(targetBin);
+            host.triggerBinAnimation(targetBin);
             engineRef.current?.player.celebrate();
             onThrowItem(targetBin);
           }
@@ -1028,7 +1196,9 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
     >
       {/* =====================================================================
           TOP HEADER BAR: ENVIRONMENT & CAMERA CONTROLS
+          (Hidden in MEADOWS — the dark-glass MeadowHud owns the whole frame)
           ===================================================================== */}
+      {envMode !== 'MEADOWS' && (
       <div className="absolute top-2 sm:top-3 left-3 right-3 z-20 flex items-center justify-between gap-1.5 flex-wrap pointer-events-none">
         {/* Left: Top Bar Extras & Location Badge */}
         <div className="flex items-center gap-2 pointer-events-auto flex-wrap">
@@ -1049,23 +1219,14 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
 
         {/* Right: Camera Angle Controls + Extras */}
         <div className="flex items-center gap-1.5 pointer-events-auto flex-wrap">
-          {isCoarsePointer && (
-            <button
-              onClick={() => engineRef.current?.player.celebrate()}
-              title="Cheer"
-              aria-label="Cheer"
-              className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center bg-[#FDFBF7] border-2 border-slate-900 rounded-xl shadow-retro-sm text-lg transition-all active:translate-x-[1px] active:translate-y-[1px]"
-            >
-              🎉
-            </button>
-          )}
+
           {envMode === 'SOCIETY' ? (
             // Society mode: minimal top-right controls
             <div className="flex items-center gap-1.5">
               {topBarExtrasRight}
             </div>
           ) : (
-            <div className="flex items-center gap-1.5">
+            <div className="hidden sm:flex items-center gap-1.5">
               <button
                 onClick={() => setIsGalleryOpen(true)}
                 title="Inspect all 10 production 3D waste item components"
@@ -1089,6 +1250,7 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
           {envMode !== 'SOCIETY' && topBarExtrasRight}
         </div>
       </div>
+      )}
 
       {/* =====================================================================
           AIMING DRAG INDICATOR (Flick throw visualization)
@@ -1121,24 +1283,24 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
       )}
 
       {/* =====================================================================
-          TRUCK ARRIVAL BANNER (Society mode)
+          TRUCK ARRIVAL BANNER (Society & Migsun mode)
           ===================================================================== */}
-      {envMode === 'SOCIETY' && truckArriving && (
+      {(envMode === 'SOCIETY' || envMode === 'MIGSUN') && truckArriving && (
         <div className="absolute top-16 left-1/2 -translate-x-1/2 z-40 pointer-events-none">
           <div className="bg-emerald-500 border-2 border-slate-900 shadow-retro px-5 py-2.5 rounded-2xl flex items-center gap-3 animate-bounce">
             <span className="text-2xl">🚛</span>
             <div>
               <div className="text-sm font-fun font-black text-white">The Waste Truck has arrived!</div>
-              <div className="text-[11px] text-emerald-100">Collecting sorted waste now…</div>
+              <div className="text-[11px] text-emerald-100">Gadi Wala Aaya! Collecting waste now…</div>
             </div>
           </div>
         </div>
       )}
 
       {/* =====================================================================
-          SOCIETY PICKUP PROMPT
+          SOCIETY / MIGSUN PICKUP PROMPT
           ===================================================================== */}
-      {envMode === 'SOCIETY' && nearbyLitterItem && !currentItem && (
+      {(envMode === 'SOCIETY' || envMode === 'MIGSUN') && nearbyLitterItem && !currentItem && (
         <div className="absolute bottom-16 left-1/2 -translate-x-1/2 z-30 max-w-[90vw]">
           <div className="bg-[#FDFBF7]/95 border-2 border-emerald-500 shadow-retro px-3 py-1.5 rounded-2xl flex items-center gap-2">
             <span className="text-lg shrink-0">{nearbyLitterItem.icon}</span>
@@ -1155,6 +1317,13 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
               Pick up
             </button>
           </div>
+        </div>
+      )}
+
+      {/* Society / Migsun: walk hint when not holding anything */}
+      {(envMode === 'SOCIETY' || envMode === 'MIGSUN') && !currentItem && (
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 bg-[#FDFBF7]/90 border-2 border-slate-900 shadow-retro-sm rounded-xl px-4 py-1.5 text-[11px] font-fun font-black text-slate-900 pointer-events-none flex items-center gap-2">
+          <span>{isCoarsePointer ? '👆 Tap the ground to walk • Tap Pick up to take litter!' : '🎮 Walk with WASD • Approach litter and press E to pick up!'}</span>
         </div>
       )}
 

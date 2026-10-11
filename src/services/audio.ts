@@ -537,6 +537,200 @@ class AudioService {
       osc.stop(start + 0.4);
     });
   }
+
+  /**
+   * Sound effect: Iconic "Gadi Wala Aaya, Ghar Se Kachra Nikalo" truck jingle
+   */
+  public playGadiWalaAaya() {
+    if (!this.canPlay('gadiWalaAaya', 1000)) return;
+    const output = this.getOutput();
+    if (!this.audioCtx || !output) return;
+
+    // Melody notes approximation (C major / D major kid-friendly melody)
+    const melody = [
+      { freq: 523.25, dur: 0.22 }, // C5
+      { freq: 587.33, dur: 0.22 }, // D5
+      { freq: 659.25, dur: 0.22 }, // E5
+      { freq: 587.33, dur: 0.22 }, // D5
+      { freq: 523.25, dur: 0.45 }, // C5
+      { freq: 659.25, dur: 0.22 }, // E5
+      { freq: 783.99, dur: 0.35 }, // G5
+      { freq: 659.25, dur: 0.35 }, // E5
+      { freq: 523.25, dur: 0.5 },  // C5
+    ];
+
+    let t = this.audioCtx.currentTime;
+    melody.forEach((note) => {
+      const osc = this.audioCtx!.createOscillator();
+      const gain = this.audioCtx!.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(note.freq, t);
+      gain.gain.setValueAtTime(0.22, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + note.dur);
+
+      osc.connect(gain);
+      gain.connect(output);
+      osc.start(t);
+      osc.stop(t + note.dur);
+      t += note.dur * 0.95;
+    });
+  }
+
+  /**
+   * Sound effect: Plant revival chime & chime cascade
+   */
+  public playPlantRevival() {
+    if (!this.canPlay('plantRevival', 500)) return;
+    const output = this.getOutput();
+    if (!this.audioCtx || !output) return;
+
+    const notes = [587.33, 739.99, 880.0, 1174.66];
+    const now = this.audioCtx.currentTime;
+    notes.forEach((freq, idx) => {
+      const osc = this.audioCtx!.createOscillator();
+      const gain = this.audioCtx!.createGain();
+      osc.type = 'sine';
+      const start = now + idx * 0.12;
+
+      osc.frequency.setValueAtTime(freq, start);
+      gain.gain.setValueAtTime(0.18, start);
+      gain.gain.exponentialRampToValueAtTime(0.001, start + 0.5);
+
+      osc.connect(gain);
+      gain.connect(output);
+      osc.start(start);
+      osc.stop(start + 0.5);
+    });
+  }
+
+  /**
+   * Sound effect: Dustbin install heavy clank + success chord
+   */
+  public playBinInstall() {
+    if (!this.canPlay('binInstall', 400)) return;
+    const output = this.getOutput();
+    if (!this.audioCtx || !output) return;
+
+    const now = this.audioCtx.currentTime;
+    // Clank (square drop)
+    const osc1 = this.audioCtx.createOscillator();
+    const gain1 = this.audioCtx.createGain();
+    osc1.type = 'triangle';
+    osc1.frequency.setValueAtTime(220, now);
+    osc1.frequency.exponentialRampToValueAtTime(80, now + 0.15);
+    gain1.gain.setValueAtTime(0.3, now);
+    gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+    osc1.connect(gain1);
+    gain1.connect(output);
+    osc1.start(now);
+    osc1.stop(now + 0.2);
+
+    // Chime
+    const osc2 = this.audioCtx.createOscillator();
+    const gain2 = this.audioCtx.createGain();
+    osc2.type = 'sine';
+    osc2.frequency.setValueAtTime(659.25, now + 0.1);
+    gain2.gain.setValueAtTime(0.2, now + 0.1);
+    gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+    osc2.connect(gain2);
+    gain2.connect(output);
+    osc2.start(now + 0.1);
+    osc2.stop(now + 0.5);
+  }
+
+  /**
+   * Sound effect: Resident doorbell / prompt
+   */
+  public playResidentQuestion() {
+    if (!this.canPlay('residentQuestion', 300)) return;
+    const output = this.getOutput();
+    if (!this.audioCtx || !output) return;
+
+    const now = this.audioCtx.currentTime;
+    [659.25, 523.25].forEach((freq, idx) => {
+      const osc = this.audioCtx!.createOscillator();
+      const gain = this.audioCtx!.createGain();
+      osc.type = 'sine';
+      const start = now + idx * 0.18;
+      osc.frequency.setValueAtTime(freq, start);
+      gain.gain.setValueAtTime(0.18, start);
+      gain.gain.exponentialRampToValueAtTime(0.001, start + 0.3);
+      osc.connect(gain);
+      gain.connect(output);
+      osc.start(start);
+      osc.stop(start + 0.3);
+    });
+  }
+
+  /**
+   * Sound effect: Resident correct answer celebration
+   */
+  public playResidentCorrect() {
+    if (!this.canPlay('residentCorrect', 300)) return;
+    const output = this.getOutput();
+    if (!this.audioCtx || !output) return;
+
+    const now = this.audioCtx.currentTime;
+    [523.25, 659.25, 1046.5].forEach((freq, idx) => {
+      const osc = this.audioCtx!.createOscillator();
+      const gain = this.audioCtx!.createGain();
+      osc.type = 'triangle';
+      const start = now + idx * 0.08;
+      osc.frequency.setValueAtTime(freq, start);
+      gain.gain.setValueAtTime(0.2, start);
+      gain.gain.exponentialRampToValueAtTime(0.001, start + 0.3);
+      osc.connect(gain);
+      gain.connect(output);
+      osc.start(start);
+      osc.stop(start + 0.3);
+    });
+  }
+
+  /**
+   * Sound effect: Eco Lens cause-effect analysis sweep
+   */
+  public playEcoScan() {
+    if (!this.canPlay('ecoScan', 300)) return;
+    const output = this.getOutput();
+    if (!this.audioCtx || !output) return;
+
+    const now = this.audioCtx.currentTime;
+    const osc = this.audioCtx.createOscillator();
+    const gain = this.audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(440, now);
+    osc.frequency.exponentialRampToValueAtTime(1760, now + 0.35);
+    gain.gain.setValueAtTime(0.15, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+    osc.connect(gain);
+    gain.connect(output);
+    osc.start(now);
+    osc.stop(now + 0.35);
+  }
+
+  /**
+   * Sound effect: Health dashboard reveal swell
+   */
+  public playDashboardReveal() {
+    if (!this.canPlay('dashboardReveal', 500)) return;
+    const output = this.getOutput();
+    if (!this.audioCtx || !output) return;
+
+    const now = this.audioCtx.currentTime;
+    [261.63, 329.63, 392.0, 523.25].forEach((freq, idx) => {
+      const osc = this.audioCtx!.createOscillator();
+      const gain = this.audioCtx!.createGain();
+      osc.type = 'sine';
+      const start = now + idx * 0.07;
+      osc.frequency.setValueAtTime(freq, start);
+      gain.gain.setValueAtTime(0.2, start);
+      gain.gain.exponentialRampToValueAtTime(0.001, start + 0.6);
+      osc.connect(gain);
+      gain.connect(output);
+      osc.start(start);
+      osc.stop(start + 0.6);
+    });
+  }
 }
 
 export const audio = new AudioService();

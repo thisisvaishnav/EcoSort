@@ -53,6 +53,20 @@ export interface ItemData {
   isAmbiguous?: boolean;
 }
 
+export type MigsunPhase =
+  | 'CHARACTER_INTRO'
+  | 'MISSION_SELECT'
+  | 'SORT_CHOICE'
+  | 'SORTING_GAMEPLAY'
+  | 'TRUCK_ARRIVAL'
+  | 'AREA_RESTORED'
+  | 'BIN_LOCATION_CHOICE'
+  | 'BIN_EDUCATION'
+  | 'ECO_LENS_SCAN'
+  | 'HEALTH_DASHBOARD'
+  | 'TEACH_RESIDENT'
+  | 'LEVEL_COMPLETE';
+
 export interface LevelConfig {
   id: number;
   name: string;
@@ -62,7 +76,7 @@ export interface LevelConfig {
   energyLink: string;
   targetCount: number;
   isBonus?: boolean;
-  sceneType?: 'SOCIETY' | 'TOWN';
+  sceneType?: 'SOCIETY' | 'TOWN' | 'MEADOWS' | 'MIGSUN';
   timeLimit?: number; // seconds
 }
 

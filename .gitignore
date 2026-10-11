@@ -46,3 +46,8 @@ ENV/
 # Graphify temporary / cache files
 graphify-out/.graphify_*
 graphify-out/.needs_update
+
+# Agent / local environment & tools
+.claude/
+*.pkg
+.*.cjs

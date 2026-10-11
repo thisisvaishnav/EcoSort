@@ -5,6 +5,7 @@ export interface PlayerCharacter {
   group: THREE.Group;
   updateAnimation: (isMoving: boolean, speed: number, delta: number) => void;
   setFacingAngle: (targetAngle: number, delta: number) => void;
+  setFacingCamera?: (camera: THREE.Camera) => void;
   celebrate: () => void;
   currentAngle: number;
   readonly isGlbLoaded?: boolean;
@@ -536,6 +537,13 @@ export function createPlayerCharacter(shirtColor = 0xfacc15): PlayerCharacter {
     group.rotation.y = currentAngle;
   };
 
+  const setFacingCamera = (camera: THREE.Camera) => {
+    const dx = camera.position.x - group.position.x;
+    const dz = camera.position.z - group.position.z;
+    currentAngle = Math.atan2(dx, dz);
+    group.rotation.y = currentAngle;
+  };
+
   const celebrate = () => {
     celebrateTimer = 0.8; // 0.8 second celebration jump
   };
@@ -544,6 +552,7 @@ export function createPlayerCharacter(shirtColor = 0xfacc15): PlayerCharacter {
     group,
     updateAnimation,
     setFacingAngle,
+    setFacingCamera,
     celebrate,
     get currentAngle() {
       return currentAngle;

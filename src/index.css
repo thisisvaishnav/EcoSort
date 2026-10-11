@@ -123,6 +123,14 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* ─── Meadows HUD glass token ────────────────────────────────────────────── */
+/* Shared skin for every dark-glass panel in the Green Meadows world. */
+.hud-glass {
+  background: rgba(20, 25, 35, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
 /* ─── Tactile card/button — Emil strong-out easing + hover gate ─────────── */
 /*
   Hover gated behind @media (hover: hover) and (pointer: fine)

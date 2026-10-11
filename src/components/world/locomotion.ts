@@ -5,6 +5,8 @@ import { PlayerCharacter } from './playerCharacter';
 export interface LocomotionEngine {
   update: (delta: number, cameraAzimuthAngle: number) => void;
   createRaycastHandler: (event: MouseEvent | PointerEvent, container: HTMLElement, camera: THREE.Camera) => void;
+  /** Virtual joystick input: x = right+, y = down+ (screen space), clamped to unit circle. */
+  setJoystickVector: (x: number, y: number) => void;
   destinationRing: THREE.Group;
   getPosition: () => THREE.Vector3;
   setPosition: (pos: THREE.Vector3) => void;
@@ -12,6 +14,47 @@ export interface LocomotionEngine {
   setBounds: (minX: number, maxX: number, minZ: number, maxZ: number) => void;
   isMoving: boolean;
   dispose: () => void;
+}
+
+/** Joystick values closer to centre than this are treated as "centered". */
+export const JOYSTICK_DEAD_ZONE = 0.15;
+
+export interface JoystickMoveDir {
+  x: number;
+  z: number;
+  /** Stick pushed down → walk backward without turning around (matches S key). */
+  backward: boolean;
+}
+
+/**
+ * Map a joystick vector to a camera-relative move direction.
+ * Same camera-relative math as the WASD branch in update():
+ * stick right = camera right, stick up = camera forward.
+ * Returns null inside the dead zone (no movement).
+ */
+export function joystickToMoveDir(
+  x: number,
+  y: number,
+  cameraAzimuthAngle: number
+): JoystickMoveDir | null {
+  const magnitude = Math.hypot(x, y);
+  if (magnitude < JOYSTICK_DEAD_ZONE) return null;
+
+  // Normalize so any deflection past the dead zone walks at full speed
+  const inputX = x / magnitude;
+  const inputZ = y / magnitude;
+
+  const sin = Math.sin(cameraAzimuthAngle);
+  const cos = Math.cos(cameraAzimuthAngle);
+  const moveDirX = inputX * cos + inputZ * sin;
+  const moveDirZ = -inputX * sin + inputZ * cos;
+  const len = Math.hypot(moveDirX, moveDirZ) || 1;
+
+  return {
+    x: moveDirX / len,
+    z: moveDirZ / len,
+    backward: inputZ > 0,
+  };
 }
 
 /**
@@ -39,6 +82,19 @@ export function createLocomotionEngine(
   let isMoving = false;
   const avatarRadius = 0.55;
   const moveSpeed = 7.0; // meters per second
+
+  // Virtual joystick state (MEADOWS HUD) — {0,0} means centered/idle
+  const joystick = { x: 0, y: 0 };
+
+  const setJoystickVector = (x: number, y: number) => {
+    joystick.x = x;
+    joystick.y = y;
+    if (Math.hypot(x, y) >= JOYSTICK_DEAD_ZONE) {
+      // Joystick overrides click-to-move (same precedence as the keyboard)
+      clickDestination = null;
+      destinationRing.visible = false;
+    }
+  };
 
   let activeObstacles = [...obstacles];
   let bounds = { minX: -75, maxX: 75, minZ: -105, maxZ: 22 };
@@ -164,6 +220,9 @@ export function createLocomotionEngine(
     let moveDirZ = 0;
     let isBackwardInput = false;
 
+    // Joystick beats keys beats click-destination
+    const joystickDir = joystickToMoveDir(joystick.x, joystick.y, cameraAzimuthAngle);
+
     // Check keyboard input
     const isW = keysDown.has('w') || keysDown.has('arrowup');
     const isS = keysDown.has('s') || keysDown.has('arrowdown');
@@ -173,7 +232,12 @@ export function createLocomotionEngine(
     const inputX = (isD ? 1 : 0) - (isA ? 1 : 0);
     const inputZ = (isS ? 1 : 0) - (isW ? 1 : 0); // -1 is forward (North)
 
-    if (inputX !== 0 || inputZ !== 0) {
+    if (joystickDir) {
+      moveDirX = joystickDir.x;
+      moveDirZ = joystickDir.z;
+      isMoving = true;
+      isBackwardInput = joystickDir.backward;
+    } else if (inputX !== 0 || inputZ !== 0) {
       // Camera-relative direction: W = camera forward, D = camera right
       // (matches camera offset (sin(yaw), cos(yaw)) so W always moves away from camera)
       const sin = Math.sin(cameraAzimuthAngle);
@@ -247,6 +311,7 @@ export function createLocomotionEngine(
   return {
     update,
     createRaycastHandler,
+    setJoystickVector,
     destinationRing,
     getPosition: () => currentPos,
     setPosition: (pos: THREE.Vector3) => {

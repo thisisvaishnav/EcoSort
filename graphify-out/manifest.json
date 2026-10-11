@@ -24,9 +24,9 @@
     "semantic_hash": "675d7bfce430740bc3292172c9189429"
   },
   "package.json": {
-    "mtime": 1791713500.2110527,
-    "seen": 1791715444.615608,
-    "ast_hash": "d91c3aeee8b69d683fbeba636954b8ff",
+    "mtime": 1791718202.7539647,
+    "seen": 1791719136.093525,
+    "ast_hash": "c24f969adc6a8ba70b6be752eea2dd26",
     "semantic_hash": ""
   },
   "postcss.config.js": {
@@ -36,15 +36,15 @@
     "semantic_hash": "ef3ba2a81ba19f8ea5ddf625521e96f0"
   },
   "src/App.tsx": {
-    "mtime": 1791710258.9218032,
-    "seen": 1791712361.917821,
-    "ast_hash": "783a334d596e6ac46c8c8a07035e845c",
+    "mtime": 1791720426.0954297,
+    "seen": 1791720662.1627479,
+    "ast_hash": "783725947b704eb3253c9b7bb50b9dcd",
     "semantic_hash": ""
   },
   "src/components/LandingPage.tsx": {
-    "mtime": 1791710652.171965,
-    "seen": 1791712361.917822,
-    "ast_hash": "4e5d305a95ea027c547f0880024260d3",
+    "mtime": 1791720557.5823429,
+    "seen": 1791720662.1627488,
+    "ast_hash": "10282d327fcbb82c428898abeeb133ea",
     "semantic_hash": ""
   },
   "src/components/Navbar.tsx": {
@@ -120,9 +120,9 @@
     "semantic_hash": ""
   },
   "src/data/levels.ts": {
-    "mtime": 1791623670.5860164,
-    "seen": 1791626423.0986712,
-    "ast_hash": "e2cfb99a956cfa3a0117b50b8fec5963",
+    "mtime": 1791719871.8408926,
+    "seen": 1791720662.162816,
+    "ast_hash": "dd0049754f24d4a98e875e9928d7c209",
     "semantic_hash": ""
   },
   "src/data/quizzes.ts": {
@@ -132,9 +132,9 @@
     "semantic_hash": "876e71189cadc3205397a8ea013a4f6f"
   },
   "src/main.tsx": {
-    "mtime": 1791705800.4738889,
-    "seen": 1791705805.3449862,
-    "ast_hash": "a11e35cf4af6ebb6bb8746b41ca8f220",
+    "mtime": 1791715507.7591565,
+    "seen": 1791719136.093579,
+    "ast_hash": "52df3ce5f50303bac5048979822ebbf1",
     "semantic_hash": ""
   },
   "src/services/api.ts": {
@@ -144,9 +144,9 @@
     "semantic_hash": "c87846b65906e83bcd914c62900e6005"
   },
   "src/services/audio.ts": {
-    "mtime": 1791623876.0609972,
-    "seen": 1791626423.098675,
-    "ast_hash": "3eade5541ff1ed639b02693738cf4724",
+    "mtime": 1791719935.6966271,
+    "seen": 1791720662.162823,
+    "ast_hash": "0d42ae6d75b84f76cbf4ad6dc7bc3b27",
     "semantic_hash": ""
   },
   "src/services/spawner.ts": {
@@ -156,9 +156,9 @@
     "semantic_hash": "44a62fb9405c80a20541a5ffd43c4753"
   },
   "src/types/game.ts": {
-    "mtime": 1791711701.530831,
-    "seen": 1791712361.917875,
-    "ast_hash": "52874e99337099c2adbebdf9763f737e",
+    "mtime": 1791721246.187573,
+    "seen": 1791721860.371924,
+    "ast_hash": "6469638b1e90cf2098579601e8a3cc45",
     "semantic_hash": ""
   },
   "src/vite-env.d.ts": {
@@ -186,8 +186,8 @@
     "semantic_hash": "767b2e9abe6452170cdc399ca052cfbc"
   },
   "vite.config.ts": {
-    "mtime": 1791713656.8129642,
-    "seen": 1791715444.61568,
+    "mtime": 1791715507.8300967,
+    "seen": 1791719136.093597,
     "ast_hash": "0e34beddf5a6b6260ac55766545f2796",
     "semantic_hash": ""
   },
@@ -396,9 +396,9 @@
     "semantic_hash": "328de20931b3b3abb436e705532dec92"
   },
   "src/components/world/WorldCanvas.tsx": {
-    "mtime": 1791713451.1304286,
-    "seen": 1791715444.615628,
-    "ast_hash": "37ca989a921b5fcacff0756abea0b385",
+    "mtime": 1791720607.0127246,
+    "seen": 1791720662.162776,
+    "ast_hash": "158e1249c53f6ca1cab743fcfcf03078",
     "semantic_hash": ""
   },
   "src/components/world/levelStations.ts": {
@@ -408,20 +408,20 @@
     "semantic_hash": ""
   },
   "src/components/world/locomotion.ts": {
-    "mtime": 1791705800.4569297,
-    "seen": 1791705805.344977,
-    "ast_hash": "ef6cc1b715c86eb1b4d58aa8ead655cc",
+    "mtime": 1791717209.5992205,
+    "seen": 1791719136.093569,
+    "ast_hash": "0ccfb88c40489e4135098862a739f7d9",
     "semantic_hash": ""
   },
   "src/components/world/playerCharacter.ts": {
-    "mtime": 1791705800.4572942,
-    "seen": 1791705805.344977,
-    "ast_hash": "2f2ffed859982533c5f88b73690a2777",
+    "mtime": 1791719916.4686239,
+    "seen": 1791720662.1628091,
+    "ast_hash": "c55b3b1a82c3186e4007f62e591dd163",
     "semantic_hash": ""
   },
   "src/components/world/proceduralCity.ts": {
-    "mtime": 1791713425.1310868,
-    "seen": 1791715444.615654,
+    "mtime": 1791715507.829886,
+    "seen": 1791719136.0935712,
     "ast_hash": "e74d4c7f4a8d10aba4bab99389bdba6d",
     "semantic_hash": ""
   },
@@ -576,8 +576,8 @@
     "semantic_hash": ""
   },
   "src/components/world/items/createItemMesh.ts": {
-    "mtime": 1791713361.8011348,
-    "seen": 1791715444.6156318,
+    "mtime": 1791715507.8283303,
+    "seen": 1791719136.09355,
     "ast_hash": "fe1603957ace983efe1052bce89a656b",
     "semantic_hash": ""
   },
@@ -654,8 +654,8 @@
     "semantic_hash": ""
   },
   "src/components/world/items/textures/proceduralTextures.ts": {
-    "mtime": 1791713333.8661544,
-    "seen": 1791715444.61565,
+    "mtime": 1791715507.8292084,
+    "seen": 1791719136.093566,
     "ast_hash": "7c92f22f1f490db11884c88169754f68",
     "semantic_hash": ""
   },
@@ -888,9 +888,9 @@
     "semantic_hash": ""
   },
   "src/components/world/WorldPage.tsx": {
-    "mtime": 1791711814.773497,
-    "seen": 1791712361.917839,
-    "ast_hash": "64fc4534b38736e15552a0773db328d4",
+    "mtime": 1791721523.603758,
+    "seen": 1791721860.371883,
+    "ast_hash": "08c0ba35addace99fb61446fc124981b",
     "semantic_hash": ""
   },
   "tests/worldPage.test.ts": {
@@ -948,9 +948,9 @@
     "semantic_hash": ""
   },
   "src/components/game/CountdownTimer.tsx": {
-    "mtime": 1791711750.7406113,
-    "seen": 1791712361.917826,
-    "ast_hash": "67d6b54d4f80a46db390e7387a02a8db",
+    "mtime": 1791717549.223339,
+    "seen": 1791719136.0935318,
+    "ast_hash": "3ca882d6b1076bf37bd007ce5b690f58",
     "semantic_hash": ""
   },
   "src/components/game/EcoLensOverlay.tsx": {
@@ -984,8 +984,8 @@
     "semantic_hash": ""
   },
   "src/components/world/litterScatter.ts": {
-    "mtime": 1791713394.1504204,
-    "seen": 1791715444.615652,
+    "mtime": 1791715507.8294659,
+    "seen": 1791719136.093568,
     "ast_hash": "6f99af3ef5285547cb0d2271faaaf986",
     "semantic_hash": ""
   },
@@ -1041,18 +1041,6 @@
     "mtime": 1791705800.477436,
     "seen": 1791705805.345001,
     "ast_hash": "85a0d477084afad2bb22a7459777755a",
-    "semantic_hash": ""
-  },
-  ".verify-main.cjs": {
-    "mtime": 1791705949.8479412,
-    "seen": 1791712361.917807,
-    "ast_hash": "65b649286cc4920b8617fad8245bdb6e",
-    "semantic_hash": ""
-  },
-  ".claude/PRPs/plans/browser-performance-optimization.plan.md": {
-    "mtime": 1791710181.0964143,
-    "seen": 1791712361.917911,
-    "ast_hash": "17330187f890c72e7817a86832dbaeca",
     "semantic_hash": ""
   },
   "public/assets/items/banana_peel.webp": {
@@ -1182,9 +1170,159 @@
     "semantic_hash": ""
   },
   "src/components/world/disposeObject3D.ts": {
-    "mtime": 1791713347.6899526,
-    "seen": 1791715444.6156301,
+    "mtime": 1791715507.8279872,
+    "seen": 1791719136.093548,
     "ast_hash": "127339ee16d16da0d61596bc7e49b7df",
+    "semantic_hash": ""
+  },
+  "src/components/game/meadows/EcoLensAbilityButton.tsx": {
+    "mtime": 1791717647.826547,
+    "seen": 1791719136.0935402,
+    "ast_hash": "efff1e8445c8dc4ba39409c378a48b45",
+    "semantic_hash": ""
+  },
+  "src/components/game/meadows/LevelBadge.tsx": {
+    "mtime": 1791717481.4155989,
+    "seen": 1791719136.0935402,
+    "ast_hash": "9894079a5611e6f73813bfafe5892d41",
+    "semantic_hash": ""
+  },
+  "src/components/game/meadows/MeadowHud.tsx": {
+    "mtime": 1791721163.9600587,
+    "seen": 1791721860.37187,
+    "ast_hash": "16a5e72009847e97218dbf981d849556",
+    "semantic_hash": ""
+  },
+  "src/components/game/meadows/MissionPanel.tsx": {
+    "mtime": 1791721155.107904,
+    "seen": 1791721860.371871,
+    "ast_hash": "4dc6fdcecbdedddf8742929ae21b9215",
+    "semantic_hash": ""
+  },
+  "src/components/game/meadows/NarrativeBanner.tsx": {
+    "mtime": 1791717484.0352042,
+    "seen": 1791719136.0935419,
+    "ast_hash": "0abf94c041c89b16ddcbe23fd86637e3",
+    "semantic_hash": ""
+  },
+  "src/components/game/meadows/VirtualJoystick.tsx": {
+    "mtime": 1791717629.0917456,
+    "seen": 1791719136.0935428,
+    "ast_hash": "d0eacf1c722d27993fa0fd1dcc013e0b",
+    "semantic_hash": ""
+  },
+  "src/components/world/meadowsScene.ts": {
+    "mtime": 1791717097.9269688,
+    "seen": 1791719136.093569,
+    "ast_hash": "4e08abc96db1164972fd9b9318a11b7f",
+    "semantic_hash": ""
+  },
+  "src/hooks/usePersistentBoolean.ts": {
+    "mtime": 1791715507.758821,
+    "seen": 1791719136.093578,
+    "ast_hash": "e4df4b0364b58e9bcbe9a080f6568d12",
+    "semantic_hash": ""
+  },
+  "src/services/music.ts": {
+    "mtime": 1791715507.759781,
+    "seen": 1791719136.093581,
+    "ast_hash": "eeda675b2081c0c9b126c923ba33e1e2",
+    "semantic_hash": ""
+  },
+  "src/services/uiAudio.ts": {
+    "mtime": 1791715507.7599838,
+    "seen": 1791719136.0935822,
+    "ast_hash": "8e28a18c34861f6911670f6e72348110",
+    "semantic_hash": ""
+  },
+  "tests/audio.test.ts": {
+    "mtime": 1791715507.7603023,
+    "seen": 1791719136.093587,
+    "ast_hash": "91f3281bf55f44fab69cfd118e143294",
+    "semantic_hash": ""
+  },
+  "tests/meadowsHud.test.ts": {
+    "mtime": 1791719109.845371,
+    "seen": 1791719136.09359,
+    "ast_hash": "972cf064669d74f206e68e7fe936c23d",
+    "semantic_hash": ""
+  },
+  "tests/meadowsScene.test.ts": {
+    "mtime": 1791718987.988431,
+    "seen": 1791719136.09359,
+    "ast_hash": "270fc1c84bec7322205e7b49acb1260a",
+    "semantic_hash": ""
+  },
+  "MEADOWS_WORLD_PLAN.md": {
+    "mtime": 1791718971.6514664,
+    "seen": 1791719136.09362,
+    "ast_hash": "de08d884e0c28b57603f12b155c8f9a4",
+    "semantic_hash": ""
+  },
+  "MIGSUN_VILASA_PLAN.md": {
+    "mtime": 1791718761.8605666,
+    "seen": 1791719136.093621,
+    "ast_hash": "c6310f88698e2284d7dd0366e7c09aa4",
+    "semantic_hash": ""
+  },
+  "src/components/game/migsun/BinLocationChoice.tsx": {
+    "mtime": 1791721329.9711254,
+    "seen": 1791721860.3718731,
+    "ast_hash": "4ac31ac5ebc9bb6b965963590665b606",
+    "semantic_hash": ""
+  },
+  "src/components/game/migsun/CharacterIntroOverlay.tsx": {
+    "mtime": 1791721304.4625099,
+    "seen": 1791721860.371874,
+    "ast_hash": "1daeaaaee1423e8bc6c2735c1d6d838f",
+    "semantic_hash": ""
+  },
+  "src/components/game/migsun/DustbinCardOverlay.tsx": {
+    "mtime": 1791721340.1292133,
+    "seen": 1791721860.371875,
+    "ast_hash": "b50530a74caecaf3949228f585c25d95",
+    "semantic_hash": ""
+  },
+  "src/components/game/migsun/EcoLensScanOverlay.tsx": {
+    "mtime": 1791721350.5224457,
+    "seen": 1791721860.371875,
+    "ast_hash": "e6c7f682eb7356e36f7daa60990d274a",
+    "semantic_hash": ""
+  },
+  "src/components/game/migsun/HealthDashboard.tsx": {
+    "mtime": 1791721360.0979228,
+    "seen": 1791721860.371876,
+    "ast_hash": "565fd862f3407e101e3285a3497597fe",
+    "semantic_hash": ""
+  },
+  "src/components/game/migsun/MigsunGameController.tsx": {
+    "mtime": 1791721475.2109454,
+    "seen": 1791721860.3718772,
+    "ast_hash": "d6972df11ae28fc7ebae2373d0268c01",
+    "semantic_hash": ""
+  },
+  "src/components/game/migsun/MissionSelectPanel.tsx": {
+    "mtime": 1791721312.6874568,
+    "seen": 1791721860.3718772,
+    "ast_hash": "93df464bd4cf0cd9117af0f700b56f92",
+    "semantic_hash": ""
+  },
+  "src/components/game/migsun/SortChoiceModal.tsx": {
+    "mtime": 1791721321.2953258,
+    "seen": 1791721860.371878,
+    "ast_hash": "a6655fedca3238e6074fa1baac5be6cd",
+    "semantic_hash": ""
+  },
+  "src/components/world/migsunScene.ts": {
+    "mtime": 1791721295.863239,
+    "seen": 1791721860.3719091,
+    "ast_hash": "8e50d5a4fa392aef621426b4ff203782",
+    "semantic_hash": ""
+  },
+  "src/data/migsunData.ts": {
+    "mtime": 1791721262.7856138,
+    "seen": 1791721860.371915,
+    "ast_hash": "aef00fdd61c3dbb12ce841e8541c052a",
     "semantic_hash": ""
   }
 }

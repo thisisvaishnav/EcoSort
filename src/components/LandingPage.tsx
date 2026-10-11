@@ -6,12 +6,15 @@ import {
   Zap,
   ChevronDown,
   ZoomIn,
-  X
+  X,
+  Sparkles,
 } from 'lucide-react';
 import { GAME_LEVELS } from '../data/levels';
 
 interface LandingPageProps {
   onStartGame: () => void;
+  onStartMeadows?: () => void;
+  onStartMigsun?: () => void;
   onOpenReport: () => void;
 }
 
@@ -71,7 +74,12 @@ const TAGLINE_WORDS = [
 /* ─────────────────────────────────────────────────────────────────────────── */
 /*  LandingPage component                                                      */
 /* ─────────────────────────────────────────────────────────────────────────── */
-export const LandingPage: React.FC<LandingPageProps> = ({ onStartGame, onOpenReport }) => {
+export const LandingPage: React.FC<LandingPageProps> = ({
+  onStartGame,
+  onStartMeadows,
+  onStartMigsun,
+  onOpenReport,
+}) => {
 
   /* ── Hero character viewer state ──────────────────────────────────────── */
   const [isArtworkModalOpen, setIsArtworkModalOpen] = useState<boolean>(false);
@@ -262,14 +270,36 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStartGame, onOpenRep
             </p>
 
             {/* Action buttons */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2 reveal reveal-delay-3">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2 reveal reveal-delay-3 flex-wrap">
               <button
                 onClick={onStartGame}
-                className="tactile-btn px-8 py-4 bg-amber-300 hover:bg-amber-400 text-slate-950 font-fun font-black text-base sm:text-lg rounded-2xl border-[3px] border-slate-950 shadow-retro-lg inline-flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                className="tactile-btn px-7 py-4 bg-amber-300 hover:bg-amber-400 text-slate-950 font-fun font-black text-base sm:text-lg rounded-2xl border-[3px] border-slate-950 shadow-retro-lg inline-flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
               >
                 <span>START A DRILL</span>
                 <ArrowRight className="w-5 h-5 text-slate-950 stroke-[3]" />
               </button>
+
+              {onStartMeadows && (
+                <button
+                  onClick={onStartMeadows}
+                  data-testid="meadows-hero-btn"
+                  className="tactile-btn px-6 py-4 bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-fun font-black text-base sm:text-lg rounded-2xl border-[3px] border-slate-950 shadow-retro-lg inline-flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                >
+                  <Sparkles className="w-5 h-5 text-slate-950 stroke-[2.5]" />
+                  <span>MEADOWS WORLD</span>
+                </button>
+              )}
+
+              {onStartMigsun && (
+                <button
+                  onClick={onStartMigsun}
+                  data-testid="migsun-hero-btn"
+                  className="tactile-btn px-6 py-4 bg-sky-400 hover:bg-sky-300 text-slate-950 font-fun font-black text-base sm:text-lg rounded-2xl border-[3px] border-slate-950 shadow-retro-lg inline-flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                >
+                  <Sparkles className="w-5 h-5 text-slate-950 stroke-[2.5]" />
+                  <span>MIGSUN VILASA</span>
+                </button>
+              )}
 
               <button
                 onClick={onOpenReport}
@@ -919,6 +949,31 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStartGame, onOpenRep
               <div className="pt-2 border-t border-slate-950/20 flex items-center justify-between text-xs font-bold text-slate-900">
                 <span>All 5 bins</span>
                 <span>Maximum town power ⚡️</span>
+              </div>
+            </div>
+
+            {/* Level 7: Green Meadows Rescue */}
+            <div className="bg-gradient-to-br from-emerald-100 via-teal-50 to-emerald-200 rounded-3xl p-6 border-[3px] border-slate-950 shadow-retro-lg space-y-3 tactile-card reveal reveal-delay-6">
+              <div className="flex items-center justify-between">
+                <span className="px-3 py-1 rounded-xl bg-emerald-600 text-white font-fun font-black text-xs border-2 border-slate-950 shadow-retro-sm uppercase">
+                  Level 7 • New
+                </span>
+                <span className="text-xs font-bold text-slate-700 uppercase">Residency</span>
+              </div>
+              <h3 className="font-fun font-black text-xl text-slate-950">Green Meadows Rescue</h3>
+              <p className="text-xs text-slate-700 leading-relaxed font-medium">
+                Clean the walkway and sort waste to bring life back to the garden.
+              </p>
+              <div className="pt-2 border-t border-slate-950/20 flex items-center justify-between text-xs font-bold text-slate-900">
+                <span>4 bins • 90s timer</span>
+                {onStartMeadows && (
+                  <button
+                    onClick={onStartMeadows}
+                    className="tactile-btn px-3 py-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-lg border border-slate-900 font-fun font-black text-xs shadow-retro-sm"
+                  >
+                    Play Meadows →
+                  </button>
+                )}
               </div>
             </div>
           </div>

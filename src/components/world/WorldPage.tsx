@@ -17,6 +17,13 @@ import { CountdownTimer } from '../game/CountdownTimer';
 import { CleanlinessMeter } from '../game/CleanlinessMeter';
 import { EcoLensOverlay, EcoLensButton } from '../game/EcoLensOverlay';
 import { MissionResultsModal, MissionError } from '../game/MissionResultsModal';
+import { MeadowHud } from '../game/meadows/MeadowHud';
+import { VirtualJoystick } from '../game/meadows/VirtualJoystick';
+import { NarrativeToken } from '../game/meadows/NarrativeBanner';
+import { MissionTask } from '../game/meadows/MissionPanel';
+import { MigsunGameController } from '../game/migsun/MigsunGameController';
+import { MigsunSceneResult } from './migsunScene';
+import { MigsunPhase } from '../../types/game';
 import { useCountdownTimer } from '../../hooks/useCountdownTimer';
 import { usePersistentBoolean } from '../../hooks/usePersistentBoolean';
 import { useCoarsePointer, useIsPortrait } from '../../hooks/useMobileInput';
@@ -39,20 +46,24 @@ import {
   Flame,
   Award,
   ChevronUp,
+  Info,
+  X,
 } from 'lucide-react';
 
 export interface WorldPageProps {
+  initialLevelId?: number;
   onExit?: () => void;
   onOpenTeacherReport?: () => void;
 }
 
 export const WorldPage: React.FC<WorldPageProps> = ({
+  initialLevelId = 1,
   onExit,
   onOpenTeacherReport,
 }) => {
   // ── Player & Level ─────────────────────────────────────────────────────────
   const [profile, setProfile] = useState<PlayerProfile>(() => apiService.getLocalProfile());
-  const [currentLevelId, setCurrentLevelId] = useState<number>(1);
+  const [currentLevelId, setCurrentLevelId] = useState<number>(initialLevelId);
 
   const currentLevel = useMemo(
     () => GAME_LEVELS.find((l) => l.id === currentLevelId) || GAME_LEVELS[0],
@@ -60,13 +71,26 @@ export const WorldPage: React.FC<WorldPageProps> = ({
   );
 
   const isSocietyMode = currentLevel.sceneType === 'SOCIETY';
+  const isMeadowsMode = currentLevel.sceneType === 'MEADOWS';
+  const isMigsunMode = currentLevel.sceneType === 'MIGSUN';
 
-  // Items available in society scene (all items whose bin is in this level's bins)
+  // Migsun state
+  const [migsunPhase, setMigsunPhase] = useState<MigsunPhase>('CHARACTER_INTRO');
+  const [migsunCompletedMissions, setMigsunCompletedMissions] = useState<number[]>([]);
+  const migsunSceneRef = useRef<MigsunSceneResult | null>(null);
+
+  // Virtual joystick input sink → WorldCanvas registers the engine here
+  const joystickInputRef = useRef<((x: number, y: number) => void) | null>(null);
+  const handleJoystickMove = useCallback((x: number, y: number) => {
+    joystickInputRef.current?.(x, y);
+  }, []);
+
+  // Items available in society/migsun scene (all items whose bin is in this level's bins)
   const societyItemPool = useMemo(
-    () => isSocietyMode
+    () => (isSocietyMode || isMigsunMode)
       ? GAME_ITEMS.filter((it) => currentLevel.bins.includes(it.bin))
       : [],
-    [isSocietyMode, currentLevel.bins]
+    [isSocietyMode, isMigsunMode, currentLevel.bins]
   );
 
   // Adaptive Spawner (used for non-society modes)
@@ -111,6 +135,7 @@ export const WorldPage: React.FC<WorldPageProps> = ({
   const [showMissionResults, setShowMissionResults] = useState<boolean>(false);
   const [showEcopedia, setShowEcopedia] = useState<boolean>(false);
   const [showLevelSelect, setShowLevelSelect] = useState<boolean>(false);
+  const [showInfoMenu, setShowInfoMenu] = useState<boolean>(false);
   const [recentlyUnlockedItem, setRecentlyUnlockedItem] = useState<ItemData | null>(null);
 
   // ── Audio & Accessibility ───────────────────────────────────────────────────
@@ -210,14 +235,14 @@ export const WorldPage: React.FC<WorldPageProps> = ({
   const [lensState, setLensState] = useState(INITIAL_ECO_LENS_STATE);
   const [lensUseCount, setLensUseCount] = useState<number>(0);
 
-  // Lens cooldown tick
+  // Lens cooldown tick (society + meadows — both expose the lens ability)
   useEffect(() => {
-    if (!isSocietyMode || lensState.cooldown <= 0) return;
+    if ((!isSocietyMode && !isMeadowsMode) || lensState.cooldown <= 0) return;
     const interval = setInterval(() => {
       setLensState((prev) => tickLensCooldown(prev, 1));
     }, 1000);
     return () => clearInterval(interval);
-  }, [isSocietyMode, lensState.cooldown]);
+  }, [isSocietyMode, isMeadowsMode, lensState.cooldown]);
 
   // Timer warning/urgent sound cues
   const prevTimeRef = useRef<number>(timerDuration);
@@ -247,6 +272,16 @@ export const WorldPage: React.FC<WorldPageProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timer.isExpired, isSocietyMode]);
 
+  // ── Meadows: the HUD countdown runs from level start ─────────────────────
+  // The portrait gate above owns pause/resume on rotation; this only starts
+  // the clock (or restarts it after a level reset).
+  useEffect(() => {
+    if (!isMeadowsMode) return;
+    if (timer.isRunning || timer.isExpired || missionOverRef.current) return;
+    if (isCoarsePointer && isPortrait) return;
+    timer.start();
+  }, [isMeadowsMode, timer.isRunning, timer.isExpired, timer.start, isCoarsePointer, isPortrait]);
+
   // ── Level start / reset ─────────────────────────────────────────────────────
   useEffect(() => {
     setItemsSorted(0);
@@ -273,11 +308,28 @@ export const WorldPage: React.FC<WorldPageProps> = ({
     }
     wrongAttemptsRef.current = {};
 
-    if (isSocietyMode) {
+    if (isMigsunMode) {
+      setCurrentItem(null);
+      timer.reset();
+      setMigsunPhase('CHARACTER_INTRO');
+      setMigsunCompletedMissions([]);
+      const msg = 'Welcome to Migsun Vilasa! Sort the waste to restore the area.';
+      setMascotMessage(msg);
+      setIsPositiveFeedback(true);
+      audio.speak(msg);
+    } else if (isSocietyMode) {
       // Society: player picks up items from ground — no pre-spawned item
       setCurrentItem(null);
       timer.reset();
       const msg = 'Welcome! Walk around and pick up litter. Sort it!';
+      setMascotMessage(msg);
+      setIsPositiveFeedback(true);
+      audio.speak(msg);
+    } else if (isMeadowsMode) {
+      // Meadows: walk-around HUD demo — no items or bins in this pass
+      setCurrentItem(null);
+      timer.reset();
+      const msg = 'Welcome to Green Meadows. Clean the path!';
       setMascotMessage(msg);
       setIsPositiveFeedback(true);
       audio.speak(msg);
@@ -322,6 +374,25 @@ export const WorldPage: React.FC<WorldPageProps> = ({
     setLensState((prev) => deactivateLens(prev));
   }, []);
 
+  // ── Meadows Eco Lens (UI pass: ability has no items to scan yet) ─────────
+  // Drives the same energy/cooldown state machine so the segmented bar and
+  // cooldown badge behave exactly like the real ability.
+  const lensAutoOffRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => () => {
+    if (lensAutoOffRef.current) clearTimeout(lensAutoOffRef.current);
+  }, []);
+  const handleMeadowsLens = useCallback(() => {
+    const next = activateLens(lensState, 'meadows_scan', 'wet');
+    if (!next) return;
+    setLensState(next);
+    setLensUseCount((c) => c + 1);
+    audio.playLensActivate();
+    if (lensAutoOffRef.current) clearTimeout(lensAutoOffRef.current);
+    lensAutoOffRef.current = setTimeout(() => {
+      setLensState((prev) => (prev.isActive ? deactivateLens(prev) : prev));
+    }, 3000);
+  }, [lensState]);
+
   // ── Throw / Sort item ───────────────────────────────────────────────────────
   const handleThrowItem = useCallback((targetBin: BinType) => {
     if (!currentItem || isThrowing) return;
@@ -342,7 +413,7 @@ export const WorldPage: React.FC<WorldPageProps> = ({
       setCorrectThrows((prev) => prev + 1);
       setEnergy((prev) => Math.min(100, prev + 12));
 
-      if (isSocietyMode) {
+      if (isSocietyMode || isMigsunMode) {
         const itemWrong = wrongAttemptsRef.current[currentItem.id] ?? 0;
         setSocietySortedCount((c) => c + 1);
         if (itemWrong === 0) setSocietyFirstTryCount((c) => c + 1);
@@ -366,7 +437,22 @@ export const WorldPage: React.FC<WorldPageProps> = ({
       setTimeout(() => {
         setIsThrowing(false);
 
-        if (isSocietyMode) {
+        if (isMigsunMode) {
+          setCurrentItem(null);
+          setSocietySortedCount((c) => {
+            if (c >= currentLevel.targetCount) {
+              timer.pause();
+              // Trigger truck arrival sequence with Gadi Wala Aaya
+              setTruckArriving(true);
+              audio.playGadiWalaAaya();
+              setMigsunPhase('TRUCK_ARRIVAL');
+              setTimeout(() => {
+                setMigsunPhase('AREA_RESTORED');
+              }, 4000);
+            }
+            return c;
+          });
+        } else if (isSocietyMode) {
           // In society: clear held item; next pickup triggers via 3D proximity
           setCurrentItem(null);
           // Check if all items are sorted (targetCount reached)
@@ -400,7 +486,7 @@ export const WorldPage: React.FC<WorldPageProps> = ({
       setStreak(0);
       setLevelErrors((prev) => [...prev, { itemId: currentItem.id, bin: targetBin }]);
 
-      if (isSocietyMode) {
+      if (isSocietyMode || isMigsunMode) {
         // Track wrong attempts per item
         const prev = wrongAttemptsRef.current[currentItem.id] ?? 0;
         wrongAttemptsRef.current[currentItem.id] = prev + 1;
@@ -697,7 +783,7 @@ export const WorldPage: React.FC<WorldPageProps> = ({
   // ── HUD: RIGHT ──────────────────────────────────────────────────────────────
   const topBarExtrasRight = useMemo(
     () => (
-    <div className="flex items-center gap-1.5">
+    <div className="flex items-center gap-1.5 relative pointer-events-auto">
       {/* Eco Lens button (society mode only) */}
       {isSocietyMode && (
         <EcoLensButton
@@ -707,66 +793,113 @@ export const WorldPage: React.FC<WorldPageProps> = ({
         />
       )}
 
-      {/* Missions */}
-      <button
-        onClick={() => setShowLevelSelect(true)}
-        title="View missions"
-        className="flex items-center gap-1.5 px-3 py-1.5 min-h-[40px] md:min-h-[44px] bg-white hover:bg-slate-100 text-slate-900 border-2 border-slate-900 shadow-retro-sm rounded-xl text-xs font-fun font-black transition-all active:translate-x-[1px] active:translate-y-[1px]"
-      >
-        <Map className="w-3.5 h-3.5 text-emerald-600" />
-        <span className="hidden sm:inline">Missions</span>
-      </button>
-
-      {/* Ecopedia */}
-      <button
-        onClick={() => setShowEcopedia(true)}
-        title="View Eco-pedia cards"
-        className="flex items-center gap-1.5 px-3 py-1.5 min-h-[40px] md:min-h-[44px] bg-white hover:bg-slate-100 text-slate-900 border-2 border-slate-900 shadow-retro-sm rounded-xl text-xs font-fun font-black transition-all active:translate-x-[1px] active:translate-y-[1px]"
-      >
-        <BookOpen className="w-3.5 h-3.5 text-teal-600" />
-        <span className="hidden md:inline">Cards ({profile.unlockedCards.length})</span>
-      </button>
-
-      {/* Sound Toggle */}
-      <button
-        onClick={handleToggleSound}
-        title={soundEnabled ? 'Mute sound' : 'Enable sound'}
-        className="p-2 min-h-[40px] min-w-[40px] md:min-h-[44px] md:min-w-[44px] flex items-center justify-center bg-white hover:bg-slate-100 text-slate-900 border-2 border-slate-900 shadow-retro-sm rounded-xl transition-all active:translate-x-[1px] active:translate-y-[1px]"
-      >
-        {soundEnabled ? <Volume2 className="w-4 h-4 text-emerald-600" /> : <VolumeX className="w-4 h-4 text-rose-600" />}
-      </button>
-
-      {/* Slow Mode */}
-      <button
-        onClick={handleToggleSlowMode}
-        title={slowMode ? 'Normal speed' : 'Slow mode'}
-        className={`min-h-[40px] min-w-[40px] md:min-h-[44px] md:min-w-[44px] flex items-center justify-center px-2.5 py-1.5 rounded-xl text-xs font-fun font-black border-2 border-slate-900 shadow-retro-sm transition-all active:translate-x-[1px] active:translate-y-[1px] ${
-          slowMode ? 'bg-amber-300 text-slate-950' : 'bg-white text-slate-700 hover:bg-slate-100'
-        }`}
-      >
-        🐢
-      </button>
-
-      {/* Fullscreen (not supported on iPhone Safari) */}
-      {typeof document !== 'undefined' && 'requestFullscreen' in document.documentElement && (
+      {/* Info Icon Button: normally closed, opens all options & buttons on click */}
+      <div className="relative">
         <button
-          onClick={handleToggleFullscreen}
-          title={isFullscreen ? 'Exit fullscreen' : 'Full desktop view'}
-          className="hidden sm:flex p-2 min-h-[40px] min-w-[40px] md:min-h-[44px] md:min-w-[44px] items-center justify-center bg-white hover:bg-slate-100 text-slate-900 border-2 border-slate-900 shadow-retro-sm rounded-xl transition-all active:translate-x-[1px] active:translate-y-[1px]"
+          onClick={() => setShowInfoMenu((prev) => !prev)}
+          title="Game options & info"
+          aria-label="Game options and info"
+          aria-expanded={showInfoMenu}
+          className="p-2 min-h-[40px] min-w-[40px] md:min-h-[44px] md:min-w-[44px] flex items-center justify-center bg-white hover:bg-slate-100 text-slate-900 border-2 border-slate-900 shadow-retro-sm rounded-xl font-fun font-black transition-all active:translate-x-[1px] active:translate-y-[1px]"
         >
-          {isFullscreen ? <Minimize2 className="w-4 h-4 text-slate-700" /> : <Maximize2 className="w-4 h-4 text-slate-700" />}
+          {showInfoMenu ? (
+            <X className="w-4 h-4 text-slate-800" />
+          ) : (
+            <Info className="w-4 h-4 text-emerald-600" />
+          )}
         </button>
-      )}
 
-      {onOpenTeacherReport && (
-        <button
-          onClick={onOpenTeacherReport}
-          title="Teacher report"
-          className="hidden sm:flex p-2 min-h-[40px] min-w-[40px] md:min-h-[44px] md:min-w-[44px] items-center justify-center bg-white hover:bg-slate-100 text-slate-900 border-2 border-slate-900 shadow-retro-sm rounded-xl transition-all active:translate-x-[1px] active:translate-y-[1px]"
-        >
-          <BarChart2 className="w-4 h-4 text-blue-600" />
-        </button>
-      )}
+        {/* Info dropdown popup menu */}
+        {showInfoMenu && (
+          <div className="absolute right-0 top-full mt-2 bg-[#FDFBF7] border-2 border-slate-900 shadow-retro-md rounded-2xl p-2 flex flex-col gap-1.5 z-50 min-w-[170px] animate-in fade-in zoom-in-95">
+            {/* Missions */}
+            <button
+              onClick={() => {
+                setShowInfoMenu(false);
+                setShowLevelSelect(true);
+              }}
+              className="flex items-center gap-2 px-3 py-2 bg-white hover:bg-slate-100 text-slate-900 border-2 border-slate-900 shadow-retro-xs rounded-xl text-xs font-fun font-black transition-all text-left"
+            >
+              <Map className="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Missions</span>
+            </button>
+
+            {/* Ecopedia */}
+            <button
+              onClick={() => {
+                setShowInfoMenu(false);
+                setShowEcopedia(true);
+              }}
+              className="flex items-center gap-2 px-3 py-2 bg-white hover:bg-slate-100 text-slate-900 border-2 border-slate-900 shadow-retro-xs rounded-xl text-xs font-fun font-black transition-all text-left"
+            >
+              <BookOpen className="w-4 h-4 text-teal-600 shrink-0" />
+              <span>Cards ({profile.unlockedCards.length})</span>
+            </button>
+
+            {/* Sound Toggle */}
+            <button
+              onClick={handleToggleSound}
+              className="flex items-center justify-between px-3 py-2 bg-white hover:bg-slate-100 text-slate-900 border-2 border-slate-900 shadow-retro-xs rounded-xl text-xs font-fun font-black transition-all text-left"
+            >
+              <span className="flex items-center gap-2">
+                {soundEnabled ? (
+                  <Volume2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                ) : (
+                  <VolumeX className="w-4 h-4 text-rose-600 shrink-0" />
+                )}
+                <span>Sound</span>
+              </span>
+              <span className="text-[10px] text-slate-500 uppercase">{soundEnabled ? 'On' : 'Off'}</span>
+            </button>
+
+            {/* Slow Mode */}
+            <button
+              onClick={handleToggleSlowMode}
+              className={`flex items-center justify-between px-3 py-2 border-2 border-slate-900 shadow-retro-xs rounded-xl text-xs font-fun font-black transition-all text-left ${
+                slowMode ? 'bg-amber-300 text-slate-950' : 'bg-white hover:bg-slate-100 text-slate-900'
+              }`}
+            >
+              <span className="flex items-center gap-2">
+                <span className="text-sm">🐢</span>
+                <span>Slow Mode</span>
+              </span>
+              <span className="text-[10px] text-slate-500 uppercase">{slowMode ? 'On' : 'Off'}</span>
+            </button>
+
+            {/* Fullscreen (if supported) */}
+            {typeof document !== 'undefined' && 'requestFullscreen' in document.documentElement && (
+              <button
+                onClick={() => {
+                  setShowInfoMenu(false);
+                  handleToggleFullscreen();
+                }}
+                className="flex items-center gap-2 px-3 py-2 bg-white hover:bg-slate-100 text-slate-900 border-2 border-slate-900 shadow-retro-xs rounded-xl text-xs font-fun font-black transition-all text-left"
+              >
+                {isFullscreen ? (
+                  <Minimize2 className="w-4 h-4 text-slate-700 shrink-0" />
+                ) : (
+                  <Maximize2 className="w-4 h-4 text-slate-700 shrink-0" />
+                )}
+                <span>{isFullscreen ? 'Exit Full' : 'Fullscreen'}</span>
+              </button>
+            )}
+
+            {/* Teacher Report */}
+            {onOpenTeacherReport && (
+              <button
+                onClick={() => {
+                  setShowInfoMenu(false);
+                  onOpenTeacherReport();
+                }}
+                className="flex items-center gap-2 px-3 py-2 bg-white hover:bg-slate-100 text-slate-900 border-2 border-slate-900 shadow-retro-xs rounded-xl text-xs font-fun font-black transition-all text-left"
+              >
+                <BarChart2 className="w-4 h-4 text-blue-600 shrink-0" />
+                <span>Teacher Report</span>
+              </button>
+            )}
+          </div>
+        )}
+      </div>
     </div>
     ),
     [
@@ -775,6 +908,7 @@ export const WorldPage: React.FC<WorldPageProps> = ({
       handleActivateEcoLens,
       currentItem,
       isThrowing,
+      showInfoMenu,
       profile.unlockedCards.length,
       soundEnabled,
       handleToggleSound,
@@ -786,6 +920,27 @@ export const WorldPage: React.FC<WorldPageProps> = ({
       setShowLevelSelect,
       setShowEcopedia,
     ]
+  );
+
+  // ── HUD: MEADOWS (Level 7 dark-glass overlay) ─────────────────────────────
+  const meadowsNarrative = useMemo<NarrativeToken[]>(
+    () => [
+      { text: 'Clean the path. Sort ' },
+      { text: 'waste', highlight: 'waste' },
+      { text: '. Bring ' },
+      { text: 'life', highlight: 'life' },
+      { text: ' back.' },
+    ],
+    []
+  );
+
+  const meadowsTasks = useMemo<MissionTask[]>(
+    () => [
+      { id: 'clean', label: 'Clean the waste area', done: false },
+      { id: 'sort', label: 'Sort the waste correctly', done: false },
+      { id: 'garden', label: 'Restore the garden', done: false },
+    ],
+    []
   );
 
   // ── Render ──────────────────────────────────────────────────────────────────
@@ -808,7 +963,67 @@ export const WorldPage: React.FC<WorldPageProps> = ({
         societyItemPool={societyItemPool}
         onPickupSocietyItem={handlePickupSocietyItem}
         truckArriving={truckArriving}
+        joystickInputRef={joystickInputRef}
+        migsunRef={migsunSceneRef}
       >
+        {/* Migsun Vilasa Game Controller (Level 8) */}
+        {isMigsunMode && (
+          <MigsunGameController
+            currentPhase={migsunPhase}
+            onSetPhase={setMigsunPhase}
+            completedMissions={migsunCompletedMissions}
+            onCompleteMission={(missionId) => {
+              setMigsunCompletedMissions((prev) =>
+                prev.includes(missionId) ? prev : [...prev, missionId]
+              );
+            }}
+            score={score}
+            onAddScore={(amt) => setScore((s) => s + amt)}
+            itemsSorted={societySortedCount}
+            totalItems={currentLevel.targetCount}
+            accuracy={
+              societySortedCount > 0
+                ? Math.round((societyFirstTryCount / societySortedCount) * 100)
+                : 100
+            }
+            onTriggerPlantRevival={() => {
+              migsunSceneRef.current?.triggerPlantRevival();
+            }}
+            onShowBinsAtLocation={(locId) => {
+              migsunSceneRef.current?.showBinsAtLocation(locId);
+            }}
+            onRemovePests={() => {
+              migsunSceneRef.current?.removePests();
+            }}
+            onPlayAgain={() => {
+              handleRetryLevel();
+            }}
+            onHome={() => {
+              onExit?.();
+            }}
+          />
+        )}
+
+        {/* Meadows HUD (Level 7) — dark glass, replaces the retro top bar */}
+        {isMeadowsMode && (
+          <MeadowHud
+            levelNumber={currentLevel.id}
+            levelTitle={currentLevel.name}
+            narrative={meadowsNarrative}
+            timeLeft={timer.timeLeft}
+            isWarning={timer.isWarning}
+            isUrgent={timer.isUrgent}
+            isExpired={timer.isExpired}
+            tasks={meadowsTasks}
+            lensState={lensState}
+            onActivateLens={handleMeadowsLens}
+            lensDisabled={isThrowing}
+            showJoystick={isCoarsePointer}
+            onJoystickMove={handleJoystickMove}
+            onExit={onExit}
+          />
+        )}
+
         {/* Eco Lens overlay (SOCIETY mode) */}
         {isSocietyMode && lensState.isActive && currentItem && (
           <EcoLensOverlay
@@ -818,26 +1033,37 @@ export const WorldPage: React.FC<WorldPageProps> = ({
           />
         )}
 
-        {/* Mascot */}
-        <div className="absolute bottom-4 left-4 z-30 max-w-xs sm:max-w-sm md:max-w-md pointer-events-auto transition-all">
-          {isMascotCollapsed ? (
-            <button
-              onClick={() => setIsMascotCollapsed(false)}
-              title="Show mascot tips"
-              className="flex items-center gap-2 bg-[#FDFBF7] border-2 border-slate-900 rounded-2xl px-3.5 py-2 shadow-retro text-xs font-fun font-black text-slate-900 hover:bg-amber-100 transition-all active:translate-x-[1px] active:translate-y-[1px]"
-            >
-              <span className="text-xl">🌱</span>
-              <span className="text-emerald-700">Eco tips</span>
-              <ChevronUp className="w-4 h-4 text-slate-700" />
-            </button>
-          ) : (
-            <MascotDialogue
-              message={mascotMessage}
-              isPositive={isPositiveFeedback}
-              onCollapse={() => setIsMascotCollapsed(true)}
-            />
-          )}
-        </div>
+        {/* Virtual Joystick controller for mobile touch navigation across all 3D maps */}
+        {!isMeadowsMode && isCoarsePointer && (
+          <div className="absolute bottom-5 left-5 z-20 pointer-events-auto">
+            <VirtualJoystick onMove={handleJoystickMove} />
+          </div>
+        )}
+
+        {/* Mascot (hidden in Meadows — the narrative banner carries the message) */}
+        {!isMeadowsMode && (
+          <div className={`absolute z-30 max-w-xs sm:max-w-sm md:max-w-md pointer-events-auto transition-all ${
+            isCoarsePointer ? 'bottom-5 left-40' : 'bottom-4 left-4'
+          }`}>
+            {isMascotCollapsed ? (
+              <button
+                onClick={() => setIsMascotCollapsed(false)}
+                title="Show mascot tips"
+                className="flex items-center gap-2 bg-[#FDFBF7] border-2 border-slate-900 rounded-2xl px-3.5 py-2 shadow-retro text-xs font-fun font-black text-slate-900 hover:bg-amber-100 transition-all active:translate-x-[1px] active:translate-y-[1px]"
+              >
+                <span className="text-xl">🌱</span>
+                <span className="text-emerald-700">Eco tips</span>
+                <ChevronUp className="w-4 h-4 text-slate-700" />
+              </button>
+            ) : (
+              <MascotDialogue
+                message={mascotMessage}
+                isPositive={isPositiveFeedback}
+                onCollapse={() => setIsMascotCollapsed(true)}
+              />
+            )}
+          </div>
+        )}
 
         {/* Classic modals */}
         {showQuiz && (

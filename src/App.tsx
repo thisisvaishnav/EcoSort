@@ -25,6 +25,12 @@ function RouteFallback() {
 
 export function App() {
   const [currentView, setCurrentView] = useState<'landing' | 'game' | 'report'>('landing');
+  const [selectedLevelId, setSelectedLevelId] = useState<number>(1);
+
+  const handleStartGame = (levelId = 1) => {
+    setSelectedLevelId(levelId);
+    setCurrentView('game');
+  };
 
   return (
     <div
@@ -42,7 +48,9 @@ export function App() {
       <main className={currentView === 'game' ? 'w-screen h-dvh overflow-hidden' : 'flex-1 pt-20 sm:pt-24'}>
         {currentView === 'landing' && (
           <LandingPage
-            onStartGame={() => setCurrentView('game')}
+            onStartGame={() => handleStartGame(1)}
+            onStartMeadows={() => handleStartGame(7)}
+            onStartMigsun={() => handleStartGame(8)}
             onOpenReport={() => setCurrentView('report')}
           />
         )}
@@ -50,6 +58,7 @@ export function App() {
         {currentView === 'game' && (
           <Suspense fallback={<RouteFallback />}>
             <WorldPage
+              initialLevelId={selectedLevelId}
               onExit={() => setCurrentView('landing')}
               onOpenTeacherReport={() => setCurrentView('report')}
             />
