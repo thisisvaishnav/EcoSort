@@ -308,4 +308,46 @@ describe('Meadows Scene Geometry & Layout', () => {
       expect(surroundingObs.length).toBeGreaterThanOrEqual(10);
     });
   });
+
+  describe('Phase 4: Garbage Truck & Four Colour-Coded Bins', () => {
+    it('creates truck mesh, target positions, and four color-coded bins', () => {
+      const sceneResult = createMeadowsScene();
+
+      expect(sceneResult.truckMesh).toBeDefined();
+      expect(sceneResult.truckMesh).toBeInstanceOf(THREE.Group);
+      expect(sceneResult.truckMesh.name).toBe('meadows_garbage_truck');
+
+      expect(sceneResult.truckStartPos).toBeInstanceOf(THREE.Vector3);
+      expect(sceneResult.truckEndPos).toBeInstanceOf(THREE.Vector3);
+
+      expect(typeof sceneResult.animateTruckArrival).toBe('function');
+      expect(typeof sceneResult.showTruckBins).toBe('function');
+    });
+
+    it('animates truck arrival from road to waste pile and places bins', () => {
+      const sceneResult = createMeadowsScene();
+
+      // Initially parked far out and hidden
+      expect(sceneResult.truckMesh.visible).toBe(false);
+
+      // Progress at 0.5: truck moves toward end pos and becomes visible
+      sceneResult.animateTruckArrival(0.5);
+      expect(sceneResult.truckMesh.visible).toBe(true);
+
+      // Progress at 1.0: truck reaches destination near waste pile
+      sceneResult.animateTruckArrival(1.0);
+      expect(sceneResult.truckMesh.position.x).toBeCloseTo(sceneResult.truckEndPos.x, 1);
+      expect(sceneResult.truckMesh.position.z).toBeCloseTo(sceneResult.truckEndPos.z, 1);
+
+      // Verify truck bins group is present
+      let truckBins: THREE.Group | null = null;
+      sceneResult.meadowsGroup.traverse((obj) => {
+        if (obj instanceof THREE.Group && obj.name === 'truck_bins') {
+          truckBins = obj;
+        }
+      });
+      expect(truckBins).not.toBeNull();
+      expect(truckBins!.children.length).toBe(4); // Wet, Dry, Hazardous, Residual
+    });
+  });
 });

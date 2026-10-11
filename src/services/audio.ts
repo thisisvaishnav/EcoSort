@@ -639,6 +639,56 @@ class AudioService {
   }
 
   /**
+   * Sound effect: GTA-style phone ringing tone (dual-tone standard telephone ring).
+   */
+  public playPhoneRing() {
+    if (!this.canPlay('phoneRing', 300)) return;
+    const output = this.getOutput();
+    if (!this.audioCtx || !output) return;
+
+    const now = this.audioCtx.currentTime;
+    const freqs = [440, 480]; // standard US dial/ring tone pair
+    freqs.forEach((f) => {
+      const osc = this.audioCtx!.createOscillator();
+      const gain = this.audioCtx!.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(f, now);
+
+      gain.gain.setValueAtTime(0.08, now);
+      gain.gain.setValueAtTime(0.08, now + 0.4);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+
+      osc.connect(gain);
+      gain.connect(output);
+      osc.start(now);
+      osc.stop(now + 0.5);
+    });
+  }
+
+  /**
+   * Sound effect: Short electronic phone keypad/beep click.
+   */
+  public playPhoneBeep() {
+    if (!this.canPlay('phoneBeep', 150)) return;
+    const output = this.getOutput();
+    if (!this.audioCtx || !output) return;
+
+    const osc = this.audioCtx.createOscillator();
+    const gain = this.audioCtx.createGain();
+    osc.type = 'sine';
+    const now = this.audioCtx.currentTime;
+
+    osc.frequency.setValueAtTime(697, now);
+    gain.gain.setValueAtTime(0.12, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+
+    osc.connect(gain);
+    gain.connect(output);
+    osc.start(now);
+    osc.stop(now + 0.12);
+  }
+
+  /**
    * Sound effect: Timer warning ticking (gentle tick-tock at 30s).
    */
   public playTimerWarning() {

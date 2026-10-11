@@ -39,6 +39,16 @@ export interface MeadowsSceneResult {
   wastePileCenter: THREE.Vector3;
   /** Controls visibility of the green glowing ground trail and floating waypoint arrow */
   setPathGuideVisible: (visible: boolean) => void;
+  /** Garbage truck mesh group */
+  truckMesh: THREE.Group;
+  /** Truck starting position on the road */
+  truckStartPos: THREE.Vector3;
+  /** Truck parked target position near the waste pile */
+  truckEndPos: THREE.Vector3;
+  /** Animate truck driving in from the road to the waste pile (0 to 1 progress) */
+  animateTruckArrival: (progress: number) => void;
+  /** Set four color-coded bins visibility beside the truck */
+  showTruckBins: (visible: boolean) => void;
   animate: (elapsed: number, delta: number) => void;
 }
 
@@ -1389,6 +1399,176 @@ export function createMeadowsScene(): MeadowsSceneResult {
   targetRing.position.set(MEADOWS_WASTE_PILE_CENTER.x, 0.04, MEADOWS_WASTE_PILE_CENTER.z);
   pathGuideGroup.add(targetRing);
 
+  // ── 11. Garbage Truck & 4 Color-Coded Bins (Phase 4 Arrival) ──────────────
+  const truckGroup = new THREE.Group();
+  truckGroup.name = 'meadows_garbage_truck';
+
+  const truckBodyMat = new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.4, metalness: 0.1 });
+  const truckAccentMat = new THREE.MeshStandardMaterial({ color: 0x16a34a, roughness: 0.35, metalness: 0.15 });
+  const truckDarkMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.5 });
+  const glassMat = new THREE.MeshStandardMaterial({ color: 0x7dd3fc, roughness: 0.1, metalness: 0.3, transparent: true, opacity: 0.8 });
+  const wheelMat = new THREE.MeshStandardMaterial({ color: 0x111827, roughness: 0.7 });
+
+  // Cab
+  const cabGeo = new THREE.BoxGeometry(2.2, 2.0, 2.4);
+  const cab = new THREE.Mesh(cabGeo, truckBodyMat);
+  cab.position.set(0, 1.4, 1.0);
+  cab.castShadow = true;
+  truckGroup.add(cab);
+
+  // Windshield
+  const windGeo = new THREE.BoxGeometry(1.8, 1.0, 0.08);
+  const wind = new THREE.Mesh(windGeo, glassMat);
+  wind.position.set(0, 1.9, 2.24);
+  truckGroup.add(wind);
+
+  // Body / hopper
+  const hopperGeo = new THREE.BoxGeometry(2.2, 2.4, 4.2);
+  const hopper = new THREE.Mesh(hopperGeo, truckAccentMat);
+  hopper.position.set(0, 1.7, -1.8);
+  hopper.castShadow = true;
+  truckGroup.add(hopper);
+
+  // Hopper top ridge
+  const ridgeGeo = new THREE.BoxGeometry(2.3, 0.22, 4.3);
+  const ridge = new THREE.Mesh(ridgeGeo, truckBodyMat);
+  ridge.position.set(0, 3.0, -1.8);
+  truckGroup.add(ridge);
+
+  // Rear compactor panel
+  const rearGeo = new THREE.BoxGeometry(2.2, 2.4, 0.2);
+  const rear = new THREE.Mesh(rearGeo, truckDarkMat);
+  rear.position.set(0, 1.7, -4.0);
+  truckGroup.add(rear);
+
+  // Chassis
+  const chassisGeo = new THREE.BoxGeometry(2.0, 0.3, 6.2);
+  const chassis = new THREE.Mesh(chassisGeo, truckDarkMat);
+  chassis.position.set(0, 0.35, -1.4);
+  truckGroup.add(chassis);
+
+  // Wheels (4)
+  const wheelGeo = new THREE.CylinderGeometry(0.42, 0.42, 0.3, 14);
+  const wheelPositions: [number, number, number][] = [
+    [-1.2, 0.42, 1.6],
+    [1.2, 0.42, 1.6],
+    [-1.2, 0.42, -2.6],
+    [1.2, 0.42, -2.6],
+  ];
+  wheelPositions.forEach(([wx, wy, wz]) => {
+    const wheel = new THREE.Mesh(wheelGeo, wheelMat);
+    wheel.position.set(wx, wy, wz);
+    wheel.rotation.z = Math.PI / 2;
+    wheel.castShadow = true;
+    truckGroup.add(wheel);
+
+    // Hubcap
+    const hubGeo = new THREE.CylinderGeometry(0.18, 0.18, 0.32, 8);
+    const hubMat = new THREE.MeshStandardMaterial({ color: 0x9ca3af, roughness: 0.2, metalness: 0.7 });
+    const hub = new THREE.Mesh(hubGeo, hubMat);
+    hub.position.set(wx, wy, wz);
+    hub.rotation.z = Math.PI / 2;
+    truckGroup.add(hub);
+  });
+
+  // Exhaust pipe
+  const exhaustGeo = new THREE.CylinderGeometry(0.06, 0.06, 1.0, 8);
+  const exhaust = new THREE.Mesh(exhaustGeo, truckDarkMat);
+  exhaust.position.set(0.9, 3.0, 2.2);
+  truckGroup.add(exhaust);
+
+  // Start truck parked far out on the west perimeter road (X = -19, Z = 18)
+  // End pos: parked near the waste pile along the mud edge (X = -10.5, Z = 4.2)
+  const truckStartPos = new THREE.Vector3(-19.0, 0, 18.0);
+  const truckEndPos = new THREE.Vector3(-10.5, 0, 4.2);
+  truckGroup.position.copy(truckStartPos);
+  truckGroup.rotation.y = -Math.PI / 2; // facing towards the waste pile (+X)
+  truckGroup.visible = false;
+  group.add(truckGroup);
+
+  // Four color-coded bins placed beside the truck
+  // Green (Wet/Compost), Blue (Dry/Recycle), Red (Hazardous), Gray (Residual/E-Waste)
+  const truckBinsGroup = new THREE.Group();
+  truckBinsGroup.name = 'truck_bins';
+  truckBinsGroup.visible = false;
+  group.add(truckBinsGroup);
+
+  const binSpecs = [
+    { label: 'WET', color: 0x16a34a, offsetZ: -2.0 },
+    { label: 'DRY', color: 0x2563eb, offsetZ: -0.7 },
+    { label: 'HAZARDOUS', color: 0xdc2626, offsetZ: 0.6 },
+    { label: 'RESIDUAL', color: 0x4b5563, offsetZ: 1.9 },
+  ];
+
+  binSpecs.forEach((spec) => {
+    const singleBin = new THREE.Group();
+    // Bin body
+    const bodyGeo = new THREE.BoxGeometry(0.8, 1.1, 0.8);
+    const bodyMat = new THREE.MeshStandardMaterial({ color: spec.color, roughness: 0.4, metalness: 0.1 });
+    const body = new THREE.Mesh(bodyGeo, bodyMat);
+    body.position.y = 0.55;
+    body.castShadow = true;
+    body.receiveShadow = true;
+    singleBin.add(body);
+
+    // Lid
+    const binLid = new THREE.Mesh(
+      new THREE.BoxGeometry(0.88, 0.12, 0.88),
+      new THREE.MeshStandardMaterial({ color: spec.color, roughness: 0.35 })
+    );
+    binLid.position.y = 1.15;
+    binLid.castShadow = true;
+    singleBin.add(binLid);
+
+    // Ground shadow disk
+    const groundShadow = new THREE.Mesh(
+      new THREE.CircleGeometry(0.5, 16),
+      new THREE.MeshBasicMaterial({ color: 0x000000, opacity: 0.3, transparent: true })
+    );
+    groundShadow.rotation.x = -Math.PI / 2;
+    groundShadow.position.y = 0.02;
+    singleBin.add(groundShadow);
+
+    singleBin.position.set(truckEndPos.x + 2.2, 0, truckEndPos.z + spec.offsetZ);
+    truckBinsGroup.add(singleBin);
+  });
+
+  function animateTruckArrival(progress: number) {
+    if (progress > 0) {
+      truckGroup.visible = true;
+    }
+    const clamped = Math.max(0, Math.min(1, progress));
+    // Smooth ease-out cubic
+    const eased = 1 - Math.pow(1 - clamped, 3);
+    truckGroup.position.x = THREE.MathUtils.lerp(truckStartPos.x, truckEndPos.x, eased);
+    truckGroup.position.z = THREE.MathUtils.lerp(truckStartPos.z, truckEndPos.z, eased);
+
+    // Gentle engine rumble / bounce during travel
+    if (clamped < 1.0) {
+      truckGroup.position.y = Math.abs(Math.sin(clamped * 35)) * 0.04;
+    } else {
+      truckGroup.position.y = 0;
+    }
+
+    // Wheel spin
+    const spinSpeed = (1 - eased) * 0.25;
+    truckGroup.traverse((child) => {
+      if (child instanceof THREE.Mesh && child.geometry instanceof THREE.CylinderGeometry) {
+        if (child.rotation.z === Math.PI / 2 || Math.abs(child.rotation.z - Math.PI / 2) < 0.01) {
+          child.rotation.x += spinSpeed;
+        }
+      }
+    });
+
+    if (clamped >= 0.85) {
+      truckBinsGroup.visible = true;
+    }
+  }
+
+  function showTruckBins(visible: boolean) {
+    truckBinsGroup.visible = visible;
+  }
+
   // ── Animate ───────────────────────────────────────────────────────────────
   function animate(elapsed: number, delta: number) {
     // 1. Warm lamp gentle flicker
@@ -1459,6 +1639,11 @@ export function createMeadowsScene(): MeadowsSceneResult {
     setPathGuideVisible: (visible: boolean) => {
       pathGuideGroup.visible = visible;
     },
+    truckMesh: truckGroup,
+    truckStartPos,
+    truckEndPos,
+    animateTruckArrival,
+    showTruckBins,
     animate,
   };
 }

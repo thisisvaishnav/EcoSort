@@ -144,9 +144,9 @@
     "semantic_hash": "c87846b65906e83bcd914c62900e6005"
   },
   "src/services/audio.ts": {
-    "mtime": 1791725115.21481,
-    "seen": 1791725359.3175948,
-    "ast_hash": "a97a66f7376e9b7944523aecf4cf569d",
+    "mtime": 1791727641.6898117,
+    "seen": 1791728066.920471,
+    "ast_hash": "8d01a7d05c445e99c18254c1fa3a647e",
     "semantic_hash": ""
   },
   "src/services/spawner.ts": {
@@ -396,9 +396,9 @@
     "semantic_hash": "328de20931b3b3abb436e705532dec92"
   },
   "src/components/world/WorldCanvas.tsx": {
-    "mtime": 1791725293.9848933,
-    "seen": 1791725359.31756,
-    "ast_hash": "d202a263b5598c39f76dd303269b84ba",
+    "mtime": 1791727822.9697301,
+    "seen": 1791728066.920435,
+    "ast_hash": "f0d32609aa9f054133114ff65329cbcf",
     "semantic_hash": ""
   },
   "src/components/world/levelStations.ts": {
@@ -888,9 +888,9 @@
     "semantic_hash": ""
   },
   "src/components/world/WorldPage.tsx": {
-    "mtime": 1791725115.213231,
-    "seen": 1791725359.3175611,
-    "ast_hash": "8fcb0c02baecf1b94ecef5ea3d02066d",
+    "mtime": 1791728045.0902941,
+    "seen": 1791728066.920436,
+    "ast_hash": "c3b3ffe876fbca6dea392a85ce2ee8d3",
     "semantic_hash": ""
   },
   "tests/worldPage.test.ts": {
@@ -1176,9 +1176,9 @@
     "semantic_hash": ""
   },
   "src/components/game/meadows/EcoLensAbilityButton.tsx": {
-    "mtime": 1791721921.616782,
-    "seen": 1791722426.6804018,
-    "ast_hash": "efff1e8445c8dc4ba39409c378a48b45",
+    "mtime": 1791727066.508475,
+    "seen": 1791727591.7330828,
+    "ast_hash": "069b9510f38425d6324bac0882d06921",
     "semantic_hash": ""
   },
   "src/components/game/meadows/LevelBadge.tsx": {
@@ -1188,9 +1188,9 @@
     "semantic_hash": ""
   },
   "src/components/game/meadows/MeadowHud.tsx": {
-    "mtime": 1791724952.2961385,
-    "seen": 1791725359.317547,
-    "ast_hash": "e2eb01c8cd3b314cbcfd211abfecfc98",
+    "mtime": 1791727093.8069625,
+    "seen": 1791727591.733085,
+    "ast_hash": "c64186b7e147f81aa2121c08f2b84e4a",
     "semantic_hash": ""
   },
   "src/components/game/meadows/MissionPanel.tsx": {
@@ -1206,15 +1206,15 @@
     "semantic_hash": ""
   },
   "src/components/game/meadows/VirtualJoystick.tsx": {
-    "mtime": 1791721921.6217005,
-    "seen": 1791722426.680406,
-    "ast_hash": "d0eacf1c722d27993fa0fd1dcc013e0b",
+    "mtime": 1791727038.9583893,
+    "seen": 1791727591.733087,
+    "ast_hash": "be662d52682b891dfe74d5369077d497",
     "semantic_hash": ""
   },
   "src/components/world/meadowsScene.ts": {
-    "mtime": 1791725331.5027468,
-    "seen": 1791725359.317583,
-    "ast_hash": "5003e70e1c8bea97d5b48c7754c37410",
+    "mtime": 1791727786.244484,
+    "seen": 1791728066.920458,
+    "ast_hash": "4837550a5eb639b4eb15ac132b7e05a4",
     "semantic_hash": ""
   },
   "src/hooks/usePersistentBoolean.ts": {
@@ -1242,15 +1242,15 @@
     "semantic_hash": ""
   },
   "tests/meadowsHud.test.ts": {
-    "mtime": 1791721921.65295,
-    "seen": 1791722426.68046,
-    "ast_hash": "972cf064669d74f206e68e7fe936c23d",
+    "mtime": 1791727327.4797556,
+    "seen": 1791727591.733161,
+    "ast_hash": "61bc323a75ae72864076cb1fd136828b",
     "semantic_hash": ""
   },
   "tests/meadowsScene.test.ts": {
-    "mtime": 1791725309.153302,
-    "seen": 1791725359.3176231,
-    "ast_hash": "05925b8dead461d38b1f248790fd5830",
+    "mtime": 1791727942.5321126,
+    "seen": 1791728066.920501,
+    "ast_hash": "fad9caa4efd033a500bbdb3f2a90175e",
     "semantic_hash": ""
   },
   "MEADOWS_WORLD_PLAN.md": {
@@ -1623,6 +1623,18 @@
     "mtime": 1791726800.2422616,
     "seen": 1791726841.39623,
     "ast_hash": "241f6d9317939b628990d49463344d9e",
+    "semantic_hash": ""
+  },
+  "src/components/game/meadows/MeadowsPhoneModal.tsx": {
+    "mtime": 1791727668.2629836,
+    "seen": 1791728066.920423,
+    "ast_hash": "9940f6e0bc18c93f1bf4e028f6ab148d",
+    "semantic_hash": ""
+  },
+  "tests/meadowsPhoneModal.test.tsx": {
+    "mtime": 1791728005.593743,
+    "seen": 1791728066.9205,
+    "ast_hash": "93b5a9033af0dbf8ffb483f78ca15020",
     "semantic_hash": ""
   }
 }

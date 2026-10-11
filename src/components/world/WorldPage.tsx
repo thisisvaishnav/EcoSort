@@ -25,6 +25,13 @@ import * as THREE from 'three';
 import { MigsunGameController } from '../game/migsun/MigsunGameController';
 import { MigsunSceneResult } from './migsunScene';
 import { MeadowsSceneResult, MEADOWS_WASTE_PILE_CENTER } from './meadowsScene';
+import { MeadowsPhoneModal } from '../game/meadows/MeadowsPhoneModal';
+import { MeadowsBinModal } from '../game/meadows/MeadowsBinModal';
+import { MeadowsItemManager, MeadowsGroundItem } from './meadowsItemManager';
+import {
+  MEADOWS_WRONG_BIN_HINTS,
+  MEADOWS_CONTAMINATION_SPEECHES,
+} from '../game/meadows/meadowsPhase5Data';
 import { MigsunPhase } from '../../types/game';
 import { useCountdownTimer } from '../../hooks/useCountdownTimer';
 import { usePersistentBoolean } from '../../hooks/usePersistentBoolean';
@@ -82,15 +89,23 @@ export const WorldPage: React.FC<WorldPageProps> = ({
   const [migsunCompletedMissions, setMigsunCompletedMissions] = useState<number[]>([]);
   const migsunSceneRef = useRef<MigsunSceneResult | null>(null);
 
-  // Meadows state machine (Phase 1 & Phase 2)
+  // Meadows state machine (Phase 1 to Phase 5)
   const [meadowsPhase, setMeadowsPhase] = useState<
-    'INTRO' | 'WALK_TO_PILE' | 'PILE_REACHED'
+    'INTRO' | 'WALK_TO_PILE' | 'PILE_REACHED' | 'PHONE_CALL' | 'TRUCK_ARRIVING' | 'TRUCK_ARRIVED' | 'SORTING' | 'CLEANUP'
   >('INTRO');
+  const [isPhoneModalOpen, setIsPhoneModalOpen] = useState<boolean>(false);
   const [narratorSubtitle, setNarratorSubtitle] = useState<string | null>(null);
   const [meadowsInstruction, setMeadowsInstruction] = useState<string | null>(null);
   const [meadowsLensHint, setMeadowsLensHint] = useState<string | null>(null);
   const meadowsSceneRef = useRef<MeadowsSceneResult | null>(null);
+  const meadowsItemsRef = useRef<MeadowsItemManager | null>(null);
   const introTimerRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+
+  // Phase 5 Sorting Challenge State
+  const [meadowsNearbyItem, setMeadowsNearbyItem] = useState<MeadowsGroundItem | null>(null);
+  const [meadowsHeldItem, setMeadowsHeldItem] = useState<ItemData | null>(null);
+  const [meadowsSortedCount, setMeadowsSortedCount] = useState<number>(0);
+  const [contaminationLevel, setContaminationLevel] = useState<number>(0);
 
   // Virtual joystick input sink → WorldCanvas registers the engine here
   const joystickInputRef = useRef<((x: number, y: number) => void) | null>(null);
@@ -260,30 +275,41 @@ export const WorldPage: React.FC<WorldPageProps> = ({
   // Timer warning/urgent sound cues
   const prevTimeRef = useRef<number>(timerDuration);
   useEffect(() => {
-    if (!isSocietyMode || !timer.isRunning) return;
+    if ((!isSocietyMode && !isMeadowsMode) || !timer.isRunning) return;
     if (prevTimeRef.current !== timer.timeLeft) {
       if (timer.timeLeft === 30) {
         audio.playTimerWarning();
-        const msg = 'The truck is on its way! Hurry!';
-        setMascotMessage(msg);
+        const msg = isMeadowsMode ? '30 seconds left! Sort the waste fast!' : 'The truck is on its way! Hurry!';
+        if (isMeadowsMode) setMeadowsInstruction(msg);
+        else setMascotMessage(msg);
         audio.speak(msg);
       } else if (timer.timeLeft === 10) {
         audio.playTruckHorn();
         const msg = 'Ten seconds left! Sort fast!';
-        setMascotMessage(msg);
+        if (isMeadowsMode) setMeadowsInstruction(msg);
+        else setMascotMessage(msg);
         audio.speak(msg);
       }
       prevTimeRef.current = timer.timeLeft;
     }
-  }, [timer.timeLeft, timer.isRunning, isSocietyMode]);
+  }, [timer.timeLeft, timer.isRunning, isSocietyMode, isMeadowsMode]);
 
-  // Timer expired → end society level
+  // Timer expired → end society level or auto-collect unsorted items in Meadows
   useEffect(() => {
-    if (!isSocietyMode || !timer.isExpired) return;
-    audio.playTruckJingle();
-    finishSocietyLevel();
+    if (!timer.isExpired) return;
+    if (isSocietyMode) {
+      audio.playTruckJingle();
+      finishSocietyLevel();
+    } else if (isMeadowsMode && meadowsPhase === 'SORTING') {
+      // 5.5 Time pressure: Timer reaches 0: unsorted items are collected automatically, counted as mixed
+      audio.playTruckHorn();
+      setMeadowsPhase('CLEANUP');
+      setContaminationLevel(3);
+      setMeadowsInstruction('Time up! Truck collected remaining mixed waste.');
+      audio.speak('Time is up. The truck collected the remaining mixed waste.');
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timer.isExpired, isSocietyMode]);
+  }, [timer.isExpired, isSocietyMode, isMeadowsMode, meadowsPhase]);
 
   // ── Meadows Phase 1 (Intro) & Phase 2 (Walk to Pile) Sequence ───────────
   useEffect(() => {
@@ -389,8 +415,11 @@ export const WorldPage: React.FC<WorldPageProps> = ({
       setIsPositiveFeedback(true);
       audio.speak(msg);
     } else if (isMeadowsMode) {
-      // Meadows: walk-around HUD demo — no items or bins in this pass
       setCurrentItem(null);
+      setMeadowsSortedCount(0);
+      setContaminationLevel(0);
+      setMeadowsHeldItem(null);
+      setMeadowsNearbyItem(null);
       timer.reset();
       const msg = 'Welcome to Green Meadows. Clean the path!';
       setMascotMessage(msg);
@@ -463,23 +492,146 @@ export const WorldPage: React.FC<WorldPageProps> = ({
   }, [currentLevelId]);
 
   const handleMeadowsPlayerMove = useCallback((pos: THREE.Vector3) => {
-    if (!isMeadowsMode || pileTriggeredRef.current) return;
-    const dist = pos.distanceTo(MEADOWS_WASTE_PILE_CENTER);
-    if (dist < 4.0) {
-      pileTriggeredRef.current = true;
-      setMeadowsPhase('PILE_REACHED');
-      setMeadowsInstruction(null);
+    if (!isMeadowsMode) return;
 
-      // Brief pause in input + Eco lens button glows + hint appears
-      setMeadowsLensHint('Tip: Tap Eco Lens to see what each item is made of.');
-      audio.playCorrect();
+    // Phase 2 proximity trigger to waste pile
+    if (!pileTriggeredRef.current) {
+      const dist = pos.distanceTo(MEADOWS_WASTE_PILE_CENTER);
+      if (dist < 4.0) {
+        pileTriggeredRef.current = true;
+        setMeadowsPhase('PILE_REACHED');
+        setMeadowsInstruction(null);
 
-      // Narrator: "That’s a lot of waste. We can’t carry all of it ourselves. Let’s call the municipal garbage truck."
-      const narratorLine = 'That is a lot of waste. We cannot carry all of it ourselves. Let us call the municipal garbage truck.';
-      setNarratorSubtitle(narratorLine);
-      audio.speak(narratorLine);
+        // Eco lens button glows + hint appears
+        setMeadowsLensHint('Tip: Tap Eco Lens to see what each item is made of.');
+        audio.playCorrect();
+
+        // Narrator: "That is a lot of waste. We cannot carry all of it ourselves. Let us call the municipal garbage truck."
+        const narratorLine = 'That is a lot of waste. We cannot carry all of it ourselves. Let us call the municipal garbage truck.';
+        setNarratorSubtitle(narratorLine);
+        audio.speak(narratorLine);
+
+        // After narrator line finishes (~5.5s), transition into Phase 3: Phone call
+        setTimeout(() => {
+          setMeadowsPhase('PHONE_CALL');
+          setNarratorSubtitle(null);
+          setIsPhoneModalOpen(true);
+        }, 5500);
+      }
     }
-  }, [isMeadowsMode]);
+
+    // Phase 5: Check proximity to 10 scattered waste items (1.8 units)
+    if (meadowsPhase === 'SORTING' && !meadowsHeldItem) {
+      const nearest = meadowsItemsRef.current?.getNearestItem(pos, 1.8) ?? null;
+      setMeadowsNearbyItem(nearest);
+    }
+  }, [isMeadowsMode, meadowsPhase, meadowsHeldItem]);
+
+  // Phase 3 Phone Call completion -> Phase 4 Truck Arrival
+  const handleMeadowsPhoneFinished = useCallback(() => {
+    setIsPhoneModalOpen(false);
+    setMeadowsPhase('TRUCK_ARRIVING');
+
+    // Mission update toast
+    const missionToast = 'Truck arriving in 90 seconds. Sort the waste before it arrives!';
+    setMeadowsInstruction(missionToast);
+    audio.speak(missionToast);
+
+    // Start the 90s countdown timer
+    timer.start();
+
+    // Trigger Phase 4: Garbage truck driving in
+    setTruckArriving(true);
+
+    // Cutscene sequence: Truck drives in (takes ~4.5s)
+    setTimeout(() => {
+      // Truck stops, horn sounds
+      audio.playTruckHorn();
+      setMeadowsPhase('TRUCK_ARRIVED');
+
+      // Four colour-coded bins placed beside truck
+      meadowsSceneRef.current?.showTruckBins(true);
+
+      // Narrator speech adhering to ASD-STE100 guidelines
+      const narratorArrival =
+        'The truck is here, but it only takes waste that has been separated. Mixed waste is hard to recycle or compost. Let’s sort it.';
+      setNarratorSubtitle(narratorArrival);
+      audio.speak(narratorArrival);
+
+      // Transition to Phase 5: The Sorting Challenge
+      setTimeout(() => {
+        setMeadowsPhase('SORTING');
+        setNarratorSubtitle(null);
+        setMeadowsInstruction('Walk to waste items and pick them up to sort.');
+      }, 6500);
+    }, 4500);
+  }, [timer]);
+
+  // Phase 5 Action: Pick up nearest item
+  const handlePickupMeadowsItem = useCallback(() => {
+    if (!meadowsNearbyItem || meadowsHeldItem) return;
+    const picked = meadowsItemsRef.current?.pickUpItem(meadowsNearbyItem.id);
+    if (picked) {
+      setMeadowsHeldItem(picked.itemData);
+      setMeadowsNearbyItem(null);
+      audio.playCorrect();
+    }
+  }, [meadowsNearbyItem, meadowsHeldItem]);
+
+  // Phase 5 Action: Cancel bin choice / put back
+  const handleCancelMeadowsSort = useCallback(() => {
+    if (!meadowsHeldItem) return;
+    meadowsItemsRef.current?.dropItem(meadowsHeldItem.id);
+    setMeadowsHeldItem(null);
+  }, [meadowsHeldItem]);
+
+  // Phase 5 Action: Select bin for item
+  const handleSelectMeadowsBin = useCallback((targetBin: BinType) => {
+    if (!meadowsHeldItem) return;
+
+    const isCorrect = meadowsHeldItem.bin === targetBin;
+    if (isCorrect) {
+      // ✅ Correct: sound, points, item disappears, progress increments
+      audio.playCorrect();
+      audio.playThrow();
+      setScore((s) => s + 10);
+      setMeadowsSortedCount((c) => {
+        const next = c + 1;
+        if (next >= 10) {
+          // All 10 items sorted -> Trigger Phase 6 Cleanup
+          setMeadowsPhase('CLEANUP');
+          setMeadowsInstruction('All waste sorted! The area is clean!');
+          audio.playCelebration();
+          timer.pause();
+        }
+        return next;
+      });
+      meadowsItemsRef.current?.sortItem(meadowsHeldItem.id);
+      setMeadowsHeldItem(null);
+      setMeadowsInstruction(null);
+    } else {
+      // ❌ Wrong: red buzz, pop back out, increase contamination, narrator hint
+      audio.playIncorrect();
+      meadowsItemsRef.current?.dropItem(meadowsHeldItem.id);
+
+      // Increase contamination meter (max 3)
+      setContaminationLevel((lvl) => {
+        const next = Math.min(3, lvl + 1);
+        const narratorLine = MEADOWS_CONTAMINATION_SPEECHES[next];
+        if (narratorLine) {
+          setNarratorSubtitle(narratorLine);
+          audio.speak(narratorLine);
+        }
+        return next;
+      });
+
+      // Item specific educational hint
+      const hint = MEADOWS_WRONG_BIN_HINTS[meadowsHeldItem.id] || 'Put this item into its correct bin.';
+      setMeadowsInstruction(`Tip: ${hint}`);
+
+      setMeadowsHeldItem(null);
+    }
+  }, [meadowsHeldItem, timer]);
 
   // ── Throw / Sort item ───────────────────────────────────────────────────────
   const handleThrowItem = useCallback((targetBin: BinType) => {
@@ -1025,11 +1177,23 @@ export const WorldPage: React.FC<WorldPageProps> = ({
 
   const meadowsTasks = useMemo<MissionTask[]>(
     () => [
-      { id: 'clean', label: 'Clean the waste area', done: false },
-      { id: 'sort', label: 'Sort the waste correctly', done: false },
-      { id: 'garden', label: 'Restore the garden', done: false },
+      {
+        id: 'clean',
+        label: 'Clean the waste area',
+        done: meadowsPhase === 'CLEANUP' || meadowsSortedCount >= 10,
+      },
+      {
+        id: 'sort',
+        label: `Sort waste correctly (${meadowsSortedCount}/10)`,
+        done: meadowsSortedCount >= 10,
+      },
+      {
+        id: 'garden',
+        label: 'Restore the garden',
+        done: meadowsPhase === 'CLEANUP',
+      },
     ],
-    []
+    [meadowsPhase, meadowsSortedCount]
   );
 
   // ── Render ──────────────────────────────────────────────────────────────────
@@ -1055,6 +1219,7 @@ export const WorldPage: React.FC<WorldPageProps> = ({
         joystickInputRef={joystickInputRef}
         migsunRef={migsunSceneRef}
         meadowsRef={meadowsSceneRef}
+        meadowsItemsRef={meadowsItemsRef}
         onMeadowsPlayerMove={handleMeadowsPlayerMove}
       >
         {/* Migsun Vilasa Game Controller (Level 8) */}
@@ -1118,6 +1283,26 @@ export const WorldPage: React.FC<WorldPageProps> = ({
             instructionBanner={meadowsInstruction}
             narratorSpeech={narratorSubtitle}
             onSkipIntro={meadowsPhase === 'INTRO' ? handleSkipIntro : undefined}
+            contaminationLevel={contaminationLevel}
+            nearbyItemName={meadowsNearbyItem?.itemData.name}
+            onPickupItem={handlePickupMeadowsItem}
+          />
+        )}
+
+        {/* Phase 5 Bin Selection Modal */}
+        {isMeadowsMode && meadowsHeldItem && (
+          <MeadowsBinModal
+            item={meadowsHeldItem}
+            onSelectBin={handleSelectMeadowsBin}
+            onCancel={handleCancelMeadowsSort}
+          />
+        )}
+
+        {/* GTA-Style Phone Call (Meadows Phase 3) */}
+        {isMeadowsMode && (
+          <MeadowsPhoneModal
+            isOpen={isPhoneModalOpen}
+            onCallFinished={handleMeadowsPhoneFinished}
           />
         )}
 

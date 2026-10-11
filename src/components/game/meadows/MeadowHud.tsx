@@ -6,6 +6,8 @@ import { NarrativeBanner, NarrativeToken } from './NarrativeBanner';
 import { MissionPanel, MissionTask } from './MissionPanel';
 import { VirtualJoystick } from './VirtualJoystick';
 import { EcoLensAbilityButton } from './EcoLensAbilityButton';
+import { ContaminationMeter } from './ContaminationMeter';
+import { Hand } from 'lucide-react';
 
 export interface MeadowHudProps {
   levelNumber: number;
@@ -30,6 +32,10 @@ export interface MeadowHudProps {
   instructionBanner?: string | null;
   narratorSpeech?: string | null;
   onSkipIntro?: () => void;
+  /** Phase 5: Sorting Challenge */
+  contaminationLevel?: number;
+  nearbyItemName?: string | null;
+  onPickupItem?: () => void;
 }
 
 /**
@@ -57,6 +63,9 @@ export const MeadowHud: React.FC<MeadowHudProps> = ({
   instructionBanner = null,
   narratorSpeech = null,
   onSkipIntro,
+  contaminationLevel = 0,
+  nearbyItemName = null,
+  onPickupItem,
 }) => (
   <div className="absolute inset-0 z-30 pointer-events-none" data-testid="meadow-hud">
     {/* Top-left: exit + level badge */}
@@ -116,8 +125,8 @@ export const MeadowHud: React.FC<MeadowHudProps> = ({
       )}
     </div>
 
-    {/* Top-right: timer + mission checklist */}
-    <div className="absolute top-2 sm:top-3 right-3">
+    {/* Top-right: timer + mission checklist + contamination meter */}
+    <div className="absolute top-2 sm:top-3 right-3 flex flex-col items-end gap-2">
       <MissionPanel
         timeLeft={timeLeft}
         isWarning={isWarning}
@@ -126,7 +135,24 @@ export const MeadowHud: React.FC<MeadowHudProps> = ({
         tasks={tasks}
         defaultCollapsed={showJoystick}
       />
+      {contaminationLevel > 0 && (
+        <ContaminationMeter contaminationLevel={contaminationLevel} />
+      )}
     </div>
+
+    {/* Center-bottom Interaction Prompt: Pick Up Item */}
+    {nearbyItemName && onPickupItem && (
+      <div className="absolute bottom-20 sm:bottom-24 left-1/2 -translate-x-1/2 pointer-events-auto animate-in zoom-in-95 fade-in duration-200">
+        <button
+          onClick={onPickupItem}
+          data-testid="pickup-item-btn"
+          className="flex items-center gap-2.5 px-6 py-3 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-fun font-black text-sm shadow-[0_0_25px_rgba(16,185,129,0.5)] border-2 border-emerald-300 transform active:scale-95 transition-all"
+        >
+          <Hand className="w-5 h-5 animate-pulse text-slate-950" />
+          <span>Pick up {nearbyItemName}</span>
+        </button>
+      </div>
+    )}
 
     {/* Bottom-left: movement joystick (touch only) */}
     {showJoystick && onJoystickMove && (

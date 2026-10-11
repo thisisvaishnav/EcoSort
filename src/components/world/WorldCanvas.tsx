@@ -22,6 +22,7 @@ import {
 import { createItemMesh, disposeItemMesh } from './items/createItemMesh';
 import { MapItemManager } from './items/MapItemManager';
 import { MapItemGalleryModal } from '../items/MapItemGalleryModal';
+import { createMeadowsItemManager, MeadowsItemManager } from './meadowsItemManager';
 import { GAME_ITEMS } from '../../data/items';
 import { GAME_LEVELS } from '../../data/levels';
 
@@ -62,6 +63,7 @@ export interface WorldCanvasProps {
   migsunRef?: React.MutableRefObject<MigsunSceneResult | null>;
   // Meadows handlers & ref sink
   meadowsRef?: React.MutableRefObject<MeadowsSceneResult | null>;
+  meadowsItemsRef?: React.MutableRefObject<MeadowsItemManager | null>;
   /** Callback emitted on player position changes in Meadows */
   onMeadowsPlayerMove?: (position: THREE.Vector3) => void;
 }
@@ -88,6 +90,7 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
   joystickInputRef,
   migsunRef,
   meadowsRef,
+  meadowsItemsRef,
   onMeadowsPlayerMove,
 }) => {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -238,6 +241,9 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
     // Meadows scene (Level 7 Green Meadows Rescue)
     const meadows = createMeadowsScene();
     if (meadowsRef) meadowsRef.current = meadows;
+    const meadowsItems = createMeadowsItemManager();
+    meadows.meadowsGroup.add(meadowsItems.group);
+    if (meadowsItemsRef) meadowsItemsRef.current = meadowsItems;
     // Migsun scene (Level 8 Migsun Vilasa)
     const migsun = createMigsunScene(['wet', 'dry', 'hazardous', 'residual']);
     if (migsunRef) migsunRef.current = migsun;
@@ -451,6 +457,13 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
         // ── MEADOWS MODE (Level 7 Green Meadows Rescue) ─────────────────────
         // Walk-around scaffold: animate the scene, move Kai, follow with camera.
         meadows.animate(elapsedTime, delta);
+        meadowsItems.update(locomotion.getPosition(), elapsedTime, delta);
+
+        if (truckArrivingRef.current && truckProgressRef.current < 1.0) {
+          truckProgressRef.current = Math.min(1.0, truckProgressRef.current + delta * 0.22);
+          meadows.animateTruckArrival(truckProgressRef.current);
+        }
+
         const meadowsPos = locomotion.getPosition();
         locomotion.update(delta, cameraSystem.getAzimuthAngle());
         cameraSystem.update(meadowsPos, delta, player.currentAngle);
