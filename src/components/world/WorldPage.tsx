@@ -28,6 +28,7 @@ import { MeadowsSceneResult, MEADOWS_WASTE_PILE_CENTER } from './meadowsScene';
 import { MeadowsPhoneModal } from '../game/meadows/MeadowsPhoneModal';
 import { MeadowsBinModal } from '../game/meadows/MeadowsBinModal';
 import { MeadowsLearningCardsModal } from '../game/meadows/MeadowsLearningCardsModal';
+import { MeadowsResultsModal } from '../game/meadows/MeadowsResultsModal';
 import { MeadowsItemManager, MeadowsGroundItem } from './meadowsItemManager';
 import {
   MEADOWS_WRONG_BIN_HINTS,
@@ -110,6 +111,7 @@ export const WorldPage: React.FC<WorldPageProps> = ({
   const [meadowsHeldItem, setMeadowsHeldItem] = useState<ItemData | null>(null);
   const [meadowsSortedCount, setMeadowsSortedCount] = useState<number>(0);
   const [contaminationLevel, setContaminationLevel] = useState<number>(0);
+  const [meadowsTimeTaken, setMeadowsTimeTaken] = useState<number>(0);
 
   // Virtual joystick input sink → WorldCanvas registers the engine here
   const joystickInputRef = useRef<((x: number, y: number) => void) | null>(null);
@@ -307,6 +309,7 @@ export const WorldPage: React.FC<WorldPageProps> = ({
     } else if (isMeadowsMode && meadowsPhase === 'SORTING') {
       // 5.5 Time pressure: Timer reaches 0: unsorted items are collected automatically, counted as mixed
       audio.playTruckHorn();
+      setMeadowsTimeTaken(timerDuration);
       setMeadowsPhase('CLEANUP');
       setContaminationLevel(3);
       setMeadowsInstruction('Time up! Truck collected remaining mixed waste.');
@@ -608,6 +611,8 @@ export const WorldPage: React.FC<WorldPageProps> = ({
           setMeadowsPhase('CLEANUP');
           setMeadowsInstruction('All waste sorted! Clean the area.');
           audio.playCelebration();
+          const elapsed = Math.max(1, timerDuration - timer.timeLeft);
+          setMeadowsTimeTaken(elapsed);
           timer.pause();
 
           // Start 3-second transformation: dirty mud blends to cleaner earth, waste disappears
@@ -739,6 +744,8 @@ export const WorldPage: React.FC<WorldPageProps> = ({
               setMeadowsPhase('CLEANUP');
               setMeadowsInstruction('All waste sorted! The area is clean!');
               audio.playCelebration();
+              const elapsed = Math.max(1, timerDuration - timer.timeLeft);
+              setMeadowsTimeTaken(elapsed);
               timer.pause();
             }
             return next;
@@ -1469,19 +1476,32 @@ export const WorldPage: React.FC<WorldPageProps> = ({
           />
         )}
 
-        {/* Society & Meadows Mission Results */}
-        {showMissionResults && (isSocietyMode || isMeadowsMode) && (
+        {/* Society Mission Results */}
+        {showMissionResults && isSocietyMode && (
           <MissionResultsModal
-            totalItems={isMeadowsMode ? 10 : currentLevel.targetCount}
-            sortedItems={isMeadowsMode ? meadowsSortedCount : societySortedCount}
-            correctFirstTry={isMeadowsMode ? Math.max(0, meadowsSortedCount - contaminationLevel) : societyFirstTryCount}
-            incorrectAttempts={isMeadowsMode ? contaminationLevel : societyWrongAttempts}
-            litterLeft={isMeadowsMode ? Math.max(0, 10 - meadowsSortedCount) : Math.max(0, currentLevel.targetCount - societySortedCount)}
+            totalItems={currentLevel.targetCount}
+            sortedItems={societySortedCount}
+            correctFirstTry={societyFirstTryCount}
+            incorrectAttempts={societyWrongAttempts}
+            litterLeft={Math.max(0, currentLevel.targetCount - societySortedCount)}
             ecoLensUses={lensUseCount}
             timeRemaining={timer.timeLeft}
-            errors={isMeadowsMode ? [] : societyErrors}
+            errors={societyErrors}
             onPlayAgain={handleRetryLevel}
             onNextLevel={handleNextLevel}
+          />
+        )}
+
+        {/* Meadows Phase 8 Level End Results */}
+        {showMissionResults && isMeadowsMode && (
+          <MeadowsResultsModal
+            sortedCount={meadowsSortedCount}
+            totalCount={10}
+            timeTakenSeconds={meadowsTimeTaken || Math.max(1, timerDuration - timer.timeLeft)}
+            contaminationLevel={contaminationLevel}
+            narratorLine="The waste pile is gone, but the land is still bare. Next, let’s bring this side back to life."
+            onPlayAgain={handleRetryLevel}
+            onNextMission={handleNextLevel}
           />
         )}
 
