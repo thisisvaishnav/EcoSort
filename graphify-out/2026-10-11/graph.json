@@ -3489,7 +3489,7 @@
       "file_type": "code",
       "norm_label": "animate()",
       "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1865"
+      "source_location": "L1942"
     },
     {
       "id": "src_components_world_meadowsscene_createmeadowsscene_animatecleanup",
@@ -3501,7 +3501,7 @@
       "file_type": "code",
       "norm_label": "animatecleanup()",
       "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1803"
+      "source_location": "L1864"
     },
     {
       "id": "src_components_world_meadowsscene_createmeadowsscene_animatetruckarrival",
@@ -3513,7 +3513,7 @@
       "file_type": "code",
       "norm_label": "animatetruckarrival()",
       "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1733"
+      "source_location": "L1797"
     },
     {
       "id": "src_components_world_meadowsscene_createmeadowsscene_animatetruckdeparture",
@@ -3525,7 +3525,7 @@
       "file_type": "code",
       "norm_label": "animatetruckdeparture()",
       "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1765"
+      "source_location": "L1829"
     },
     {
       "id": "src_components_world_meadowsscene_createmeadowsscene_showtruckbins",
@@ -3537,7 +3537,7 @@
       "file_type": "code",
       "norm_label": "showtruckbins()",
       "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1860"
+      "source_location": "L1937"
     },
     {
       "id": "src_components_world_meadowsscene_createmeadowsscene_triggerbinanimation",
@@ -3549,7 +3549,7 @@
       "file_type": "code",
       "norm_label": "triggerbinanimation()",
       "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1929"
+      "source_location": "L2006"
     },
     {
       "id": "src_components_world_meadowsscene_createperimeterroute",
@@ -13316,55 +13316,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1040",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_world_meadowsscene_createmeadowsscene",
-      "target": "src_components_world_meadowsscene_createdamagedlamp",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1177",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_world_meadowsscene_createmeadowsscene",
-      "target": "src_components_world_items_createitemmesh_createitemmesh",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1276",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_world_meadowsscene_createmeadowsscene",
-      "target": "src_components_world_meadowsscene_creategreenbench",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1294",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_world_meadowsscene_createmeadowsscene",
-      "target": "src_components_world_meadowsscene_creategreenerylamp",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1306",
+      "source_location": "L1067",
       "weight": 1.0
     },
     {
@@ -13376,7 +13328,55 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1331",
+      "source_location": "L1111",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_world_meadowsscene_createmeadowsscene",
+      "target": "src_components_world_meadowsscene_createdamagedlamp",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/world/meadowsScene.ts",
+      "source_location": "L1241",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_world_meadowsscene_createmeadowsscene",
+      "target": "src_components_world_items_createitemmesh_createitemmesh",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/world/meadowsScene.ts",
+      "source_location": "L1340",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_world_meadowsscene_createmeadowsscene",
+      "target": "src_components_world_meadowsscene_creategreenbench",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/world/meadowsScene.ts",
+      "source_location": "L1358",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_world_meadowsscene_createmeadowsscene",
+      "target": "src_components_world_meadowsscene_creategreenerylamp",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/world/meadowsScene.ts",
+      "source_location": "L1370",
       "weight": 1.0
     },
     {
@@ -13388,7 +13388,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1345",
+      "source_location": "L1409",
       "weight": 1.0
     },
     {
@@ -13400,7 +13400,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1360",
+      "source_location": "L1424",
       "weight": 1.0
     },
     {
@@ -13412,7 +13412,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1399",
+      "source_location": "L1463",
       "weight": 1.0
     },
     {
@@ -13424,7 +13424,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1403",
+      "source_location": "L1467",
       "weight": 1.0
     },
     {
@@ -13436,7 +13436,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1669",
+      "source_location": "L1733",
       "weight": 1.0
     },
     {
@@ -35894,7 +35894,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1960",
+      "source_location": "L2037",
       "weight": 1.0
     },
     {
@@ -35906,7 +35906,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1961",
+      "source_location": "L2038",
       "weight": 1.0
     },
     {
@@ -35918,7 +35918,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1962",
+      "source_location": "L2039",
       "weight": 1.0
     },
     {
@@ -35930,7 +35930,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1963",
+      "source_location": "L2040",
       "weight": 1.0
     },
     {
@@ -35942,7 +35942,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1968",
+      "source_location": "L2045",
       "weight": 1.0
     },
     {
@@ -35954,7 +35954,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "src/components/world/meadowsScene.ts",
-      "source_location": "L1969",
+      "source_location": "L2046",
       "weight": 1.0
     },
     {
@@ -36572,5 +36572,5 @@
       "source_file": "AGENTS.md"
     }
   ],
-  "built_at_commit": "74e60c076d5f92e8c4616df5a74b6408489605a6"
+  "built_at_commit": "d70595cd314c8b07e7f74badc122bcb4dcaf6523"
 }

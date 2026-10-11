@@ -13856,7 +13856,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L1356",
+      "source_location": "L1355",
       "weight": 1.0
     },
     {
@@ -13868,7 +13868,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L1367",
+      "source_location": "L1365",
       "weight": 1.0
     },
     {
@@ -13880,7 +13880,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L1374",
+      "source_location": "L1372",
       "weight": 1.0
     },
     {
@@ -13892,7 +13892,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L1387",
+      "source_location": "L1385",
       "weight": 1.0
     },
     {
@@ -13904,7 +13904,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L1403",
+      "source_location": "L1401",
       "weight": 1.0
     },
     {
@@ -13916,7 +13916,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L1415",
+      "source_location": "L1413",
       "weight": 1.0
     },
     {
@@ -13928,7 +13928,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/world/WorldPage.tsx",
-      "source_location": "L1422",
+      "source_location": "L1420",
       "weight": 1.0
     },
     {
@@ -36572,5 +36572,5 @@
       "source_file": "AGENTS.md"
     }
   ],
-  "built_at_commit": "d70595cd314c8b07e7f74badc122bcb4dcaf6523"
+  "built_at_commit": "8d6f42b3f4931d237b776f5b2bea95c2c3982a90"
 }

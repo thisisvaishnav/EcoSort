@@ -1333,34 +1333,32 @@ export const WorldPage: React.FC<WorldPageProps> = ({
           </div>
         )}
 
-        {/* Mascot (hidden in Meadows — the narrative banner carries the message) */}
-        {!isMeadowsMode && (
-          <div className={`absolute z-30 max-w-xs sm:max-w-sm md:max-w-md pointer-events-auto transition-all ${
-            isCoarsePointer ? 'top-12 left-3' : 'bottom-3 left-3'
-          }`}>
-            {isMascotCollapsed ? (
-              <button
-                onClick={() => setIsMascotCollapsed(false)}
-                title="Show mascot tips"
-                className="flex items-center gap-1 bg-[#FDFBF7] border-2 border-slate-900 rounded-lg sm:rounded-xl px-2 py-1 sm:px-2.5 sm:py-1.5 shadow-retro-xs text-[10px] sm:text-xs font-fun font-black text-slate-900 hover:bg-amber-100 transition-all active:translate-x-[1px] active:translate-y-[1px]"
-              >
-                <span className="text-sm sm:text-base">🌱</span>
-                <span className="text-emerald-700">Eco tips</span>
-                {isCoarsePointer ? (
-                  <ChevronDown className="w-3 h-3 text-slate-700" />
-                ) : (
-                  <ChevronUp className="w-3.5 h-3.5 text-slate-700" />
-                )}
-              </button>
-            ) : (
-              <MascotDialogue
-                message={mascotMessage}
-                isPositive={isPositiveFeedback}
-                onCollapse={() => setIsMascotCollapsed(true)}
-              />
-            )}
-          </div>
-        )}
+        {/* Mascot / Eco says feature (available in all maps including Meadows) */}
+        <div className={`absolute z-30 max-w-xs sm:max-w-sm md:max-w-md pointer-events-auto transition-all ${
+          isCoarsePointer ? 'top-12 left-3' : 'bottom-3 left-3'
+        }`}>
+          {isMascotCollapsed ? (
+            <button
+              onClick={() => setIsMascotCollapsed(false)}
+              title="Show mascot tips"
+              className="flex items-center gap-1 bg-[#FDFBF7] border-2 border-slate-900 rounded-lg sm:rounded-xl px-2 py-1 sm:px-2.5 sm:py-1.5 shadow-retro-xs text-[10px] sm:text-xs font-fun font-black text-slate-900 hover:bg-amber-100 transition-all active:translate-x-[1px] active:translate-y-[1px]"
+            >
+              <span className="text-sm sm:text-base">🌱</span>
+              <span className="text-emerald-700">Eco tips</span>
+              {isCoarsePointer ? (
+                <ChevronDown className="w-3 h-3 text-slate-700" />
+              ) : (
+                <ChevronUp className="w-3.5 h-3.5 text-slate-700" />
+              )}
+            </button>
+          ) : (
+            <MascotDialogue
+              message={mascotMessage}
+              isPositive={isPositiveFeedback}
+              onCollapse={() => setIsMascotCollapsed(true)}
+            />
+          )}
+        </div>
 
         {/* Classic modals */}
         {showQuiz && (
