@@ -1274,6 +1274,7 @@ export const WorldPage: React.FC<WorldPageProps> = ({
         migsunRef={migsunSceneRef}
         meadowsRef={meadowsSceneRef}
         meadowsItemsRef={meadowsItemsRef}
+        canMove={!isMeadowsMode || meadowsPhase !== 'INTRO'}
         onMeadowsPlayerMove={handleMeadowsPlayerMove}
       >
         {/* Migsun Vilasa Game Controller (Level 8) */}

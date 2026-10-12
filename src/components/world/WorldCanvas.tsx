@@ -66,6 +66,8 @@ export interface WorldCanvasProps {
   // Meadows handlers & ref sink
   meadowsRef?: React.MutableRefObject<MeadowsSceneResult | null>;
   meadowsItemsRef?: React.MutableRefObject<MeadowsItemManager | null>;
+  // Movement access control (e.g. locked during cutscene intro)
+  canMove?: boolean;
   /** Callback emitted on player position changes in Meadows */
   onMeadowsPlayerMove?: (position: THREE.Vector3) => void;
 }
@@ -95,6 +97,7 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
   migsunRef,
   meadowsRef,
   meadowsItemsRef,
+  canMove = true,
   onMeadowsPlayerMove,
 }) => {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -231,6 +234,13 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
       engineRef.current.activeEnv = envMode;
     }
   }, [envMode]);
+
+  // Synchronize player movement access (disabled during cutscenes/intros)
+  useEffect(() => {
+    if (engineRef.current) {
+      engineRef.current.locomotion.setCanMove(canMove);
+    }
+  }, [canMove]);
 
   // -------------------------------------------------------------------------
   // INITIALIZE 3D GRAPHICS PIPELINE
@@ -1297,7 +1307,7 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
       mouseDownCandidateRef.current = null;
       if (candidate && !candidate.throwArmed) {
         const moved = Math.hypot(e.clientX - candidate.x, e.clientY - candidate.y);
-        const canWalk = !(envMode === 'TOWN' && worldMode === 'STATION_SORT');
+        const canWalk = canMove && !(envMode === 'TOWN' && worldMode === 'STATION_SORT');
         if (moved < 12 && canWalk && e.target instanceof HTMLCanvasElement) {
           engineRef.current.locomotion.createRaycastHandler(
             e.nativeEvent,
@@ -1324,7 +1334,7 @@ export const WorldCanvas: React.FC<WorldCanvasProps> = ({
       if (touches.size === 0 && candidate) {
         tapCandidateRef.current = null;
         const moved = Math.hypot(e.clientX - candidate.x, e.clientY - candidate.y);
-        const canWalk = !(envMode === 'TOWN' && worldMode === 'STATION_SORT');
+        const canWalk = canMove && !(envMode === 'TOWN' && worldMode === 'STATION_SORT');
         if (moved < 12 && canWalk && !throwWasArmed && !wasTrackpadMove) {
           engineRef.current.locomotion.createRaycastHandler(
             e.nativeEvent,
