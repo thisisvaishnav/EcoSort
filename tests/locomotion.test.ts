@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { createLocomotionEngine } from '../src/components/world/locomotion';
 
 /**
  * Math utilities for locomotion, camera zoom, and click-to-move logic
@@ -166,5 +167,38 @@ describe('Locomotion & Camera Math', () => {
     expect(resolved.x).toBeLessThan(10);
     // Z coordinate should remain intact for sliding
     expect(resolved.z).toBe(15);
+  });
+
+  it('locks player movement when canMove is set to false and unlocks when true', () => {
+    // Import createLocomotionEngine dynamically or mock player
+    const mockPlayer = {
+      group: { position: { copy: () => {} } },
+      celebrate: () => {},
+      updateAnimation: () => {},
+      setFacingAngle: () => {},
+      currentAngle: 0,
+    } as any;
+
+    const engine = createLocomotionEngine(mockPlayer, []);
+
+    expect(engine.canMove).toBe(true);
+
+    // Disable movement during intro
+    engine.setCanMove(false);
+    expect(engine.canMove).toBe(false);
+
+    // Joystick input should be ignored
+    engine.setJoystickVector(1.0, 0);
+    engine.update(0.016, 0);
+    expect(engine.isMoving).toBe(false);
+
+    // Re-enable movement after intro finishes
+    engine.setCanMove(true);
+    expect(engine.canMove).toBe(true);
+    engine.setJoystickVector(1.0, 0);
+    engine.update(0.016, 0);
+    expect(engine.isMoving).toBe(true);
+
+    engine.dispose();
   });
 });

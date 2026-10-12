@@ -13,6 +13,8 @@ export interface LocomotionEngine {
   setObstacles: (newObstacles: WorldObstacle[]) => void;
   setBounds: (minX: number, maxX: number, minZ: number, maxZ: number) => void;
   isMoving: boolean;
+  canMove: boolean;
+  setCanMove: (allow: boolean) => void;
   dispose: () => void;
 }
 
@@ -75,11 +77,10 @@ export function createLocomotionEngine(
   initialPosition = new THREE.Vector3(0, 0, 8)
 ): LocomotionEngine {
   const currentPos = initialPosition.clone();
-  player.group.position.copy(currentPos);
-
   const keysDown = new Set<string>();
   let clickDestination: THREE.Vector3 | null = null;
   let isMoving = false;
+  let canMove = true;
   const avatarRadius = 0.55;
   const moveSpeed = 5.0; // meters per second (balanced for responsive yet smooth navigation)
 
@@ -87,6 +88,11 @@ export function createLocomotionEngine(
   const joystick = { x: 0, y: 0 };
 
   const setJoystickVector = (x: number, y: number) => {
+    if (!canMove) {
+      joystick.x = 0;
+      joystick.y = 0;
+      return;
+    }
     joystick.x = x;
     joystick.y = y;
     if (Math.hypot(x, y) >= JOYSTICK_DEAD_ZONE) {
@@ -130,6 +136,7 @@ export function createLocomotionEngine(
 
   // 2. Keyboard Event Listeners
   const onKeyDown = (e: KeyboardEvent) => {
+    if (!canMove) return; // movement disabled during intro cutscene
     if (isTypingTarget(e.target)) return; // typing in a field — don't walk
     const key = e.key.toLowerCase();
     if (['w', 'a', 's', 'd', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright'].includes(key)) {
@@ -154,6 +161,7 @@ export function createLocomotionEngine(
   const groundPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
 
   const createRaycastHandler = (event: MouseEvent | PointerEvent, container: HTMLElement, camera: THREE.Camera) => {
+    if (!canMove) return; // movement disabled during intro cutscene
     const rect = container.getBoundingClientRect();
     if (rect.width === 0 || rect.height === 0) return;
 
@@ -208,6 +216,17 @@ export function createLocomotionEngine(
   let ringAnimTime = 0;
 
   const update = (delta: number, cameraAzimuthAngle: number) => {
+    if (!canMove) {
+      keysDown.clear();
+      clickDestination = null;
+      destinationRing.visible = false;
+      joystick.x = 0;
+      joystick.y = 0;
+      isMoving = false;
+      player.updateAnimation(false, moveSpeed, delta);
+      return;
+    }
+
     // Drop any held key the moment focus lands in a text field, so Kai stops
     // mid-stride instead of walking while the player types.
     if (isTypingTarget(document.activeElement)) {
@@ -333,6 +352,20 @@ export function createLocomotionEngine(
     },
     get isMoving() {
       return isMoving;
+    },
+    get canMove() {
+      return canMove;
+    },
+    setCanMove: (allow: boolean) => {
+      canMove = allow;
+      if (!allow) {
+        keysDown.clear();
+        clickDestination = null;
+        destinationRing.visible = false;
+        joystick.x = 0;
+        joystick.y = 0;
+        isMoving = false;
+      }
     },
     dispose,
   };
