@@ -43,9 +43,8 @@ __pycache__/
 venv/
 ENV/
 
-# Graphify temporary / cache files
-graphify-out/.graphify_*
-graphify-out/.needs_update
+# Graphify generated output & caches
+graphify-out/
 
 # Agent / local environment & tools
 .claude/

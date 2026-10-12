@@ -2,6 +2,7 @@ import React from 'react';
 import { X, MapPin, Star, Lock } from 'lucide-react';
 import { GAME_LEVELS } from '../../data/levels';
 import { ALL_BINS } from '../../data/bins';
+import { RetroModal } from '../ui';
 
 interface LevelSelectModalProps {
   currentLevelId: number;
@@ -17,8 +18,7 @@ export const LevelSelectModal: React.FC<LevelSelectModalProps> = ({
   onClose,
 }) => {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-150">
-      <div className="bg-[#FDFBF7] border-2 border-slate-900 rounded-3xl p-6 max-w-xl w-full max-h-[85vh] flex flex-col shadow-retro-xl text-slate-900 animate-in zoom-in-95 duration-200">
+    <RetroModal onClose={onClose} className="max-w-xl w-full">
         {/* Header */}
         <div className="flex items-center justify-between pb-4 border-b-2 border-slate-900">
           <div className="flex items-center gap-3">
@@ -117,7 +117,6 @@ export const LevelSelectModal: React.FC<LevelSelectModalProps> = ({
             );
           })}
         </div>
-      </div>
-    </div>
+    </RetroModal>
   );
 };

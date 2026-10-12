@@ -6,6 +6,8 @@ export interface ContaminationMeterProps {
   maxLevel?: number; // default 3
 }
 
+import { RetroMeter } from '../../ui';
+
 export const ContaminationMeter: React.FC<ContaminationMeterProps> = ({
   contaminationLevel,
   maxLevel = 3,
@@ -26,25 +28,16 @@ export const ContaminationMeter: React.FC<ContaminationMeterProps> = ({
   }
 
   return (
-    <div
-      data-testid="contamination-meter"
-      className="pointer-events-auto rounded-2xl px-3 py-2 border-2 border-slate-900 bg-[#FDFBF7] flex flex-col gap-1.5 w-full max-w-[210px] sm:max-w-[260px] shadow-retro-xs text-slate-900"
-    >
-      <div className="flex items-center justify-between text-[11px] font-fun font-black uppercase tracking-wider text-slate-950">
-        <span className="flex items-center gap-1.5">
-          <AlertCircle className="w-3.5 h-3.5 text-amber-500 stroke-[2.5]" />
-          Contamination
-        </span>
-        <span className="text-slate-950 font-mono font-bold text-xs">{statusText}</span>
-      </div>
-
-      <div className="h-2 w-full bg-slate-200 rounded-full overflow-hidden border border-slate-900/30">
-        <div
-          data-testid="contamination-fill"
-          className={`h-full rounded-full transition-all duration-300 ${colorStyle}`}
-          style={{ width: `${percentage}%` }}
-        />
-      </div>
+    <div className="w-full max-w-[210px] sm:max-w-[260px]">
+      <RetroMeter
+        data-testid="contamination-meter"
+        fillTestId="contamination-fill"
+        label="Contamination"
+        valueText={statusText}
+        percentage={percentage}
+        barColor={colorStyle}
+        icon={<AlertCircle className="w-3.5 h-3.5 text-amber-500 stroke-[2.5]" />}
+      />
     </div>
   );
 };

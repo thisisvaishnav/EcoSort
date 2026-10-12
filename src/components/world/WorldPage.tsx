@@ -43,6 +43,7 @@ import {
   deactivateLens,
   tickLensCooldown,
 } from '../../systems/ecoLens';
+import { TimelineRunner } from '../../systems/timelineRunner';
 import {
   ArrowLeft,
   Map,
@@ -103,7 +104,8 @@ export const WorldPage: React.FC<WorldPageProps> = ({
   const [meadowsLensHint, setMeadowsLensHint] = useState<string | null>(null);
   const meadowsSceneRef = useRef<MeadowsSceneResult | null>(null);
   const meadowsItemsRef = useRef<MeadowsItemManager | null>(null);
-  const introTimerRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const introTimelineRunner = useRef(new TimelineRunner());
+  const truckTimelineRunner = useRef(new TimelineRunner());
 
   // Phase 5 Sorting Challenge State
   const [meadowsSortedCount, setMeadowsSortedCount] = useState<number>(0);
@@ -315,7 +317,7 @@ export const WorldPage: React.FC<WorldPageProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timer.isExpired, isSocietyMode, isMeadowsMode, meadowsPhase]);
 
-  // ── Meadows Phase 1 (Intro) & Phase 2 (Walk to Pile) Sequence ───────────
+  // ── Meadows Phase 1 (Intro) & Phase 2 (Walk to Pile) Sequence (TimelineRunner) ───
   useEffect(() => {
     if (!isMeadowsMode) return;
 
@@ -325,49 +327,52 @@ export const WorldPage: React.FC<WorldPageProps> = ({
     setMeadowsLensHint(null);
     meadowsSceneRef.current?.setPathGuideVisible(true);
 
-    // Clear any previous timers
-    introTimerRef.current.forEach(clearTimeout);
-    introTimerRef.current = [];
+    introTimelineRunner.current.cancel();
 
-    // Line 1 (0s)
-    const line1 = 'Welcome to Green Meadows Residency. Look around. Same place, two different worlds.';
-    setNarratorSubtitle(line1);
-    audio.speak(line1);
-
-    // Line 2 (5.5s)
-    const t1 = setTimeout(() => {
-      const line2 = 'On the right, a garden full of life. On the left, a waste pile that has been growing for weeks.';
-      setNarratorSubtitle(line2);
-      audio.speak(line2);
-    }, 5500);
-
-    // Line 3 (12.0s)
-    const t2 = setTimeout(() => {
-      const line3 = 'That pile smells, attracts flies and rats, and can make people sick. Today, you will change that.';
-      setNarratorSubtitle(line3);
-      audio.speak(line3);
-    }, 12000);
-
-    // Transition to Phase 2: Walk to Pile (18.5s)
-    const t3 = setTimeout(() => {
-      setMeadowsPhase('WALK_TO_PILE');
-      const step1 = 'Step 1: Run to the waste pile on the left.';
-      setNarratorSubtitle(null);
-      setMeadowsInstruction(step1);
-      audio.speak(step1);
-    }, 18500);
-
-    introTimerRef.current = [t1, t2, t3];
+    // Declarative timeline steps per clean-architecture-guard
+    introTimelineRunner.current.run([
+      {
+        duration: 5.5,
+        action: () => {
+          const line1 = 'Welcome to Green Meadows Residency. Look around. Same place, two different worlds.';
+          setNarratorSubtitle(line1);
+          audio.speak(line1);
+        },
+      },
+      {
+        duration: 6.5,
+        action: () => {
+          const line2 = 'On the right, a garden full of life. On the left, a waste pile that has been growing for weeks.';
+          setNarratorSubtitle(line2);
+          audio.speak(line2);
+        },
+      },
+      {
+        duration: 6.5,
+        action: () => {
+          const line3 = 'That pile smells, attracts flies and rats, and can make people sick. Today, you will change that.';
+          setNarratorSubtitle(line3);
+          audio.speak(line3);
+        },
+      },
+      {
+        action: () => {
+          setMeadowsPhase('WALK_TO_PILE');
+          const step1 = 'Step 1: Run to the waste pile on the left.';
+          setNarratorSubtitle(null);
+          setMeadowsInstruction(step1);
+          audio.speak(step1);
+        },
+      },
+    ], null);
 
     return () => {
-      introTimerRef.current.forEach(clearTimeout);
-      introTimerRef.current = [];
+      introTimelineRunner.current.cancel();
     };
   }, [isMeadowsMode, currentLevelId]);
 
   const handleSkipIntro = useCallback(() => {
-    introTimerRef.current.forEach(clearTimeout);
-    introTimerRef.current = [];
+    introTimelineRunner.current.cancel();
     setMeadowsPhase('WALK_TO_PILE');
     const step1 = 'Step 1: Run to the waste pile on the left.';
     setNarratorSubtitle(null);
@@ -539,28 +544,31 @@ export const WorldPage: React.FC<WorldPageProps> = ({
     // Trigger Phase 4: Garbage truck driving in
     setTruckArriving(true);
 
-    // Cutscene sequence: Truck drives in (takes ~4.5s)
-    setTimeout(() => {
-      // Truck stops, horn sounds
-      audio.playTruckHorn();
-      setMeadowsPhase('TRUCK_ARRIVED');
-
-      // Four colour-coded bins placed beside truck
-      meadowsSceneRef.current?.showTruckBins(true);
-
-      // Narrator speech adhering to ASD-STE100 guidelines
-      const narratorArrival =
-        'The truck is here, but it only takes waste that has been separated. Mixed waste is hard to recycle or compost. Let’s sort it.';
-      setNarratorSubtitle(narratorArrival);
-      audio.speak(narratorArrival);
-
-      // Transition to Phase 5: The Sorting Challenge
-      setTimeout(() => {
-        setMeadowsPhase('SORTING');
-        setNarratorSubtitle(null);
-        setMeadowsInstruction('Walk to waste items and pick them up to sort.');
-      }, 6500);
-    }, 4500);
+    truckTimelineRunner.current.cancel();
+    truckTimelineRunner.current.run([
+      {
+        duration: 4.5,
+      },
+      {
+        duration: 6.5,
+        action: () => {
+          audio.playTruckHorn();
+          setMeadowsPhase('TRUCK_ARRIVED');
+          meadowsSceneRef.current?.showTruckBins(true);
+          const narratorArrival =
+            'The truck is here, but it only takes waste that has been separated. Mixed waste is hard to recycle or compost. Let’s sort it.';
+          setNarratorSubtitle(narratorArrival);
+          audio.speak(narratorArrival);
+        },
+      },
+      {
+        action: () => {
+          setMeadowsPhase('SORTING');
+          setNarratorSubtitle(null);
+          setMeadowsInstruction('Walk to waste items and pick them up to sort.');
+        },
+      },
+    ], null);
   }, [timer]);
 
 
@@ -655,17 +663,25 @@ export const WorldPage: React.FC<WorldPageProps> = ({
               // Start 3-second transformation: dirty mud blends to cleaner earth, waste disappears
               setCleanupActive(true);
 
-              // After 3s cleanup transformation, workers/robotic arm lift bins and truck drives away
-              setTimeout(() => {
-                setTruckDeparting(true);
-                audio.playTruckJingle();
-
-                // After truck departs (~4.5s), transition into Phase 7: The Learning Pop-Ups
-                setTimeout(() => {
-                  setMeadowsPhase('LEARNING_CARDS');
-                  setIsLearningCardsOpen(true);
-                }, 4500);
-              }, 3000);
+              truckTimelineRunner.current.cancel();
+              truckTimelineRunner.current.run([
+                {
+                  duration: 3.0,
+                },
+                {
+                  duration: 4.5,
+                  action: () => {
+                    setTruckDeparting(true);
+                    audio.playTruckJingle();
+                  },
+                },
+                {
+                  action: () => {
+                    setMeadowsPhase('LEARNING_CARDS');
+                    setIsLearningCardsOpen(true);
+                  },
+                },
+              ], null);
             }
             return next;
           });

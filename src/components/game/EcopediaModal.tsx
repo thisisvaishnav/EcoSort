@@ -4,6 +4,8 @@ import { GAME_ITEMS } from '../../data/items';
 import { ALL_BINS } from '../../data/bins';
 import { audio } from '../../services/audio';
 
+import { RetroModal } from '../ui';
+
 interface EcopediaModalProps {
   unlockedIds: string[];
   onClose: () => void;
@@ -15,28 +17,27 @@ export const EcopediaModal: React.FC<EcopediaModalProps> = ({ unlockedIds, onClo
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-150">
-      <div className="bg-[#FDFBF7] border-2 border-slate-900 rounded-3xl p-6 max-w-2xl w-full max-h-[85vh] flex flex-col shadow-retro-xl text-slate-900 animate-in zoom-in-95 duration-200">
-        {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b-2 border-slate-900">
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-teal-300 border-2 border-slate-900 text-slate-950 rounded-2xl shadow-retro-sm">
-              <BookOpen className="w-6 h-6 stroke-slate-950" />
-            </div>
-            <div>
-              <h2 className="font-fun text-2xl font-black text-slate-950">Eco-pedia</h2>
-              <p className="text-xs font-bold text-slate-600">
-                Unlocked {unlockedIds.length} of {GAME_ITEMS.length} waste cards
-              </p>
-            </div>
+    <RetroModal onClose={onClose} className="max-w-2xl w-full">
+      {/* Header */}
+      <div className="flex items-center justify-between pb-4 border-b-2 border-slate-900">
+        <div className="flex items-center gap-3">
+          <div className="p-2.5 bg-teal-300 border-2 border-slate-900 text-slate-950 rounded-2xl shadow-retro-sm">
+            <BookOpen className="w-6 h-6 stroke-slate-950" />
           </div>
-          <button
-            onClick={onClose}
-            className="p-1.5 bg-white hover:bg-slate-100 text-slate-900 border-2 border-slate-900 rounded-xl shadow-retro-sm transition-transform active:translate-x-[1px] active:translate-y-[1px]"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          <div>
+            <h2 className="font-fun text-2xl font-black text-slate-950">Eco-pedia</h2>
+            <p className="text-xs font-bold text-slate-600">
+              Unlocked {unlockedIds.length} of {GAME_ITEMS.length} waste cards
+            </p>
+          </div>
         </div>
+        <button
+          onClick={onClose}
+          className="p-1.5 bg-white hover:bg-slate-100 text-slate-900 border-2 border-slate-900 rounded-xl shadow-retro-sm transition-transform active:translate-x-[1px] active:translate-y-[1px]"
+        >
+          <X className="w-5 h-5" />
+        </button>
+      </div>
 
         {/* Cards Grid */}
         <div className="flex-1 overflow-y-auto py-4 pr-1 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
@@ -93,7 +94,6 @@ export const EcopediaModal: React.FC<EcopediaModalProps> = ({ unlockedIds, onClo
             );
           })}
         </div>
-      </div>
-    </div>
+    </RetroModal>
   );
 };
