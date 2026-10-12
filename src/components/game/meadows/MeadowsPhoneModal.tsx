@@ -31,17 +31,22 @@ export const MeadowsPhoneModal: React.FC<MeadowsPhoneModalProps> = ({
     setCurrentTime(`${hrs}:${mins}`);
   }, []);
 
-  // Cleanup timers on unmount
+  // Cleanup timers and cancel speech on mount / unmount
   useEffect(() => {
+    // When the phone opens, stop background narrator or mascot speech immediately
+    audio.stopSpeech();
+
     return () => {
       if (ringIntervalRef.current) clearInterval(ringIntervalRef.current);
       if (flowTimerRef.current) clearTimeout(flowTimerRef.current);
+      audio.stopSpeech();
     };
   }, []);
 
   if (!isOpen) return null;
 
   const handleStartCall = () => {
+    audio.stopSpeech();
     audio.playPhoneBeep();
     setStage('RINGING');
     audio.playPhoneRing();
@@ -192,10 +197,13 @@ export const MeadowsPhoneModal: React.FC<MeadowsPhoneModalProps> = ({
                 <span className="text-[8px] sm:text-[9px] font-bold text-slate-500">Waste Dispatch</span>
               </div>
 
-              {/* GTA-Style Voice Call Dialogue Bubbles */}
+              {/* GTA-Style Voice Call Dialogue Bubbles - Separate Pager View */}
               <div className="flex-1 flex flex-col justify-center gap-1.5 my-1 px-0.5">
                 {stage === 'DIALOGUE_DISP_1' && (
-                  <div className="bg-white border-2 border-slate-950 rounded-lg sm:rounded-xl p-2 shadow-retro-xs animate-in slide-in-from-bottom-2 duration-300">
+                  <div
+                    key="stage-disp-1"
+                    className="bg-white border-2 border-slate-950 rounded-lg sm:rounded-xl p-2 shadow-retro-xs animate-in fade-in slide-in-from-bottom-2 duration-300"
+                  >
                     <div className="flex items-center gap-1 text-[9px] font-fun font-black text-emerald-700 mb-0.5">
                       <Truck className="w-2.5 h-2.5" />
                       <span>Dispatcher</span>
@@ -207,7 +215,10 @@ export const MeadowsPhoneModal: React.FC<MeadowsPhoneModalProps> = ({
                 )}
 
                 {stage === 'DIALOGUE_PLAYER' && (
-                  <div className="bg-emerald-50 border-2 border-slate-950 rounded-lg sm:rounded-xl p-2 shadow-retro-xs ml-auto max-w-[95%] animate-in slide-in-from-bottom-2 duration-300">
+                  <div
+                    key="stage-player"
+                    className="bg-emerald-50 border-2 border-slate-950 rounded-lg sm:rounded-xl p-2 shadow-retro-xs ml-auto max-w-[95%] animate-in fade-in slide-in-from-bottom-2 duration-300"
+                  >
                     <div className="flex items-center gap-1 text-[9px] font-fun font-black text-emerald-800 mb-0.5 justify-end">
                       <span>Kai (Player)</span>
                       <User className="w-2.5 h-2.5" />
@@ -219,7 +230,10 @@ export const MeadowsPhoneModal: React.FC<MeadowsPhoneModalProps> = ({
                 )}
 
                 {stage === 'DIALOGUE_DISP_2' && (
-                  <div className="bg-white border-2 border-slate-950 rounded-lg sm:rounded-xl p-2 shadow-retro-xs animate-in slide-in-from-bottom-2 duration-300">
+                  <div
+                    key="stage-disp-2"
+                    className="bg-white border-2 border-slate-950 rounded-lg sm:rounded-xl p-2 shadow-retro-xs animate-in fade-in slide-in-from-bottom-2 duration-300"
+                  >
                     <div className="flex items-center gap-1 text-[9px] font-fun font-black text-emerald-700 mb-0.5">
                       <Truck className="w-2.5 h-2.5" />
                       <span>Dispatcher</span>
@@ -231,11 +245,32 @@ export const MeadowsPhoneModal: React.FC<MeadowsPhoneModalProps> = ({
                 )}
               </div>
 
-              {/* Active Speaker Footer */}
-              <div className="w-full flex justify-center pt-0.5">
+              {/* Active Speaker Footer & Pager Dots */}
+              <div className="w-full flex items-center justify-between pt-0.5 px-1">
+                {/* Pager Indicator Dots (Pages 1, 2, 3) */}
+                <div className="flex items-center gap-1">
+                  <div
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      stage === 'DIALOGUE_DISP_1' ? 'w-4 bg-emerald-600' : 'w-1.5 bg-slate-300'
+                    }`}
+                  />
+                  <div
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      stage === 'DIALOGUE_PLAYER' ? 'w-4 bg-emerald-600' : 'w-1.5 bg-slate-300'
+                    }`}
+                  />
+                  <div
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      stage === 'DIALOGUE_DISP_2' ? 'w-4 bg-emerald-600' : 'w-1.5 bg-slate-300'
+                    }`}
+                  />
+                </div>
+
                 <div className="px-2 py-0.5 rounded-full bg-slate-100 border border-slate-950/20 text-[8px] text-slate-700 font-bold flex items-center gap-1">
                   <Volume2 className="w-2 h-2 text-emerald-600 animate-pulse" />
-                  <span>Dispatcher active</span>
+                  <span>
+                    {stage === 'DIALOGUE_PLAYER' ? 'Kai speaking' : 'Dispatcher active'}
+                  </span>
                 </div>
               </div>
             </div>
