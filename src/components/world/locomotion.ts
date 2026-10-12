@@ -81,7 +81,7 @@ export function createLocomotionEngine(
   let clickDestination: THREE.Vector3 | null = null;
   let isMoving = false;
   const avatarRadius = 0.55;
-  const moveSpeed = 7.0; // meters per second
+  const moveSpeed = 5.0; // meters per second (balanced for responsive yet smooth navigation)
 
   // Virtual joystick state (MEADOWS HUD) — {0,0} means centered/idle
   const joystick = { x: 0, y: 0 };
@@ -240,10 +240,15 @@ export function createLocomotionEngine(
     } else if (inputX !== 0 || inputZ !== 0) {
       // Camera-relative direction: W = camera forward, D = camera right
       // (matches camera offset (sin(yaw), cos(yaw)) so W always moves away from camera)
+      // When moving strictly left/right (A/D strafing), scale down slightly (0.85)
+      // so turning or side-stepping is gentle and not twitchy.
+      const lateralFactor = inputZ === 0 ? 0.85 : 1.0;
+      const effectiveInputX = inputX * lateralFactor;
+
       const sin = Math.sin(cameraAzimuthAngle);
       const cos = Math.cos(cameraAzimuthAngle);
-      moveDirX = inputX * cos + inputZ * sin;
-      moveDirZ = -inputX * sin + inputZ * cos;
+      moveDirX = effectiveInputX * cos + inputZ * sin;
+      moveDirZ = -effectiveInputX * sin + inputZ * cos;
 
       const len = Math.hypot(moveDirX, moveDirZ);
       moveDirX /= len;
