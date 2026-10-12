@@ -81,9 +81,29 @@ describe('Phase 8 Level End: MeadowsResultsModal', () => {
         'The waste pile is gone, but the land is still bare. Next, let’s bring this side back to life.'
       );
 
-      // Check button: [ NEXT MISSION: Restore the Garden ]
+      // Check button initially gated while narrator speaks
       const nextBtn = container.querySelector('[data-testid="meadows-next-mission-btn"]') as HTMLButtonElement;
       expect(nextBtn).not.toBeNull();
+      expect(nextBtn.disabled).toBe(true);
+      expect(nextBtn.textContent).toContain('Listening to area briefing...');
+
+      // Advance timers or render with completed narration to verify unlocking
+      await act(async () => {
+        root.render(
+          React.createElement(MeadowsResultsModal, {
+            sortedCount: 8,
+            totalCount: 10,
+            timeTakenSeconds: 65,
+            contaminationLevel: 1,
+            narratorLine: 'The waste pile is gone, but the land is still bare. Next, let’s bring this side back to life.',
+            initialNarrationCompleted: true,
+            onPlayAgain: onPlayAgainMock,
+            onNextMission: onNextMissionMock,
+          })
+        );
+      });
+
+      expect(nextBtn.disabled).toBe(false);
       expect(nextBtn.textContent).toContain('NEXT MISSION: Restore the Garden');
 
       await act(async () => {

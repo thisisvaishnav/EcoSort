@@ -428,10 +428,11 @@ export const WorldPage: React.FC<WorldPageProps> = ({
       setMeadowsSortedCount(0);
       setContaminationLevel(0);
       timer.reset();
-      const msg = 'Welcome to Green Meadows. Clean the path!';
+      const msg = 'Welcome to Green Meadows Residency.';
       setMascotMessage(msg);
       setIsPositiveFeedback(true);
-      audio.speak(msg);
+      // Note: Voice narration for Meadows is handled exclusively by introTimelineRunner
+      // to avoid overlapping speech.
     } else {
       // Classic modes: spawn first item on table
       const firstItem = spawner.getNextItem();
@@ -498,6 +499,12 @@ export const WorldPage: React.FC<WorldPageProps> = ({
     pileTriggeredRef.current = false;
   }, [currentLevelId]);
 
+  // Ref for phone transition timer
+  const phoneTransitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => () => {
+    if (phoneTransitionTimerRef.current) clearTimeout(phoneTransitionTimerRef.current);
+  }, []);
+
   const handleMeadowsPlayerMove = useCallback((pos: THREE.Vector3) => {
     if (!isMeadowsMode) return;
 
@@ -516,14 +523,32 @@ export const WorldPage: React.FC<WorldPageProps> = ({
         // Narrator: "That is a lot of waste. We cannot carry all of it ourselves. Let us call the municipal garbage truck."
         const narratorLine = 'That is a lot of waste. We cannot carry all of it ourselves. Let us call the municipal garbage truck.';
         setNarratorSubtitle(narratorLine);
-        audio.speak(narratorLine);
 
-        // After narrator line finishes (~5.5s), transition into Phase 3: Phone call
-        setTimeout(() => {
+        // Ensure no leftover speech is playing, then speak the narrator line
+        audio.stopSpeech();
+
+        let transitioned = false;
+        const triggerPhoneCall = () => {
+          if (transitioned) return;
+          transitioned = true;
+          if (phoneTransitionTimerRef.current) {
+            clearTimeout(phoneTransitionTimerRef.current);
+            phoneTransitionTimerRef.current = null;
+          }
           setMeadowsPhase('PHONE_CALL');
           setNarratorSubtitle(null);
           setIsPhoneModalOpen(true);
-        }, 5500);
+        };
+
+        // Fallback timer: in case voice synthesis is disabled or finishes late
+        phoneTransitionTimerRef.current = setTimeout(triggerPhoneCall, 5500);
+
+        // Advance only when narrator finishes speaking
+        audio.speak(narratorLine, () => {
+          // Slight pause (300ms) after speech ends before opening phone
+          if (phoneTransitionTimerRef.current) clearTimeout(phoneTransitionTimerRef.current);
+          phoneTransitionTimerRef.current = setTimeout(triggerPhoneCall, 300);
+        });
       }
     }
   }, [isMeadowsMode]);

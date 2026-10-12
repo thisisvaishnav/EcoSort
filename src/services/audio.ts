@@ -234,10 +234,16 @@ class AudioService {
    * Mascot Speech: speaks short sentences using Amazon Polly Neural Voice
    * (falls back gracefully to browser SpeechSynthesis if offline or unconfigured).
    */
-  public speak(text: string) {
-    if (!this.voiceEnabled || typeof window === 'undefined') return;
+  public speak(text: string, onEnd?: () => void) {
+    if (!this.voiceEnabled || typeof window === 'undefined') {
+      onEnd?.();
+      return;
+    }
     const trimmed = (text || '').trim();
-    if (!trimmed) return;
+    if (!trimmed) {
+      onEnd?.();
+      return;
+    }
 
     // 1. Debounce rapid duplicate calls for the same text (e.g. React StrictMode double mounts)
     const now = Date.now();
@@ -257,7 +263,7 @@ class AudioService {
     const cacheKey = `${this.pollyVoiceId}:${trimmed}`;
     const cachedUrl = this.pollyCache.get(cacheKey);
     if (cachedUrl) {
-      this.playPollyAudio(cachedUrl);
+      this.playPollyAudio(cachedUrl, onEnd);
       return;
     }
 
@@ -265,17 +271,23 @@ class AudioService {
     this.fetchPollyAudio(cacheKey, trimmed)
       .then((audioData) => {
         // If another speech request arrived or speech was stopped, drop this stale response
-        if (this.speechSequence !== currentSeq) return;
+        if (this.speechSequence !== currentSeq) {
+          onEnd?.();
+          return;
+        }
 
         if (audioData) {
-          this.playPollyAudio(audioData);
+          this.playPollyAudio(audioData, onEnd);
         } else {
-          this.fallbackSpeech(trimmed);
+          this.fallbackSpeech(trimmed, onEnd);
         }
       })
       .catch(() => {
-        if (this.speechSequence !== currentSeq) return;
-        this.fallbackSpeech(trimmed);
+        if (this.speechSequence !== currentSeq) {
+          onEnd?.();
+          return;
+        }
+        this.fallbackSpeech(trimmed, onEnd);
       });
   }
 
@@ -350,8 +362,11 @@ class AudioService {
     }
   }
 
-  private playPollyAudio(audioSrc: string) {
-    if (typeof Audio === 'undefined') return;
+  private playPollyAudio(audioSrc: string, onEnd?: () => void) {
+    if (typeof Audio === 'undefined') {
+      onEnd?.();
+      return;
+    }
     try {
       // Ensure previous audio is fully stopped
       if (this.pollyAudio) {
@@ -377,29 +392,43 @@ class AudioService {
       audio.volume = this.volume;
       this.pollyAudio = audio;
 
+      let called = false;
+      const finish = () => {
+        if (!called) {
+          called = true;
+          onEnd?.();
+        }
+      };
+
       audio.onended = () => {
         if (this.pollyAudio === audio) {
           this.pollyAudio = null;
         }
+        finish();
+      };
+      audio.onerror = () => {
+        finish();
       };
 
       const playPromise = audio.play();
       if (playPromise && typeof playPromise.catch === 'function') {
         playPromise.catch((err) => {
           console.warn('Polly playback notice:', err);
+          finish();
         });
       }
     } catch {
-      // Audio element fallback
+      onEnd?.();
     }
   }
 
-  private fallbackSpeech(text: string) {
+  private fallbackSpeech(text: string, onEnd?: () => void) {
     if (
       typeof window === 'undefined' ||
       !window.speechSynthesis ||
       typeof SpeechSynthesisUtterance === 'undefined'
     ) {
+      onEnd?.();
       return;
     }
 
@@ -408,6 +437,17 @@ class AudioService {
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.rate = this.slowMode ? 0.75 : 0.95;
       utterance.pitch = 1.15; // Friendly mascot pitch
+
+      let called = false;
+      const finish = () => {
+        if (!called) {
+          called = true;
+          onEnd?.();
+        }
+      };
+
+      utterance.onend = finish;
+      utterance.onerror = finish;
 
       // Choose child-friendly or english voice if available
       const voices = window.speechSynthesis.getVoices();
@@ -422,7 +462,7 @@ class AudioService {
 
       window.speechSynthesis.speak(utterance);
     } catch {
-      // pass
+      onEnd?.();
     }
   }
 

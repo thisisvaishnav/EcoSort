@@ -7,6 +7,7 @@ export interface MeadowsResultsModalProps {
   timeTakenSeconds: number;
   contaminationLevel: number; // 0, 1, 2, 3+
   narratorLine?: string;
+  initialNarrationCompleted?: boolean;
   onPlayAgain: () => void;
   onNextMission: () => void;
 }
@@ -75,12 +76,43 @@ export const MeadowsResultsModal: React.FC<MeadowsResultsModalProps> = ({
   timeTakenSeconds,
   contaminationLevel,
   narratorLine = 'The waste pile is gone, but the land is still bare. Next, let’s bring this side back to life.',
+  initialNarrationCompleted = false,
   onPlayAgain,
   onNextMission,
 }) => {
   const stars = calculateMeadowsStars(sortedCount);
   const contamination = getContaminationLabel(contaminationLevel);
   const timeTakenFormatted = formatTimeTaken(timeTakenSeconds);
+  const [narrationCompleted, setNarrationCompleted] = React.useState(initialNarrationCompleted);
+
+  React.useEffect(() => {
+    if (initialNarrationCompleted) {
+      setNarrationCompleted(true);
+      return;
+    }
+    // If no narrator line provided, complete immediately
+    if (!narratorLine) {
+      setNarrationCompleted(true);
+      return;
+    }
+
+    let isDone = false;
+    const markDone = () => {
+      if (!isDone) {
+        isDone = true;
+        setNarrationCompleted(true);
+      }
+    };
+
+    // Fallback: estimate speech duration based on word count (150 WPM ~ 400ms per word + 1s buffer)
+    const wordCount = narratorLine.split(/\s+/).filter(Boolean).length;
+    const timeoutMs = Math.max(2500, wordCount * 380 + 1000);
+    const fallbackTimer = setTimeout(markDone, timeoutMs);
+
+    return () => {
+      clearTimeout(fallbackTimer);
+    };
+  }, [narratorLine, initialNarrationCompleted]);
 
   return (
     <div
@@ -203,11 +235,22 @@ export const MeadowsResultsModal: React.FC<MeadowsResultsModalProps> = ({
           </button>
           <button
             onClick={onNextMission}
+            disabled={!narrationCompleted}
             data-testid="meadows-next-mission-btn"
-            className="tactile-btn flex-1 py-3 px-3 rounded-2xl bg-amber-300 hover:bg-amber-400 text-slate-950 font-fun font-black text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 border-2 border-slate-950 shadow-retro active:translate-x-[1px] active:translate-y-[1px] cursor-pointer"
+            className={`tactile-btn flex-1 py-3 px-3 rounded-2xl font-fun font-black text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 border-2 border-slate-950 transition-all ${
+              narrationCompleted
+                ? 'bg-amber-300 hover:bg-amber-400 text-slate-950 shadow-retro active:translate-x-[1px] active:translate-y-[1px] cursor-pointer animate-pulse'
+                : 'bg-slate-200 text-slate-400 cursor-not-allowed border-slate-400 shadow-none'
+            }`}
           >
-            <span>NEXT MISSION: Restore the Garden</span>
-            <ArrowRight className="w-4 h-4 stroke-[3]" />
+            {narrationCompleted ? (
+              <>
+                <span>NEXT MISSION: Restore the Garden</span>
+                <ArrowRight className="w-4 h-4 stroke-[3]" />
+              </>
+            ) : (
+              <span>Listening to area briefing...</span>
+            )}
           </button>
         </div>
       </div>
