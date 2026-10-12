@@ -95,6 +95,39 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
   /* ── Before / After Slider state ──────────────────────────────────────── */
   const [sliderPosition, setSliderPosition] = useState<number>(50);
+  const [isDraggingSlider, setIsDraggingSlider] = useState<boolean>(false);
+  const sliderContainerRef = useRef<HTMLDivElement>(null);
+
+  const updateSliderFromPointer = (clientX: number) => {
+    if (!sliderContainerRef.current) return;
+    const rect = sliderContainerRef.current.getBoundingClientRect();
+    if (rect.width <= 0) return;
+    const offsetX = Math.max(0, Math.min(clientX - rect.left, rect.width));
+    const percentage = Math.round((offsetX / rect.width) * 100);
+    setSliderPosition(percentage);
+  };
+
+  useEffect(() => {
+    if (!isDraggingSlider) return;
+
+    const handlePointerMove = (e: PointerEvent) => {
+      updateSliderFromPointer(e.clientX);
+    };
+
+    const handlePointerUp = () => {
+      setIsDraggingSlider(false);
+    };
+
+    window.addEventListener('pointermove', handlePointerMove);
+    window.addEventListener('pointerup', handlePointerUp);
+    window.addEventListener('pointercancel', handlePointerUp);
+
+    return () => {
+      window.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('pointerup', handlePointerUp);
+      window.removeEventListener('pointercancel', handlePointerUp);
+    };
+  }, [isDraggingSlider]);
 
   /* ── Tagline word-by-word reveal state (B11) ───────────────────────────── */
   const taglineRef = useRef<HTMLDivElement>(null);
@@ -405,22 +438,24 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </div>
 
               {/* Character image */}
-              <div className="bg-gradient-to-b from-slate-900 to-slate-950 px-6 pt-8 pb-4 flex justify-center">
+              <div className="bg-gradient-to-b from-slate-900 to-slate-950 px-6 pt-6 pb-3 flex justify-center">
                 <div className="relative">
                   {/* Ambient glow */}
-                  <div className="absolute inset-0 bg-emerald-500/15 rounded-full blur-3xl scale-150 pointer-events-none" />
-                  <img
-                    src="/images/kai-eco-transparent.webp"
-                    alt="Kai the Eco Hero standing ready with his sorting backpack"
-                    className="relative w-44 h-44 sm:w-52 sm:h-52 object-contain drop-shadow-2xl animate-float"
-                    onError={(e) => {
-                      /* Fall back to hero-standing if transparent variant missing */
-                      const img = e.target as HTMLImageElement;
-                      if (!img.src.includes('hero-standing')) {
-                        img.src = '/images/hero-standing.webp';
-                      }
-                    }}
-                  />
+                  <div className="absolute inset-0 bg-emerald-500/20 rounded-full blur-3xl scale-150 pointer-events-none" />
+                  <picture>
+                    <source srcSet="/images/kai-eco-transparent.webp" type="image/webp" />
+                    <img
+                      src="/images/kai-eco-transparent.png"
+                      alt="Kai the Eco Hero standing ready with his sorting backpack"
+                      className="relative w-48 h-56 sm:w-56 sm:h-64 object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.5)] animate-float"
+                      onError={(e) => {
+                        const img = e.target as HTMLImageElement;
+                        if (!img.src.includes('hero-standing')) {
+                          img.src = '/images/hero-standing.webp';
+                        }
+                      }}
+                    />
+                  </picture>
                 </div>
               </div>
 
@@ -720,10 +755,17 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </div>
             </div>
 
-            {/* Slider Comparison Container */}
-            <div className="relative max-w-5xl mx-auto rounded-3xl border-[3px] border-slate-950 overflow-hidden shadow-retro-xl bg-slate-950 select-none reveal">
+            {/* Slider Comparison Container with full touch & pointer drag scrubbing */}
+            <div
+              ref={sliderContainerRef}
+              onPointerDown={(e) => {
+                setIsDraggingSlider(true);
+                updateSliderFromPointer(e.clientX);
+              }}
+              className="relative max-w-5xl mx-auto rounded-3xl border-[3px] border-slate-950 overflow-hidden shadow-retro-xl bg-slate-950 select-none reveal cursor-ew-resize touch-none"
+            >
               {/* BEFORE LAYER (Polluted Park and Worried Boy) */}
-              <div className="relative w-full h-[360px] sm:h-[480px] md:h-[560px] bg-slate-950 flex flex-col justify-between p-5 sm:p-8 overflow-hidden">
+              <div className="relative w-full h-[360px] sm:h-[480px] md:h-[560px] bg-slate-950 flex flex-col justify-between p-5 sm:p-8 overflow-hidden pointer-events-none">
                 {/* Real High-Res Background Image */}
                 <img
                   src="/images/polluted-park-before.png"
@@ -758,7 +800,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
               {/* AFTER LAYER (Cheerful Riverside Park Adventure clipped by slider) */}
               <div
-                className="absolute inset-0 bg-slate-950 flex flex-col justify-between p-5 sm:p-8 overflow-hidden transition-[clip-path] duration-75 ease-out"
+                className="absolute inset-0 bg-slate-950 flex flex-col justify-between p-5 sm:p-8 overflow-hidden pointer-events-none transition-[clip-path] duration-75 ease-out"
                 style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
               >
                 {/* Real High-Res Clean Park Image */}
@@ -793,30 +835,45 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 </div>
               </div>
 
-              {/* Slider Divider Bar */}
+              {/* Slider Divider Bar with Draggable Handle */}
               <div
-                className="absolute top-0 bottom-0 w-1.5 bg-amber-300 pointer-events-none shadow-[0_0_16px_rgba(251,191,36,0.9)]"
+                className="absolute top-0 bottom-0 w-1.5 bg-amber-300 pointer-events-none shadow-[0_0_16px_rgba(251,191,36,0.9)] z-20"
                 style={{ left: `${sliderPosition}%` }}
               >
-                <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-amber-300 border-[3px] border-slate-950 flex items-center justify-center text-slate-950 text-sm font-black shadow-retro-md">
+                <div
+                  className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-amber-300 border-[3px] border-slate-950 flex items-center justify-center text-slate-950 text-base font-black shadow-retro-md transition-transform ${
+                    isDraggingSlider ? 'scale-110 shadow-retro-lg' : 'hover:scale-105'
+                  }`}
+                >
                   ↔
                 </div>
               </div>
 
-              {/* Range input controller */}
-              <input
-                type="range"
-                min="0"
-                max="100"
-                value={sliderPosition}
-                onChange={(e) => setSliderPosition(Number(e.target.value))}
-                aria-label="Before and after cleanliness slider"
-                className="absolute bottom-4 left-6 right-6 h-3 bg-slate-900/80 border-2 border-slate-950 rounded-lg appearance-none cursor-ew-resize accent-amber-300 z-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
-              />
+              {/* Bottom Scrubber Track & Range Controller */}
+              <div
+                className="absolute bottom-3 left-4 right-4 sm:left-6 sm:right-6 z-30 flex items-center gap-3 bg-slate-950/90 backdrop-blur-md px-4 py-2 rounded-2xl border-2 border-slate-800 shadow-xl"
+                onPointerDown={(e) => e.stopPropagation()}
+              >
+                <span className="text-[10px] font-fun font-black text-rose-400 uppercase tracking-wider shrink-0">
+                  Dirty (0%)
+                </span>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={sliderPosition}
+                  onChange={(e) => setSliderPosition(Number(e.target.value))}
+                  aria-label="Before and after cleanliness slider"
+                  className="flex-1 h-3 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
+                />
+                <span className="text-[10px] font-fun font-black text-emerald-400 uppercase tracking-wider shrink-0">
+                  Clean (100%)
+                </span>
+              </div>
             </div>
 
             <p className="text-center text-xs text-slate-500 font-medium">
-              Drag the slider to compare the unmanaged waste pile with the clean neighbourhood.
+              Click and drag anywhere on the scene or use the slider below to compare before and after.
             </p>
           </div>
 
