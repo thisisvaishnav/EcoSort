@@ -1,6 +1,6 @@
 # EcoSort Heroes (3D)
 
-> **"Sort the waste. Power the town."**
+
 
 EcoSort Heroes is an educational 3D web game designed for children aged 5 to 10. Players learn waste categorization and circular economy principles through tactile, physics-based item sorting in Three.js. As players correctly classify waste, their actions feed clean biogas and recycling facilities that illuminate and power a 3D town skyline in real time.
 
